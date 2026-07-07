@@ -1,202 +1,104 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --color-primary: #E0115F;
-    --color-secondary: #FF5C8A;
-    --color-accent: #FFD700;
-    --color-cta: #7B2D8E;
-    --color-highlight: #B8004F;
-    --color-background: #FFF0F4;
-    --color-ink: #2E0A1C;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply font-sans text-[#2E0A1C] bg-[#FFF0F4] antialiased;
-    margin: 0;
-  }
-
-  #root {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    text-align: left;
-    border-inline: none;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
-    font-size: unset;
-    letter-spacing: unset;
-    margin: unset;
-    font-weight: unset;
-    color: unset;
-  }
-
-  p { margin: 0; }
+:root {
+  --color-primary: #FF1654;
+  --color-secondary: #FFD400;
+  --color-accent: #247BA0;
+  --color-cta: #70C1B3;
+  --color-highlight: #D60046;
+  --color-background: #FFF3E0;
+  --dark-text: #1a1a2e;
+  --subtle-text: #555570;
+  --light-bg: #FFF3E0;
+  --card-bg: #ffffff;
+  --card-border: #e8e8f0;
+  --section-bg: #ffffff;
+  --alt-section: #FFF3E0;
 }
 
-@layer components {
-  .pill-badge {
-    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold;
-    background: rgba(224, 17, 95, 0.1);
-    color: #E0115F;
-  }
-
-  .section-heading {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold;
-    color: #2E0A1C;
-  }
-
-  .section-subheading {
-    @apply text-base md:text-lg mt-3 max-w-2xl mx-auto;
-    color: rgba(46, 10, 28, 0.7);
-  }
-
-  .btn-primary {
-    @apply font-semibold px-6 py-3 rounded-full
-           transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5
-           active:scale-95 inline-flex items-center gap-2 text-white;
-  }
-
-  .btn-outline {
-    @apply border-2 font-semibold px-6 py-3 rounded-full transition-all duration-300
-           hover:shadow-lg hover:-translate-y-0.5 inline-flex items-center gap-2;
-  }
-
-  .card {
-    @apply rounded-2xl shadow-card hover:shadow-card-hover
-           transition-all duration-300 hover:-translate-y-1 overflow-hidden;
-  }
-
-  .section-pad {
-    @apply py-16 md:py-24;
-  }
-
-  .container-pad {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-
-  .fade-up.in-view {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .img-hover-zoom {
-    @apply overflow-hidden rounded-2xl;
-  }
-
-  .img-hover-zoom img {
-    @apply transition-all duration-500 ease-in-out;
-  }
-
-  .img-hover-zoom:hover img {
-    transform: scale(1.08);
-  }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--color-background);
+  color: var(--dark-text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+#root { width: 100%; min-height: 100vh; }
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  line-height: 1.15;
+  font-weight: 800;
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-[#E0115F] to-[#FF5C8A] bg-clip-text text-transparent;
-  }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #eee; }
+::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 99px; }
 
-  .bg-glass {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 240, 244, 0.85);
-    border: 1px solid rgba(224, 17, 95, 0.1);
-  }
+@keyframes fadeUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes floatY    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes spinRing  { to{transform:rotate(360deg)} }
+@keyframes pulseGlow { 0%,100%{opacity:.6} 50%{opacity:1} }
+@keyframes marquee   { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes countUp   { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+@keyframes wavyFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+.reveal   { opacity:0; transform:translateY(28px);   transition:opacity .7s ease,transform .7s ease; }
+.reveal-l { opacity:0; transform:translateX(-28px);  transition:opacity .7s ease,transform .7s ease; }
+.reveal-r { opacity:0; transform:translateX(28px);   transition:opacity .7s ease,transform .7s ease; }
+.reveal.show, .reveal-l.show, .reveal-r.show { opacity:1; transform:translate(0); }
+
+.float { animation: floatY 4s ease-in-out infinite; }
+
+.pill-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,22,84,.1); border: 1px solid rgba(255,22,84,.25);
+  color: var(--color-primary); font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 999px; margin-bottom: 18px;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #FFF0F4; }
-::-webkit-scrollbar-thumb { background: #E0115F; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #B8004F; }
-
-/* Marquee */
-.marquee-track {
-  overflow: hidden;
-  white-space: nowrap;
-  display: flex;
-}
-
-.marquee-track > div {
-  display: flex;
-  animation: marquee 30s linear infinite;
-  min-width: 200%;
-}
-
-.marquee-track > div > * {
+.pill-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulseGlow 1.8s ease infinite;
   flex-shrink: 0;
 }
 
-/* Diagonal Process Background */
-.diagonal-bg {
-  position: relative;
-  overflow: hidden;
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  background: var(--color-cta); color: #fff; font-weight: 700; font-size: 15px;
+  padding: 14px 28px; border-radius: 12px; border: none; cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 4px 20px rgba(112,193,179,.35);
+  text-decoration: none;
 }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(112,193,179,.5); }
 
-.diagonal-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #E0115F 0%, #7B2D8E 100%);
-  transform: skewY(-3deg);
-  transform-origin: top left;
-  z-index: 0;
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  background: transparent; color: var(--dark-text); font-weight: 600; font-size: 15px;
+  padding: 13px 28px; border-radius: 12px; border: 2px solid rgba(26,26,46,.15); cursor: pointer;
+  transition: background .25s, border-color .25s, transform .25s;
+  text-decoration: none;
 }
+.btn-outline:hover { background: rgba(112,193,179,.08); border-color: var(--color-cta); transform: translateY(-2px); }
 
-/* Wavy SVG Divider */
-.wavy-divider {
-  position: relative;
-  height: 60px;
-  overflow: hidden;
-  margin-top: -1px;
+.btn-outline-light {
+  display:inline-flex; align-items:center; gap:8px;
+  background: transparent; color: #fff; font-weight: 600; font-size: 15px;
+  padding: 13px 28px; border-radius: 12px; border: 2px solid rgba(255,255,255,.35); cursor: pointer;
+  transition: background .25s, border-color .25s, transform .25s;
+  text-decoration: none;
 }
+.btn-outline-light:hover { background: rgba(255,255,255,.1); border-color: #fff; transform: translateY(-2px); }
 
-.wavy-divider svg {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
+.img-hover-zoom {
+  overflow: hidden; border-radius: inherit;
 }
-
-/* Gallery */
-.gallery-item {
-  @apply overflow-hidden rounded-2xl;
+.img-hover-zoom img {
+  transition: transform .5s ease;
 }
-
-.gallery-item img {
-  @apply w-full h-full object-cover transition-all duration-500;
+.img-hover-zoom:hover img {
+  transform: scale(1.05);
 }
-
-.gallery-item:hover img {
-  transform: scale(1.1);
-}
-
-/* Counter animation */
-@keyframes countUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.counter-animate {
-  animation: countUp 0.5s ease-out forwards;
-}
-
-/* Disable max-width on root */
-#root { max-width: 100%; }
-
-img { transition: opacity 0.3s ease; }

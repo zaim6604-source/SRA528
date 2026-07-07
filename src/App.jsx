@@ -1,41 +1,41 @@
-import Navbar from './components/Navbar';
-import MarqueeTicker from './components/MarqueeTicker';
-import Hero from './components/Hero';
-import StatsBar from './components/StatsBar';
-import About from './components/About';
-import Services from './components/Services';
-import CountryGuide from './components/CountryGuide';
-import Process from './components/Process';
-import ForRecruiters from './components/ForRecruiters';
-import Testimonials from './components/Testimonials';
-import Gallery from './components/Gallery';
-import CTA from './components/CTA';
-import Contact from './components/Contact';
-import FAQ from './components/FAQ';
-import Footer from './components/Footer';
-import FloatingWidget from './components/FloatingWidget';
+import Navbar from './components/MAFHHNavbar';
+import Marquee from './components/MAFHHMarquee';
+import Hero from './components/MAFHHHero';
+import Stats from './components/MAFHHStats';
+import About from './components/MAFHHAbout';
+import Staff from './components/MAFHHStaff';
+import Services from './components/MAFHHOurServices';
+import Process from './components/MAFHHProcess';
+import WhyUs from './components/MAFHHWhyUs';
+import Testimonials from './components/MAFHHTestimonials';
+import Gallery from './components/MAFHHCtaBand';
+import CtaBand from './components/MAFHHGradientCta';
+import Contact from './components/MAFHHContact';
+import FAQ from './components/MAFHHFAQ';
+import Footer from './components/MAFHHFooter';
+import FloatingWidget from './components/MAFHHFloatingWidget';
 
 export default function App() {
   return (
-    <div className="overflow-x-hidden">
+    <>
       <Navbar />
-      <MarqueeTicker />
+      <Marquee />
       <main>
         <Hero />
-        <StatsBar />
+        <Stats />
         <About />
+        <Staff />
         <Services />
-        <CountryGuide />
         <Process />
-        <ForRecruiters />
+        <WhyUs />
         <Testimonials />
         <Gallery />
-        <CTA />
+        <CtaBand />
         <Contact />
         <FAQ />
       </main>
       <Footer />
       <FloatingWidget />
-    </div>
+    </>
   );
 }

@@ -2,61 +2,92 @@ import { useState } from 'react';
 import useInView from '../hooks/useInView';
 
 const faqs = [
-  { q: 'What services does Bridge Global Resource offer?', a: 'We offer overseas manpower recruitment, international labor supply, foreign recruiter support, visa processing, document attestation, medical & trade test coordination, pre-departure orientation, and air ticketing & travel support.' },
-  { q: 'How does the foreign recruiter demand process work?', a: 'Foreign recruiters submit their manpower requirements to us. We source, screen, and process candidates — handling documentation, visas, medical tests, and deployment. Simply contact us via WhatsApp or the form on our website.' },
-  { q: 'Which countries do you deploy workers to?', a: 'We deploy to Saudi Arabia, UAE, Qatar, Kuwait, Oman, Germany, Poland, Romania, Malaysia, and other countries based on demand.' },
-  { q: 'What documents are required for overseas employment?', a: 'Typically: valid passport, educational certificates, professional experience letters, CNIC, passport-sized photographs, and any relevant trade test or medical certificates. We guide you through the complete list.' },
-  { q: 'What is the typical timeline from application to deployment?', a: 'Timelines vary by country and role. On average, the process takes 4-8 weeks from initial screening to departure, depending on visa processing and document attestation requirements.' },
-  { q: 'Is there a consultation fee?', a: 'Your initial consultation is completely free. We believe in transparent communication and will provide a clear breakdown of any applicable fees before proceeding.' },
+  {
+    q: 'What HR services does Blue Real Eye offer?',
+    a: 'We provide a full range of HR services including HR consulting, employee and labor relations, recruitment and staffing, payroll and benefits management, HR policy and compliance, training and development, performance management, and outsourced HR (HR-as-a-Service).',
+  },
+  {
+    q: 'How can Blue Real Eye help with employee and labor relations?',
+    a: 'We offer expert guidance on employee relations issues, labor law compliance, conflict resolution, workplace mediation, disciplinary procedures, and grievance handling. Our team ensures your workplace remains compliant with Pakistani labor regulations while fostering positive employee relations.',
+  },
+  {
+    q: 'What industries do you serve?',
+    a: 'We serve a wide range of industries including IT, manufacturing, retail, healthcare, finance, hospitality, and more. Our HR solutions are tailored to the specific needs and regulations of each industry.',
+  },
+  {
+    q: 'How do HR consulting engagements work?',
+    a: 'We start with a free initial consultation to understand your needs, followed by an HR audit and assessment. Based on our findings, we design a customized solution and work with you through implementation. We offer both project-based and ongoing retainer engagements to suit your requirements.',
+  },
+  {
+    q: 'What is the typical timeline for HR projects?',
+    a: 'Timelines vary depending on the scope of work. A typical HR policy development project takes 2–4 weeks, while larger organizational development initiatives may take 2–3 months. We provide clear timelines during the initial consultation.',
+  },
+  {
+    q: 'Is there a fee for the initial consultation?',
+    a: 'No, the initial consultation is completely free. We use this session to understand your HR needs and discuss how we can help before any engagement begins.',
+  },
 ];
 
-function FAQItem({ faq, isOpen, onClick }) {
-  return (
-    <div className={`border rounded-2xl mb-3 overflow-hidden transition-all duration-300 ${isOpen ? 'border-[#E0115F]/30 bg-[#E0115F]/[0.02]' : 'border-gray-200 hover:border-[#E0115F]/20 bg-white'}`}>
-      <button
-        onClick={onClick}
-        className="w-full flex justify-between items-center px-6 py-5 text-base font-semibold text-left cursor-pointer transition-colors hover:text-[#E0115F]"
-        aria-expanded={isOpen}
-      >
-        <span className="pr-4">{faq.q}</span>
-        <i className={`fas fa-chevron-down text-sm text-gray-400 transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180 text-[#E0115F]' : ''}`} />
-      </button>
-      <div
-        className="overflow-hidden transition-all duration-300 ease-in-out"
-        style={{ maxHeight: isOpen ? '300px' : '0', padding: isOpen ? '0 24px 20px' : '0 24px' }}
-      >
-        <p className="text-[#2E0A1C]/60 text-sm leading-relaxed">{faq.a}</p>
-      </div>
-    </div>
-  );
-}
-
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(null);
   const [ref, inView] = useInView();
+  const [openIdx, setOpenIdx] = useState(null);
+
+  const toggle = (i) => setOpenIdx(openIdx === i ? null : i);
 
   return (
-    <section id="faqs" className="section-pad" style={{ background: '#FFF0F4' }}>
-      <div className="container-pad">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E0115F]/10 text-[#E0115F] mb-4">
-            <i className="fas fa-question-circle text-xs"></i>
-            FAQS
+    <>
+      <style>{`
+        .faq-section{background:#FFF0F0;padding:96px 24px}
+        .faq-inner{max-width:800px;margin:0 auto}
+        .faq-item{background:#fff;border-radius:16px;border:1px solid rgba(217,4,41,.06);margin-bottom:12px;overflow:hidden;transition:box-shadow .25s}
+        .faq-item:hover{box-shadow:0 4px 20px rgba(217,4,41,.04)}
+        .faq-question{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;background:none;border:none;cursor:pointer;text-align:left;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:15px;color:#2E0507;transition:color .2s}
+        .faq-question:hover{color:#D90429}
+        .faq-arrow{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FFF0F0;flex-shrink:0;transition:transform .3s,background .3s;font-size:11px;color:#D90429}
+        .faq-arrow.open{transform:rotate(180deg);background:#D90429;color:#fff}
+        .faq-answer{padding:0 24px 20px;font-size:14px;line-height:1.75;color:#6B2025}
+      `}</style>
+
+      <section id="faqs" className="faq-section" ref={ref}>
+        <div className="faq-inner">
+          <div style={{ textAlign: 'center', marginBottom: 48 }} className={`reveal${inView ? ' show' : ''}`}>
+            <div className="pill-badge">
+              <span className="pill-dot" />
+              FAQs
+            </div>
+            <h2 style={{ fontFamily: '"Plus Jakarta Sans",sans-serif', fontWeight: 900, fontSize: 'clamp(28px,3.5vw,42px)', color: '#2E0507', marginBottom: 14 }}>
+              Frequently Asked <span style={{ color: '#D90429' }}>Questions</span>
+            </h2>
+            <p style={{ color: '#6B2025', fontSize: 15, maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
+              Everything you need to know about working with Blue Real Eye.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold font-heading text-[#2E0A1C]">
-            Frequently Asked{' '}
-            <span className="text-[#E0115F]">Questions</span>
-          </h2>
-          <p className="text-[#2E0A1C]/60 text-lg mt-3 max-w-2xl mx-auto">
-            Everything you need to know about working with us.
-          </p>
+
+          <div>
+            {faqs.map((faq, i) => (
+              <div
+                key={i}
+                className={`faq-item reveal${inView ? ' show' : ''}`}
+                style={{ transitionDelay: `${i * 0.06}s` }}
+              >
+                <button className="faq-question" onClick={() => toggle(i)}>
+                  <span>{faq.q}</span>
+                  <span className={`faq-arrow ${openIdx === i ? 'open' : ''}`}>
+                    <i className="fa-solid fa-chevron-down" />
+                  </span>
+                </button>
+                <div style={{
+                  maxHeight: openIdx === i ? 300 : 0,
+                  overflow: 'hidden',
+                  transition: 'max-height .35s ease',
+                }}>
+                  <div className="faq-answer">{faq.a}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div ref={ref} className={`max-w-2xl mx-auto transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {faqs.map((faq, i) => (
-            <FAQItem key={i} faq={faq} isOpen={openIndex === i} onClick={() => setOpenIndex(openIndex === i ? null : i)} />
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
