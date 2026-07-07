@@ -1,37 +1,42 @@
+import './index.css';
 import Navbar from './components/Navbar';
-import MarqueeTicker from './components/MarqueeTicker';
+import Marquee from './components/Marquee';
 import Hero from './components/Hero';
-import StatBand from './components/StatBand';
-import About from './components/About';
+import Stats from './components/Stats';
 import Services from './components/Services';
-import CountryGuide from './components/CountryGuide';
+import About from './components/About';
+import Destinations from './components/Destinations';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import Gallery from './components/Gallery';
-import Contact from './components/Contact';
-import MapSection from './components/MapSection';
-import Faqs from './components/Faqs';
+import CTABand from './components/CTABand';
+import ContactMap from './components/ContactMap';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
-import CtaBand from './components/CtaBand';
+import QuickApply from './components/QuickApply';
 
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen">
+    <>
       <Navbar />
-      <MarqueeTicker />
-      <Hero />
-      <StatBand />
-      <About />
-      <Services />
-      <CountryGuide />
-      <Process />
-      <Testimonials />
-      <Gallery />
-      <CtaBand />
-      <Contact />
-      <MapSection />
-      <Faqs />
+      <Marquee />
+      <main>
+        <Hero />
+        <Stats />
+        <Services />
+        <About />
+        <Destinations />
+        <Process />
+        <Testimonials />
+        <Gallery />
+        <CTABand />
+        <ContactMap />
+        <FAQ />
+      </main>
       <Footer />
-    </div>
+      <QuickApply />
+    </>
   );
 }
+
+export default App;

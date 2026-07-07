@@ -1,108 +1,72 @@
 import { useState } from 'react';
+import useReveal from '../hooks/useReveal';
+import { FaWhatsapp, FaPlane, FaGlobeAsia, FaUserTie } from 'react-icons/fa';
 
-const statChips = [
-  { icon: 'fa-certificate', text: 'License 2201/MLK' },
-  { icon: 'fa-users', text: '5000+ Placed' },
-  { icon: 'fa-globe', text: '20+ Countries' },
-  { icon: 'fa-star', text: '10+ Years Exp' },
-];
+const WA = '923455487713';
 
 export default function Hero() {
-  const [imgError, setImgError] = useState(false);
+  useReveal('.hero-reveal');
+  const [heroErr, setHeroErr] = useState(false);
+  const [officeErr, setOfficeErr] = useState(false);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-[72px]"
-      style={{ background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-highlight) 50%, var(--color-accent) 100%)' }}>
-      {/* Decorative blobs */}
-      <div className="blob blob-crimson" style={{ width: 500, height: 500, top: '-10%', left: '-5%' }} />
-      <div className="blob blob-mint" style={{ width: 400, height: 400, bottom: '-8%', right: '-5%' }} />
-      <div className="blob blob-violet" style={{ width: 300, height: 300, top: '40%', left: '60%' }} />
+    <section id="hero" className="pt-32 md:pt-40 pb-16 md:pb-20 px-5 relative overflow-hidden" style={{ background: '#FFF6E0' }}>
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 -translate-y-1/2 translate-x-1/2" style={{ background: '#F4A100' }} />
+      <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full opacity-10 translate-y-1/2 -translate-x-1/2" style={{ background: '#E0144C' }} />
 
-      {/* Dot pattern overlay */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,.06) 1px, transparent 0)',
-          backgroundSize: '32px 32px',
-        }} />
-
-      <div className="relative z-10 max-w-[1180px] mx-auto px-6 w-full">
-        <div className="grid md:grid-cols-[1fr_1fr] gap-10 items-center">
-          {/* Left: Content */}
-          <div className="py-16">
-            {/* Stat chips */}
-            <div className="flex flex-wrap gap-3 mb-8">
-              {statChips.map((p, i) => (
-                <span key={i}
-                  className={`glass-pill inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-[0.7rem] font-semibold tracking-wide floating-${i + 1}`}
-                >
-                  <i className={`fas ${p.icon}`} />
-                  {p.text}
-                </span>
-              ))}
-            </div>
-
-            {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-tight mb-4">
-              A Brotherhood That Delivers<br />
-              <span className="gradient-text-mint">Real Jobs Abroad</span>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[140px] md:auto-rows-[180px]">
+          {/* Headline Tile */}
+          <div className="col-span-2 row-span-2 rounded-2xl p-5 md:p-8 flex flex-col justify-center hero-reveal reveal" style={{ background: 'linear-gradient(135deg, #F4A100 0%, #FFC93C 100%)' }}>
+            <span className="text-white/80 text-xs font-semibold uppercase tracking-widest mb-2">Rimsha Travels</span>
+            <h1 className="font-display font-extrabold text-white leading-tight mb-3" style={{ fontSize: 'clamp(24px, 4vw, 44px)' }}>
+              Your Journeys and Careers,<br />Expertly Arranged
             </h1>
-
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-white/70 max-w-[520px] leading-relaxed mb-8">
-              Habib Brothers Recruiting Agency guides Swat&apos;s workers into trusted Gulf and European employment — licensed and complete.
+            <p className="text-white/90 text-sm md:text-base max-w-lg leading-relaxed">
+              Rimsha Travels handles tickets, tours, and visas — and connects skilled workers to opportunities abroad, all under one licensed roof.
             </p>
+          </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4 mb-10">
-              <a href="https://wa.me/923459510123" target="_blank" rel="noopener noreferrer"
-                className="btn-mint inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-white font-semibold text-[0.95rem] transition-all duration-200">
-                <i className="fab fa-whatsapp text-lg" /> Apply Now
-              </a>
-              <a href="https://wa.me/923459510123" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-white/40 text-white font-semibold text-[0.95rem] hover:bg-white/10 hover:border-white/70 transition-all duration-200">
-                <i className="fab fa-whatsapp text-lg" /> WhatsApp
-              </a>
-            </div>
-
-            {/* License badge */}
-            <div className="glass-pill inline-flex items-center gap-3 px-5 py-3 rounded-xl">
-              <i className="fas fa-certificate text-2xl" style={{ color: 'var(--color-cta)' }} />
-              <div>
-                <span className="block text-white text-sm font-bold">License 2201/MLK</span>
-                <span className="block text-white/50 text-[0.65rem]">Bureau of Immigration & Overseas Employment</span>
+          {/* Hero Image */}
+          <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden relative hero-reveal reveal-l">
+            {!heroErr ? (
+              <img src="/images/hero.jpg" alt="Travel" className="w-full h-full object-cover" onError={() => setHeroErr(true)} />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center" style={{ background: '#FFC93C' }}>
+                <FaPlane size={48} className="text-white/60" />
               </div>
+            )}
+          </div>
+
+          {/* CTA Tile */}
+          <div className="col-span-1 row-span-1 rounded-2xl flex flex-col items-center justify-center hero-reveal reveal cursor-pointer transition-transform hover:scale-[1.02]" style={{ background: '#06A77D' }}>
+            <a href={`https://wa.me/${WA}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center w-full h-full no-underline text-white">
+              <FaWhatsapp size={28} className="mb-1" />
+              <span className="font-display font-bold text-sm">Chat Now</span>
+              <span className="text-[10px] text-white/70">0345-5487713</span>
+            </a>
+          </div>
+
+          {/* Badge Tile */}
+          <div className="col-span-1 row-span-1 rounded-2xl flex items-center justify-center gap-2 hero-reveal reveal-r" style={{ background: '#E0144C' }}>
+            <div className="text-center text-white">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <FaGlobeAsia size={16} />
+                <FaUserTie size={16} />
+              </div>
+              <span className="font-display font-bold text-xs md:text-sm">Travel &bull; Tourism &bull; HR</span>
             </div>
           </div>
 
-          {/* Right: Arc-panel photo */}
-          <div className="hidden md:block relative">
-            <div className="arc-panel-clip overflow-hidden rounded-2xl md:rounded-none md:rounded-l-[3rem] h-[520px]">
-              {!imgError ? (
-                <img
-                  src="/images/hero-bg.jpg"
-                  alt="Habib Brothers team"
-                  className="w-full h-full object-cover"
-                  onError={() => setImgError(true)}
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center"
-                  style={{ background: 'rgba(255,255,255,.08)' }}>
-                  <i className="fas fa-users text-6xl text-white/30" />
-                </div>
-              )}
-            </div>
-            {/* Floating badge */}
-            <div className="floating-2 absolute -bottom-4 -left-6 bg-white rounded-2xl px-5 py-4 flex items-center gap-4 shadow-2xl"
-              style={{ boxShadow: '0 20px 60px rgba(179,0,27,.2)' }}>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl text-white"
-                style={{ background: 'var(--color-primary)' }}>
-                <i className="fas fa-passport" />
+          {/* Office Image */}
+          <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden relative hero-reveal reveal">
+            {!officeErr ? (
+              <img src="/images/office.jpg" alt="Office" className="w-full h-full object-cover" onError={() => setOfficeErr(true)} />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center" style={{ background: '#FFF6E0' }}>
+                <span className="text-xs text-[#D68C00]">Office</span>
               </div>
-              <div>
-                <strong className="block text-sm text-[#340710]">Govt. Licensed</strong>
-                <span className="text-xs" style={{ color: 'var(--color-cta)' }}>2201/MLK</span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

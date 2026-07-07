@@ -1,116 +1,122 @@
-import { useEffect, useRef } from 'react';
-import SectionHeader from './SectionHeader';
+import { useState } from 'react';
+import useReveal from '../hooks/useReveal';
+import { FaPlane, FaUserTie, FaStar, FaCheckCircle, FaMapMarkerAlt } from 'react-icons/fa';
 
-const features = [
-  'Government licensed & registered',
-  'Transparent recruitment process',
-  'End-to-end placement support',
-  'Experienced & dedicated team',
-];
-
-const trustChips = [
-  'Government Licensed 2201/MLK',
-  'Ethical Recruitment',
-  'No Hidden Fees',
-  'End-to-End Support',
-  'Pre-Departure Training',
+const TABS = [
+  {
+    id: 'travel',
+    label: 'Travel & Tourism',
+    icon: FaPlane,
+    content: (
+      <div className="space-y-3">
+        <p className="text-sm leading-relaxed" style={{ color: '#6B5B3E' }}>
+          At Rimsha Travels, we specialize in making your travel dreams a reality. From air ticketing and tour packages to visa processing and hotel bookings, our experienced team ensures every journey is seamless and memorable.
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: '#6B5B3E' }}>
+          Whether you are travelling for leisure, business, or pilgrimage, we provide end-to-end travel solutions tailored to your needs.
+        </p>
+        <div className="flex flex-wrap gap-2 mt-3">
+          {['Air Ticketing', 'Tour Packages', 'Visa Services', 'Hotel Booking', 'Hajj/Umrah'].map((chip) => (
+            <span key={chip} className="chip text-[10px]">{chip}</span>
+          ))}
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 'hr',
+    label: 'HR Consultancy',
+    icon: FaUserTie,
+    content: (
+      <div className="space-y-3">
+        <p className="text-sm leading-relaxed" style={{ color: '#6B5B3E' }}>
+          Our HR consultancy division connects skilled Pakistani workers with reputable employers abroad. We handle the entire recruitment cycle — from candidate sourcing and screening to visa processing and pre-departure orientation.
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: '#6B5B3E' }}>
+          We partner with businesses across the Middle East, Europe, and Asia to supply qualified manpower in construction, hospitality, healthcare, and more.
+        </p>
+        <div className="flex flex-wrap gap-2 mt-3">
+          {['Manpower Supply', 'Overseas Placement', 'Screening & Selection', 'Pre-Departure'].map((chip) => (
+            <span key={chip} className="chip text-[10px]">{chip}</span>
+          ))}
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 'why',
+    label: 'Why Rimsha',
+    icon: FaStar,
+    content: (
+      <div className="space-y-3">
+        {[
+          'Licensed travel & HR consultancy based in Rawalpindi',
+          'Experienced team with deep industry knowledge',
+          'Personalized service — we treat every client like family',
+          'Transparent pricing with no hidden charges',
+          'End-to-end support from enquiry to departure',
+        ].map((point, i) => (
+          <div key={i} className="flex items-start gap-3">
+            <FaCheckCircle size={16} className="mt-0.5 flex-shrink-0" style={{ color: '#06A77D' }} />
+            <span className="text-sm" style={{ color: '#6B5B3E' }}>{point}</span>
+          </div>
+        ))}
+      </div>
+    ),
+  },
 ];
 
 export default function About() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    ref.current?.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
+  useReveal('.abt-reveal');
+  const [active, setActive] = useState('travel');
 
   return (
-    <section id="about" className="py-24 bg-white relative overflow-hidden" ref={ref}>
-      <div className="blob blob-crimson hidden lg:block" style={{ width: 350, height: 350, top: '-15%', right: '-8%' }} />
-      <div className="blob blob-mint hidden lg:block" style={{ width: 250, height: 250, bottom: '-10%', left: '-5%' }} />
+    <section id="about" className="py-[clamp(60px,10vw,100px)] px-5" style={{ background: '#FFF6E0' }}>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12 abt-reveal reveal">
+          <span className="section-pill">WHO WE ARE</span>
+          <h2 className="font-display font-extrabold mt-4 mb-3" style={{ fontSize: 'clamp(28px,5vw,42px)', color: '#2A1A00' }}>
+            About Rimsha Travels
+          </h2>
+          <p className="text-sm md:text-base max-w-xl mx-auto leading-relaxed" style={{ color: '#6B5B3E' }}>
+            Your trusted travel and HR consultancy partner in Satellite Town, Rawalpindi.
+          </p>
+        </div>
 
-      <div className="max-w-[1180px] mx-auto px-6 relative z-10">
-        <div className="reveal"><SectionHeader tag="Who We Are" title="About Habib Brothers" /></div>
-
-        <div className="grid md:grid-cols-[1fr_1.4fr] gap-16 items-center">
-          {/* Framed photo */}
-          <div className="reveal">
-            <div className="relative">
-              <div className="rounded-[2rem] overflow-hidden shadow-xl">
-                <img
-                  src="/images/about.jpg"
-                  alt="Habib Brothers team"
-                  className="w-full h-[400px] object-cover"
-                  onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80'; }}
-                />
-              </div>
-              {/* Floating badge */}
-              <div className="floating-3 absolute -bottom-4 -right-4 bg-white rounded-2xl px-5 py-4 flex items-center gap-4 shadow-2xl"
-                style={{ boxShadow: '0 20px 60px rgba(215,38,61,.15)' }}>
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl text-white"
-                  style={{ background: 'var(--color-primary)' }}>
-                  <i className="fas fa-award" />
-                </div>
-                <div>
-                  <strong className="block text-sm text-[#340710]">Licensed Agency</strong>
-                  <span className="text-xs" style={{ color: 'var(--color-cta)' }}>2201/MLK</span>
-                </div>
-              </div>
-            </div>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+          <div className="abt-reveal reveal-l rounded-2xl overflow-hidden">
+            <img
+              src="/images/about-office.jpg"
+              alt="Rimsha Travels Office"
+              className="w-full h-[300px] md:h-[400px] object-cover rounded-2xl"
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
           </div>
 
-          {/* Content */}
-          <div className="reveal">
-            <p className="text-base leading-[1.85] mb-4" style={{ color: '#444' }}>
-              <strong>Habib Brothers Recruiting Agency Pvt (Ltd)</strong> is a government-licensed overseas employment agency based in <strong>Mingora, Swat, KPK</strong>.
-              With License <strong>2201/MLK</strong>, we are dedicated to connecting local workers with trusted employers across the Gulf and Europe.
-            </p>
-            <p className="text-sm leading-[1.8] mb-7" style={{ color: '#777' }}>
-              We provide complete, honest recruitment services — from documentation and visa processing to medical coordination and
-              pre-departure orientation. Our team ensures every candidate is fully prepared for their journey abroad. Located at <strong>G.T Road, Malakand Market, Sohrab Khan Chowk, Mingora, Swat</strong>, we have been serving the community with integrity and professionalism.
-            </p>
-
-            {/* Feature checkmarks */}
-            <div className="grid grid-cols-2 gap-3 mb-7">
-              {features.map(f => (
-                <div key={f} className="flex items-center gap-2.5 text-sm font-medium" style={{ color: '#444' }}>
-                  <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'var(--color-background)' }}>
-                    <i className="fas fa-check text-[0.55rem]" style={{ color: 'var(--color-primary)' }} />
-                  </span>
-                  {f}
-                </div>
-              ))}
+          <div className="abt-reveal reveal-r">
+            <div className="flex gap-2 mb-6 flex-wrap">
+              {TABS.map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActive(tab.id)}
+                    className={`tab-btn flex items-center gap-2 ${active === tab.id ? 'active' : ''}`}
+                  >
+                    <Icon size={14} />
+                    {tab.label}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Trust chips */}
-            <div className="flex flex-wrap gap-2 mb-7">
-              {trustChips.map((t, i) => (
-                <span key={t}
-                  className="inline-flex items-center gap-1.5 text-[0.7rem] font-semibold px-3 py-1.5 rounded-full"
-                  style={{
-                    background: i % 2 === 0 ? 'var(--color-background)' : 'rgba(119,104,174,.08)',
-                    color: i % 2 === 0 ? 'var(--color-primary)' : 'var(--color-accent)',
-                  }}>
-                  <i className="fas fa-check-circle" />
-                  {t}
-                </span>
-              ))}
+            <div className="p-5 md:p-6 rounded-2xl" style={{ background: '#FFFEFA', border: '1px solid rgba(244, 161, 0, 0.1)' }}>
+              {TABS.find((t) => t.id === active)?.content}
             </div>
 
-            {/* Address */}
-            <div className="flex items-start gap-4 rounded-xl p-5"
-              style={{ background: 'var(--color-background)', border: '1px solid rgba(215,38,61,.1)' }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-white"
-                style={{ background: 'var(--color-primary)' }}>
-                <i className="fas fa-map-marker-alt text-sm" />
-              </div>
-              <div>
-                <strong className="block text-sm text-[#340710] mb-0.5">Office Address</strong>
-                <span className="text-sm" style={{ color: '#666' }}>G.T Road, Malakand Market, Sohrab Khan Chowk, Mingora, Swat, KPK</span>
-              </div>
+            <div className="mt-4 flex items-center gap-2 text-sm" style={{ color: '#6B5B3E' }}>
+              <FaMapMarkerAlt size={14} style={{ color: '#E0144C' }} />
+              <span>Office No. LG-11, Mid City Shopping Mall, 29-8 Murree Road, B-Block, Satellite Town, Rawalpindi</span>
             </div>
           </div>
         </div>

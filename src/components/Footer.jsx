@@ -1,145 +1,127 @@
-import { useEffect, useRef } from 'react';
+import { FaWhatsapp, FaMapMarkerAlt, FaPhone, FaEnvelope, FaArrowUp, FaHeart } from 'react-icons/fa';
 
-const quickLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
+const NAV_LINKS = [
+  { label: 'Home', href: '#hero' },
   { label: 'Services', href: '#services' },
+  { label: 'About', href: '#about' },
   { label: 'Destinations', href: '#destinations' },
-  { label: 'Process', href: '#process' },
   { label: 'Contact', href: '#contact' },
 ];
 
-const serviceLinks = [
-  'Overseas Recruitment', 'Visa Assistance', 'Job Placement', 'Documentation Support',
-  'Pre-Departure Training', 'Post-Placement Support',
+const SERVICES = [
+  'Air Ticketing',
+  'Tour Packages',
+  'Visa Services',
+  'HR Consultancy',
+  'Overseas Placement',
+  'Hajj/Umrah Booking',
 ];
 
 export default function Footer() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    ref.current?.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
-
-  const scrollTo = (e, href) => {
-    e.preventDefault();
+  const scrollTo = (href) => {
     const el = document.querySelector(href);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: 'var(--color-highlight)' }} ref={ref}>
-      <div className="blob blob-crimson" style={{ width: 400, height: 400, top: '-30%', right: '-10%', opacity: .12 }} />
-      <div className="blob blob-violet" style={{ width: 300, height: 300, bottom: '-20%', left: '-8%', opacity: .08 }} />
+    <footer className="relative overflow-hidden" style={{ background: '#D68C00' }}>
+      <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-5 bg-white -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-      <div className="max-w-[1180px] mx-auto px-6 pt-16 pb-0 relative z-10">
-        <div className="reveal grid sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.4fr] gap-10 mb-10">
+      <div className="max-w-7xl mx-auto px-5 py-[clamp(48px,8vw,72px)]">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'var(--color-cta)' }}>
-                <i className="fas fa-handshake text-base" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                <span className="font-display font-extrabold text-white text-sm">RT</span>
               </div>
-              <div className="flex flex-col leading-tight">
-                <span className="font-bold text-[1rem] text-white">Habib Brothers</span>
-                <span className="text-[0.55rem] text-white/40 font-medium uppercase tracking-wider">Recruiting Agency</span>
+              <div>
+                <div className="font-display font-extrabold text-base text-white">Rimsha Travels</div>
+                <div className="text-[10px] font-semibold text-white/60 uppercase tracking-wider">Travel &bull; Tourism &bull; HR</div>
               </div>
             </div>
-            <p className="text-sm text-white/40 leading-[1.75]">
-              Your trusted partner for overseas employment. Connecting talent from Swat with opportunity across the Gulf and Europe.
+            <p className="text-sm leading-relaxed text-white/60 mb-4">
+              Your trusted partner for travel, tourism, visas, and overseas employment. Based in Rawalpindi, serving clients worldwide.
             </p>
-            <div className="flex gap-2.5 mt-5">
-              <a href="#" aria-label="Facebook"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-white/50 text-sm hover:text-white transition-colors"
-                style={{ background: 'rgba(255,255,255,.05)' }}>
-                <i className="fab fa-facebook-f" />
-              </a>
-              <a href="#" aria-label="Instagram"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-white/50 text-sm hover:text-white transition-colors"
-                style={{ background: 'rgba(255,255,255,.05)' }}>
-                <i className="fab fa-instagram" />
-              </a>
-              <a href="#" aria-label="LinkedIn"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-white/50 text-sm hover:text-white transition-colors"
-                style={{ background: 'rgba(255,255,255,.05)' }}>
-                <i className="fab fa-linkedin-in" />
-              </a>
-              <a href="https://wa.me/923459510123" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-white/50 text-sm hover:text-white transition-colors"
-                style={{ background: 'rgba(255,255,255,.05)' }}>
-                <i className="fab fa-whatsapp" />
-              </a>
-            </div>
+            <a
+              href={`https://wa.me/923455487713`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-white/10 rounded-lg px-4 py-2 no-underline transition-colors hover:bg-white/20"
+            >
+              <FaWhatsapp size={16} /> 0345-5487713
+            </a>
           </div>
 
-          {/* Quick links */}
+          {/* Quick Links */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-5">Quick Links</h4>
-            <ul className="flex flex-col gap-2.5">
-              {quickLinks.map(l => (
-                <li key={l.href}>
-                  <a href={l.href} onClick={e => scrollTo(e, l.href)}
-                    className="flex items-center gap-2 text-sm text-white/45 hover:text-white hover:pl-1 transition-all">
-                    <i className="fas fa-chevron-right text-[0.55rem]" style={{ color: 'var(--color-cta)' }} /> {l.label}
-                  </a>
-                </li>
+            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider mb-5">Quick Links</h4>
+            <div className="flex flex-col gap-2.5">
+              {NAV_LINKS.map((l) => (
+                <button
+                  key={l.label}
+                  onClick={() => scrollTo(l.href)}
+                  className="bg-none border-none cursor-pointer text-left text-sm text-white/60 hover:text-white transition-colors p-0"
+                >
+                  {l.label}
+                </button>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-5">Services</h4>
-            <ul className="flex flex-col gap-2.5">
-              {serviceLinks.map(s => (
-                <li key={s}>
-                  <a href="#services" onClick={e => scrollTo(e, '#services')}
-                    className="flex items-center gap-2 text-sm text-white/45 hover:text-white hover:pl-1 transition-all">
-                    <i className="fas fa-chevron-right text-[0.55rem]" style={{ color: 'var(--color-cta)' }} /> {s}
-                  </a>
-                </li>
+            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider mb-5">Services</h4>
+            <div className="flex flex-col gap-2.5">
+              {SERVICES.map((s) => (
+                <span key={s} className="text-sm text-white/60">{s}</span>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-5">Contact Us</h4>
-            <div className="flex flex-col gap-4">
-              <div className="flex items-start gap-3">
-                <i className="fas fa-map-marker-alt mt-0.5 flex-shrink-0 text-sm" style={{ color: 'var(--color-cta)' }} />
-                <span className="text-sm text-white/50 leading-[1.65]">G.T Road, Malakand Market, Sohrab Khan Chowk, Mingora, Swat, KPK</span>
+            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider mb-5">Contact</h4>
+            <div className="flex flex-col gap-3">
+              <div className="flex items-start gap-3 text-sm text-white/60">
+                <FaMapMarkerAlt size={14} className="mt-0.5 flex-shrink-0 text-white/40" />
+                <span>Office No. LG-11, Mid City Mall, 29-8 Murree Road, Satellite Town, Rawalpindi</span>
               </div>
-              <div className="flex items-start gap-3">
-                <i className="fas fa-phone-alt mt-0.5 flex-shrink-0 text-sm" style={{ color: 'var(--color-cta)' }} />
-                <div>
-                  <span className="block text-sm text-white/50">0946-700403</span>
-                </div>
+              <div className="flex items-center gap-3 text-sm text-white/60">
+                <FaPhone size={14} className="flex-shrink-0 text-white/40" />
+                <span>0345-5487713</span>
               </div>
-              <div className="flex items-center gap-3">
-                <i className="fab fa-whatsapp flex-shrink-0 text-sm" style={{ color: 'var(--color-cta)' }} />
-                <span className="text-sm text-white/50">0345-9510123</span>
+              <div className="flex items-center gap-3 text-sm text-white/60">
+                <FaEnvelope size={14} className="flex-shrink-0 text-white/40" />
+                <span>info@rimshatravels.pk</span>
               </div>
-              <a href="https://wa.me/923459510123" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full text-[#340710] text-sm font-bold transition-all shadow-lg hover:scale-105"
-                style={{ background: 'var(--color-cta)' }}>
-                <i className="fab fa-whatsapp" /> Quick Apply
-              </a>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="border-t" style={{ borderColor: 'rgba(255,255,255,.06)' }}>
-        <div className="max-w-[1180px] mx-auto px-6 py-5 text-center">
-          <p className="text-xs text-white/30">
-            &copy; 2026 Habib Brothers Recruiting Agency Pvt (Ltd). All rights reserved. | License 2201/MLK | G.T Road, Mingora, Swat, KPK
+        {/* Divider */}
+        <div className="h-px bg-white/10 mb-6" />
+
+        {/* Bottom */}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p className="text-xs text-white/40">
+            &copy; {new Date().getFullYear()} Rimsha Travels, Tourism &amp; Human Resource Consultant &mdash; All rights reserved
           </p>
+          <div className="flex items-center gap-4">
+            <span className="text-xs text-white/30 flex items-center gap-1">
+              Made with <FaHeart size={10} className="text-red-400" /> in Rawalpindi
+            </span>
+            <button
+              onClick={scrollToTop}
+              className="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center cursor-pointer transition-colors hover:bg-white/20"
+            >
+              <FaArrowUp size={13} className="text-white/60" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

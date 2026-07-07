@@ -1,38 +1,33 @@
-import { useEffect, useRef } from 'react';
+import useReveal from '../hooks/useReveal';
 
-const photos = ['/images/gallery-1.jpg', '/images/gallery-2.jpg', '/images/gallery-3.jpg', '/images/gallery-4.jpg'];
+const IMAGES = [
+  { src: '/images/gallery-1.jpg', alt: 'Rimsha Travels Office' },
+  { src: '/images/gallery-2.jpg', alt: 'Team at Work' },
+  { src: '/images/gallery-3.jpg', alt: 'Client Meeting' },
+  { src: '/images/gallery-4.jpg', alt: 'Travel Group' },
+];
 
 export default function Gallery() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    ref.current?.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
+  useReveal('.ga-reveal');
 
   return (
-    <section className="py-24 relative overflow-hidden bg-white" ref={ref}>
-      <div className="max-w-[1180px] mx-auto px-6 relative z-10">
-        <div className="reveal text-center mb-12">
-          <span className="section-tag inline-block text-[0.7rem] font-bold uppercase tracking-[2px] px-4 py-1.5 rounded-full mb-3">
-            Gallery
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-black leading-tight text-[#340710]">
-            Our Office &amp; Team
+    <section className="py-[clamp(60px,8vw,100px)] px-5" style={{ background: '#FFF6E0' }}>
+      <div className="max-w-6xl mx-auto">
+        <div className="ga-reveal reveal text-center mb-12">
+          <span className="section-pill">GALLERY</span>
+          <h2 className="font-display font-extrabold mt-4" style={{ fontSize: 'clamp(24px,4vw,36px)', color: '#2A1A00' }}>
+            Our Moments
           </h2>
-          <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: 'var(--color-cta)' }} />
         </div>
-
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {photos.map((src, i) => (
-            <div key={i} className="reveal rounded-2xl overflow-hidden shadow-md" style={{ transitionDelay: `${i * 0.1}s` }}>
+          {IMAGES.map((img, i) => (
+            <div key={i} className="ga-reveal reveal rounded-2xl overflow-hidden" style={{ transitionDelay: `${i * 0.1}s`, aspectRatio: '1' }}>
               <img
-                src={src}
-                alt={`Gallery ${i + 1}`}
-                className="w-full h-56 object-cover card-img"
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 onError={(e) => { e.target.style.display = 'none'; }}
+                loading="lazy"
               />
             </div>
           ))}
