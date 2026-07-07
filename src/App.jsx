@@ -7,7 +7,7 @@ import About from './components/About';
 import Services from './components/Services';
 import Countries from './components/Countries';
 import Testimonials from './components/Testimonials';
-import CTABand from './components/CTABand';
+import CTABand from './components/CtaBand';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
