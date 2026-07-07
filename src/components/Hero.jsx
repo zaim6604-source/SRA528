@@ -1,73 +1,105 @@
-import useReveal from '../hooks/useReveal';
-import { FaWhatsapp, FaArrowRight, FaStar } from 'react-icons/fa';
+import useInView from '../hooks/useInView';
+import { useState } from 'react';
 
 export default function Hero() {
-  useReveal('.hero-reveal');
+  const [heroRef, heroInView] = useInView();
+  const [imgError, setImgError] = useState(false);
 
   return (
-    <section id="home" className="min-h-screen flex items-center pt-[70px] px-5 relative overflow-hidden" style={{ background: '#FFF0F5' }}>
-      {/* Geometric motif */}
-      <div className="absolute top-0 right-0 w-96 h-96 opacity-[0.03] pointer-events-none">
-        <div className="absolute top-20 right-20 w-72 h-72 rounded-full border-2" style={{ borderColor: '#7B68EE' }} />
-        <div className="absolute top-32 right-32 w-48 h-48 rounded-full border-2" style={{ borderColor: '#C2185B' }} />
-        <div className="absolute top-44 right-44 w-24 h-24 rounded-full border-2" style={{ borderColor: '#FFD23F' }} />
-      </div>
-      {/* Slate-purple accent line */}
-      <div className="absolute left-0 top-0 w-1 h-full" style={{ background: 'linear-gradient(180deg, #7B68EE, #C2185B)' }} />
+    <section id="home" className="relative min-h-[90vh] flex items-center pt-6 pb-16 md:pb-24 overflow-hidden">
+      {/* Background rose field */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF0F4] via-[#FFE0E8] to-[#FFD0DC] -z-10" />
 
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+      {/* Decorative circles */}
+      <div className="absolute top-20 right-10 w-72 h-72 rounded-full bg-[#E0115F]/5 -z-10" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-[#FF5C8A]/5 -z-10" />
+
+      {/* Geometric bridge/globe motif */}
+      <div className="absolute top-1/4 right-1/4 w-32 h-32 border-2 border-[#E0115F]/10 rounded-full -z-10" />
+      <div className="absolute top-1/3 right-1/3 w-20 h-20 border-2 border-[#FFD700]/20 rounded-full -z-10" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" ref={heroRef}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left content */}
-          <div className="hero-reveal reveal">
-            <span className="section-pill mb-5 inline-flex">Trusted Since 1997</span>
-            <h1 className="font-display font-extrabold leading-[1.05] mb-5" style={{ fontSize: 'clamp(34px,6vw,56px)', color: '#3A0A22' }}>
-              Elite Recruitment,<br />
-              <span style={{ color: '#C2185B' }}>Trusted Since 1997</span>
+          {/* Left Content */}
+          <div className={`space-y-6 transition-all duration-700 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Pill badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E0115F]/10 text-[#E0115F]">
+              <i className="fas fa-bridge text-xs"></i>
+              Your Bridge to Global Employment
+            </div>
+
+            {/* Gold accent line */}
+            <div className="w-16 h-1 bg-[#FFD700] rounded-full"></div>
+
+            {/* Headline */}
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-[#2E0A1C]">
+              Bridging Pakistani Talent with the World's{' '}
+              <span className="text-[#E0115F]">Employers</span>
             </h1>
-            <p className="text-base md:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: '#6B5B3E' }}>
-              Juniper Human Resources connects Pakistan's employers with the right talent — and job seekers with the right roles — through decades of proven manpower expertise.
+
+            {/* Subhead */}
+            <p className="text-base md:text-lg text-[#2E0A1C]/70 max-w-xl leading-relaxed">
+              Bridge Global Resource supplies competent, reliable manpower to the international labor market — and helps Pakistani workers reach trusted jobs abroad.
             </p>
-            <div className="flex flex-wrap gap-3">
+
+            {/* Dual CTAs */}
+            <div className="flex flex-wrap gap-4 pt-2">
               <a
-                href="https://wa.me/923003845414"
+                href="https://wa.me/923212188000?text=Hello%20Bridge%20Global%20Resource%2C%20I%20want%20to%20hire%20manpower%20for%20my%20company."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary !gap-2"
+                className="inline-flex items-center gap-2 bg-[#7B2D8E] hover:bg-[#9B3DAE] text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
               >
-                <FaWhatsapp size={18} />
-                Hire Talent
+                <i className="fas fa-building"></i>
+                Hire Manpower
               </a>
               <a
-                href="https://wa.me/923003845414"
+                href="https://wa.me/923212188000?text=Hello%20Bridge%20Global%20Resource%2C%20I%20am%20looking%20for%20a%20job%20abroad."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline !text-[#3A0A22] !border-[#C2185B] !border-2 hover:!bg-[#C2185B] hover:!text-white"
+                className="inline-flex items-center gap-2 border-2 border-[#E0115F] text-[#E0115F] hover:bg-[#E0115F] hover:text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
               >
-                <FaWhatsapp size={16} />
-                Chat on WhatsApp
+                <i className="fas fa-plane"></i>
+                Find Work Abroad
               </a>
             </div>
           </div>
 
-          {/* Right - image */}
-          <div className="hero-reveal reveal-r relative">
-            <div className="relative rounded-3xl overflow-hidden group shadow-2xl" style={{ border: '4px solid rgba(194, 24, 91, 0.15)' }}>
-              <img
-                src="/images/corporate-office.jpg"
-                alt="Juniper HR Office"
-                className="w-full h-[400px] md:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105"
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(194,24,91,0.15) 100%)' }} />
-            </div>
-            {/* Floating stat chips */}
-            <div className="absolute -top-3 -right-3 bg-white rounded-xl px-4 py-3 shadow-lg float" style={{ border: '1px solid rgba(194,24,91,0.1)' }}>
-              <div className="font-display font-extrabold text-lg" style={{ color: '#C2185B' }}>25+</div>
-              <div className="text-[10px] font-semibold" style={{ color: '#6B5B3E' }}>Years</div>
-            </div>
-            <div className="absolute -bottom-3 -left-3 bg-white rounded-xl px-4 py-3 shadow-lg float" style={{ border: '1px solid rgba(194,24,91,0.1)' }}>
-              <div className="font-display font-extrabold text-lg" style={{ color: '#7B68EE' }}>Nationwide</div>
-              <div className="text-[10px] font-semibold" style={{ color: '#6B5B3E' }}>Coverage</div>
+          {/* Right Visual */}
+          <div className="relative flex justify-center">
+            <div className={`relative transition-all duration-700 delay-200 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/50 img-hover-zoom w-full max-w-md mx-auto">
+                {imgError ? (
+                  <div className="w-full aspect-[4/3] bg-[#E0115F]/10 flex items-center justify-center">
+                    <div className="text-center">
+                      <i className="fas fa-image text-4xl text-[#E0115F]/40 mb-2"></i>
+                      <p className="text-sm text-[#E0115F]/60">Image unavailable</p>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src="/images/hero.jpg"
+                    alt="Bridge Global Resource Team"
+                    className="w-full aspect-[4/3] object-cover"
+                    onError={() => setImgError(true)}
+                    loading="eager"
+                  />
+                )}
+              </div>
+
+              {/* Floating stat chips */}
+              <div className="absolute -top-4 -right-4 bg-white rounded-xl shadow-lg px-4 py-2.5 border border-[#E0115F]/10 animate-float">
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-users text-[#E0115F]"></i>
+                  <span className="text-sm font-semibold text-[#2E0A1C]">5000+ Deployed</span>
+                </div>
+              </div>
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg px-4 py-2.5 border border-[#FFD700]/20 animate-float" style={{ animationDelay: '1.5s' }}>
+                <div className="flex items-center gap-2">
+                  <i className="fas fa-globe-asia text-[#FFD700]"></i>
+                  <span className="text-sm font-semibold text-[#2E0A1C]">12+ Countries</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

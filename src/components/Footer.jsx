@@ -1,134 +1,162 @@
-import { FaWhatsapp, FaMapMarkerAlt, FaPhone, FaArrowUp, FaHeart, FaFacebook } from 'react-icons/fa';
-
-const NAV_LINKS = [
+const quickLinks = [
   { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Sectors', href: '#sectors' },
-  { label: 'Process', href: '#process' },
+  { label: 'About Us', href: '#about' },
+  { label: 'Our Services', href: '#services' },
+  { label: 'Countries', href: '#countries' },
   { label: 'FAQs', href: '#faqs' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact Us', href: '#contact' },
 ];
 
-const SERVICES = [
-  'Manpower Recruitment', 'Executive Search', 'Permanent Placement',
-  'Contract Staffing', 'Payroll Management', 'HR Consulting',
+const services = [
+  { label: 'Overseas Manpower Recruitment', href: '#services' },
+  { label: 'International Labor Supply', href: '#services' },
+  { label: 'Foreign Recruiter Support', href: '#services' },
+  { label: 'Visa Processing', href: '#services' },
+  { label: 'Document Attestation', href: '#services' },
+  { label: 'Pre-Departure Orientation', href: '#services' },
 ];
 
-const SECTORS_LIST = [
-  'IT & Software', 'Banking & Finance', 'Oil & Gas',
-  'Construction', 'Healthcare', 'Manufacturing',
+const destinations = [
+  { label: 'Saudi Arabia', href: '#countries' },
+  { label: 'UAE', href: '#countries' },
+  { label: 'Qatar', href: '#countries' },
+  { label: 'Kuwait', href: '#countries' },
+  { label: 'Germany', href: '#countries' },
+  { label: 'Poland', href: '#countries' },
+  { label: 'Romania', href: '#countries' },
+  { label: 'Malaysia', href: '#countries' },
 ];
 
 export default function Footer() {
-  const scrollTo = (href) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: '#AD1457' }}>
-      <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-5 bg-white -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+    <footer className="bg-[#B8004F] text-white">
+      {/* Top Wave SVG */}
+      <div className="w-full overflow-hidden leading-none">
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+          <path
+            d="M0 60L60 51.3C120 43 240 26 360 22.7C480 19 600 29 720 34.3C840 40 960 40 1080 34.3C1200 29 1320 17 1380 11.3L1440 6V0H1380C1320 0 1200 0 1080 0C960 0 840 0 720 0C600 0 480 0 360 0C240 0 120 0 60 0H0V60Z"
+            fill="#FFF0F4"
+          />
+        </svg>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-5 py-[clamp(48px,8vw,72px)]">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-          {/* Brand */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* Brand Column */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C2185B, #E91E8C)' }}>
-                <span className="font-display font-extrabold text-white text-sm">JH</span>
+            <a href="#home" className="flex items-center gap-2 mb-5 group">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white text-sm font-bold group-hover:scale-105 transition-transform">
+                <i className="fas fa-bridge"></i>
               </div>
               <div>
-                <div className="font-display font-extrabold text-base text-white">Juniper HR</div>
-                <div className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(255,210,63,0.7)' }}>Est. 1997 &bull; Islamabad</div>
+                <p className="font-heading font-bold text-base text-white leading-tight">Bridge Global</p>
+                <p className="text-[#FFD700] text-xs font-semibold">Resource</p>
+              </div>
+            </a>
+            <p className="text-white/60 text-sm leading-relaxed mb-5">
+              Bridging Pakistani talent with the world's employers — competent, reliable manpower supply to the international labor market.
+            </p>
+            <div className="space-y-2.5 text-sm text-white/70">
+              <div className="flex items-start gap-2">
+                <i className="fas fa-map-marker-alt text-[#FFD700] mt-1 flex-shrink-0"></i>
+                <div>
+                  <p className="text-white/80">3 Street 36, MPCHS E-11/3, Islamabad, 44000</p>
+                  <p className="text-white/60 text-xs mt-1">1 Paris Arcade, above UBL, E-11/3 Markaz, Islamabad</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <i className="fas fa-phone-alt text-[#FFD700] flex-shrink-0"></i>
+                <a href="tel:0518468276" className="hover:text-white transition-colors">051-8468276</a>
+              </div>
+              <div className="flex items-center gap-2">
+                <i className="fab fa-whatsapp text-[#FFD700] flex-shrink-0"></i>
+                <a href="https://wa.me/923212188000" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">0321-2188000</a>
+              </div>
+              <div className="flex items-center gap-2">
+                <i className="fas fa-envelope text-[#FFD700] flex-shrink-0"></i>
+                <a href="mailto:Bridgeglobalresource@gmail.com" className="hover:text-white transition-colors break-all">Bridgeglobalresource@gmail.com</a>
               </div>
             </div>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              Pakistan's trusted manpower recruitment agency, connecting employers with top talent since 1997.
-            </p>
-            <a
-              href="https://wa.me/923003845414"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold rounded-lg px-4 py-2 no-underline transition-colors"
-              style={{ color: '#FFD23F', background: 'rgba(255,210,63,0.1)' }}
-            >
-              <FaWhatsapp size={16} /> 0300-3845414
-            </a>
-            <a
-              href="https://www.facebook.com/juniperhumanresources/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold rounded-lg px-4 py-2 no-underline transition-colors ml-2"
-              style={{ color: '#FFD23F', background: 'rgba(255,210,63,0.1)' }}
-            >
-              <FaFacebook size={16} /> Facebook
-            </a>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider mb-5" style={{ color: '#FFD23F' }}>Quick Links</h4>
-            <div className="flex flex-col gap-2.5">
-              {NAV_LINKS.map((l) => (
-                <button key={l.label} onClick={() => scrollTo(l.href)}
-                  className="bg-none border-none cursor-pointer text-left text-sm transition-colors p-0"
-                  style={{ color: 'rgba(255,255,255,0.5)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#FFD23F'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}>
-                  {l.label}
-                </button>
+            <h4 className="font-heading font-bold text-white text-base mb-5">Quick Links</h4>
+            <ul className="space-y-2.5">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-white/60 hover:text-[#FFD700] text-sm transition-colors duration-200 flex items-center gap-1.5 group">
+                    <i className="fas fa-chevron-right text-xs opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200"></i>
+                    {link.label}
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider mb-5" style={{ color: '#FFD23F' }}>Services</h4>
-            <div className="flex flex-col gap-2.5">
-              {SERVICES.map((s) => (
-                <span key={s} className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>{s}</span>
+            <h4 className="font-heading font-bold text-white text-base mb-5">Our Services</h4>
+            <ul className="space-y-2.5">
+              {services.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} className="text-white/60 hover:text-[#FFD700] text-sm transition-colors duration-200 flex items-center gap-1.5 group">
+                    <i className="fas fa-chevron-right text-xs opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200"></i>
+                    {s.label}
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          {/* Sectors + Contact */}
+          {/* Destinations */}
           <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider mb-5" style={{ color: '#FFD23F' }}>Sectors</h4>
-            <div className="flex flex-col gap-2.5 mb-6">
-              {SECTORS_LIST.map((s) => (
-                <span key={s} className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>{s}</span>
+            <h4 className="font-heading font-bold text-white text-base mb-5">Destinations</h4>
+            <ul className="space-y-2.5 mb-7">
+              {destinations.map((d) => (
+                <li key={d.label}>
+                  <a href={d.href} className="text-white/60 hover:text-[#FFD700] text-sm transition-colors duration-200 flex items-center gap-1.5 group">
+                    <i className="fas fa-chevron-right text-xs opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200"></i>
+                    {d.label}
+                  </a>
+                </li>
               ))}
-            </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                <FaPhone size={12} /> 051-8895008
-              </div>
-              <div className="flex items-start gap-2 text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                <FaMapMarkerAlt size={12} className="mt-0.5" />
-                <span>4th Floor, Juniper Tower, F-6 Markaz, Islamabad, 44220</span>
-              </div>
+            </ul>
+
+            <h4 className="font-heading font-bold text-white text-sm mb-3">Follow Us</h4>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href="https://facebook.com/bridgeglobalresource"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-9 h-9 bg-white/10 hover:bg-[#E0115F] rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md"
+              >
+                <i className="fab fa-facebook-f text-white text-sm"></i>
+              </a>
+              <a
+                href="https://wa.me/923212188000"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="w-9 h-9 bg-white/10 hover:bg-[#25D366] rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md"
+              >
+                <i className="fab fa-whatsapp text-white text-sm"></i>
+              </a>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="h-px mb-6" style={{ background: 'rgba(255,255,255,0.08)' }} />
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
-            &copy; {new Date().getFullYear()} Juniper Human Resource Provider (Pvt) Ltd &mdash; All rights reserved
+      {/* Bottom Bar */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/40">
+          <p>&copy; {year} Bridge Global Resource. All rights reserved.</p>
+          <p className="flex items-center gap-1">
+            E-11, Islamabad — Bridging Pakistani Talent with Global Employers
           </p>
-          <div className="flex items-center gap-4">
-            <span className="text-xs flex items-center gap-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
-              Made with <FaHeart size={10} className="text-red-400" /> in Islamabad
-            </span>
-            <button onClick={scrollToTop}
-              className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors"
-              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}>
-              <FaArrowUp size={13} style={{ color: 'rgba(255,255,255,0.5)' }} />
-            </button>
-          </div>
         </div>
       </div>
     </footer>

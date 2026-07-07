@@ -1,44 +1,34 @@
-import useReveal from '../hooks/useReveal';
-import { FaCalendarAlt, FaUsers, FaShieldAlt, FaUserTie } from 'react-icons/fa';
+import useInView from '../hooks/useInView';
 
-const FEATURES = [
-  { icon: FaCalendarAlt, title: '25+ Years of Experience', desc: 'Decades of proven expertise in the recruitment industry.', color: '#C2185B' },
-  { icon: FaUsers, title: 'Extensive Talent Pool', desc: 'Access to a vast network of pre-vetted professionals across industries.', color: '#7B68EE' },
-  { icon: FaShieldAlt, title: 'Rigorous Vetting', desc: 'Multi-stage screening ensures only the best candidates are presented.', color: '#E91E8C' },
-  { icon: FaUserTie, title: 'Dedicated Account Manager', desc: 'A single point of contact for a seamless, personalized experience.', color: '#FFD23F' },
+const features = [
+  { title: 'Rigorous Vetting', desc: 'Every candidate is thoroughly screened, verified, and matched to your specific requirements.', icon: 'fa-shield-halved', color: 'from-primary to-highlight' },
+  { title: 'Industry Expertise', desc: 'Deep domain knowledge across 10+ industries ensures we understand your unique hiring needs.', icon: 'fa-chart-simple', color: 'from-accent to-primary' },
+  { title: 'Confidential & Compliant', desc: 'We maintain strict confidentiality and full compliance with labor laws and regulations.', icon: 'fa-scale-balanced', color: 'from-highlight to-accent' },
+  { title: 'Dedicated Account Manager', desc: 'A single point of contact who knows your business and delivers personalized service.', icon: 'fa-user-tie', color: 'from-secondary to-primary' },
 ];
 
 export default function WhyChooseUs() {
-  useReveal('.why-reveal');
+  const [ref, inView] = useInView();
 
   return (
-    <section className="py-[clamp(60px,10vw,100px)] px-5" style={{ background: '#fff' }}>
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 why-reveal reveal">
-          <span className="section-pill">WHY JUNIPER</span>
-          <h2 className="font-display font-extrabold mt-4 mb-3" style={{ fontSize: 'clamp(28px,5vw,42px)', color: '#3A0A22' }}>
-            Why Choose Us
-          </h2>
-          <p className="text-sm md:text-base max-w-xl mx-auto leading-relaxed" style={{ color: '#6B5B3E' }}>
-            What sets Juniper Human Resources apart as your recruitment partner.
-          </p>
+    <section id="why-choose-us" className="section-pad bg-background overflow-hidden">
+      <div className="container-pad">
+        <div className="text-center mb-12">
+          <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary font-semibold text-xs sm:text-sm px-4 py-1.5 rounded-full mb-4">
+            <i className="fas fa-star text-primary/70 text-xs" /> WHY ZB HR
+          </span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-ink font-heading">Why Partner With Us?</h2>
+          <p className="text-ink/60 text-lg mt-3 max-w-2xl mx-auto">What sets ZB HR Services apart as Lahore's preferred HR partner.</p>
         </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {FEATURES.map((f, i) => (
-            <div
-              key={i}
-              className="why-reveal reveal rounded-2xl p-6 md:p-7 text-center transition-all duration-300 hover:-translate-y-1"
-              style={{ background: '#FFF0F5', border: '1px solid rgba(194, 24, 91, 0.08)' }}
-            >
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                style={{ background: f.color }}
-              >
-                <f.icon size={24} color={f.color === '#FFD23F' ? '#3A0A22' : '#fff'} />
+        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((f, i) => (
+            <div key={i} className={`bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1 border border-primary/5 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${i * 100}ms` }}>
+              <div className={`w-12 h-12 bg-gradient-to-br ${f.color} rounded-xl flex items-center justify-center mb-4 shadow-md`}>
+                <i className={`fas ${f.icon} text-white text-lg`} />
               </div>
-              <h3 className="font-display font-bold text-base mb-2" style={{ color: '#3A0A22' }}>{f.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#6B5B3E' }}>{f.desc}</p>
+              <h3 className="font-bold text-ink text-lg font-heading mb-2">{f.title}</h3>
+              <p className="text-ink/60 text-sm leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>

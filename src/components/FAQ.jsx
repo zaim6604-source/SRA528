@@ -1,54 +1,59 @@
 import { useState } from 'react';
-import useReveal from '../hooks/useReveal';
-import { FaChevronDown } from 'react-icons/fa';
+import useInView from '../hooks/useInView';
 
-const FAQS = [
-  { q: 'What services does Juniper HR offer?', a: 'We offer manpower recruitment, executive search, permanent and contract staffing, payroll management, HR consulting, candidate assessment, and onboarding compliance services.' },
-  { q: 'Which sectors do you recruit for?', a: 'We serve IT & Software, Banking & Finance, Oil & Gas, Construction, Healthcare, Manufacturing, Retail & FMCG, Telecom, Hospitality, Education, Logistics, and Engineering sectors.' },
-  { q: 'How does the hiring process work?', a: 'It starts with understanding your requirements, sourcing and screening candidates, shortlisting and interviews, selection and offer, followed by onboarding and post-placement support.' },
-  { q: 'What is the typical timeline for placements?', a: 'Timelines vary by role complexity. Standard placements typically take 2–4 weeks, while executive searches may take 4–8 weeks for the right candidate.' },
-  { q: 'How can I register as a job seeker?', a: 'Contact us via WhatsApp at 0300-3845414 or fill out our contact form. Our team will guide you through the registration and matching process.' },
-  { q: 'Do you charge consultation fees?', a: 'We offer free initial consultations for employers. Job seekers do not pay any registration or placement fees to Juniper HR.' },
+const faqs = [
+  { q: 'What services does Bridge Global Resource offer?', a: 'We offer overseas manpower recruitment, international labor supply, foreign recruiter support, visa processing, document attestation, medical & trade test coordination, pre-departure orientation, and air ticketing & travel support.' },
+  { q: 'How does the foreign recruiter demand process work?', a: 'Foreign recruiters submit their manpower requirements to us. We source, screen, and process candidates — handling documentation, visas, medical tests, and deployment. Simply contact us via WhatsApp or the form on our website.' },
+  { q: 'Which countries do you deploy workers to?', a: 'We deploy to Saudi Arabia, UAE, Qatar, Kuwait, Oman, Germany, Poland, Romania, Malaysia, and other countries based on demand.' },
+  { q: 'What documents are required for overseas employment?', a: 'Typically: valid passport, educational certificates, professional experience letters, CNIC, passport-sized photographs, and any relevant trade test or medical certificates. We guide you through the complete list.' },
+  { q: 'What is the typical timeline from application to deployment?', a: 'Timelines vary by country and role. On average, the process takes 4-8 weeks from initial screening to departure, depending on visa processing and document attestation requirements.' },
+  { q: 'Is there a consultation fee?', a: 'Your initial consultation is completely free. We believe in transparent communication and will provide a clear breakdown of any applicable fees before proceeding.' },
 ];
 
+function FAQItem({ faq, isOpen, onClick }) {
+  return (
+    <div className={`border rounded-2xl mb-3 overflow-hidden transition-all duration-300 ${isOpen ? 'border-[#E0115F]/30 bg-[#E0115F]/[0.02]' : 'border-gray-200 hover:border-[#E0115F]/20 bg-white'}`}>
+      <button
+        onClick={onClick}
+        className="w-full flex justify-between items-center px-6 py-5 text-base font-semibold text-left cursor-pointer transition-colors hover:text-[#E0115F]"
+        aria-expanded={isOpen}
+      >
+        <span className="pr-4">{faq.q}</span>
+        <i className={`fas fa-chevron-down text-sm text-gray-400 transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180 text-[#E0115F]' : ''}`} />
+      </button>
+      <div
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{ maxHeight: isOpen ? '300px' : '0', padding: isOpen ? '0 24px 20px' : '0 24px' }}
+      >
+        <p className="text-[#2E0A1C]/60 text-sm leading-relaxed">{faq.a}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function FAQ() {
-  useReveal('.faq-reveal');
-  const [openIdx, setOpenIdx] = useState(null);
+  const [openIndex, setOpenIndex] = useState(null);
+  const [ref, inView] = useInView();
 
   return (
-    <section id="faqs" className="py-[clamp(60px,10vw,100px)] px-5" style={{ background: '#fff' }}>
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12 faq-reveal reveal">
-          <span className="section-pill">FAQS</span>
-          <h2 className="font-display font-extrabold mt-4 mb-3" style={{ fontSize: 'clamp(28px,5vw,42px)', color: '#3A0A22' }}>
-            Frequently Asked Questions
+    <section id="faqs" className="section-pad" style={{ background: '#FFF0F4' }}>
+      <div className="container-pad">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E0115F]/10 text-[#E0115F] mb-4">
+            <i className="fas fa-question-circle text-xs"></i>
+            FAQS
+          </div>
+          <h2 className="text-3xl md:text-4xl font-extrabold font-heading text-[#2E0A1C]">
+            Frequently Asked{' '}
+            <span className="text-[#E0115F]">Questions</span>
           </h2>
+          <p className="text-[#2E0A1C]/60 text-lg mt-3 max-w-2xl mx-auto">
+            Everything you need to know about working with us.
+          </p>
         </div>
-
-        <div className="space-y-3">
-          {FAQS.map((faq, i) => (
-            <div
-              key={i}
-              className="faq-reveal reveal rounded-xl overflow-hidden transition-all duration-300"
-              style={{ background: '#FFF0F5', border: '1px solid rgba(194, 24, 91, 0.08)' }}
-            >
-              <button
-                onClick={() => setOpenIdx(openIdx === i ? null : i)}
-                className="w-full flex items-center justify-between p-4 md:p-5 text-left border-none cursor-pointer bg-transparent"
-              >
-                <span className="font-display font-bold text-sm md:text-base pr-4" style={{ color: '#3A0A22' }}>{faq.q}</span>
-                <FaChevronDown
-                  size={14}
-                  className="flex-shrink-0 transition-transform duration-300"
-                  style={{ color: '#C2185B', transform: openIdx === i ? 'rotate(180deg)' : 'rotate(0)' }}
-                />
-              </button>
-              {openIdx === i && (
-                <div className="px-4 md:px-5 pb-4 md:pb-5">
-                  <p className="text-sm leading-relaxed" style={{ color: '#6B5B3E' }}>{faq.a}</p>
-                </div>
-              )}
-            </div>
+        <div ref={ref} className={`max-w-2xl mx-auto transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {faqs.map((faq, i) => (
+            <FAQItem key={i} faq={faq} isOpen={openIndex === i} onClick={() => setOpenIndex(openIndex === i ? null : i)} />
           ))}
         </div>
       </div>

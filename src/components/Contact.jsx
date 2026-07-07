@@ -1,379 +1,217 @@
-import { useEffect } from 'react';
-import {
-  MapPin,
-  Phone,
-  Navigation2,
-  ExternalLink,
-  Clock,
-} from 'lucide-react';
-
-const FacebookIcon = ({ size = 20, color = 'currentColor' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-);
-
-const contactItems = [
-  {
-    icon: MapPin,
-    label: 'Office Address',
-    value: 'Flat No. 11, 2nd Floor, Akram Complex, Model Town Link Road, Lahore, Punjab',
-    accent: '#0ea5e9',
-    bg: 'rgba(14,165,233,0.08)',
-    link: null,
-  },
-  {
-    icon: Phone,
-    label: 'Phone Numbers',
-    value: '042-5178464\n0300-9472963',
-    accent: '#fbbf24',
-    bg: 'rgba(251,191,36,0.08)',
-    link: 'tel:+924251784640',
-  },
-  {
-    icon: FacebookIcon,
-    label: 'Facebook Page',
-    value: 'barlex.agencies',
-    accent: '#0284c7',
-    bg: 'rgba(2,132,199,0.08)',
-    link: 'https://www.facebook.com/barlex.agencies/',
-  },
-  {
-    icon: Clock,
-    label: 'Office Hours',
-    value: 'Mon–Sat: 9:00 AM – 6:00 PM',
-    accent: '#0369a1',
-    bg: 'rgba(3,105,161,0.08)',
-    link: null,
-  },
-];
+import { useState } from 'react';
+import useInView from '../hooks/useInView';
 
 export default function Contact() {
-  useEffect(() => {
-    const els = document.querySelectorAll('.ct-reveal');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('show');
-            observer.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
+  const [ref, inView] = useInView();
+  const [formType, setFormType] = useState('employer');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    company: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const label = formType === 'employer' ? 'Foreign Recruiter / Employer' : 'Job Seeker';
+    const extra = formType === 'employer' ? `Company: ${formData.company}` : '';
+    const msg = encodeURIComponent(
+      `Hello Bridge Global Resource!%0A%0A---%0AType: ${label}%0AName: ${formData.name}%0APhone: ${formData.phone}%0AEmail: ${formData.email}%0A${extra}%0AMessage: ${formData.message}%0A---`
     );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+    window.open(`https://wa.me/923212188000?text=${msg}`, '_blank');
+  };
 
   return (
-    <section
-      id="contact"
-      style={{
-        padding: 'clamp(80px,10vw,130px) 24px',
-        background: '#f8fafc',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* BG decoration */}
-      <div
-        style={{
-          position: 'absolute',
-          top: -200,
-          left: -200,
-          width: 600,
-          height: 600,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(14,165,233,0.05), transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: -150,
-          right: -150,
-          width: 500,
-          height: 500,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(251,191,36,0.05), transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div style={{ maxWidth: 1160, margin: '0 auto' }}>
-        {/* Header */}
-        <div
-          className="ct-reveal reveal"
-          style={{ textAlign: 'center', marginBottom: 64 }}
-        >
-          <span className="chip">Get In Touch</span>
-          <h2
-            style={{
-              fontFamily: 'Plus Jakarta Sans,sans-serif',
-              fontWeight: 800,
-              fontSize: 'clamp(28px,5vw,46px)',
-              color: '#0f172a',
-              marginTop: 16,
-              marginBottom: 16,
-              letterSpacing: '-0.8px',
-            }}
-          >
-            Find <span className="grad-text">Us</span>
+    <section id="contact" className="section-pad bg-white overflow-hidden">
+      <div className="container-pad" ref={ref}>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E0115F]/10 text-[#E0115F] mb-4">
+            <i className="fas fa-phone-alt text-xs"></i>
+            GET IN TOUCH
+          </div>
+          <h2 className="section-heading">
+            Contact{' '}
+            <span className="text-[#E0115F]">Bridge Global Resource</span>
           </h2>
-          <p
-            style={{
-              fontSize: 16,
-              color: '#64748b',
-              maxWidth: 520,
-              margin: '0 auto',
-              lineHeight: 1.7,
-              fontFamily: 'DM Sans,sans-serif',
-            }}
-          >
-            Visit our office in Lahore or reach out via phone or social media. Our team
-            is ready to guide your overseas career journey.
+          <p className="section-subheading">
+            Reach out to us — whether you're an employer or a job seeker, we're here to help.
           </p>
         </div>
 
-        {/* Two-column layout */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%,460px),1fr))',
-            gap: 40,
-            alignItems: 'start',
-          }}
-        >
-          {/* Left – contact details */}
-          <div className="ct-reveal reveal-l">
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 16,
-                marginBottom: 32,
-              }}
-            >
-              {contactItems.map((item) => {
-                const Icon = item.icon;
-                const content = (
-                  <div
-                    key={item.label}
-                    style={{
-                      background: '#fff',
-                      border: '1px solid rgba(14,165,233,0.1)',
-                      borderRadius: 18,
-                      padding: '20px 22px',
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 16,
-                      boxShadow: '0 4px 20px rgba(14,165,233,0.06)',
-                      transition: 'transform 0.25s, box-shadow 0.25s',
-                      cursor: item.link ? 'pointer' : 'default',
-                      textDecoration: 'none',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-3px)';
-                      e.currentTarget.style.boxShadow = '0 12px 36px rgba(14,165,233,0.12)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(14,165,233,0.06)';
-                    }}
-                  >
-                    <div
-                      style={{
-                        minWidth: 46,
-                        height: 46,
-                        borderRadius: 13,
-                        background: item.bg,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Icon size={20} color={item.accent} />
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div
-                        style={{
-                          fontSize: 11,
-                          fontFamily: 'DM Sans,sans-serif',
-                          fontWeight: 600,
-                          color: '#94a3b8',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.08em',
-                          marginBottom: 4,
-                        }}
-                      >
-                        {item.label}
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: 'DM Sans,sans-serif',
-                          fontWeight: 600,
-                          fontSize: 14.5,
-                          color: item.link ? item.accent : '#1e293b',
-                          lineHeight: 1.5,
-                          whiteSpace: 'pre-line',
-                        }}
-                      >
-                        {item.value}
-                        {item.link && (
-                          <ExternalLink
-                            size={12}
-                            style={{ marginLeft: 5, display: 'inline', verticalAlign: 'middle' }}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-
-                return item.link ? (
-                  <a
-                    key={item.label}
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: 'none', display: 'block' }}
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div key={item.label}>{content}</div>
-                );
-              })}
-            </div>
-
-            {/* Direction button */}
-            <a
-              href="https://www.google.com/maps?q=31.4655,74.3151"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-              style={{ display: 'inline-flex', width: '100%', justifyContent: 'center' }}
-            >
-              <Navigation2 size={16} />
-              Get Directions on Google Maps
-            </a>
-          </div>
-
-          {/* Right – map */}
-          <div
-            className="ct-reveal reveal-r"
-            style={{
-              borderRadius: 24,
-              overflow: 'hidden',
-              boxShadow: '0 20px 60px rgba(14,165,233,0.12)',
-              border: '1px solid rgba(14,165,233,0.1)',
-            }}
-          >
-            <div
-              style={{
-                background: 'linear-gradient(135deg,#0ea5e9,#38bdf8)',
-                padding: '16px 22px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-              }}
-            >
-              <MapPin size={16} color="rgba(255,255,255,0.8)" />
-              <span
-                style={{
-                  fontFamily: 'DM Sans,sans-serif',
-                  fontWeight: 600,
-                  fontSize: 13,
-                  color: 'rgba(255,255,255,0.9)',
-                }}
+        <div className={`grid lg:grid-cols-2 gap-10 items-start transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* Left: Form */}
+          <div>
+            {/* Toggle */}
+            <div className="flex bg-[#FFF0F4] rounded-2xl p-1 mb-6 border border-[#E0115F]/10">
+              <button
+                onClick={() => setFormType('employer')}
+                className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                  formType === 'employer'
+                    ? 'bg-[#E0115F] text-white shadow-md'
+                    : 'text-[#2E0A1C]/60 hover:text-[#E0115F]'
+                }`}
               >
-                Barlex Agencies — Akram Complex, Model Town Link Road, Lahore
-              </span>
+                <i className="fas fa-building mr-2"></i>
+                Foreign Recruiter / Employer
+              </button>
+              <button
+                onClick={() => setFormType('jobseeker')}
+                className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                  formType === 'jobseeker'
+                    ? 'bg-[#E0115F] text-white shadow-md'
+                    : 'text-[#2E0A1C]/60 hover:text-[#E0115F]'
+                }`}
+              >
+                <i className="fas fa-user-tie mr-2"></i>
+                Job Seeker
+              </button>
             </div>
-            <iframe
-              title="Barlex Agencies Location"
-              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3402.4!2d74.3151!3d31.4655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDI3JzU1LjgiTiA3NMKwMTgnNTQuNCJF!5e0!3m2!1sen!2spk!4v1"
-              width="100%"
-              height="420"
-              style={{ border: 0, display: 'block' }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </div>
 
-        {/* Bottom coordinates strip */}
-        <div
-          className="ct-reveal reveal"
-          style={{
-            marginTop: 40,
-            background: '#fff',
-            border: '1px solid rgba(14,165,233,0.1)',
-            borderRadius: 16,
-            padding: '16px 24px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 12,
-            boxShadow: '0 4px 20px rgba(14,165,233,0.06)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Navigation2 size={15} color="#0ea5e9" />
-            <span
-              style={{
-                fontSize: 13,
-                fontFamily: 'DM Sans,sans-serif',
-                color: '#64748b',
-                fontWeight: 500,
-              }}
-            >
-              GPS Coordinates:
-            </span>
-            <span
-              style={{
-                fontSize: 13,
-                fontFamily: 'DM Sans,sans-serif',
-                fontWeight: 700,
-                color: '#0f172a',
-              }}
-            >
-              31.4655° N, 74.3151° E
-            </span>
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name *"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#FFF0F4]/50 text-sm outline-none focus:border-[#E0115F] focus:ring-2 focus:ring-[#E0115F]/20 transition-all"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number *"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#FFF0F4]/50 text-sm outline-none focus:border-[#E0115F] focus:ring-2 focus:ring-[#E0115F]/20 transition-all"
+                />
+              </div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#FFF0F4]/50 text-sm outline-none focus:border-[#E0115F] focus:ring-2 focus:ring-[#E0115F]/20 transition-all"
+              />
+              {formType === 'employer' ? (
+                <input
+                  type="text"
+                  name="company"
+                  placeholder="Company / Country"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#FFF0F4]/50 text-sm outline-none focus:border-[#E0115F] focus:ring-2 focus:ring-[#E0115F]/20 transition-all"
+                />
+              ) : (
+                <input
+                  type="text"
+                  name="company"
+                  placeholder="Job Category / Country of Interest"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#FFF0F4]/50 text-sm outline-none focus:border-[#E0115F] focus:ring-2 focus:ring-[#E0115F]/20 transition-all"
+                />
+              )}
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                value={formData.message}
+                onChange={handleChange}
+                rows="3"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#FFF0F4]/50 text-sm outline-none focus:border-[#E0115F] focus:ring-2 focus:ring-[#E0115F]/20 transition-all resize-none"
+              />
+              <button
+                type="submit"
+                className="w-full bg-[#7B2D8E] hover:bg-[#9B3DAE] text-white font-semibold py-3 rounded-xl text-sm transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2"
+              >
+                <i className="fab fa-whatsapp"></i>
+                Send via WhatsApp
+              </button>
+            </form>
+
+            <p className="text-xs text-[#2E0A1C]/50 text-center mt-3">
+              Or email us at{' '}
+              <a href="mailto:Bridgeglobalresource@gmail.com" className="text-[#E0115F] hover:underline">Bridgeglobalresource@gmail.com</a>
+              {' '}·{' '}
+              <span className="text-[#2E0A1C]/30">info@bridgeglobalresource.pk</span>
+            </p>
           </div>
-          <a
-            href="https://www.facebook.com/barlex.agencies/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 7,
-              fontSize: 13,
-              fontFamily: 'DM Sans,sans-serif',
-              fontWeight: 700,
-              color: '#0284c7',
-              textDecoration: 'none',
-              padding: '7px 14px',
-              borderRadius: 8,
-              background: 'rgba(2,132,199,0.06)',
-              transition: 'background 0.2s',
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = 'rgba(2,132,199,0.12)')
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = 'rgba(2,132,199,0.06)')
-            }
-          >
-            <FacebookIcon size={14} color="currentColor" />
-            Follow on Facebook
-          </a>
+
+          {/* Right: Info + Map */}
+          <div className="space-y-6">
+            {/* Info Cards */}
+            <div className="space-y-3">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#FFF0F4] border border-[#E0115F]/10">
+                <div className="w-11 h-11 rounded-xl bg-[#E0115F] flex items-center justify-center flex-shrink-0">
+                  <i className="fas fa-phone-alt text-white"></i>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-[#2E0A1C]/50 uppercase tracking-wider mb-0.5">Phone</p>
+                  <a href="tel:0518468276" className="text-[#2E0A1C] font-semibold hover:text-[#E0115F] transition-colors">051-8468276</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#FFF0F4] border border-[#E0115F]/10">
+                <div className="w-11 h-11 rounded-xl bg-[#E0115F] flex items-center justify-center flex-shrink-0">
+                  <i className="fab fa-whatsapp text-white"></i>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-[#2E0A1C]/50 uppercase tracking-wider mb-0.5">WhatsApp</p>
+                  <a href="https://wa.me/923212188000" target="_blank" rel="noopener noreferrer" className="text-[#2E0A1C] font-semibold hover:text-[#E0115F] transition-colors">0321-2188000</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#FFF0F4] border border-[#E0115F]/10">
+                <div className="w-11 h-11 rounded-xl bg-[#E0115F] flex items-center justify-center flex-shrink-0">
+                  <i className="fas fa-envelope text-white"></i>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-[#2E0A1C]/50 uppercase tracking-wider mb-0.5">Email</p>
+                  <a href="mailto:Bridgeglobalresource@gmail.com" className="text-[#2E0A1C] font-semibold hover:text-[#E0115F] transition-colors">Bridgeglobalresource@gmail.com</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#FFF0F4] border border-[#E0115F]/10">
+                <div className="w-11 h-11 rounded-xl bg-[#E0115F] flex items-center justify-center flex-shrink-0">
+                  <i className="fas fa-map-marker-alt text-white"></i>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-[#2E0A1C]/50 uppercase tracking-wider mb-0.5">Addresses</p>
+                  <p className="text-[#2E0A1C] font-medium text-sm">3 Street 36, MPCHS E-11/3, Islamabad, 44000</p>
+                  <p className="text-[#2E0A1C]/70 text-sm">1 Paris Arcade, above UBL, E-11/3 Markaz, Islamabad</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#FFF0F4] border border-[#E0115F]/10">
+                <div className="w-11 h-11 rounded-xl bg-[#E0115F] flex items-center justify-center flex-shrink-0">
+                  <i className="fab fa-facebook-f text-white"></i>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-[#2E0A1C]/50 uppercase tracking-wider mb-0.5">Facebook</p>
+                  <a href="https://facebook.com/bridgeglobalresource" target="_blank" rel="noopener noreferrer" className="text-[#2E0A1C] font-semibold hover:text-[#E0115F] transition-colors">/bridgeglobalresource</a>
+                </div>
+              </div>
+            </div>
+
+            {/* Map */}
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-[#E0115F]/10">
+              <iframe
+                title="Bridge Global Resource Office Location"
+                src="https://www.google.com/maps?q=33.70230427351291,72.97965714232855&hl=en&z=16&output=embed"
+                width="100%"
+                height="280"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

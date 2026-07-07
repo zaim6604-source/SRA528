@@ -1,49 +1,49 @@
 import { useState } from 'react';
-import useReveal from '../hooks/useReveal';
 
-const IMAGES = [
-  { src: '/images/corporate-office.jpg', alt: 'Corporate Office' },
-  { src: '/images/team-meeting.jpg', alt: 'Team Meeting' },
-  { src: '/images/interview.jpg', alt: 'Interview Session' },
-  { src: '/images/professionals.jpg', alt: 'Our Professionals' },
+const images = [
+  { src: '/images/gallery-1.jpg', alt: 'Office team collaboration' },
+  { src: '/images/gallery-2.jpg', alt: 'Client handshake and interview' },
+  { src: '/images/gallery-3.jpg', alt: 'Modern workspace' },
+  { src: '/images/gallery-4.jpg', alt: 'Travel and airport' },
 ];
 
 export default function Gallery() {
-  useReveal('.gll-reveal');
-  const [errors, setErrors] = useState({});
+  const [imgErrors, setImgErrors] = useState({});
+
+  const handleError = (index) => {
+    setImgErrors((prev) => ({ ...prev, [index]: true }));
+  };
 
   return (
-    <section className="py-[clamp(60px,10vw,100px)] px-5" style={{ background: '#fff' }}>
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 gll-reveal reveal">
-          <span className="section-pill">GALLERY</span>
-          <h2 className="font-display font-extrabold mt-4 mb-3" style={{ fontSize: 'clamp(28px,5vw,42px)', color: '#3A0A22' }}>
-            Our Office &amp; Team
+    <section className="py-12 md:py-16" style={{ background: '#FFF0F4' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E0115F]/10 text-[#E0115F] mb-4">
+            <i className="fas fa-camera text-xs"></i>
+            GALLERY
+          </div>
+          <h2 className="text-3xl md:text-4xl font-extrabold font-heading text-[#2E0A1C]">
+            A Glimpse of <span className="text-[#E0115F]">Our Work</span>
           </h2>
-          <p className="text-sm md:text-base max-w-xl mx-auto leading-relaxed" style={{ color: '#6B5B3E' }}>
-            A glimpse into our workspace and team culture.
-          </p>
         </div>
-
-        <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
-          {IMAGES.map((img, i) => (
-            <div
-              key={i}
-              className="gll-reveal reveal rounded-2xl overflow-hidden group"
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
-              {!errors[i] ? (
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="w-full h-64 md:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={() => setErrors((p) => ({ ...p, [i]: true }))}
-                />
-              ) : (
-                <div className="w-full h-64 md:h-72 flex items-center justify-center rounded-2xl" style={{ background: '#FFF0F5' }}>
-                  <span className="text-sm font-medium" style={{ color: '#C2185B' }}>{img.alt}</span>
-                </div>
-              )}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {images.map((img, i) => (
+            <div key={i} className="rounded-2xl overflow-hidden group">
+              <div className="aspect-[4/3] overflow-hidden">
+                {imgErrors[i] ? (
+                  <div className="w-full h-full bg-[#E0115F]/10 flex items-center justify-center">
+                    <i className="fas fa-image text-2xl text-[#E0115F]/30"></i>
+                  </div>
+                ) : (
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                    onError={() => handleError(i)}
+                    loading="lazy"
+                  />
+                )}
+              </div>
             </div>
           ))}
         </div>

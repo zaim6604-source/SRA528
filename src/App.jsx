@@ -1,44 +1,41 @@
-import './index.css';
 import Navbar from './components/Navbar';
-import Marquee from './components/Marquee';
+import MarqueeTicker from './components/MarqueeTicker';
 import Hero from './components/Hero';
-import Stats from './components/Stats';
+import StatsBar from './components/StatsBar';
 import About from './components/About';
 import Services from './components/Services';
-import Sectors from './components/Sectors';
+import CountryGuide from './components/CountryGuide';
 import Process from './components/Process';
-import WhyChooseUs from './components/WhyChooseUs';
+import ForRecruiters from './components/ForRecruiters';
 import Testimonials from './components/Testimonials';
 import Gallery from './components/Gallery';
-import CTABand from './components/CTABand';
-import ContactMap from './components/ContactMap';
+import CTA from './components/CTA';
+import Contact from './components/Contact';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
-import QuickApply from './components/QuickApply';
+import FloatingWidget from './components/FloatingWidget';
 
-function App() {
+export default function App() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Navbar />
-      <Marquee />
+      <MarqueeTicker />
       <main>
         <Hero />
-        <Stats />
+        <StatsBar />
         <About />
         <Services />
-        <Sectors />
+        <CountryGuide />
         <Process />
-        <WhyChooseUs />
+        <ForRecruiters />
         <Testimonials />
         <Gallery />
-        <CTABand />
-        <ContactMap />
+        <CTA />
+        <Contact />
         <FAQ />
       </main>
       <Footer />
-      <QuickApply />
-    </>
+      <FloatingWidget />
+    </div>
   );
 }
-
-export default App;

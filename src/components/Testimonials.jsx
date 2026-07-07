@@ -1,71 +1,74 @@
-import useReveal from '../hooks/useReveal';
-import { FaStar, FaQuoteRight } from 'react-icons/fa';
+import useInView from '../hooks/useInView';
 
-const TESTIMONIALS = [
+const testimonials = [
   {
-    name: 'Ahmed Raza',
-    role: 'HR Director, TechVista Solutions',
-    quote: 'Juniper HR has been our exclusive recruitment partner for over five years. Their ability to source top-tier talent consistently sets them apart in the industry.',
-    rating: 5,
-    img: '/images/testimonial-1.jpg',
+    quote: 'Bridge Global Resource helped us find skilled construction workers from Pakistan within weeks. Their screening process is thorough and the candidates were well-prepared.',
+    name: 'Ahmed Al-Rashid',
+    role: 'HR Director, Saudi Construction Co.',
+    stars: 5,
   },
   {
+    quote: 'I was struggling to find a nursing job abroad until I contacted Bridge Global Resource. They handled everything — from credential attestation to visa processing. Highly recommended!',
     name: 'Fatima Khan',
-    role: 'CEO, Crescent Group',
-    quote: 'The team at Juniper understood our culture and hiring needs from day one. They delivered qualified candidates who have become integral to our growth.',
-    rating: 5,
-    img: '/images/testimonial-2.jpg',
+    role: 'Registered Nurse, Germany',
+    stars: 5,
   },
   {
-    name: 'Omar Hassan',
-    role: 'Operations Manager, Gulf Construct',
-    quote: 'We needed 200+ skilled workers on a tight timeline. Juniper HR not only met the deadline but exceeded our quality expectations. Highly recommended.',
-    rating: 5,
-    img: '/images/testimonial-3.jpg',
+    quote: 'We\'ve been working with Bridge Global for over two years now. Their manpower supply is consistent, reliable, and cost-effective. A true partner in our growth.',
+    name: 'James Mitchell',
+    role: 'Operations Manager, UAE Hospitality Group',
+    stars: 5,
+  },
+  {
+    quote: 'The pre-departure orientation was incredibly helpful. I felt confident and prepared when I landed in Poland. Thank you Bridge Global for this life-changing opportunity!',
+    name: 'Usman Ali',
+    role: 'Factory Worker, Poland',
+    stars: 5,
   },
 ];
 
 export default function Testimonials() {
-  useReveal('.tst-reveal');
+  const [ref, inView] = useInView();
 
   return (
-    <section id="testimonials" className="py-[clamp(60px,10vw,100px)] px-5" style={{ background: '#FFF0F5' }}>
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 tst-reveal reveal">
-          <span className="section-pill">CLIENT SUCCESS</span>
-          <h2 className="font-display font-extrabold mt-4 mb-3" style={{ fontSize: 'clamp(28px,5vw,42px)', color: '#3A0A22' }}>
-            What Our Clients Say
+    <section className="section-pad bg-white">
+      <div className="container-pad" ref={ref}>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E0115F]/10 text-[#E0115F] mb-4">
+            <i className="fas fa-star text-xs"></i>
+            SUCCESS STORIES
+          </div>
+          <h2 className="section-heading">
+            What Our{' '}
+            <span className="text-[#E0115F]">Clients Say</span>
           </h2>
-          <p className="text-sm md:text-base max-w-xl mx-auto leading-relaxed" style={{ color: '#6B5B3E' }}>
-            Trusted by leading organizations across Pakistan.
-          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {TESTIMONIALS.map((t, i) => (
+        <div className={`grid md:grid-cols-2 gap-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {testimonials.map((t, i) => (
             <div
               key={i}
-              className="tst-reveal reveal rounded-2xl p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              style={{ background: '#fff', border: '1px solid rgba(194, 24, 91, 0.08)' }}
+              className="bg-[#FFF0F4] rounded-2xl p-6 md:p-8 border border-[#E0115F]/5 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
             >
+              {/* Stars */}
               <div className="flex gap-1 mb-4">
-                {[...Array(t.rating)].map((_, j) => (
-                  <FaStar key={j} size={14} style={{ color: '#FFD23F' }} />
+                {[...Array(t.stars)].map((_, j) => (
+                  <i key={j} className="fas fa-star text-[#FFD700] text-sm"></i>
                 ))}
               </div>
-              <p className="text-sm leading-relaxed mb-5" style={{ color: '#6B5B3E' }}>"{t.quote}"</p>
+              {/* Quote */}
+              <p className="text-[#2E0A1C]/80 text-sm md:text-base leading-relaxed mb-5 italic">
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              {/* Author */}
               <div className="flex items-center gap-3">
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  className="w-11 h-11 rounded-full object-cover"
-                  onError={(e) => { e.target.style.display = 'none'; }}
-                />
-                <div>
-                  <div className="font-display font-bold text-sm" style={{ color: '#3A0A22' }}>{t.name}</div>
-                  <div className="text-xs" style={{ color: '#C2185B' }}>{t.role}</div>
+                <div className="w-11 h-11 rounded-full bg-[#E0115F] flex items-center justify-center text-white font-bold text-sm">
+                  {t.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                 </div>
-                <FaQuoteRight size={20} className="ml-auto opacity-20" style={{ color: '#C2185B' }} />
+                <div>
+                  <div className="font-heading font-bold text-sm text-[#2E0A1C]">{t.name}</div>
+                  <div className="text-xs text-[#2E0A1C]/60">{t.role}</div>
+                </div>
               </div>
             </div>
           ))}

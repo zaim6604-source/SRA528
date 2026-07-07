@@ -1,50 +1,69 @@
-import useReveal from '../hooks/useReveal';
-import { FaSearch, FaUserTie, FaClipboardList, FaHandshake, FaRocket } from 'react-icons/fa';
+import useInView from '../hooks/useInView';
 
-const STEPS = [
-  { icon: FaSearch, title: 'Requirement Analysis', desc: 'Understand your staffing needs and role requirements.' },
-  { icon: FaUserTie, title: 'Sourcing & Screening', desc: 'Identify and pre-screen candidates from our extensive talent pool.' },
-  { icon: FaClipboardList, title: 'Shortlisting & Interviews', desc: 'Present top candidates and coordinate interviews.' },
-  { icon: FaHandshake, title: 'Selection & Offer', desc: 'Finalize selection, negotiate offers, and close placements.' },
-  { icon: FaRocket, title: 'Onboarding & Follow-up', desc: 'Ensure smooth onboarding with post-placement support.' },
+const steps = [
+  { number: 1, title: 'Demand & Consultation', desc: 'We receive manpower demand from foreign recruiters and consult on requirements, timelines, and compliance.', icon: 'fa-comments' },
+  { number: 2, title: 'Sourcing & Screening', desc: 'Our team sources and screens candidates through our extensive network of skilled Pakistani workers.', icon: 'fa-search' },
+  { number: 3, title: 'Documents & Visa', desc: 'Complete documentation, attestation, and visa processing handled end-to-end by our experts.', icon: 'fa-file-alt' },
+  { number: 4, title: 'Medical & Trade Test', desc: 'Medical examinations and trade tests arranged as per the destination country\'s requirements.', icon: 'fa-stethoscope' },
+  { number: 5, title: 'Deployment & Departure', desc: 'Final deployment with travel arrangements, pre-departure orientation, and ongoing support.', icon: 'fa-plane-departure' },
 ];
 
-const COLORS = ['#C2185B', '#E91E8C', '#7B68EE', '#FFD23F', '#AD1457'];
-
 export default function Process() {
-  useReveal('.prc-reveal');
+  const [ref, inView] = useInView();
 
   return (
-    <section id="process" className="py-[clamp(60px,10vw,100px)] px-5 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #C2185B 0%, #7B68EE 100%)' }}>
-      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-      <div className="max-w-5xl mx-auto relative z-10">
-        <div className="text-center mb-12 prc-reveal reveal">
-          <span className="section-pill" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', borderColor: 'rgba(255,255,255,0.2)' }}>HOW IT WORKS</span>
-          <h2 className="font-display font-extrabold mt-4 mb-3" style={{ fontSize: 'clamp(28px,5vw,42px)', color: '#fff' }}>
-            Our Process
+    <section id="process" className="relative py-20 md:py-28">
+      {/* Diagonal background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, #E0115F 0%, #7B2D8E 100%)',
+            transform: 'skewY(-3deg)',
+            transformOrigin: 'top left',
+            top: '-10%',
+            bottom: '-10%',
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 container-pad" ref={ref}>
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-white/20 text-white mb-4 backdrop-blur-sm">
+            <i className="fas fa-list-ol text-xs"></i>
+            HOW IT WORKS
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-white">
+            Our Recruitment{' '}
+            <span className="text-[#FFD700]">Process</span>
           </h2>
-          <p className="text-sm md:text-base max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
-            A streamlined recruitment journey from requirement to onboarding.
+          <p className="text-white/80 text-base md:text-lg mt-3 max-w-2xl mx-auto">
+            A streamlined, transparent process from demand to deployment.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-5 gap-6">
-          {STEPS.map((s, i) => (
-            <div key={i} className="prc-reveal reveal text-center" style={{ transitionDelay: `${i * 0.1}s` }}>
+        <div className={`max-w-4xl mx-auto space-y-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {steps.map((step, i) => (
+            <div
+              key={i}
+              className="flex items-start gap-5 md:gap-8 bg-white/10 backdrop-blur-md rounded-2xl p-5 md:p-7 border border-white/20 hover:bg-white/20 transition-all duration-300"
+            >
               <div
-                className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
-                style={{ background: COLORS[i] }}
+                className="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl md:text-2xl font-extrabold font-heading shadow-lg"
+                style={{
+                  background: i % 2 === 0 ? '#FFD700' : '#E0115F',
+                  color: i % 2 === 0 ? '#2E0A1C' : 'white',
+                }}
               >
-                <s.icon size={24} color={COLORS[i] === '#FFD23F' ? '#3A0A22' : '#fff'} />
+                {step.number}
               </div>
-              <div
-                className="w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-3 text-sm font-bold"
-                style={{ background: 'rgba(255,255,255,0.15)', color: '#FFD23F' }}
-              >
-                {i + 1}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 mb-2">
+                  <i className={`fas ${step.icon} text-[#FFD700] text-lg`}></i>
+                  <h3 className="font-heading font-bold text-lg md:text-xl text-white">{step.title}</h3>
+                </div>
+                <p className="text-white/75 text-sm md:text-base leading-relaxed">{step.desc}</p>
               </div>
-              <h3 className="font-display font-bold text-sm mb-1.5" style={{ color: '#fff' }}>{s.title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>{s.desc}</p>
             </div>
           ))}
         </div>

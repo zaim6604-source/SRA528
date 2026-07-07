@@ -1,60 +1,69 @@
-import useReveal from '../hooks/useReveal';
-import { FaCalendarAlt, FaMapMarkedAlt, FaUserCheck, FaCheckCircle } from 'react-icons/fa';
-
-const CHIPS = [
-  { icon: FaCalendarAlt, label: 'Since 1997' },
-  { icon: FaMapMarkedAlt, label: 'Nationwide' },
-  { icon: FaUserCheck, label: 'Vetted Talent' },
-];
+import useInView from '../hooks/useInView';
+import { useState } from 'react';
 
 export default function About() {
-  useReveal('.abt-reveal');
+  const [ref, inView] = useInView();
+  const [imgError, setImgError] = useState(false);
 
   return (
-    <section id="about" className="py-[clamp(60px,10vw,100px)] px-5" style={{ background: '#fff' }}>
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 abt-reveal reveal">
-          <span className="section-pill">WHO WE ARE</span>
-          <h2 className="font-display font-extrabold mt-4 mb-3" style={{ fontSize: 'clamp(28px,5vw,42px)', color: '#3A0A22' }}>
-            About Juniper HR
+    <section id="about" className="section-pad bg-white">
+      <div className="container-pad" ref={ref}>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-[#E0115F]/10 text-[#E0115F] mb-4">
+            <i className="fas fa-info-circle text-xs"></i>
+            WHO WE ARE
+          </div>
+          <h2 className="section-heading">
+            Your Trusted Partner in{' '}
+            <span className="text-[#E0115F]">Global Recruitment</span>
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="abt-reveal reveal-l">
-            <div className="rounded-3xl overflow-hidden group shadow-xl">
+        <div className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* Image */}
+          <div className="img-hover-zoom rounded-2xl shadow-xl">
+            {imgError ? (
+              <div className="w-full aspect-[4/3] bg-[#FFF0F4] flex items-center justify-center rounded-2xl">
+                <div className="text-center">
+                  <i className="fas fa-image text-5xl text-[#E0115F]/30 mb-2"></i>
+                  <p className="text-sm text-[#E0115F]/50">Image unavailable</p>
+                </div>
+              </div>
+            ) : (
               <img
-                src="/images/team-meeting.jpg"
-                alt="Juniper HR Team"
-                className="w-full h-[350px] md:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105"
-                onError={(e) => { e.target.style.display = 'none'; }}
+                src="/images/about-office.jpg"
+                alt="Bridge Global Resource Office"
+                className="w-full aspect-[4/3] object-cover rounded-2xl"
+                onError={() => setImgError(true)}
+                loading="lazy"
               />
-            </div>
+            )}
           </div>
 
-          <div className="abt-reveal reveal-r">
-            <p className="text-base leading-relaxed mb-4" style={{ color: '#6B5B3E' }}>
-              Juniper Human Resource Provider (Pvt) Ltd is one of Pakistan's leading manpower recruitment agencies, supplying talent nationwide and providing elite recruitment and employment services since <strong style={{ color: '#C2185B' }}>1997</strong>.
+          {/* Content */}
+          <div className="space-y-6">
+            <p className="text-base leading-relaxed text-[#2E0A1C]/80">
+              Based in <strong>E-11, Islamabad</strong>, Bridge Global Resource is dedicated to promoting the migration of skilled Pakistani manpower for employment abroad. We provide competent, reliable, and cost-effective human resources to the international labor market, bridging the gap between Pakistani talent and global employers.
             </p>
-            <p className="text-base leading-relaxed mb-6" style={{ color: '#6B5B3E' }}>
-              Based in <strong>F-6 Markaz, Islamabad</strong>, we specialize in connecting organizations with highly skilled professionals across multiple sectors. Our decades of experience, extensive talent pool, and rigorous vetting process ensure the right match every time.
+            <p className="text-base leading-relaxed text-[#2E0A1C]/80">
+              We assist foreign recruiters in recruiting Pakistani manpower against specific demands, ensuring a seamless, compliant, and transparent process from sourcing to deployment. Our team brings decades of combined experience in overseas manpower recruitment, document attestation, visa processing, and pre-departure orientation.
             </p>
-            <div className="flex flex-wrap gap-3 mb-6">
-              {CHIPS.map((chip) => (
-                <span key={chip.label} className="chip flex items-center gap-1.5">
-                  <chip.icon size={11} /> {chip.label}
-                </span>
-              ))}
+
+            {/* Trust chips */}
+            <div className="flex flex-wrap gap-3 pt-4">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E0115F]/10 text-[#E0115F] text-sm font-semibold">
+                <i className="fas fa-shield-alt"></i>
+                Reliable
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF5C8A]/10 text-[#E0115F] text-sm font-semibold">
+                <i className="fas fa-coins"></i>
+                Cost-Effective
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#7B2D8E]/10 text-[#7B2D8E] text-sm font-semibold">
+                <i className="fas fa-file-contract"></i>
+                Compliant
+              </span>
             </div>
-            <a
-              href="https://wa.me/923003845414"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary !text-sm"
-            >
-              <FaCheckCircle size={15} />
-              Start Hiring
-            </a>
           </div>
         </div>
       </div>
