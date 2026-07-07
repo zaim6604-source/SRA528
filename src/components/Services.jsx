@@ -1,42 +1,113 @@
 import useInView from '../hooks/useInView';
 
 const services = [
-  { title: 'Recruitment & Talent Acquisition', desc: 'End-to-end hiring solutions to find the right talent for your organization.', color: 'bg-primary', icon: 'users' },
-  { title: 'Executive Search & Headhunting', desc: 'Specialized search for senior leadership and hard-to-fill roles.', color: 'bg-secondary', icon: 'magnifying-glass' },
-  { title: 'Temporary & Contract Staffing', desc: 'Flexible staffing solutions for seasonal, project, or interim needs.', color: 'bg-accent', icon: 'clock' },
-  { title: 'Payroll & Benefits Management', desc: 'Accurate payroll processing and employee benefits administration.', color: 'bg-cta', icon: 'file-invoice' },
-  { title: 'HR Consulting & Policy Setup', desc: 'Strategic HR guidance, policy development, and compliance support.', color: 'bg-highlight', icon: 'handshake' },
-  { title: 'Training & Development', desc: 'Upskilling programs and professional development for your workforce.', color: 'bg-primary', icon: 'chart-line' },
-  { title: 'Employee Onboarding & Compliance', desc: 'Streamlined onboarding processes and regulatory compliance management.', color: 'bg-accent', icon: 'clipboard-check' },
-  { title: 'Outsourced HR (HR-as-a-Service)', desc: 'Complete HR department outsourcing for startups and SMEs.', color: 'bg-secondary', icon: 'building' },
+  {
+    icon: 'fas fa-handshake',
+    title: 'HR Consulting',
+    desc: 'Strategic HR guidance for businesses of all sizes — from startup HR setup to organizational transformation.',
+    bg: '#D90429',
+  },
+  {
+    icon: 'fas fa-scale-balanced',
+    title: 'Employee & Labor Relations',
+    desc: 'Expert navigation of employee relations, labor law compliance, conflict resolution, and workplace mediation.',
+    bg: '#EF233C',
+  },
+  {
+    icon: 'fas fa-user-plus',
+    title: 'Recruitment & Staffing',
+    desc: 'End-to-end talent acquisition — sourcing, screening, interviewing, and onboarding the right candidates.',
+    bg: '#FF6B6B',
+  },
+  {
+    icon: 'fas fa-coins',
+    title: 'Payroll & Benefits Management',
+    desc: 'Accurate payroll processing, benefits administration, compensation planning, and payroll compliance.',
+    bg: '#FFD60A',
+  },
+  {
+    icon: 'fas fa-file-contract',
+    title: 'HR Policy & Compliance',
+    desc: 'Development of HR policies, employee handbooks, and compliance frameworks aligned with local labor laws.',
+    bg: '#BF0225',
+  },
+  {
+    icon: 'fas fa-chalkboard-user',
+    title: 'Training & Development',
+    desc: 'Customized training programs for leadership development, communication skills, compliance, and team building.',
+    bg: '#D90429',
+  },
+  {
+    icon: 'fas fa-chart-line',
+    title: 'Performance Management',
+    desc: 'Design and implementation of performance appraisal systems, KPIs, feedback processes, and improvement plans.',
+    bg: '#EF233C',
+  },
+  {
+    icon: 'fas fa-building',
+    title: 'Outsourced HR (HR-as-a-Service)',
+    desc: 'Comprehensive outsourced HR support for businesses without an in-house HR department — flexible and scalable.',
+    bg: '#FF6B6B',
+  },
 ];
 
 export default function Services() {
   const [ref, inView] = useInView();
 
   return (
-    <section id="services" className="section-pad bg-background overflow-hidden">
-      <div className="container-pad">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary font-semibold text-xs sm:text-sm px-4 py-1.5 rounded-full mb-4">
-            <i className="fas fa-briefcase text-primary/70 text-xs" /> OUR SERVICES
-          </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-ink font-heading">Comprehensive HR Solutions</h2>
-          <p className="text-ink/60 text-lg mt-3 max-w-2xl mx-auto">From recruitment to HR consulting — everything your business needs to build a strong workforce.</p>
-        </div>
-        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {services.map((s, i) => (
-            <div key={i} className={`rounded-2xl p-6 ${s.color} ${s.color === 'bg-cta' ? 'text-ink' : 'text-white'} transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{ transitionDelay: `${i * 80}ms`, minHeight: '180px' }}>
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${s.color === 'bg-cta' ? 'bg-ink/10' : 'bg-white/15'}`}>
-                <i className={`fas fa-${s.icon} text-lg`} />
-              </div>
-              <h3 className="font-bold text-base font-heading mb-2">{s.title}</h3>
-              <p className={`text-sm leading-relaxed ${s.color === 'bg-cta' ? 'text-ink/70' : 'text-white/80'}`}>{s.desc}</p>
+    <>
+      <style>{`
+        .sv-section{background:#FFF0F0;padding:96px 24px}
+        .sv-inner{max-width:1200px;margin:0 auto}
+        .sv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+        @media(max-width:1024px){.sv-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:640px){.sv-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
+        .sv-card{border-radius:24px;padding:32px 28px;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+        .sv-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.12)}
+        .sv-card-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:rgba(255,255,255,.25);font-size:22px;color:#fff}
+        .sv-card-title{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:18px;color:#fff;margin-bottom:10px}
+        .sv-card-desc{font-size:14px;line-height:1.7;color:rgba(255,255,255,.85);flex:1}
+      `}</style>
+
+      <section id="services" className="sv-section" ref={ref}>
+        <div className="sv-inner">
+          {/* Header */}
+          <div style={{ textAlign: 'center', marginBottom: 60 }} className={`reveal${inView ? ' show' : ''}`}>
+            <div className="pill-badge">
+              <span className="pill-dot" />
+              Our Services
             </div>
-          ))}
+            <h2 style={{ fontFamily: '"Plus Jakarta Sans",sans-serif', fontWeight: 900, fontSize: 'clamp(30px,4vw,46px)', color: '#2E0507', marginBottom: 16 }}>
+              Comprehensive <span style={{ color: '#D90429' }}>HR Solutions</span>
+            </h2>
+            <p style={{ color: '#6B2025', fontSize: 16, maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
+              From strategic consulting to day-to-day HR management — we provide the full spectrum of human resources services.
+            </p>
+          </div>
+
+          {/* Masonry-like grid */}
+          <div className="sv-grid">
+            {services.map((s, i) => (
+              <div
+                key={i}
+                className={`sv-card reveal${inView ? ' show' : ''}`}
+                style={{
+                  background: s.bg,
+                  transitionDelay: `${i * 0.08}s`,
+                  gridRow: i === 3 ? 'span 1' : 'auto',
+                  transform: i % 2 === 0 ? 'translateY(0)' : 'translateY(12px)',
+                }}
+              >
+                <div className="sv-card-icon">
+                  <i className={s.icon} />
+                </div>
+                <div className="sv-card-title">{s.title}</div>
+                <div className="sv-card-desc">{s.desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

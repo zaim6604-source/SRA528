@@ -1,64 +1,83 @@
 import useInView from '../hooks/useInView';
 
 const steps = [
-  { number: '01', title: 'Consultation & Needs Analysis', desc: 'We start by understanding your business needs or career goals through a detailed consultation.' },
-  { number: '02', title: 'Sourcing & Screening', desc: 'Our team sources and screens candidates or opportunities to find the perfect match.' },
-  { number: '03', title: 'Interviews & Shortlisting', desc: 'We coordinate interviews and help shortlist the best-fit candidates or positions.' },
-  { number: '04', title: 'Offer & Onboarding', desc: 'From offer negotiation to onboarding, we ensure a smooth transition for all parties.' },
-  { number: '05', title: 'Ongoing HR Support', desc: 'We provide continued HR support, check-ins, and follow-up to ensure lasting success.' },
+  { num: '01', title: 'Consultation & Assessment', desc: 'We start with a deep conversation to understand your HR needs, challenges, and goals.' },
+  { num: '02', title: 'HR Audit & Planning', desc: 'A thorough review of your current HR practices, policies, and compliance — followed by a strategic plan.' },
+  { num: '03', title: 'Solution Design', desc: 'We design tailored HR solutions — from recruitment frameworks to policy handbooks and training programs.' },
+  { num: '04', title: 'Implementation', desc: 'Our team works alongside yours to implement solutions smoothly, with minimal disruption.' },
+  { num: '05', title: 'Ongoing Support & Review', desc: 'Continuous support, periodic reviews, and adjustments to ensure your HR practices remain effective.' },
 ];
 
 export default function Process() {
   const [ref, inView] = useInView();
 
   return (
-    <section id="process" className="relative overflow-hidden py-20 md:py-28">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-accent" style={{ transform: 'skewY(-3deg)', transformOrigin: 'top left' }} />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-accent" style={{ transform: 'skewY(3deg)', transformOrigin: 'bottom right' }} />
-      <div className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-          backgroundSize: '30px 30px',
-        }}
-      />
+    <>
+      <style>{`
+        .pr-section{padding:96px 24px;position:relative;overflow:hidden}
+        .pr-inner{max-width:1200px;margin:0 auto;position:relative;z-index:10}
+        .pr-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;align-items:start}
+        @media(max-width:1024px){.pr-steps{grid-template-columns:repeat(3,1fr);gap:16px}}
+        @media(max-width:640px){.pr-steps{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
+        .pr-step{text-align:center;padding:32px 16px;position:relative}
+        .pr-chevron{display:flex;align-items:center;position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:#FFD60A;font-size:20px;opacity:.9;z-index:5}
+        @media(max-width:1024px){.pr-chevron{display:none}}
+        .pr-step-num{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Plus Jakarta Sans",sans-serif;font-weight:900;font-size:20px;margin:0 auto 16px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+        .pr-step-title{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:15px;margin-bottom:8px;color:#fff}
+        .pr-step-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.85)}
+      `}</style>
 
-      <div className="relative z-10 container-pad">
-        <div className="text-center mb-14">
-          <span className="inline-flex items-center gap-1.5 bg-white/15 text-white font-semibold text-xs px-4 py-1.5 rounded-full mb-4">
-            <i className="fas fa-list-ol text-xs" />
-            HOW IT WORKS
-          </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white font-heading">
-            Our Simple 5-Step Process
-          </h2>
-          <p className="text-white/70 text-lg mt-3 max-w-2xl mx-auto">
-            A streamlined approach to finding the right talent or the right role.
-          </p>
+      <section id="process" className="pr-section" ref={ref}>
+        {/* Diagonal background */}
+        <div className="section-diagonal" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(135deg, #D90429 0%, #EF233C 100%)',
+            transform: 'skewY(-2deg)',
+            transformOrigin: 'top left',
+            width: '100%', height: '120%', top: '-10%',
+          }} />
         </div>
 
-        <div ref={ref} className="max-w-4xl mx-auto">
-          {steps.map((step, i) => (
-            <div
-              key={i}
-              className={`relative flex items-start mb-10 last:mb-0 transition-all duration-700 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
-              style={{ transitionDelay: `${i * 120}ms` }}
-            >
-              <div className={`relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-heading font-extrabold text-xl shadow-lg border-4 border-white/30 ${i % 2 === 0 ? 'bg-cta text-ink' : 'bg-white text-primary'}`}>
-                {step.number}
-              </div>
+        {/* Wavy divider bottom */}
+        <div className="wave-divider" style={{ position: 'absolute', bottom: -1, left: 0, right: 0, zIndex: 5 }}>
+          <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ width: '100%', height: '50px' }}>
+            <path d="M0,30 C360,0 720,60 1440,20 L1440,60 L0,60 Z" fill="#FFF0F0" />
+          </svg>
+        </div>
 
-              {i < steps.length - 1 && (
-                <div className="hidden md:block absolute left-7 top-14 w-0.5 h-16 bg-gradient-to-b from-white/40 to-transparent" />
-              )}
-
-              <div className="ml-6 flex-1 bg-white/10 backdrop-blur-sm rounded-2xl p-5 md:p-6 border border-white/10 hover:bg-white/15 transition-all duration-300">
-                <h3 className="font-bold text-white text-lg font-heading mb-2">{step.title}</h3>
-                <p className="text-white/70 text-sm leading-relaxed">{step.desc}</p>
-              </div>
+        <div className="pr-inner">
+          <div style={{ textAlign: 'center', marginBottom: 48 }} className={`reveal${inView ? ' show' : ''}`}>
+            <div className="pill-badge" style={{ margin: '0 auto 18px', background: 'rgba(255,255,255,.15)', borderColor: 'rgba(255,255,255,.3)', color: '#fff' }}>
+              <span className="pill-dot" style={{ background: '#FFD60A' }} /> How It Works
             </div>
-          ))}
+            <h2 style={{ fontFamily: '"Plus Jakarta Sans",sans-serif', fontWeight: 900, fontSize: 'clamp(28px,3.5vw,42px)', color: '#fff', marginBottom: 14 }}>
+              Our <span style={{ color: '#FFD60A' }}>Process</span>
+            </h2>
+            <p style={{ color: 'rgba(255,255,255,.8)', fontSize: 15, maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
+              A structured, proven approach to delivering HR solutions that make a real difference.
+            </p>
+          </div>
+
+          <div className="pr-steps">
+            {steps.map((p, i) => (
+              <div key={i} className={`pr-step reveal${inView ? ' show' : ''}`} style={{ transitionDelay: `${i * 0.1}s` }}>
+                {i < steps.length - 1 && (
+                  <div className="pr-chevron"><i className="fa-solid fa-chevron-right"></i></div>
+                )}
+                <div className="pr-step-num" style={{
+                  background: i % 2 === 0 ? '#FFD60A' : '#fff',
+                  color: i % 2 === 0 ? '#2E0507' : '#D90429',
+                }}>
+                  {p.num}
+                </div>
+                <div className="pr-step-title">{p.title}</div>
+                <div className="pr-step-desc">{p.desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
