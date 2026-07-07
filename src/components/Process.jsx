@@ -1,90 +1,53 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
-
 const steps = [
-  {
-    number: '1',
-    title: 'Register & Consult',
-    desc: 'Visit our Misrial Road office or contact us to register. We assess your skills and discuss preferred destinations.',
-  },
-  {
-    number: '2',
-    title: 'Documents & Visa',
-    desc: 'We guide you through document preparation, attestation, and visa application — ensuring everything is in order.',
-  },
-  {
-    number: '3',
-    title: 'Medical & Trade Test',
-    desc: 'We coordinate your medical examination and any required trade skill tests for overseas employment.',
-  },
-  {
-    number: '4',
-    title: 'Employer Confirmation',
-    desc: 'Once matched with a verified employer, we finalize your job offer, contract, and work permit processing.',
-  },
-  {
-    number: '5',
-    title: 'Ticketing & Departure',
-    desc: 'We arrange your flight, provide pre-departure orientation, and ensure you travel with confidence.',
-  },
+  { num: "1", title: "Register & Pick Trade", desc: "Contact us via WhatsApp to register and select the trade you want to be tested in." },
+  { num: "2", title: "Report to Center", desc: "Visit our testing center in Mardan at your scheduled time with your tools and ID." },
+  { num: "3", title: "Practical Test", desc: "Perform hands-on tasks in your trade under the observation of our experienced assessors." },
+  { num: "4", title: "Assessment & Grading", desc: "Your performance is evaluated against international standards and assigned a grade." },
+  { num: "5", title: "Certificate Issued", desc: "Receive your trade test certificate, skill report, and video/photo records." },
 ];
 
 export default function Process() {
-  const [ref, isVisible] = useScrollAnimation();
-
   return (
-    <section id="process" className="relative overflow-hidden py-20 md:py-28">
-      {/* Diagonal gradient background — orange to purple */}
-      <div className="absolute inset-0 bg-gradient-to-br from-misrial-primary via-misrial-primary to-misrial-accent" />
-      <div className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-          backgroundSize: '30px 30px',
-        }}
-      />
-
-      <div className="relative z-10 container-pad">
-        <div className="text-center mb-14">
-          <span className="inline-flex items-center gap-1.5 bg-white/15 text-white font-semibold text-xs px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">
-            <i className="fas fa-list-ol" />
-            How It Works
+    <section id="process" className="py-20 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-center mb-14">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary/10 text-primary border border-primary/20">
+            HOW IT WORKS
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white font-heading">
-            Your Journey in 5 Simple Steps
-          </h2>
-          <p className="text-white/70 text-lg mt-3 max-w-2xl mx-auto">
-            From registration to departure — we make overseas recruitment simple and transparent.
-          </p>
         </div>
 
-        {/* Ascending Staircase */}
-        <div ref={ref} className="max-w-4xl mx-auto">
-          {steps.map((step, i) => (
-            <div
-              key={i}
-              className={`relative flex items-center mb-10 last:mb-0 transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-              }`}
-              style={{ transitionDelay: `${i * 150}ms` }}
-            >
-              {/* Step number circle */}
-              <div className="relative z-10 flex-shrink-0 w-14 h-14 rounded-full bg-misrial-cta text-white flex items-center justify-center font-heading font-extrabold text-xl shadow-lg border-4 border-white/30">
-                {step.number}
-              </div>
+        <div className="relative bg-gradient-to-br from-primary/5 via-transparent to-accent/5 rounded-3xl p-8 md:p-12">
+          {/* Arrow flow */}
+          <div className="grid md:grid-cols-5 gap-6">
+            {steps.map((step, i) => (
+              <div key={step.num} className="relative flex flex-col items-center text-center">
+                {/* Number badge */}
+                <div className="w-12 h-12 rounded-full bg-primary text-white font-heading font-extrabold text-lg flex items-center justify-center shadow-lg mb-4">
+                  {step.num}
+                </div>
 
-              {/* Staircase connector line */}
-              <div className="hidden md:block absolute left-7 top-14 w-0.5 h-16 bg-gradient-to-b from-misrial-cta/60 to-transparent" />
+                {/* Arrow connector */}
+                {i < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-6 -right-4 text-accent/40">
+                    <i className="fas fa-arrow-right text-xl"></i>
+                  </div>
+                )}
 
-              {/* Content card */}
-              <div className="ml-6 flex-1 bg-white/10 backdrop-blur-sm rounded-2xl p-5 md:p-6 border border-white/10 hover:bg-white/15 transition-all duration-300">
-                <h3 className="font-bold text-white text-lg font-heading mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  {step.desc}
-                </p>
+                {/* Content */}
+                <div className="bg-white rounded-xl p-4 shadow-sm border border-primary/10 w-full">
+                  <h3 className="font-heading text-sm font-bold text-ink mb-1">{step.title}</h3>
+                  <p className="text-xs text-ink/70 leading-relaxed">{step.desc}</p>
+                </div>
+
+                {/* Mobile connector */}
+                {i < steps.length - 1 && (
+                  <div className="md:hidden my-2 text-primary/30">
+                    <i className="fas fa-chevron-down"></i>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

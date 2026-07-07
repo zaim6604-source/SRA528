@@ -1,114 +1,95 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useState } from "react";
 
 const testimonials = [
   {
-    name: 'Ahmed Raza',
-    role: 'Construction Worker',
-    location: 'Now in Saudi Arabia',
-    text: 'Misrial Enterprises helped me find a great job in Riyadh. The whole process was smooth — from documentation to departure. Highly recommended!',
+    name: "Bilal Khan",
+    role: "Welder — Saudi Arabia",
+    quote: "I took my 3G welding test at Bukhari Trade Test Center. The assessors were professional and the setup was just like what I'd face on a real site. Got my certificate the same day.",
     rating: 5,
-    tilt: '-2deg',
   },
   {
-    name: 'Muhammad Usman',
-    role: 'Driver',
-    location: 'Now in UAE',
-    text: 'I was nervous about working abroad, but their team guided me every step. Got my visa in 3 weeks. Fair and honest service.',
+    name: "Faisal Ali",
+    role: "Electrician — Qatar",
+    quote: "The practical test was fair and thorough. They tested my wiring, panel work, and troubleshooting skills. The video record helped my employer verify my skills without a second interview.",
     rating: 5,
-    tilt: '1.5deg',
   },
   {
-    name: 'Bilal Ahmad',
-    role: 'Welder',
-    location: 'Now in Poland',
-    text: 'Professional team with real experience. They connected me with a verified employer in Poland. The pay is good and conditions are excellent.',
+    name: "Waqar Ahmad",
+    role: "Heavy Driver — UAE",
+    quote: "Bukhari Center made the testing process easy. They tested my driving and basic mechanical knowledge. The certificate was accepted by my sponsor without any issues.",
     rating: 5,
-    tilt: '-1deg',
   },
   {
-    name: 'Sajid Mahmood',
-    role: 'Security Guard',
-    location: 'Now in Oman',
-    text: 'I applied through Misrial Enterprises and got placed in Muscat within a month. Everything was transparent — no hidden charges.',
+    name: "Rashid Mehmood",
+    role: "Plumber — Germany",
+    quote: "The test was hands-on and practical — pipe threading, joint work, and pressure testing. I appreciated the detailed grading report. Highly recommended for anyone going abroad.",
     rating: 4,
-    tilt: '2deg',
   },
   {
-    name: 'Farhan Ali',
-    role: 'Hospitality Staff',
-    location: 'Now in Qatar',
-    text: 'Thanks to Misrial Enterprises, I have a secure job in Doha. They handled all paperwork and even arranged my flight. Very grateful.',
+    name: "Naveed Iqbal",
+    role: "Steel Fixer — Kuwait",
+    quote: "They tested my rebar tying, cutting, and bending skills just like on a real construction site. Fair assessment and quick results. Great facility in Mardan.",
     rating: 5,
-    tilt: '-2.5deg',
-  },
-  {
-    name: 'Khalid Parvez',
-    role: 'Agriculture Worker',
-    location: 'Now in Italy',
-    text: 'Excellent service from start to finish. The team at Misrial Road is professional and caring. They genuinely want the best for you.',
-    rating: 5,
-    tilt: '1deg',
   },
 ];
 
 export default function Testimonials() {
-  const [ref, isVisible] = useScrollAnimation();
+  const [active, setActive] = useState(0);
 
   return (
-    <section id="testimonials" className="section-pad bg-misrial-background overflow-hidden">
-      <div className="container-pad">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 bg-misrial-primary/15 text-misrial-primary font-semibold text-xs px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">
-            <i className="fas fa-star" />
-            Success Stories
+    <section id="testimonials" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-center mb-14">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold bg-primary/10 text-primary border border-primary/20">
+            WHAT WORKERS SAY
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#2B1400] font-heading">
-            What Our Workers Say
-          </h2>
-          <p className="text-gray-500 text-lg mt-3 max-w-2xl mx-auto">
-            Real stories from workers we have placed overseas.
-          </p>
         </div>
 
-        {/* Polaroid Cards */}
-        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className={`polaroid-card bg-white rounded-2xl p-6 pb-10 shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{
-                transitionDelay: `${i * 80}ms`,
-                '--tilt': t.tilt,
-              }}
-            >
-              {/* Mint Stars */}
-              <div className="flex gap-1 mb-3">
-                {[...Array(t.rating)].map((_, j) => (
-                  <i key={j} className="fas fa-star text-misrial-cta text-sm" />
-                ))}
-                {[...Array(5 - t.rating)].map((_, j) => (
-                  <i key={j} className="far fa-star text-gray-300 text-sm" />
-                ))}
-              </div>
-
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 italic">
-                &ldquo;{t.text}&rdquo;
-              </p>
-
-              <div className="pt-3 border-t border-gray-100">
-                <p className="font-bold text-[#2B1400] text-sm font-heading">
-                  {t.name}
-                </p>
-                <p className="text-xs text-misrial-primary font-medium">{t.role}</p>
-                <p className="text-xs text-gray-400 mt-0.5">
-                  <i className="fas fa-location-dot text-misrial-cta mr-1" />
-                  {t.location}
-                </p>
-              </div>
-            </div>
-          ))}
+        <div className="max-w-4xl mx-auto">
+          {/* Chat bubble thread */}
+          <div className="flex flex-col gap-5">
+            {testimonials.map((t, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <div
+                  key={i}
+                  className={`flex ${isLeft ? "justify-start" : "justify-end"} animate-chat-pop`}
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <div
+                    className={`relative max-w-lg ${
+                      isLeft
+                        ? "bg-background border border-primary/10"
+                        : "bg-primary/5 border border-primary/10"
+                    } rounded-2xl p-4 shadow-sm`}
+                  >
+                    <div className="flex items-center gap-1 mb-2">
+                      {[...Array(5)].map((_, s) => (
+                        <i
+                          key={s}
+                          className={`fas fa-star text-[10px] ${s < t.rating ? "text-cta" : "text-gray-200"}`}
+                        ></i>
+                      ))}
+                    </div>
+                    <p className="text-sm text-ink/80 leading-relaxed mb-2">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center">
+                        <span className="text-[10px] font-bold text-primary">
+                          {t.name.split(" ").map((n) => n[0]).join("")}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-ink">{t.name}</p>
+                        <p className="text-[10px] text-ink/40">{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

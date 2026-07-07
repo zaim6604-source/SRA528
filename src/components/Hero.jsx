@@ -1,111 +1,97 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useState } from "react";
 
-const fallbackImg = '/src/assets/images/gold-street/fallback.jpg';
+function ImgWithFallback({ src, alt, className }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className={`${className} bg-gradient-to-br from-primary/40 to-accent/40 flex items-center justify-center`}>
+        <i className="fas fa-wrench text-white/50 text-5xl"></i>
+      </div>
+    );
+  }
+  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} />;
+}
 
 export default function Hero() {
-  const [ref, isVisible] = useScrollAnimation(0.1);
-
   return (
-    <section id="hero" className="relative min-h-screen">
-      <div className="flex flex-col md:flex-row min-h-screen">
-        {/* Left Panel — Solid Orange */}
-        <div className="w-full md:w-1/2 bg-misrial-primary flex items-center relative z-10">
-          <div
-            ref={ref}
-            className={`container-pad py-24 md:py-0 transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-            }`}
-          >
-            <span className="inline-flex items-center gap-1.5 bg-white/15 text-white px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase mb-6">
-              <i className="fas fa-certificate" />
-              License 2203/RWP — Govt. Registered
-            </span>
+    <section className="flex flex-col md:flex-row min-h-[85vh]">
+      <div className="w-full md:w-1/2 bg-primary text-white flex flex-col justify-center px-6 sm:px-10 lg:px-16 xl:px-20 py-16 md:py-0">
+        <div className="max-w-xl">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-cta border border-white/20 mb-6">
+            <i className="fas fa-badge-check mr-1.5"></i>
+            Trade Testing Center — Mardan
+          </span>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-5">
-              Rawalpindi's Reliable Route to<br />
-              <span className="text-misrial-cta">Rewarding Work Abroad</span>
-            </h1>
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-5">
+            Prove Your Trade.{" "}
+            <span className="text-cta">Pass with Confidence.</span>
+          </h2>
 
-            <p className="text-lg md:text-xl text-white/85 leading-relaxed max-w-xl mb-8">
-              Misrial Enterprises places local workers with trusted Gulf and
-              European employers — licensed, honest, complete.
-            </p>
+          <p className="text-base sm:text-lg text-white/80 mb-8 leading-relaxed max-w-lg">
+            Bukhari Trade Test Center certifies skilled workers in Mardan — professional trade
+            testing that employers abroad trust.
+          </p>
 
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="https://wa.me/923215667136"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-misrial-cta hover:bg-misrial-cta/90 text-white font-semibold px-7 py-3.5 rounded-full transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 inline-flex items-center gap-2 text-base"
-              >
-                <i className="fas fa-paper-plane" />
-                Apply via WhatsApp
-              </a>
-              <a
-                href="https://wa.me/923215667136"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-2 border-white/40 text-white hover:bg-white hover:text-misrial-primary font-semibold px-7 py-3.5 rounded-full transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 inline-flex items-center gap-2 text-base"
-              >
-                <i className="fab fa-whatsapp" />
-                WhatsApp Us
-              </a>
-            </div>
-
-            <div className="flex flex-wrap gap-6 mt-10">
-              {[
-                { num: '3500+', label: 'Workers Placed' },
-                { num: '12+', label: 'Countries' },
-                { num: '15+', label: 'Years Trusted' },
-              ].map((s, i) => (
-                <div key={i} className="text-center">
-                  <div className="text-2xl md:text-3xl font-heading font-bold text-white">
-                    {s.num}
-                  </div>
-                  <div className="text-xs text-white/70 mt-0.5">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Panel — Full Height Photo Column */}
-        <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-screen overflow-hidden">
-          <img
-            src="/src/assets/images/hero-bg.jpg"
-            alt="Workers abroad"
-            className="absolute inset-0 w-full h-full object-cover"
-            onError={(e) => { e.target.src = fallbackImg; }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-misrial-primary/40 to-[#2B1400]/50" />
-
-          {/* Wavy inner seam */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 hidden md:block pointer-events-none">
-            <div
-              className="absolute inset-0 bg-misrial-primary"
-              style={{
-                clipPath: "polygon(100% 0%, 60% 12%, 85% 28%, 50% 48%, 80% 65%, 55% 82%, 100% 100%, 0% 100%, 0% 0%)",
-              }}
-            />
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="https://wa.me/923005719948"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-cta text-ink px-7 py-3.5 rounded-lg text-base font-bold hover:bg-cta/90 transition-all shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+            >
+              <i className="fas fa-paper-plane"></i>
+              Book a Test
+            </a>
+            <a
+              href="https://wa.me/923005719948"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-transparent border-2 border-white/40 text-white px-7 py-3.5 rounded-lg text-base font-semibold hover:bg-white/10 transition-all inline-flex items-center gap-2"
+            >
+              <i className="fab fa-whatsapp"></i>
+              WhatsApp Us
+            </a>
           </div>
 
-          {/* Right panel content */}
-          <div className="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-12">
-            <span className="self-start mb-4 bg-misrial-cta/90 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5">
-              <i className="fas fa-shield-halved" />
-              2203/RWP — LICENSED
-            </span>
-            <div className="flex flex-wrap gap-3">
-              {['Overseas Recruitment', 'Visa Processing', 'Document Attestation'].map((chip, i) => (
-                <span key={i} className="bg-white/15 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full border border-white/20">
-                  {chip}
-                </span>
-              ))}
+          <div className="flex flex-wrap gap-6 mt-10 pt-8 border-t border-white/15">
+            <div className="flex items-center gap-2">
+              <i className="fas fa-users text-cta"></i>
+              <span className="text-sm text-white/70">10,000+ Tested</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <i className="fas fa-toolbox text-cta"></i>
+              <span className="text-sm text-white/70">20+ Trades</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <i className="fas fa-certificate text-cta"></i>
+              <span className="text-sm text-white/70">Certified</span>
             </div>
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-misrial-background to-transparent" />
+
+      <div className="w-full md:w-1/2 relative min-h-[40vh] md:min-h-[85vh] overflow-hidden">
+        <ImgWithFallback
+          src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80"
+          alt="Workshop trade testing at Bukhari Center"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 md:bg-gradient-to-r md:from-primary/30 md:to-transparent"></div>
+        <div className="absolute top-6 right-6 bg-white/95 text-primary font-heading font-bold px-4 py-2 rounded-lg shadow-lg text-sm">
+          <i className="fas fa-certificate text-cta mr-1.5"></i>
+          Trade Tested
+        </div>
+        <div className="absolute bottom-6 left-6 right-6 flex flex-wrap gap-3">
+          <div className="bg-white/90 backdrop-blur-sm text-ink px-4 py-2.5 rounded-lg shadow-lg text-sm font-semibold flex items-center gap-2">
+            <i className="fas fa-wrench text-primary"></i>
+            Practical Skill Assessment
+          </div>
+          <div className="bg-white/90 backdrop-blur-sm text-ink px-4 py-2.5 rounded-lg shadow-lg text-sm font-semibold flex items-center gap-2">
+            <i className="fas fa-location-dot text-primary"></i>
+            Mardan, KPK
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
