@@ -1,52 +1,65 @@
-import FadeUp from './FadeUp';
-import SectionBadge from './SectionBadge';
+import useInView from '../hooks/useInView';
 
-const STEPS = [
-  { icon: 'fa-handshake', label: 'Register & Consult', color: 'bg-[#E0115F]' },
-  { icon: 'fa-file-contract', label: 'Documents & Visa', color: 'bg-[#7B2D8E]' },
-  { icon: 'fa-stethoscope', label: 'Medical & Trade Test', color: 'bg-[#FFD700]' },
-  { icon: 'fa-check-circle', label: 'Employer Confirmation', color: 'bg-[#FF5C8A]' },
-  { icon: 'fa-plane-departure', label: 'Ticketing & Departure', color: 'bg-[#B8004F]' },
+const steps = [
+  { num: '01', icon: 'fa-clipboard-list', title: 'Register', desc: 'Submit your application online or visit our office at Adamjee Road, Saddar.' },
+  { num: '02', icon: 'fa-file-contract', title: 'Documents & Visa', desc: 'Submit required documents; we handle visa processing and attestation.' },
+  { num: '03', icon: 'fa-stethoscope', title: 'Medical & Trade Test', desc: 'Complete medical examination and any required trade tests.' },
+  { num: '04', icon: 'fa-check-double', title: 'Employer Confirmation', desc: 'Receive your job offer and employment contract from the employer.' },
+  { num: '05', icon: 'fa-plane-departure', title: 'Ticketing & Departure', desc: 'We arrange your flight and provide pre-departure orientation.' },
 ];
 
 export default function Process() {
-  return (
-    <section id="process" className="py-16 lg:py-24 bg-gradient-to-r from-[#E0115F] to-[#7B2D8E]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-14">
-          <SectionBadge text="HOW IT WORKS" color="bg-[#FFD700]" />
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
-            Your Journey to the Gulf
-          </h2>
-          <p className="text-white/80 mt-3 max-w-2xl mx-auto">
-            A streamlined 5-step process designed to get you from application to departure with confidence.
-          </p>
-        </FadeUp>
+  const [ref, inView] = useInView({ threshold: 0.1 });
 
-        <div className="flex flex-col md:flex-row items-center justify-center md:gap-0 gap-8 relative">
-          {STEPS.map((step, i) => (
-            <FadeUp
-              key={i}
-              delay={(i % 5) + 1}
-              className="flex flex-col items-center md:w-1/5 relative"
+  return (
+    <section id="process" className="relative py-16 lg:py-24 overflow-hidden">
+      {/* Diagonal background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-highlight to-accent transform -skew-y-3 scale-110" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-highlight to-accent" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-4">
+          <span className="pill-badge bg-white/20 text-white border border-white/30 backdrop-blur-sm">
+            <i className="fas fa-arrow-right mr-1.5" />
+            HOW IT WORKS
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-4">
+          Your Journey Starts Here
+        </h2>
+        <p className="text-center text-white/80 max-w-2xl mx-auto mb-12">
+          A simple, transparent process from registration to departure.
+        </p>
+
+        <div
+          ref={ref}
+          className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6"
+        >
+          {steps.map((step, i) => (
+            <div
+              key={step.num}
+              className={`relative bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20 transition-all duration-500 hover:bg-white/20 ${
+                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${i * 150}ms` }}
             >
-              {/* Diamond */}
-              <div className="relative flex flex-col items-center">
-                <div className={`diamond ${step.color} shadow-xl flex items-center justify-center`}>
-                  <div className="diamond-inner text-white text-center">
-                    <span className="text-xs font-bold block leading-none">{i + 1}</span>
-                    <i className={`fa-solid ${step.icon} text-lg`}></i>
-                  </div>
-                </div>
-                {/* Connector */}
-                {i < STEPS.length - 1 && (
-                  <div className="hidden md:block absolute top-[40px] left-[60%] w-[70%] h-0.5 border-t-2 border-dashed border-white/40"></div>
-                )}
+              {/* Step number */}
+              <div className="w-12 h-12 rounded-full bg-cta text-ink font-extrabold text-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
+                {step.num}
               </div>
-              <p className="text-white text-sm font-semibold mt-4 text-center max-w-28">
-                {step.label}
-              </p>
-            </FadeUp>
+              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4">
+                <i className={`fas ${step.icon} text-2xl text-white`} />
+              </div>
+              <h3 className="text-white font-bold text-lg mb-2">{step.title}</h3>
+              <p className="text-white/80 text-sm leading-relaxed">{step.desc}</p>
+
+              {/* Connector arrow (desktop) */}
+              {i < steps.length - 1 && (
+                <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 text-cta/60 text-2xl">
+                  <i className="fas fa-chevron-right" />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </div>

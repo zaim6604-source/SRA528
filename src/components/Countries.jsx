@@ -1,112 +1,127 @@
-import FadeUp from './FadeUp';
-import SectionBadge from './SectionBadge';
-import SafeImage from './SafeImage';
+import useInView from '../hooks/useInView';
 
-const COUNTRIES = [
-  {
-    name: 'United Arab Emirates',
-    flag: '🇦🇪',
-    roles: 'Construction • Hospitality • Retail • Drivers',
-    img: '/images/uae.jpg',
-  },
+const countries = [
   {
     name: 'Saudi Arabia',
     flag: '🇸🇦',
-    roles: 'Construction • Technicians • Security • Healthcare',
-    img: 'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=80',
+    roles: 'Construction, Drivers',
+    image: 'https://picsum.photos/seed/saudi-arabia/800/600',
+  },
+  {
+    name: 'UAE',
+    flag: '🇦🇪',
+    roles: 'Hospitality, Retail, Drivers',
+    image: 'https://picsum.photos/seed/uae/800/600',
   },
   {
     name: 'Qatar',
     flag: '🇶🇦',
-    roles: 'Hospitality • Construction • Drivers • Engineering',
-    img: '/images/qatar.jpg',
+    roles: 'Construction, Hospitality',
+    image: 'https://picsum.photos/seed/qatar/800/600',
   },
   {
     name: 'Oman',
     flag: '🇴🇲',
-    roles: 'Oil & Gas • Technicians • Hospitality • Logistics',
-    img: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&q=80',
+    roles: 'Security, Hospitality',
+    image: 'https://picsum.photos/seed/oman/800/600',
   },
   {
-    name: 'Kuwait',
-    flag: '🇰🇼',
-    roles: 'Construction • Security • Drivers • Engineering',
-    img: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&q=80',
+    name: 'Germany',
+    flag: '🇩🇪',
+    roles: 'Nurses, Trades, IT',
+    image: 'https://picsum.photos/seed/germany/800/600',
   },
   {
-    name: 'Bahrain',
-    flag: '🇧🇭',
-    roles: 'Retail • Technicians • Hospitality • Finance',
-    img: 'https://images.unsplash.com/photo-1503152394-c571994fd383?w=800',
+    name: 'Poland',
+    flag: '🇵🇱',
+    roles: 'Welders, Factory Workers',
+    image: 'https://picsum.photos/seed/poland/800/600',
+  },
+  {
+    name: 'Romania',
+    flag: '🇷🇴',
+    roles: 'Manufacturing, Logistics',
+    image: 'https://picsum.photos/seed/romania/800/600',
+  },
+  {
+    name: 'Greece',
+    flag: '🇬🇷',
+    roles: 'Farming, Tourism',
+    image: 'https://picsum.photos/seed/greece/800/600',
+  },
+  {
+    name: 'Malaysia',
+    flag: '🇲🇾',
+    roles: 'Electronics, Manufacturing',
+    image: 'https://picsum.photos/seed/malaysia/800/600',
   },
 ];
-
-const CHIP_COLORS = [
-  'bg-[#E0115F]',
-  'bg-[#7B2D8E]',
-  'bg-[#FFD700]',
-  'bg-[#FF5C8A]',
-  'bg-[#B8004F]',
-  'bg-[#E0115F]',
-];
-
 
 export default function Countries() {
+  const [ref, inView] = useInView({ threshold: 0.05 });
+
   return (
     <section id="countries" className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-12">
-          <SectionBadge text="DESTINATIONS" color="bg-[#FF5C8A]" />
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3D0A1E]">
-            Gulf Destinations We Serve
-          </h2>
-          <p className="text-[#5C1A32]/70 mt-3 max-w-2xl mx-auto">
-            We place talent across all six Gulf Cooperation Council countries.
-          </p>
-        </FadeUp>
+        <div className="text-center mb-4">
+          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
+            <i className="fas fa-globe-asia mr-1.5" />
+            DESTINATIONS
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
+          Countries We Serve
+        </h2>
+        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
+          We connect workers with reputable employers across the Gulf, Europe, and Asia.
+        </p>
 
-        {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {COUNTRIES.map((c, i) => (
-            <FadeUp key={i} delay={(i % 3) + 1}>
-              <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group">
-                <div className="h-48 overflow-hidden img-zoom">
-                  <SafeImage
-                    src={c.img}
-                    alt={c.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    type="landmark"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-[#3D0A1E] text-lg mb-1">
-                    {c.flag} {c.name}
+        <div
+          ref={ref}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {countries.map((country, i) => (
+            <div
+              key={country.name}
+              className={`group rounded-xl overflow-hidden shadow-md bg-white border border-secondary/10 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 ${
+                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <div className="relative h-44 overflow-hidden">
+                <img
+                  src={country.image}
+                  alt={country.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.parentElement.innerHTML = `<div class="flex items-center justify-center h-full bg-gradient-to-br from-primary/10 to-accent/10"><span class="text-6xl">${country.flag}</span></div>`;
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4">
+                  <h3 className="text-white font-bold text-lg flex items-center gap-2">
+                    <span>{country.flag}</span>
+                    {country.name}
                   </h3>
-                  <p className="text-[#E0115F] text-sm font-medium">In-demand roles:</p>
-                  <p className="text-[#5C1A32]/70 text-sm">{c.roles}</p>
                 </div>
               </div>
-            </FadeUp>
+              <div className="p-4">
+                <div className="flex flex-wrap gap-2">
+                  {country.roles.split(', ').map((role) => (
+                    <span
+                      key={role}
+                      className="px-2.5 py-1 rounded-full text-xs font-medium bg-background text-primary border border-secondary/20"
+                    >
+                      {role}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
-
-        {/* Chip grid */}
-        <FadeUp className="text-center">
-          <p className="text-sm font-semibold text-[#5C1A32]/60 mb-3 tracking-wider">
-            <i className="fa-solid fa-location-dot mr-1.5 text-[#E0115F]"></i>
-            ALL DESTINATIONS
-          </p>
-          <div className="flex flex-wrap justify-center gap-2.5">
-            {COUNTRIES.map((c, i) => (
-              <span
-                key={i}
-                className={`${CHIP_COLORS[i]} text-white text-sm font-semibold px-4 py-2 rounded-full`}
-              >
-                {c.flag} {c.name}
-              </span>
-            ))}
-          </div>
-        </FadeUp>
       </div>
     </section>
   );

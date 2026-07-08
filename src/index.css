@@ -1,15 +1,15 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --color-primary: #E10600;
-  --color-secondary: #FF4D4D;
-  --color-accent: #1C1C1C;
-  --color-cta: #FFD500;
-  --color-highlight: #A30000;
-  --color-background: #F5F5F5;
-  --color-ink: #141414;
-  --font-inter: 'Inter', sans-serif;
-  --font-poppins: 'Poppins', sans-serif;
+  --color-primary: #E0115F;
+  --color-secondary: #FF5C8A;
+  --color-accent: #FFD700;
+  --color-cta: #7B2D8E;
+  --color-highlight: #B8004F;
+  --color-background: #FFF0F4;
+  --color-ink: #2E0A1C;
 }
 
 html {
@@ -17,141 +17,90 @@ html {
 }
 
 body {
-  font-family: var(--font-inter);
-  background-color: var(--color-background);
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
   color: var(--color-ink);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
 }
 
-/* Hero overlay — dark gradient */
-.hero-overlay {
-  background: linear-gradient(135deg, rgba(225,6,0,0.85), rgba(28,28,28,0.9));
+/* Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Tile overlay — for country cards */
-.tile-overlay {
-  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+.animate-marquee {
+  animation: marquee 40s linear infinite;
 }
 
-/* Tachymeter-style stat ring */
-.tachymeter-ring {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Smooth fade-up animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+/* Wavy SVG divider */
+.wavy-divider {
   position: relative;
-}
-.tachymeter-ring::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: #FFD500;
-  animation: spin 3s linear infinite;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Speed-line motif */
-.speed-line {
-  height: 2px;
-  background: linear-gradient(90deg, #E10600, transparent);
-  margin: 6px 0;
-  border-radius: 2px;
-}
-
-/* Fade-up animation */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-}
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
-.stagger-5 { transition-delay: 0.5s; }
-.stagger-6 { transition-delay: 0.6s; }
-.stagger-7 { transition-delay: 0.7s; }
-.stagger-8 { transition-delay: 0.8s; }
-
-.img-zoom {
-  overflow: hidden;
-}
-.img-zoom img {
-  transition: transform 0.5s ease;
-}
-.img-zoom:hover img {
-  transform: scale(1.08);
-}
-
-.wave-divider {
-  line-height: 0;
-  overflow: hidden;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-background);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: 4px;
-}
-
-.quick-apply-form {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
-}
-.quick-apply-form.active {
-  max-height: 400px;
-  opacity: 1;
-}
-
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.35s ease;
-}
-.accordion-content.active {
-  max-height: 300px;
-}
-
-.map-container iframe {
   width: 100%;
-  height: 100%;
-  border: 0;
+  overflow: hidden;
+  line-height: 0;
 }
 
-/* Hamburger menu */
-.hamburger-line {
+.wavy-divider svg {
+  position: relative;
   display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--color-ink);
-  transition: all 0.3s ease;
+  width: calc(100% + 1.3px);
+  height: 60px;
 }
-.hamburger-open .hamburger-line:nth-child(1) {
-  transform: rotate(45deg) translate(4px, 4px);
+
+/* Pill badge */
+.pill-badge {
+  @apply inline-block px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider;
 }
-.hamburger-open .hamburger-line:nth-child(2) {
-  opacity: 0;
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb { background: var(--color-secondary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+/* Route slide transition */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
-.hamburger-open .hamburger-line:nth-child(3) {
-  transform: rotate(-45deg) translate(4px, -4px);
+
+.route-enter {
+  animation: slideInRight 0.45s ease-out forwards;
+}
+
+/* Card flip */
+.perspective {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
 }

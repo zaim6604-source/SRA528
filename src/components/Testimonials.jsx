@@ -1,76 +1,99 @@
-import FadeUp from './FadeUp';
-import SectionBadge from './SectionBadge';
-import SafeImage from './SafeImage';
+import useInView from '../hooks/useInView';
 
-const TESTIMONIALS = [
+const testimonials = [
   {
-    quote: "Arabian Gulf International made my dream of working in Dubai a reality. From documentation to departure, their team guided me at every step. I've been working as a site supervisor for over two years now, and I couldn't be more grateful.",
-    name: 'Ahmed Raza',
-    destination: 'Dubai, UAE',
-    role: 'Site Supervisor',
-    img: '/images/testimonial-1.jpg',
-    color: 'bg-[#E0115F]',
+    name: 'Ahmed Khan',
+    origin: 'Rawalpindi',
+    destination: 'Saudi Arabia',
+    role: 'Construction Supervisor',
+    quote: 'Janyal made the entire process smooth and transparent. From document submission to my flight, they handled everything. I landed in Riyadh within 6 weeks of registration.',
+    rating: 5,
   },
   {
-    quote: "The team at Arabian Gulf International is truly professional. They helped me secure a position in Doha within weeks of registration. The pre-departure orientation was incredibly helpful in settling into my new role.",
-    name: 'Farhan Ali',
-    destination: 'Doha, Qatar',
-    role: 'Heavy Equipment Operator',
-    img: '/images/testimonial-2.jpg',
-    color: 'bg-[#7B2D8E]',
+    name: 'Muhammad Usman',
+    origin: 'Islamabad',
+    destination: 'UAE',
+    role: 'Hotel Staff',
+    quote: 'I was nervous about working abroad, but the team at Janyal guided me through every step. The pre-departure orientation was especially helpful. Highly recommended!',
+    rating: 5,
   },
   {
-    quote: "I was hesitant about working overseas, but the team patiently answered all my questions and connected me with a verified employer in Riyadh. Now I earn three times what I did locally. Highly recommended for anyone in Islamabad!",
-    name: 'Sajid Mehmood',
-    destination: 'Riyadh, Saudi Arabia',
+    name: 'Sadia Bibi',
+    origin: 'Peshawar',
+    destination: 'Germany',
+    role: 'Nurse',
+    quote: 'As a female applicant, I was concerned about safety. Janyal matched me with a verified hospital in Germany and ensured all my documentation was perfect. Forever grateful.',
+    rating: 5,
+  },
+  {
+    name: 'Ali Raza',
+    origin: 'Lahore',
+    destination: 'Qatar',
     role: 'Electrician',
-    img: '/images/testimonial-3.jpg',
-    color: 'bg-[#FF5C8A]',
+    quote: 'The trade test coordination was excellent. They prepared me well and I passed with ease. Now earning a great salary in Doha. Thank you, Janyal team!',
+    rating: 4,
   },
 ];
 
 export default function Testimonials() {
-  return (
-    <section id="testimonials" className="py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-12">
-          <SectionBadge text="SUCCESS STORIES" color="bg-[#B8004F]" />
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3D0A1E]">
-            Real Stories from Our Candidates
-          </h2>
-          <p className="text-[#5C1A32]/70 mt-3 max-w-2xl mx-auto">
-            Hear from the professionals we've placed across the Gulf.
-          </p>
-        </FadeUp>
+  const [ref, inView] = useInView({ threshold: 0.1 });
 
-        <div className="space-y-6">
-          {TESTIMONIALS.map((t, i) => (
-            <FadeUp key={i} delay={(i % 3) + 1}>
-              <div className={`${t.color} rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col md:flex-row items-start gap-6`}>
-                <div className="shrink-0">
-                  <SafeImage
-                    src={t.img}
-                    alt={t.name}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-white/50 shadow-md"
-                    type="avatar"
+  return (
+    <section id="testimonials" className="py-16 lg:py-24 bg-background/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-4">
+          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
+            <i className="fas fa-star mr-1.5" />
+            SUCCESS STORIES
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
+          What Our Candidates Say
+        </h2>
+        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
+          Real stories from workers we've helped build better futures abroad.
+        </p>
+
+        <div
+          ref={ref}
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {testimonials.map((t, i) => (
+            <div
+              key={t.name}
+              className={`bg-white rounded-xl p-6 shadow-md border border-secondary/10 transition-all duration-500 hover:shadow-xl ${
+                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${i * 120}ms` }}
+            >
+              {/* Stars */}
+              <div className="flex gap-1 mb-4">
+                {Array.from({ length: 5 }).map((_, si) => (
+                  <i
+                    key={si}
+                    className={`fas fa-star ${
+                      si < t.rating ? 'text-cta' : 'text-gray-200'
+                    } text-sm`}
                   />
+                ))}
+              </div>
+
+              <p className="text-ink/70 text-sm leading-relaxed mb-5 italic">
+                &ldquo;{t.quote}&rdquo;
+              </p>
+
+              <div className="flex items-center gap-3 pt-3 border-t border-secondary/10">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+                  {t.name.split(' ').map(n => n[0]).join('')}
                 </div>
-                <div className="flex-1">
-                  <div className="flex gap-1 text-[#FFD700] mb-3">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <i key={s} className="fa-solid fa-star text-sm"></i>
-                    ))}
-                  </div>
-                  <p className="text-white/90 leading-relaxed mb-4 italic">"{t.quote}"</p>
-                  <div className="flex items-center gap-3">
-                    <div>
-                      <p className="font-bold text-white text-base">{t.name}</p>
-                      <p className="text-white/70 text-sm">{t.role} — {t.destination}</p>
-                    </div>
+                <div>
+                  <div className="text-sm font-bold text-ink">{t.name}</div>
+                  <div className="text-xs text-ink/50">
+                    {t.role} → {t.destination}
                   </div>
                 </div>
               </div>
-            </FadeUp>
+            </div>
           ))}
         </div>
       </div>

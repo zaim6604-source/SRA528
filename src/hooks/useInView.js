@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function useInView(options = {}) {
   const ref = useRef(null);
@@ -12,17 +12,19 @@ export default function useInView(options = {}) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true);
-          if (!options.repeat) observer.unobserve(el);
-        } else if (options.repeat) {
+          if (options.once !== false) {
+            observer.unobserve(el);
+          }
+        } else if (options.once === false) {
           setIsInView(false);
         }
       },
-      { threshold: options.threshold ?? 0.1, ...options }
+      { threshold: options.threshold || 0.1, ...options }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [options.threshold, options.repeat]);
+  }, [options.threshold, options.once]);
 
   return [ref, isInView];
 }

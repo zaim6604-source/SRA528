@@ -1,181 +1,211 @@
 import { useState } from 'react';
-import FadeUp from './FadeUp';
-import SectionBadge from './SectionBadge';
+import useInView from '../hooks/useInView';
 
-const JOB_CATEGORIES = [
-  'Construction',
-  'Hospitality',
-  'Retail',
-  'Drivers',
-  'Technicians',
-  'Security',
-  'Healthcare',
-  'Engineering',
-  'Oil & Gas',
-  'Logistics',
-  'Other',
-];
+const initialForm = { name: '', phone: '', email: '', destination: '', message: '' };
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    category: '',
-    message: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState(initialForm);
+  const [ref, inView] = useInView({ threshold: 0.1 });
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent('Application Enquiry - Arabian Gulf International');
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nJob Category: ${form.category}\n\nMessage:\n${form.message}`
+    const text = encodeURIComponent(
+      `*Janyal Recruitment Inquiry*%0A%0A` +
+      `Name: ${form.name}%0A` +
+      `Phone: ${form.phone}%0A` +
+      `Email: ${form.email}%0A` +
+      `Destination: ${form.destination}%0A` +
+      `Message: ${form.message}`
     );
-    window.open(`mailto:info@arabiangulfinternational.pk?subject=${subject}&body=${body}`, '_blank');
-    setSubmitted(true);
-  };
-
-  const handleChange = (field) => (e) => {
-    setForm({ ...form, [field]: e.target.value });
+    window.open(`https://wa.me/923015509434?text=${text}`, '_blank');
+    setForm(initialForm);
   };
 
   return (
-    <section id="contact" className="py-16 lg:py-24">
+    <section id="contact" className="py-16 lg:py-24 bg-background/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-12">
-          <SectionBadge text="GET IN TOUCH" color="bg-[#E0115F]" />
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3D0A1E]">
-            Ready to Start Your Gulf Journey?
-          </h2>
-          <p className="text-[#5C1A32]/70 mt-3 max-w-2xl mx-auto">
-            Reach out to us and our team will get back to you within 24 hours.
-          </p>
-        </FadeUp>
+        <div className="text-center mb-4">
+          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
+            <i className="fas fa-envelope mr-1.5" />
+            CONTACT US
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-12">
+          Get In Touch
+        </h2>
 
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-12">
-          {/* Left - Form */}
-          <FadeUp className="w-full lg:w-1/2">
-            {!submitted ? (
-              <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-[#3D0A1E] mb-1">Full Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={form.name}
-                      onChange={handleChange('name')}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E0115F]/30 focus:border-[#E0115F] text-sm"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[#3D0A1E] mb-1">Phone *</label>
-                    <input
-                      type="tel"
-                      required
-                      value={form.phone}
-                      onChange={handleChange('phone')}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E0115F]/30 focus:border-[#E0115F] text-sm"
-                      placeholder="03XX-XXXXXXX"
-                    />
-                  </div>
-                </div>
+        <div
+          ref={ref}
+          className={`grid lg:grid-cols-2 gap-10 transition-all duration-700 ${
+            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          {/* Contact Form */}
+          <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-secondary/10">
+            <h3 className="text-xl font-bold text-ink mb-6">Send Us a Message</h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#3D0A1E] mb-1">Email</label>
+                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Full Name *</label>
                   <input
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange('email')}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E0115F]/30 focus:border-[#E0115F] text-sm"
-                    placeholder="your@email.com"
+                    type="text"
+                    name="name"
+                    required
+                    value={form.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                    placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#3D0A1E] mb-1">Job Category *</label>
-                  <select
+                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Phone *</label>
+                  <input
+                    type="tel"
+                    name="phone"
                     required
-                    value={form.category}
-                    onChange={handleChange('category')}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E0115F]/30 focus:border-[#E0115F] text-sm"
-                  >
-                    <option value="">Select a category</option>
-                    {JOB_CATEGORIES.map((cat) => (
-                      <option key={cat} value={cat}>{cat}</option>
-                    ))}
-                  </select>
+                    value={form.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                    placeholder="03XX-XXXXXXX"
+                  />
+                </div>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                    placeholder="email@example.com"
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#3D0A1E] mb-1">Message</label>
-                  <textarea
-                    rows={4}
-                    value={form.message}
-                    onChange={handleChange('message')}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E0115F]/30 focus:border-[#E0115F] text-sm resize-none"
-                    placeholder="Tell us about your experience and the role you're seeking..."
-                  ></textarea>
+                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Destination</label>
+                  <select
+                    name="destination"
+                    value={form.destination}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                  >
+                    <option value="">Select a country</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="UAE">UAE</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Oman">Oman</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Romania">Romania</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Malaysia">Malaysia</option>
+                  </select>
                 </div>
-                <button
-                  type="submit"
-                  className="w-full bg-[#7B2D8E] text-white font-semibold py-3.5 rounded-lg hover:bg-[#E0115F] transition-all shadow-md text-sm"
-                >
-                  <i className="fa-solid fa-paper-plane mr-2"></i>Submit Application
-                </button>
-              </form>
-            ) : (
-              <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-                <div className="w-16 h-16 bg-[#FFD700]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="fa-solid fa-check text-3xl text-[#7B2D8E]"></i>
-                </div>
-                <h3 className="text-xl font-bold text-[#3D0A1E] mb-2">Application Submitted!</h3>
-                <p className="text-[#5C1A32]/70 mb-6">
-                  Your email client has been opened with your details. Please send the email to complete your application.
-                </p>
-                <a
-                  href="tel:0514938271"
-                  className="inline-block bg-[#E0115F] text-white font-semibold px-8 py-3.5 rounded-full hover:bg-[#7B2D8E] transition-all shadow-md"
-                >
-                  <i className="fa-solid fa-phone mr-2"></i>Call Us Instead
-                </a>
-                <button
-                  onClick={() => { setSubmitted(false); setForm({ name: '', phone: '', email: '', category: '', message: '' }); }}
-                  className="block mx-auto mt-4 text-sm text-gray-500 hover:text-[#7B2D8E]"
-                >
-                  New Application
-                </button>
               </div>
-            )}
+              <div>
+                <label className="block text-sm font-medium text-ink/70 mb-1.5">Message</label>
+                <textarea
+                  name="message"
+                  rows={4}
+                  value={form.message}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                  placeholder="Tell us about your skills and preferred job..."
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-base font-bold bg-primary text-white hover:bg-highlight transition-all shadow-lg hover:shadow-xl"
+              >
+                <i className="fab fa-whatsapp" />
+                Send via WhatsApp
+              </button>
+              <p className="text-xs text-ink/40 text-center">
+                By submitting, you agree to share your details via WhatsApp.
+              </p>
+            </form>
+          </div>
 
-            {/* Contact info */}
-            <div className="mt-6 space-y-3 text-sm">
-              <div className="flex items-center gap-3 text-[#3D0A1E]">
-                <span className="w-9 h-9 bg-[#E0115F]/10 rounded-full flex items-center justify-center text-[#E0115F]">
-                  <i className="fa-solid fa-phone"></i>
-                </span>
-                <span className="font-medium">051-4938271</span>
-              </div>
-              <div className="flex items-start gap-3 text-[#3D0A1E]">
-                <span className="w-9 h-9 bg-[#E0115F]/10 rounded-full flex items-center justify-center text-[#E0115F] shrink-0 mt-0.5">
-                  <i className="fa-solid fa-location-dot"></i>
-                </span>
-                <span className="font-medium">
-                  Office No. 51, 2nd Floor, Rehmat Centre, I-8 Markaz, Islamabad, Islamabad Capital Territory
-                </span>
+          {/* Contact Info + Map */}
+          <div className="space-y-6">
+            <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-secondary/10">
+              <h3 className="text-xl font-bold text-ink mb-5">Contact Information</h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <i className="fas fa-map-marker-alt text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-ink text-sm">Office Address</p>
+                    <p className="text-ink/60 text-sm">
+                      Office No. F-11, 1st Floor, Rizwan Arcade,<br />
+                      Adamjee Road, Saddar, Rawalpindi, Punjab
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <i className="fas fa-phone text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-ink text-sm">Phone</p>
+                    <a href="tel:0515566780" className="text-ink/60 text-sm hover:text-primary transition-colors">
+                      051-5566780
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <i className="fab fa-whatsapp text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-ink text-sm">WhatsApp</p>
+                    <a
+                      href="https://wa.me/923015509434"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-ink/60 text-sm hover:text-primary transition-colors"
+                    >
+                      0301-5509434
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <i className="fas fa-envelope text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-ink text-sm">Email</p>
+                    <a
+                      href="mailto:info@janyal.pk"
+                      className="text-ink/60 text-sm hover:text-primary transition-colors"
+                    >
+                      info@janyal.pk
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-          </FadeUp>
 
-          {/* Right - Map */}
-          <FadeUp delay={2} className="w-full lg:w-1/2">
-            <div className="rounded-2xl overflow-hidden shadow-lg h-[400px] lg:h-[550px] map-container">
+            {/* Map */}
+            <div className="rounded-xl overflow-hidden shadow-lg border border-secondary/10 h-64">
               <iframe
-                src="https://www.google.com/maps?q=33.66648980549018,73.07552951349284&hl=en&z=16&output=embed"
-                title="Arabian Gulf International Office Location"
+                title="Janyal Recruiting Agency Location"
+                src="https://maps.google.com/maps?q=Rizwan+Arcade+Adamjee+Road+Saddar+Rawalpindi&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
                 loading="lazy"
-              ></iframe>
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
-          </FadeUp>
+          </div>
         </div>
       </div>
     </section>

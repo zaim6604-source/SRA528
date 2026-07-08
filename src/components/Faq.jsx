@@ -1,86 +1,95 @@
 import { useState } from 'react';
-import FadeUp from './FadeUp';
-import SectionBadge from './SectionBadge';
+import useInView from '../hooks/useInView';
 
-const FAQS = [
+const faqs = [
   {
-    q: 'Is Arabian Gulf International government licensed?',
-    a: 'Yes, absolutely. Arabian Gulf International is a fully government-licensed Overseas Employment Promoter (OEP) bearing License No. 2175/RWP, issued by the Ministry of Overseas Pakistanis and Human Resource Development. We operate in full compliance with all applicable regulations.',
+    q: 'What documents do I need to apply for overseas jobs?',
+    a: 'You typically need your CNIC, passport (valid for at least 6 months), educational certificates, experience letters, and passport-sized photographs. Additional documents may be required depending on the country and job role.',
   },
   {
-    q: 'Which Gulf countries do you recruit for?',
-    a: 'We recruit for all six Gulf Cooperation Council (GCC) countries: the United Arab Emirates, Saudi Arabia, Qatar, Oman, Kuwait, and Bahrain. Our extensive employer network spans construction, hospitality, healthcare, logistics, retail, and oil & gas sectors across the region.',
+    q: 'How long does the recruitment process take?',
+    a: 'The process usually takes 4–8 weeks from registration to departure, depending on the destination country, visa processing times, and document attestation requirements. We keep you updated at every stage.',
   },
   {
-    q: 'Where is your office located?',
-    a: 'Our office is located at Office No. 51, 2nd Floor, Rehmat Centre, I-8 Markaz, Islamabad, Islamabad Capital Territory. We are conveniently situated in the heart of Islamabad and welcome walk-in inquiries during business hours.',
+    q: 'Is Janyal Recruiting Agency government-licensed?',
+    a: 'Yes, we are fully licensed by the Government of Pakistan under license number 2165/RWP. Our office is located at Office No. F-11, 1st Floor, Rizwan Arcade, Adamjee Road, Saddar, Rawalpindi.',
   },
   {
-    q: 'What documents are required to apply?',
-    a: 'Typically, you will need a valid passport (minimum 6 months validity), passport-sized photographs, educational certificates and degrees, professional experience letters, and a valid CNIC. Our team will guide you through the complete document checklist once you register.',
+    q: 'What countries do you recruit for?',
+    a: 'We recruit for Saudi Arabia, UAE, Qatar, Oman, Germany, Poland, Romania, Greece, and Malaysia. We are continuously expanding our network of trusted employers across the Gulf and Europe.',
   },
   {
-    q: 'How long does visa processing take?',
-    a: 'Visa processing times vary by country and job category. On average, it takes 2 to 6 weeks from the time all documents are submitted. We keep candidates informed at every stage and work to expedite the process wherever possible.',
+    q: 'What types of jobs do you offer?',
+    a: 'We offer both skilled and unskilled positions including construction workers, drivers, nurses, electricians, welders, hotel staff, factory workers, security personnel, and more. Contact us with your profile for a personalized match.',
   },
   {
-    q: 'Are there any registration fees?',
-    a: 'We maintain transparent and ethical practices. While there may be nominal processing fees for document attestation and medical tests (as required by Gulf country regulations), we do not charge any hidden fees. All charges are clearly communicated upfront with proper receipts.',
+    q: 'How much does your service cost?',
+    a: 'Our fees are transparent and competitive. We provide a complete breakdown of all charges before you begin the process. There are no hidden costs. Contact us for a detailed quotation based on your desired destination and job role.',
+  },
+  {
+    q: 'Do you provide pre-departure training?',
+    a: 'Yes, we provide comprehensive pre-departure orientation covering cultural awareness, workplace rights, travel tips, and what to expect in your destination country. This ensures you are well-prepared for your new role.',
   },
 ];
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIdx, setOpenIdx] = useState(null);
+  const [ref, inView] = useInView({ threshold: 0.05 });
 
-  const toggle = (i) => {
-    setOpenIndex(openIndex === i ? null : i);
+  const toggle = (idx) => {
+    setOpenIdx(openIdx === idx ? null : idx);
   };
 
   return (
-    <section id="faqs" className="py-16 lg:py-24 bg-white">
+    <section className="py-16 lg:py-24 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-12">
-          <SectionBadge text="FAQS" color="bg-[#FF5C8A]" />
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3D0A1E]">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-[#5C1A32]/70 mt-3">
-            Everything you need to know before starting your Gulf employment journey.
-          </p>
-        </FadeUp>
+        <div className="text-center mb-4">
+          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
+            <i className="fas fa-question-circle mr-1.5" />
+            FAQS
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
+          Answers to common questions about our recruitment process.
+        </p>
 
-        <div className="space-y-3">
-          {FAQS.map((faq, i) => (
-            <FadeUp key={i} delay={(i % 6) + 1}>
+        <div
+          ref={ref}
+          className={`space-y-3 transition-all duration-700 ${
+            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          {faqs.map((faq, i) => (
+            <div
+              key={i}
+              className="border border-secondary/20 rounded-xl overflow-hidden bg-white shadow-sm"
+            >
+              <button
+                onClick={() => toggle(i)}
+                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-background/30"
+              >
+                <span className="font-semibold text-ink text-sm sm:text-base">
+                  {faq.q}
+                </span>
+                <i
+                  className={`fas fa-chevron-down text-primary shrink-0 transition-transform duration-300 ${
+                    openIdx === i ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
               <div
-                className={`border-l-4 rounded-xl overflow-hidden transition-all ${
-                  openIndex === i
-                    ? 'border-[#E0115F] bg-[#FFF0F4]/50 shadow-md'
-                    : 'border-[#E0115F]/20 bg-white shadow-sm'
+                className={`transition-all duration-300 overflow-hidden ${
+                  openIdx === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <button
-                  onClick={() => toggle(i)}
-                  className="w-full flex items-center justify-between p-4 md:p-5 text-left"
-                >
-                  <span className="font-semibold text-[#3D0A1E] text-sm md:text-base pr-4">
-                    {faq.q}
-                  </span>
-                  <span
-                    className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm transition-all ${
-                      openIndex === i ? 'bg-[#E0115F] rotate-180' : 'bg-[#7B2D8E]'
-                    }`}
-                  >
-                    <i className="fa-solid fa-chevron-down"></i>
-                  </span>
-                </button>
-                <div className={`accordion-content ${openIndex === i ? 'active' : ''}`}>
-                  <p className="px-4 md:px-5 pb-4 md:pb-5 text-[#5C1A32]/80 text-sm md:text-base leading-relaxed">
-                    {faq.a}
-                  </p>
-                </div>
+                <p className="px-5 pb-4 text-ink/65 text-sm sm:text-base leading-relaxed">
+                  {faq.a}
+                </p>
               </div>
-            </FadeUp>
+            </div>
           ))}
         </div>
       </div>

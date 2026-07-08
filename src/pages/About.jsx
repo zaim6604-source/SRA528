@@ -1,113 +1,107 @@
-import { Link } from 'react-router-dom';
-import FadeUp from '../components/FadeUp';
-import SafeImage from '../components/SafeImage';
-
-const WHY_US = [
-  { icon: 'fa-certificate', title: 'Govt. Licensed', desc: 'We hold a valid government license (2210/ABT) issued by the Bureau of Emigration & Overseas Employment, ensuring full regulatory compliance.' },
-  { icon: 'fa-handshake', title: 'Trusted Network', desc: 'With years of experience serving the Batagram community, we have built strong relationships with verified employers across the globe.' },
-  { icon: 'fa-users-gear', title: 'End-to-End Support', desc: 'From initial consultation to departure, we guide you through every step — documentation, medical, visa, and travel arrangements.' },
-  { icon: 'fa-shield-halved', title: 'Transparent Process', desc: 'No hidden fees, no false promises. We believe in clear communication and honest dealings with every candidate.' },
+const trustChips = [
+  'Government Licensed (2228/KAR)',
+  '10+ Years Industry Experience',
+  '5000+ Successful Placements',
+  '100% Transparent Process',
+  'Pre-Departure Training',
+  'Post-Placement Support',
 ];
 
 export default function About() {
   return (
-    <>
-      {/* Page Hero */}
-      <section className="relative py-20 lg:py-28 bg-[#1C1C1C] overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeUp>
-            <span className="inline-block bg-[#FFD500]/20 text-[#FFD500] text-xs font-bold tracking-wider px-4 py-1.5 rounded-full mb-4">
-              <i className="fa-solid fa-certificate mr-1.5"></i>ABOUT US
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white font-[Poppins] mb-4">
-              About Pak. Arsalan Corporation
-            </h1>
-            <p className="text-white/70 max-w-2xl mx-auto">
-              Alamgir Chowk, Batagram's trusted gateway to overseas employment since establishment.
-            </p>
-          </FadeUp>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FFD500] via-[#E10600] to-transparent"></div>
-      </section>
+    <div className="space-y-10">
+      {/* Header */}
+      <div>
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 mb-3">
+          <i className="fas fa-info-circle" />
+          ABOUT US
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink mt-2">
+          Your Trusted Partner in <span className="text-primary">Overseas Recruitment</span>
+        </h1>
+      </div>
 
-      {/* Story */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
-            <FadeUp className="w-full lg:w-1/2">
-              <div className="rounded-2xl overflow-hidden shadow-lg">
-                <SafeImage src="/images/office.jpg" alt="Pak. Arsalan Corporation Office" className="w-full h-80 lg:h-96 object-cover" type="office" />
-              </div>
-            </FadeUp>
-            <FadeUp delay={2} className="w-full lg:w-1/2">
-              <span className="inline-block bg-[#E10600]/10 text-[#E10600] text-xs font-bold tracking-wider px-4 py-1.5 rounded-full mb-4">
-                OUR STORY
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#141414] mb-6 font-[Poppins]">
-                Batagram's Bridge to the World
-              </h2>
-              <div className="space-y-4 text-[#141414]/70 leading-relaxed">
-                <p>
-                  Pak. Arsalan Corporation is a government-licensed overseas employment promoter (OEP License No. 2210/ABT),
-                  headquartered at Gul Market, near Bus Stand, Alamgir Chowk, Batagram, KPK.
-                </p>
-                <p>
-                  Founded with a mission to provide legitimate and rewarding overseas employment
-                  opportunities to the skilled workforce of Batagram and surrounding regions, we have
-                  helped hundreds of individuals secure jobs across the Gulf, Europe, and Asia.
-                </p>
-                <p>
-                  Our deep roots in the Batagram community, combined with strong partnerships with
-                  verified international employers, make us the preferred choice for overseas recruitment
-                  in the region.
-                </p>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <a href="https://wa.me/923005096511" target="_blank" rel="noopener noreferrer"
-                  className="bg-[#E10600] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#1C1C1C] transition-all shadow-md">
-                  <i className="fa-brands fa-whatsapp mr-2"></i>Apply Now
-                </a>
-                <Link to="/contact"
-                  className="border-2 border-[#E10600] text-[#E10600] font-semibold px-6 py-3 rounded-full hover:bg-[#E10600] hover:text-white transition-all">
-                  Contact Us
-                </Link>
-              </div>
-            </FadeUp>
+      {/* Story + Office photo */}
+      <div className="grid lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3 bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-secondary/10">
+          <h2 className="text-xl font-bold text-ink mb-4">Our Story</h2>
+          <div className="space-y-4 text-ink/65 text-sm sm:text-base leading-relaxed">
+            <p>
+              Hasil International was founded with a single mission: to create genuine,
+              life-changing overseas employment opportunities for the people of Karachi
+              and beyond. Based at M-7, Falak Naz Heights, opposite Jinnah Terminal on
+              Shahrah-e-Faisal — one of Karachi's most prominent arteries — we have
+              become a trusted name in international recruitment.
+            </p>
+            <p>
+              Over the years, we have successfully placed thousands of skilled and
+              unskilled workers with reputable employers across the Gulf, Europe, and
+              Asia. Our deep understanding of both local talent and international
+              market demands allows us to deliver results that matter.
+            </p>
+            <p>
+              Licensed by the Government of Pakistan under license number 2228/KAR,
+              we operate with full transparency, integrity, and a commitment to the
+              well-being of every candidate we serve.
+            </p>
           </div>
         </div>
-      </section>
+
+        {/* Office photo */}
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-secondary/10 overflow-hidden flex items-center justify-center">
+          <div className="p-8 text-center">
+            <div className="w-24 h-24 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <i className="fas fa-building text-4xl text-primary" />
+            </div>
+            <h3 className="font-bold text-ink text-lg">Our Office</h3>
+            <p className="text-ink/50 text-sm mt-1">
+              M-7, Falak Naz Heights<br />
+              Opp. Jinnah Terminal<br />
+              Shahrah-e-Faisal, Karachi
+            </p>
+            <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-accent/10 text-amber-700 border border-accent/20">
+              <i className="fas fa-map-pin text-[10px]" />
+              Landmark Location
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Why Us */}
-      <section className="py-16 lg:py-24 bg-[#F5F5F5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeUp className="text-center mb-12">
-            <span className="inline-block bg-[#E10600]/10 text-[#E10600] text-xs font-bold tracking-wider px-4 py-1.5 rounded-full mb-4">
-              WHY CHOOSE US
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#141414] font-[Poppins]">
-              Why Pak. Arsalan Corporation?
-            </h2>
-            <p className="text-[#141414]/60 mt-3 max-w-2xl mx-auto">
-              We are committed to providing ethical, transparent, and results-driven overseas employment services.
-            </p>
-          </FadeUp>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {WHY_US.map((item, i) => (
-              <FadeUp key={i} delay={(i % 4) + 1}>
-                <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 flex gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-[#E10600] flex items-center justify-center text-2xl text-white shrink-0">
-                    <i className={`fa-solid ${item.icon}`}></i>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-[#141414] text-lg mb-1 font-[Poppins]">{item.title}</h3>
-                    <p className="text-[#141414]/60 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
+      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-secondary/10">
+        <h2 className="text-xl font-bold text-ink mb-5">Why Choose Hasil International?</h2>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {[
+            { icon: 'fa-shield-alt', title: 'Licensed & Regulated', desc: 'Government license 2228/KAR. Fully compliant with overseas employment rules.' },
+            { icon: 'fa-handshake', title: 'Trusted by Thousands', desc: 'Over 5,000 successful placements across 12+ countries.' },
+            { icon: 'fa-eye', title: 'Complete Transparency', desc: 'No hidden fees. Clear communication at every step of the process.' },
+            { icon: 'fa-people-arrows', title: 'End-to-End Support', desc: 'From registration to departure, we handle everything for you.' },
+          ].map((item) => (
+            <div key={item.title} className="flex gap-4 p-4 rounded-xl bg-background/50">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <i className={`fas ${item.icon} text-lg text-primary`} />
+              </div>
+              <div>
+                <h3 className="font-bold text-ink text-sm">{item.title}</h3>
+                <p className="text-ink/50 text-xs mt-1">{item.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+
+      {/* Trust Chips */}
+      <div>
+        <h2 className="text-lg font-bold text-ink mb-4 text-center">Our Credentials</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          {trustChips.map((chip) => (
+            <span key={chip} className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/20 text-ink shadow-sm">
+              <i className="fas fa-check-circle text-primary" />
+              {chip}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }

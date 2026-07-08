@@ -1,87 +1,58 @@
-import FadeUp from './FadeUp';
-import SectionBadge from './SectionBadge';
+import useInView from '../hooks/useInView';
 
-const SERVICES = [
-  {
-    icon: 'fa-briefcase',
-    title: 'Overseas Job Placement',
-    desc: 'End-to-end recruitment and placement across Gulf countries for skilled and semi-skilled professionals.',
-    barColor: 'bg-[#E0115F]',
-  },
-  {
-    icon: 'fa-passport',
-    title: 'Visa Processing',
-    desc: 'Complete visa documentation and processing support for all Gulf destination countries.',
-    barColor: 'bg-[#7B2D8E]',
-  },
-  {
-    icon: 'fa-file-lines',
-    title: 'Document Attestation',
-    desc: 'Professional attestation and verification of educational, professional, and personal documents.',
-    barColor: 'bg-[#FFD700]',
-  },
-  {
-    icon: 'fa-stethoscope',
-    title: 'Medical & Trade Test Coordination',
-    desc: 'Arrangement of mandatory medical examinations and trade test certifications for Gulf employment.',
-    barColor: 'bg-[#FF5C8A]',
-  },
-  {
-    icon: 'fa-plane-departure',
-    title: 'Pre-Departure Orientation',
-    desc: 'Comprehensive orientation sessions covering cultural adaptation, labor laws, and workplace expectations.',
-    barColor: 'bg-[#B8004F]',
-  },
-  {
-    icon: 'fa-ticket',
-    title: 'Air Ticketing & Travel Support',
-    desc: 'Flight bookings, airport transfers, and travel coordination for a smooth departure experience.',
-    barColor: 'bg-[#E0115F]',
-  },
-  {
-    icon: 'fa-shield-halved',
-    title: 'Employer Verification',
-    desc: 'Thorough vetting of Gulf employers to ensure legitimate, safe, and fair working conditions.',
-    barColor: 'bg-[#7B2D8E]',
-  },
-  {
-    icon: 'fa-people-group',
-    title: 'Skilled & Unskilled Manpower Supply',
-    desc: 'Reliable supply of qualified manpower across construction, hospitality, retail, and service sectors.',
-    barColor: 'bg-[#FF5C8A]',
-  },
+const services = [
+  { icon: 'fa-briefcase', title: 'Overseas Job Placement', desc: 'Connecting qualified candidates with trusted employers across Gulf and European countries.', color: 'from-pink-500 to-rose-600' },
+  { icon: 'fa-passport', title: 'Visa Processing', desc: 'End-to-end visa application assistance for work visas to Saudi Arabia, UAE, Qatar, and more.', color: 'from-purple-500 to-purple-700' },
+  { icon: 'fa-file-alt', title: 'Document Attestation', desc: 'Professional attestation of educational certificates, experience letters, and personal documents.', color: 'from-indigo-500 to-indigo-700' },
+  { icon: 'fa-stethoscope', title: 'Medical & Trade Test Coordination', desc: 'Scheduling and coordination of medical examinations and trade tests required for overseas employment.', color: 'from-teal-500 to-teal-700' },
+  { icon: 'fa-chalkboard-teacher', title: 'Pre-Departure Orientation', desc: 'Comprehensive orientation sessions covering cultural awareness, workplace rights, and travel tips.', color: 'from-orange-500 to-orange-700' },
+  { icon: 'fa-plane-departure', title: 'Air Ticketing & Travel Support', desc: 'Affordable airfare booking and travel logistics support for a smooth journey to your destination.', color: 'from-cyan-500 to-cyan-700' },
+  { icon: 'fa-search', title: 'Employer Verification', desc: 'Thorough verification of overseas employers to ensure legitimate and safe job opportunities.', color: 'from-green-500 to-green-700' },
+  { icon: 'fa-users-gear', title: 'Skilled & Unskilled Manpower Supply', desc: 'Reliable workforce solutions for employers across construction, hospitality, healthcare, and industry.', color: 'from-amber-500 to-amber-700' },
 ];
 
 export default function Services() {
-  return (
-    <section id="services" className="py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="text-center mb-12">
-          <SectionBadge text="OUR SERVICES" color="bg-[#E0115F]" />
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3D0A1E]">
-            Comprehensive Gulf Recruitment Services
-          </h2>
-          <p className="text-[#5C1A32]/70 mt-3 max-w-2xl mx-auto">
-            From registration to departure — we handle every step of your Gulf employment journey.
-          </p>
-        </FadeUp>
+  const [ref, inView] = useInView({ threshold: 0.05 });
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {SERVICES.map((svc, i) => (
-            <FadeUp
-              key={i}
-              delay={(i % 4) + 1}
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+  return (
+    <section id="services" className="py-16 lg:py-24 bg-background/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-4">
+          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
+            <i className="fas fa-concierge-bell mr-1.5" />
+            OUR SERVICES
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
+          What We Offer
+        </h2>
+        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
+          Comprehensive recruitment and support services tailored to your overseas employment journey.
+        </p>
+
+        <div
+          ref={ref}
+          className="masonry-grid"
+        >
+          {services.map((svc, i) => (
+            <div
+              key={svc.title}
+              className={`masonry-item rounded-xl overflow-hidden shadow-lg text-white transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-default ${
+                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: `${i * 100}ms`,
+                background: `linear-gradient(135deg, var(--tw-gradient-from), var(--tw-gradient-to))`,
+              }}
             >
-              <div className={`${svc.barColor} h-2 w-full`}></div>
-              <div className="p-6">
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center text-xl text-white mb-4" style={{ backgroundColor: svc.barColor.replace('bg-[', '').replace(']', '') }}>
-                  <i className={`fa-solid ${svc.icon}`}></i>
+              <div className={`bg-gradient-to-br ${svc.color} p-6`}>
+                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-4">
+                  <i className={`fas ${svc.icon} text-xl`} />
                 </div>
-                <h3 className="font-bold text-[#3D0A1E] text-base mb-2">{svc.title}</h3>
-                <p className="text-[#5C1A32]/70 text-sm leading-relaxed">{svc.desc}</p>
+                <h3 className="text-lg font-bold mb-2">{svc.title}</h3>
+                <p className="text-white/85 text-sm leading-relaxed">{svc.desc}</p>
               </div>
-            </FadeUp>
+            </div>
           ))}
         </div>
       </div>
