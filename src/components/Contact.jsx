@@ -1,209 +1,161 @@
 import { useState } from 'react';
-import useInView from '../hooks/useInView';
-
-const initialForm = { name: '', phone: '', email: '', destination: '', message: '' };
+import useScrollReveal from '../hooks/useScrollReveal';
 
 export default function Contact() {
-  const [form, setForm] = useState(initialForm);
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const revealRef = useScrollReveal();
+  const [form, setForm] = useState({ name: '', phone: '', message: '' });
 
   const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const text = encodeURIComponent(
-      `*Janyal Recruitment Inquiry*%0A%0A` +
-      `Name: ${form.name}%0A` +
-      `Phone: ${form.phone}%0A` +
-      `Email: ${form.email}%0A` +
-      `Destination: ${form.destination}%0A` +
-      `Message: ${form.message}`
-    );
-    window.open(`https://wa.me/923015509434?text=${text}`, '_blank');
-    setForm(initialForm);
+    const text = `Hello Chakdara International! I'm ${form.name || 'a candidate'}. ${form.message || 'I would like to know about overseas job opportunities.'}`;
+    window.open(`https://wa.me/923456222252?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (
-    <section id="contact" className="py-16 lg:py-24 bg-background/30">
+    <section id="contact" className="py-16 sm:py-24 bg-[#FFF0F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-            <i className="fas fa-envelope mr-1.5" />
-            CONTACT US
-          </span>
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
+            <i className="fas fa-address-card" />
+            Contact Us
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-3">
+            Get In Touch
+          </h2>
+          <p className="text-sm sm:text-base text-[#3A0A1E]/60 max-w-xl mx-auto">
+            Visit our office, give us a call, or send a message. We&apos;re here to help.
+          </p>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-12">
-          Get In Touch
-        </h2>
 
-        <div
-          ref={ref}
-          className={`grid lg:grid-cols-2 gap-10 transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          {/* Contact Form */}
-          <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-secondary/10">
-            <h3 className="text-xl font-bold text-ink mb-6">Send Us a Message</h3>
+        <div ref={revealRef} className="reveal grid lg:grid-cols-2 gap-8 sm:gap-12 max-w-5xl mx-auto">
+          {/* Form */}
+          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-pink-50">
+            <h3 className="text-lg sm:text-xl font-bold font-[Poppins] text-[#3A0A1E] mb-5">
+              Send Us a Message
+            </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Full Name *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    value={form.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Phone *</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    value={form.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                    placeholder="03XX-XXXXXXX"
-                  />
-                </div>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                    placeholder="email@example.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-ink/70 mb-1.5">Destination</label>
-                  <select
-                    name="destination"
-                    value={form.destination}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                  >
-                    <option value="">Select a country</option>
-                    <option value="Saudi Arabia">Saudi Arabia</option>
-                    <option value="UAE">UAE</option>
-                    <option value="Qatar">Qatar</option>
-                    <option value="Oman">Oman</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Poland">Poland</option>
-                    <option value="Romania">Romania</option>
-                    <option value="Greece">Greece</option>
-                    <option value="Malaysia">Malaysia</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-[#3A0A1E]/70 mb-1.5">Your Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="e.g. Muhammad Ali"
+                  className="w-full px-4 py-3 rounded-xl border border-pink-200 focus:border-[#FF3366] focus:ring-2 focus:ring-[#FF3366]/20 outline-none transition-all text-sm"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-ink/70 mb-1.5">Message</label>
+                <label className="block text-sm font-medium text-[#3A0A1E]/70 mb-1.5">Phone Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="e.g. 03XX-XXXXXXX"
+                  className="w-full px-4 py-3 rounded-xl border border-pink-200 focus:border-[#FF3366] focus:ring-2 focus:ring-[#FF3366]/20 outline-none transition-all text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#3A0A1E]/70 mb-1.5">Your Message</label>
                 <textarea
                   name="message"
-                  rows={4}
                   value={form.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 rounded-lg border border-secondary/20 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
-                  placeholder="Tell us about your skills and preferred job..."
+                  rows={4}
+                  placeholder="Tell us about your interest..."
+                  className="w-full px-4 py-3 rounded-xl border border-pink-200 focus:border-[#FF3366] focus:ring-2 focus:ring-[#FF3366]/20 outline-none transition-all text-sm resize-none"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-base font-bold bg-primary text-white hover:bg-highlight transition-all shadow-lg hover:shadow-xl"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-[#3A0A1E] bg-[#FFCE47] rounded-full hover:bg-[#ffc62e] hover:shadow-lg transition-all"
               >
                 <i className="fab fa-whatsapp" />
                 Send via WhatsApp
               </button>
-              <p className="text-xs text-ink/40 text-center">
-                By submitting, you agree to share your details via WhatsApp.
-              </p>
             </form>
+            <p className="text-xs text-[#3A0A1E]/40 text-center mt-3">
+              Or email us at{' '}
+              <a href="mailto:info@chakdaraintl.pk" className="text-[#FF3366] hover:underline">
+                info@chakdaraintl.pk
+              </a>
+            </p>
           </div>
 
-          {/* Contact Info + Map */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-secondary/10">
-              <h3 className="text-xl font-bold text-ink mb-5">Contact Information</h3>
+          {/* Contact Info */}
+          <div className="space-y-5">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-pink-50">
+              <h3 className="text-lg sm:text-xl font-bold font-[Poppins] text-[#3A0A1E] mb-5">
+                Visit Us
+              </h3>
               <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <i className="fas fa-map-marker-alt text-primary" />
+                <a
+                  href="https://www.google.com/maps/search/Gul+City+Center+Batkhela+Malakand"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 no-underline group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-[#FFF0F5] flex items-center justify-center text-[#FF3366] flex-shrink-0">
+                    <i className="fas fa-map-marker-alt" />
                   </div>
                   <div>
-                    <p className="font-semibold text-ink text-sm">Office Address</p>
-                    <p className="text-ink/60 text-sm">
-                      Office No. F-11, 1st Floor, Rizwan Arcade,<br />
-                      Adamjee Road, Saddar, Rawalpindi, Punjab
-                    </p>
+                    <div className="text-sm font-semibold text-[#3A0A1E] group-hover:text-[#FF3366] transition-colors">
+                      1st Floor, Gul City Center
+                    </div>
+                    <div className="text-xs text-[#3A0A1E]/50">
+                      Office No. 13/14, Tehsil Batkhela,<br />Distt Malakand, KPK
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <i className="fas fa-phone text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-ink text-sm">Phone</p>
-                    <a href="tel:0515566780" className="text-ink/60 text-sm hover:text-primary transition-colors">
-                      051-5566780
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <i className="fab fa-whatsapp text-primary" />
+                </a>
+
+                <a href="tel:0932410253" className="flex items-center gap-3 no-underline group">
+                  <div className="w-10 h-10 rounded-xl bg-[#FFF0F5] flex items-center justify-center text-[#FF3366] flex-shrink-0">
+                    <i className="fas fa-phone" />
                   </div>
                   <div>
-                    <p className="font-semibold text-ink text-sm">WhatsApp</p>
-                    <a
-                      href="https://wa.me/923015509434"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-ink/60 text-sm hover:text-primary transition-colors"
-                    >
-                      0301-5509434
-                    </a>
+                    <div className="text-sm font-semibold text-[#3A0A1E] group-hover:text-[#FF3366] transition-colors">
+                      0932-410253
+                    </div>
+                    <div className="text-xs text-[#3A0A1E]/50">Landline</div>
                   </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <i className="fas fa-envelope text-primary" />
+                </a>
+
+                <a
+                  href="https://wa.me/923456222252"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 no-underline group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center text-green-600 flex-shrink-0">
+                    <i className="fab fa-whatsapp" />
                   </div>
                   <div>
-                    <p className="font-semibold text-ink text-sm">Email</p>
-                    <a
-                      href="mailto:info@janyal.pk"
-                      className="text-ink/60 text-sm hover:text-primary transition-colors"
-                    >
-                      info@janyal.pk
-                    </a>
+                    <div className="text-sm font-semibold text-[#3A0A1E] group-hover:text-green-600 transition-colors">
+                      0345-6222252
+                    </div>
+                    <div className="text-xs text-[#3A0A1E]/50">WhatsApp</div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
 
             {/* Map */}
-            <div className="rounded-xl overflow-hidden shadow-lg border border-secondary/10 h-64">
-              <iframe
-                title="Janyal Recruiting Agency Location"
-                src="https://maps.google.com/maps?q=Rizwan+Arcade+Adamjee+Road+Saddar+Rawalpindi&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+            <div className="rounded-2xl overflow-hidden shadow-md border border-pink-50 h-48 sm:h-56 bg-gradient-to-br from-pink-100 to-white flex items-center justify-center">
+              <a
+                href="https://www.google.com/maps/search/Gul+City+Center+Batkhela+Malakand"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 no-underline text-[#3A0A1E]/60 hover:text-[#FF3366] transition-colors"
+              >
+                <i className="fas fa-map-marked-alt text-3xl sm:text-4xl" />
+                <span className="text-sm font-medium">Open in Google Maps</span>
+                <span className="text-xs">Gul City Center, Batkhela</span>
+              </a>
             </div>
           </div>
         </div>

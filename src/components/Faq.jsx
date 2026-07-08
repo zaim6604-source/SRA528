@@ -1,93 +1,80 @@
 import { useState } from 'react';
-import useInView from '../hooks/useInView';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const faqs = [
   {
-    q: 'What documents do I need to apply for overseas jobs?',
-    a: 'You typically need your CNIC, passport (valid for at least 6 months), educational certificates, experience letters, and passport-sized photographs. Additional documents may be required depending on the country and job role.',
+    q: 'What documents do I need to apply?',
+    a: 'You typically need your CNIC, passport-sized photographs, educational certificates, and a valid passport. Our team will guide you through the complete list based on your destination country and job type.',
   },
   {
-    q: 'How long does the recruitment process take?',
-    a: 'The process usually takes 4–8 weeks from registration to departure, depending on the destination country, visa processing times, and document attestation requirements. We keep you updated at every stage.',
+    q: 'How long does the process take?',
+    a: 'Processing times vary by country and job type, but typically range from 2 to 8 weeks. We keep you updated at every stage and work to expedite your application.',
   },
   {
-    q: 'Is Janyal Recruiting Agency government-licensed?',
-    a: 'Yes, we are fully licensed by the Government of Pakistan under license number 2165/RWP. Our office is located at Office No. F-11, 1st Floor, Rizwan Arcade, Adamjee Road, Saddar, Rawalpindi.',
+    q: 'Are there any hidden fees?',
+    a: 'No. We believe in complete transparency. All fees are communicated upfront, and you will receive a detailed breakdown before any payment. No hidden charges, ever.',
   },
   {
-    q: 'What countries do you recruit for?',
-    a: 'We recruit for Saudi Arabia, UAE, Qatar, Oman, Germany, Poland, Romania, Greece, and Malaysia. We are continuously expanding our network of trusted employers across the Gulf and Europe.',
+    q: 'Which countries do you recruit for?',
+    a: 'We currently recruit for Saudi Arabia, UAE, Qatar, Oman, Germany, Romania, Italy, Cyprus, and Malaysia, covering industries like construction, healthcare, hospitality, logistics, oil & gas, and electronics.',
   },
   {
-    q: 'What types of jobs do you offer?',
-    a: 'We offer both skilled and unskilled positions including construction workers, drivers, nurses, electricians, welders, hotel staff, factory workers, security personnel, and more. Contact us with your profile for a personalized match.',
+    q: 'How do I know the job is genuine?',
+    a: 'We personally verify every employer and job offer. We are a government-licensed agency (License #2168/MLK) and maintain direct relationships with reputable overseas employers.',
   },
   {
-    q: 'How much does your service cost?',
-    a: 'Our fees are transparent and competitive. We provide a complete breakdown of all charges before you begin the process. There are no hidden costs. Contact us for a detailed quotation based on your desired destination and job role.',
-  },
-  {
-    q: 'Do you provide pre-departure training?',
-    a: 'Yes, we provide comprehensive pre-departure orientation covering cultural awareness, workplace rights, travel tips, and what to expect in your destination country. This ensures you are well-prepared for your new role.',
+    q: 'Can I visit your office?',
+    a: 'Absolutely! Visit us at 1st Floor, Gul City Center, Office No. 13/14, Tehsil Batkhela, Distt Malakand, KPK. Our team is available Sunday to Thursday, 9 AM to 5 PM.',
   },
 ];
 
-export default function FAQ() {
+export default function Faq() {
   const [openIdx, setOpenIdx] = useState(null);
-  const [ref, inView] = useInView({ threshold: 0.05 });
+  const revealRef = useScrollReveal();
 
   const toggle = (idx) => {
     setOpenIdx(openIdx === idx ? null : idx);
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-            <i className="fas fa-question-circle mr-1.5" />
-            FAQS
-          </span>
+    <section className="py-16 sm:py-24 bg-white">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
+            <i className="fas fa-question-circle" />
+            FAQs
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-3">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-sm sm:text-base text-[#3A0A1E]/60 max-w-xl mx-auto">
+            Everything you need to know before applying.
+          </p>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
-          Frequently Asked Questions
-        </h2>
-        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
-          Answers to common questions about our recruitment process.
-        </p>
 
-        <div
-          ref={ref}
-          className={`space-y-3 transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
+        <div ref={revealRef} className="reveal space-y-3">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="border border-secondary/20 rounded-xl overflow-hidden bg-white shadow-sm"
+              className="rounded-2xl border border-pink-100 bg-white overflow-hidden hover:shadow-md transition-shadow"
             >
               <button
                 onClick={() => toggle(i)}
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-background/30"
+                className="w-full flex items-center justify-between px-5 sm:px-6 py-4 text-left no-underline text-[#3A0A1E] hover:bg-pink-50/50 transition-colors"
               >
-                <span className="font-semibold text-ink text-sm sm:text-base">
-                  {faq.q}
-                </span>
+                <span className="text-sm sm:text-base font-semibold pr-4">{faq.q}</span>
                 <i
-                  className={`fas fa-chevron-down text-primary shrink-0 transition-transform duration-300 ${
+                  className={`fas fa-chevron-down text-sm text-[#FF3366] transition-transform duration-300 flex-shrink-0 ${
                     openIdx === i ? 'rotate-180' : ''
                   }`}
                 />
               </button>
-              <div
-                className={`transition-all duration-300 overflow-hidden ${
-                  openIdx === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <p className="px-5 pb-4 text-ink/65 text-sm sm:text-base leading-relaxed">
-                  {faq.a}
-                </p>
+              <div className={`faq-answer ${openIdx === i ? 'open' : ''}`}>
+                <div>
+                  <div className="px-5 sm:px-6 pb-4 text-sm text-[#3A0A1E]/60 leading-relaxed">
+                    {faq.a}
+                  </div>
+                </div>
               </div>
             </div>
           ))}

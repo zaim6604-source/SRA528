@@ -1,59 +1,56 @@
-import useInView from '../hooks/useInView';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const services = [
-  { icon: 'fa-briefcase', title: 'Overseas Job Placement', desc: 'Connecting qualified candidates with trusted employers across Gulf and European countries.', color: 'from-pink-500 to-rose-600' },
-  { icon: 'fa-passport', title: 'Visa Processing', desc: 'End-to-end visa application assistance for work visas to Saudi Arabia, UAE, Qatar, and more.', color: 'from-purple-500 to-purple-700' },
-  { icon: 'fa-file-alt', title: 'Document Attestation', desc: 'Professional attestation of educational certificates, experience letters, and personal documents.', color: 'from-indigo-500 to-indigo-700' },
-  { icon: 'fa-stethoscope', title: 'Medical & Trade Test Coordination', desc: 'Scheduling and coordination of medical examinations and trade tests required for overseas employment.', color: 'from-teal-500 to-teal-700' },
-  { icon: 'fa-chalkboard-teacher', title: 'Pre-Departure Orientation', desc: 'Comprehensive orientation sessions covering cultural awareness, workplace rights, and travel tips.', color: 'from-orange-500 to-orange-700' },
-  { icon: 'fa-plane-departure', title: 'Air Ticketing & Travel Support', desc: 'Affordable airfare booking and travel logistics support for a smooth journey to your destination.', color: 'from-cyan-500 to-cyan-700' },
-  { icon: 'fa-search', title: 'Employer Verification', desc: 'Thorough verification of overseas employers to ensure legitimate and safe job opportunities.', color: 'from-green-500 to-green-700' },
-  { icon: 'fa-users-gear', title: 'Skilled & Unskilled Manpower Supply', desc: 'Reliable workforce solutions for employers across construction, hospitality, healthcare, and industry.', color: 'from-amber-500 to-amber-700' },
+  { title: 'Overseas Job Placement', desc: 'End-to-end placement in top companies across 9+ countries with verified employers.', icon: 'fas fa-briefcase', color: '#FF3366' },
+  { title: 'Visa Processing', desc: 'Complete visa assistance — from documentation to submission and follow-up.', icon: 'fas fa-passport', color: '#FF6B9D' },
+  { title: 'Document Attestation', desc: 'Educational, professional & personal document attestation by authorized bodies.', icon: 'fas fa-file-signature', color: '#FFCE47' },
+  { title: 'Medical & Travel Coordination', desc: 'Scheduled medical tests, travel bookings, and airport pickup arrangements.', icon: 'fas fa-plane-departure', color: '#FF3366' },
+  { title: 'Pre-Departure Orientation', desc: 'Cultural & workplace orientation to prepare candidates for international roles.', icon: 'fas fa-chalkboard-teacher', color: '#FF6B9D' },
+  { title: 'Employer Liaison', desc: 'Direct coordination with overseas employers to ensure job authenticity.', icon: 'fas fa-handshake', color: '#FFCE47' },
+  { title: 'Contract Review', desc: 'Transparent contract review so you understand every term before signing.', icon: 'fas fa-gavel', color: '#FF3366' },
+  { title: 'Post-Arrival Support', desc: 'Ongoing support after arrival — we stay with you until you settle in.', icon: 'fas fa-headset', color: '#FF6B9D' },
 ];
 
+const colorMap = {
+  '#FF3366': 'bg-[#FF3366]',
+  '#FF6B9D': 'bg-[#FF6B9D]',
+  '#FFCE47': 'bg-[#FFCE47]',
+};
+
 export default function Services() {
-  const [ref, inView] = useInView({ threshold: 0.05 });
+  const revealRef = useScrollReveal();
 
   return (
-    <section id="services" className="py-16 lg:py-24 bg-background/30">
+    <section id="services" className="py-16 sm:py-24 bg-[#FFF0F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-            <i className="fas fa-concierge-bell mr-1.5" />
-            OUR SERVICES
-          </span>
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
+            <i className="fas fa-cogs" />
+            Our Services
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-3">
+            Everything You Need
+          </h2>
+          <p className="text-sm sm:text-base text-[#3A0A1E]/60 max-w-xl mx-auto">
+            From application to arrival — we handle every step of your overseas employment journey.
+          </p>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
-          What We Offer
-        </h2>
-        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
-          Comprehensive recruitment and support services tailored to your overseas employment journey.
-        </p>
 
-        <div
-          ref={ref}
-          className="masonry-grid"
-        >
-          {services.map((svc, i) => (
-            <div
-              key={svc.title}
-              className={`masonry-item rounded-xl overflow-hidden shadow-lg text-white transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-default ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{
-                transitionDelay: `${i * 100}ms`,
-                background: `linear-gradient(135deg, var(--tw-gradient-from), var(--tw-gradient-to))`,
-              }}
-            >
-              <div className={`bg-gradient-to-br ${svc.color} p-6`}>
-                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-4">
-                  <i className={`fas ${svc.icon} text-xl`} />
+        <div ref={revealRef} className="reveal masonry-grid">
+          {services.map((s, i) => {
+            const bgClass = colorMap[s.color] || 'bg-[#FF3366]';
+            return (
+              <div key={i} className="masonry-item">
+                <div className={`${bgClass} rounded-2xl p-6 sm:p-8 text-white min-h-[180px] flex flex-col`}>
+                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-xl mb-4">
+                    <i className={s.icon} />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold font-[Poppins] mb-2">{s.title}</h3>
+                  <p className="text-sm text-white/80 leading-relaxed flex-1">{s.desc}</p>
                 </div>
-                <h3 className="text-lg font-bold mb-2">{svc.title}</h3>
-                <p className="text-white/85 text-sm leading-relaxed">{svc.desc}</p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

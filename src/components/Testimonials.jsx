@@ -1,96 +1,76 @@
-import useInView from '../hooks/useInView';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const testimonials = [
   {
-    name: 'Ahmed Khan',
-    origin: 'Rawalpindi',
-    destination: 'Saudi Arabia',
-    role: 'Construction Supervisor',
-    quote: 'Janyal made the entire process smooth and transparent. From document submission to my flight, they handled everything. I landed in Riyadh within 6 weeks of registration.',
+    name: 'Muhammad Ali',
+    role: 'Placed in Saudi Arabia — Construction',
+    text: 'Chakdara International made my dream of working abroad a reality. From documentation to departure, every step was handled professionally. I\'ve been in Riyadh for 8 months now and couldn\'t be happier.',
     rating: 5,
   },
   {
-    name: 'Muhammad Usman',
-    origin: 'Islamabad',
-    destination: 'UAE',
-    role: 'Hotel Staff',
-    quote: 'I was nervous about working abroad, but the team at Janyal guided me through every step. The pre-departure orientation was especially helpful. Highly recommended!',
+    name: 'Shahid Khan',
+    role: 'Placed in UAE — Logistics',
+    text: 'I was skeptical at first, but their team at Gul City Center guided me through the entire process. Transparent fees, no hidden charges. Highly recommended for anyone in Malakand looking for overseas jobs.',
     rating: 5,
   },
   {
-    name: 'Sadia Bibi',
-    origin: 'Peshawar',
-    destination: 'Germany',
-    role: 'Nurse',
-    quote: 'As a female applicant, I was concerned about safety. Janyal matched me with a verified hospital in Germany and ensured all my documentation was perfect. Forever grateful.',
+    name: 'Ayesha Bibi',
+    role: 'Placed in Germany — Healthcare',
+    text: 'As a female professional, I was nervous about working abroad. Chakdara supported me every step of the way. The pre-departure orientation was incredibly helpful. Now working in Berlin!',
     rating: 5,
   },
   {
-    name: 'Ali Raza',
-    origin: 'Lahore',
-    destination: 'Qatar',
-    role: 'Electrician',
-    quote: 'The trade test coordination was excellent. They prepared me well and I passed with ease. Now earning a great salary in Doha. Thank you, Janyal team!',
+    name: 'Rashid Ahmad',
+    role: 'Placed in Qatar — Oil & Gas',
+    text: 'Fast processing and excellent communication. They kept me updated throughout the visa process. If you\'re in Batkhela or Dir, this is the agency to trust.',
     rating: 4,
   },
 ];
 
 export default function Testimonials() {
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const revealRef = useScrollReveal();
 
   return (
-    <section id="testimonials" className="py-16 lg:py-24 bg-background/30">
+    <section className="py-16 sm:py-24 bg-[#FFF0F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-            <i className="fas fa-star mr-1.5" />
-            SUCCESS STORIES
-          </span>
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
+            <i className="fas fa-star" />
+            Testimonials
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-3">
+            Hear From Our Candidates
+          </h2>
+          <p className="text-sm sm:text-base text-[#3A0A1E]/60 max-w-xl mx-auto">
+            Real stories from real people we&apos;ve helped place around the world.
+          </p>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
-          What Our Candidates Say
-        </h2>
-        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
-          Real stories from workers we've helped build better futures abroad.
-        </p>
 
-        <div
-          ref={ref}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+        <div ref={revealRef} className="reveal grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {testimonials.map((t, i) => (
             <div
-              key={t.name}
-              className={`bg-white rounded-xl p-6 shadow-md border border-secondary/10 transition-all duration-500 hover:shadow-xl ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${i * 120}ms` }}
+              key={i}
+              className="bg-white rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl transition-shadow border border-pink-50"
             >
               {/* Stars */}
               <div className="flex gap-1 mb-4">
-                {Array.from({ length: 5 }).map((_, si) => (
+                {Array.from({ length: 5 }).map((_, j) => (
                   <i
-                    key={si}
-                    className={`fas fa-star ${
-                      si < t.rating ? 'text-cta' : 'text-gray-200'
-                    } text-sm`}
+                    key={j}
+                    className={`fas fa-star text-sm ${j < t.rating ? 'text-[#FFCE47]' : 'text-gray-200'}`}
                   />
                 ))}
               </div>
-
-              <p className="text-ink/70 text-sm leading-relaxed mb-5 italic">
-                &ldquo;{t.quote}&rdquo;
+              <p className="text-sm sm:text-base text-[#3A0A1E]/70 leading-relaxed mb-5 italic">
+                &ldquo;{t.text}&rdquo;
               </p>
-
-              <div className="flex items-center gap-3 pt-3 border-t border-secondary/10">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
-                  {t.name.split(' ').map(n => n[0]).join('')}
+              <div className="flex items-center gap-3 pt-3 border-t border-pink-50">
+                <div className="w-10 h-10 rounded-full bg-[#FF3366] flex items-center justify-center text-white font-bold text-sm font-[Poppins]">
+                  {t.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-ink">{t.name}</div>
-                  <div className="text-xs text-ink/50">
-                    {t.role} → {t.destination}
-                  </div>
+                  <div className="text-sm font-bold text-[#3A0A1E]">{t.name}</div>
+                  <div className="text-xs text-[#3A0A1E]/50">{t.role}</div>
                 </div>
               </div>
             </div>

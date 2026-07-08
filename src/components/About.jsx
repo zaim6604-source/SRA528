@@ -1,76 +1,52 @@
-import useInView from '../hooks/useInView';
-
-const trustChips = [
-  { icon: 'fa-check-circle', label: 'Govt. Licensed (2165/RWP)' },
-  { icon: 'fa-handshake', label: 'Ethical Recruitment' },
-  { icon: 'fa-shield-alt', label: 'Transparent Process' },
-  { icon: 'fa-users', label: 'Skilled & Unskilled' },
-  { icon: 'fa-passport', label: 'Visa Assistance' },
-  { icon: 'fa-plane', label: 'Pre-Departure Support' },
-];
+import useScrollReveal from '../hooks/useScrollReveal';
+import OptimizedImage from './OptimizedImage';
 
 export default function About() {
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const revealRef = useScrollReveal();
 
   return (
-    <section id="about" className="py-16 lg:py-24 bg-white">
+    <section id="about" className="py-16 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          ref={ref}
-          className={`transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <div className="text-center mb-4">
-            <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-              <i className="fas fa-info-circle mr-1.5" />
-              WHO WE ARE
-            </span>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mt-10">
+        <div ref={revealRef} className="reveal pill-section bg-[#FFF0F5] p-6 sm:p-10 lg:p-14">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
             {/* Image */}
-            <div className="relative">
-              <div className="absolute -inset-3 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl" />
-              <div className="relative rounded-2xl overflow-hidden shadow-lg bg-secondary/20 aspect-[4/3]">
-                <img
-                  src="https://picsum.photos/seed/janyal-about/800/600"
-                  alt="Janyal Recruiting Agency team"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `<div class="flex items-center justify-center h-full bg-gradient-to-br from-primary/5 to-accent/5 p-8"><div class="text-center"><i class="fas fa-building text-5xl text-primary mb-3"></i><p class="text-ink/60 font-medium">Office No. F-11, 1st Floor<br/>Rizwan Arcade, Adamjee Road<br/>Saddar, Rawalpindi</p></div></div>`;
-                  }}
-                />
-              </div>
+            <div className="rounded-2xl overflow-hidden shadow-lg">
+              <OptimizedImage
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop&q=80"
+                alt="Professional team collaboration and partnership"
+                className="aspect-[4/3]"
+                icon="fas fa-handshake"
+              />
             </div>
 
-            {/* Content */}
+            {/* Text */}
             <div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-ink mb-5">
-                Your Trusted Gateway to{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                  Global Opportunities
-                </span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
+                <i className="fas fa-info-circle" />
+                About Us
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-4 sm:mb-6">
+                Your Trusted Gateway to Global Opportunities
               </h2>
-              <p className="text-ink/70 leading-relaxed mb-4">
-                Janyal Recruiting Agency, located at Adamjee Road in Saddar, Rawalpindi, has been a trusted name in overseas employment for over 15 years. As a government-licensed recruitment firm (License 2165/RWP), we specialize in connecting skilled and unskilled workers with reputable employers across the Gulf and Europe.
+              <p className="text-sm sm:text-base text-[#3A0A1E]/70 leading-relaxed mb-6">
+                Based in <strong>Gul City Center, Batkhela</strong>, Chakdara International Agency
+                (License #2168/MLK) has been connecting skilled workers from <strong>Malakand, Dir,
+                and across KPK</strong> to reputable employers worldwide. We handle everything
+                from documentation to deployment — with transparency and care.
               </p>
-              <p className="text-ink/70 leading-relaxed mb-6">
-                Our comprehensive services cover everything from visa processing and document attestation to medical coordination, pre-departure orientation, and travel support. We are committed to ethical, transparent recruitment that puts the welfare of our candidates first.
-              </p>
-
-              {/* Trust chips */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {trustChips.map((chip) => (
-                  <div
-                    key={chip.label}
-                    className="flex items-start gap-2 p-2.5 rounded-lg bg-background/50 border border-secondary/10"
-                  >
-                    <i className={`fas ${chip.icon} text-primary mt-0.5 text-sm`} />
-                    <span className="text-xs font-medium text-ink/70">{chip.label}</span>
-                  </div>
-                ))}
+              <div className="flex flex-wrap gap-2">
+                <div className="chip bg-white/80">
+                  <i className="fas fa-check-circle text-green-500" /> Govt. Licensed
+                </div>
+                <div className="chip bg-white/80">
+                  <i className="fas fa-shield-alt text-[#FF3366]" /> No Hidden Fees
+                </div>
+                <div className="chip bg-white/80">
+                  <i className="fas fa-clock text-[#FF3366]" /> Fast Processing
+                </div>
+                <div className="chip bg-white/80">
+                  <i className="fas fa-headset text-[#FF3366]" /> 24/7 Support
+                </div>
               </div>
             </div>
           </div>

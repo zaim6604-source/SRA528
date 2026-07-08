@@ -1,31 +1,30 @@
-import { Routes, Route } from 'react-router-dom';
-import SplitLayout from './layouts/SplitLayout';
-import ScrollToTop from './components/ScrollToTop';
-import QuickApply from './components/QuickApply';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
 import Home from './pages/Home';
-import About from './pages/About';
-import Services from './pages/Services';
-import Countries from './pages/Countries';
-import CountryDetail from './pages/CountryDetail';
+import Story from './pages/About';
+import ServicesPage from './pages/ServicesPage';
+import Guides from './pages/Jobs';
+import GuideDetail from './pages/JobDetail';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import './App.css';
 
-export default function App() {
+function App() {
   return (
-    <div className="font-sans antialiased">
-      <ScrollToTop />
+    <BrowserRouter>
       <Routes>
-        <Route element={<SplitLayout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="services" element={<Services />} />
-          <Route path="countries" element={<Countries />} />
-          <Route path="countries/:slug" element={<CountryDetail />} />
-          <Route path="contact" element={<Contact />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/story" element={<Story />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/guides" element={<Guides />} />
+          <Route path="/guides/:slug" element={<GuideDetail />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-      <QuickApply />
-    </div>
+    </BrowserRouter>
   );
 }
+
+export default App;

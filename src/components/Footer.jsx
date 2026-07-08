@@ -1,171 +1,94 @@
-const quickLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Destinations', href: '#countries' },
-  { label: 'Process', href: '#process' },
-  { label: 'Contact', href: '#contact' },
-];
-
-const services = [
-  'Overseas Job Placement',
-  'Visa Processing',
-  'Document Attestation',
-  'Medical & Trade Tests',
-  'Pre-Departure Orientation',
-  'Air Ticketing & Travel',
-];
-
-const countries = [
-  'Saudi Arabia', 'UAE', 'Qatar', 'Oman',
-  'Germany', 'Poland', 'Romania', 'Greece', 'Malaysia',
-];
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
-  return (
-    <footer className="bg-highlight text-white">
-      {/* Wavy divider */}
-      <div className="wavy-divider">
-        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
-          <path
-            d="M0,30 C300,60 600,0 900,30 C1100,50 1200,30 1200,30 L1200,60 L0,60 Z"
-            fill="#7B1FA2"
-          />
-        </svg>
-      </div>
+  const year = new Date().getFullYear();
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+  return (
+    <footer className="bg-[#152935] text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center text-white font-extrabold text-lg">
-                J
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF1654] to-[#D60046] flex items-center justify-center text-white font-bold text-sm font-[Plus+Jakarta+Sans]">
+                AA
               </div>
-              <span className="font-bold text-lg text-white">
-                Janyal<span className="text-secondary">.</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold font-[Plus+Jakarta+Sans] text-white leading-tight">Al-Atique</span>
+                <span className="text-[10px] font-medium text-[#FFD400] tracking-wide leading-tight">Recruiting Agency</span>
+              </div>
             </div>
-            <p className="text-white/70 text-sm leading-relaxed mb-4">
-              Rawalpindi's reliable partner for overseas employment. Licensed, honest, and committed to your success.
+            <p className="text-sm text-white/60 leading-relaxed max-w-xs">
+              Licensed overseas employment agency — License <strong className="text-white/80">2220/PWR</strong>. Stories of work, written across borders.
             </p>
-            <div className="flex gap-3">
-              <a
-                href="https://wa.me/923015509434"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white hover:bg-cta hover:text-ink transition-all"
-                aria-label="WhatsApp"
-              >
-                <i className="fab fa-whatsapp" />
-              </a>
-              <a
-                href="tel:0515566780"
-                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white hover:bg-cta hover:text-ink transition-all"
-                aria-label="Phone"
-              >
-                <i className="fas fa-phone" />
-              </a>
-              <a
-                href="mailto:info@janyal.pk"
-                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white hover:bg-cta hover:text-ink transition-all"
-                aria-label="Email"
-              >
-                <i className="fas fa-envelope" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">
-              Quick Links
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#FFD400] mb-4 font-[Plus+Jakarta+Sans]">
+              Navigate
             </h4>
-            <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/70 text-sm hover:text-cta transition-colors flex items-center gap-2"
-                  >
-                    <i className="fas fa-chevron-right text-xs text-secondary" />
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">
-              Our Services
-            </h4>
-            <ul className="space-y-2.5">
-              {services.map((svc) => (
-                <li key={svc}>
-                  <a
-                    href="#services"
-                    className="text-white/70 text-sm hover:text-cta transition-colors flex items-center gap-2"
-                  >
-                    <i className="fas fa-circle text-[6px] text-secondary" />
-                    {svc}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-2.5">
+              <Link to="/" className="block text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline">Home</Link>
+              <Link to="/story" className="block text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline">Our Story</Link>
+              <Link to="/services" className="block text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline">Services</Link>
+              <Link to="/guides" className="block text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline">Country Guides</Link>
+              <Link to="/contact" className="block text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline">Contact</Link>
+            </div>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">
-              Contact Info
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#FFD400] mb-4 font-[Plus+Jakarta+Sans]">
+              Get in Touch
             </h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <i className="fas fa-map-marker-alt text-secondary mt-0.5" />
-                <span className="text-white/70 text-sm">
-                  Office No. F-11, 1st Floor, Rizwan Arcade, Adamjee Road, Saddar, Rawalpindi
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <i className="fas fa-phone text-secondary" />
-                <a href="tel:0515566780" className="text-white/70 text-sm hover:text-cta transition-colors">
-                  051-5566780
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <i className="fab fa-whatsapp text-secondary" />
-                <a
-                  href="https://wa.me/923015509434"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/70 text-sm hover:text-cta transition-colors"
-                >
-                  0301-5509434
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <i className="fas fa-envelope text-secondary" />
-                <a
-                  href="mailto:info@janyal.pk"
-                  className="text-white/70 text-sm hover:text-cta transition-colors"
-                >
-                  info@janyal.pk
-                </a>
-              </li>
-            </ul>
+            <div className="space-y-3">
+              <a
+                href="https://wa.me/923005668365"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline"
+              >
+                <i className="fab fa-whatsapp w-4 text-center text-[#70C1B3]" />
+                <span>0300-5668365</span>
+              </a>
+              <a
+                href="tel:0925510726"
+                className="flex items-center gap-2.5 text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline"
+              >
+                <i className="fas fa-phone w-4 text-center text-[#70C1B3]" />
+                <span>0925-510726</span>
+              </a>
+              <a
+                href="mailto:info@alatique.pk"
+                className="flex items-center gap-2.5 text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline"
+              >
+                <i className="fas fa-envelope w-4 text-center text-[#70C1B3]" />
+                <span>info@alatique.pk</span>
+              </a>
+              <div className="flex items-start gap-2.5 text-sm text-white/60">
+                <i className="fas fa-map-marker-alt w-4 text-center text-[#70C1B3] mt-0.5" />
+                <span>Qasmi Market, Tehsil Thall, Distt Hangu, KPK</span>
+              </div>
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 text-sm text-white/60 hover:text-[#70C1B3] transition-colors no-underline"
+              >
+                <i className="fab fa-facebook w-4 text-center text-[#70C1B3]" />
+                <span>Follow on Facebook</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/50 text-xs">
-            &copy; {new Date().getFullYear()} Janyal Recruiting Agency — License 2165/RWP. All rights reserved.
+          <p className="text-xs text-white/40">
+            &copy; {year} Al-Atique Recruiting Agency. All rights reserved. License 2220/PWR.
           </p>
-          <p className="text-white/50 text-xs">
-            <i className="fas fa-map-pin mr-1" />
-            Adamjee Road, Saddar, Rawalpindi
+          <p className="text-xs text-white/30">
+            Qasmi Market, Thall, Hangu — KPK, Pakistan
           </p>
         </div>
       </div>

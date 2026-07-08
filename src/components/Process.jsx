@@ -1,64 +1,52 @@
-import useInView from '../hooks/useInView';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const steps = [
-  { num: '01', icon: 'fa-clipboard-list', title: 'Register', desc: 'Submit your application online or visit our office at Adamjee Road, Saddar.' },
-  { num: '02', icon: 'fa-file-contract', title: 'Documents & Visa', desc: 'Submit required documents; we handle visa processing and attestation.' },
-  { num: '03', icon: 'fa-stethoscope', title: 'Medical & Trade Test', desc: 'Complete medical examination and any required trade tests.' },
-  { num: '04', icon: 'fa-check-double', title: 'Employer Confirmation', desc: 'Receive your job offer and employment contract from the employer.' },
-  { num: '05', icon: 'fa-plane-departure', title: 'Ticketing & Departure', desc: 'We arrange your flight and provide pre-departure orientation.' },
+  { num: 1, title: 'Inquiry & Registration', desc: 'Contact us via WhatsApp, phone, or visit our office at Gul City Center. We register your profile.', icon: 'fas fa-clipboard-list' },
+  { num: 2, title: 'Documentation & Verification', desc: 'Submit your documents. We verify, attest, and prepare your complete application package.', icon: 'fas fa-file-alt' },
+  { num: 3, title: 'Employer Matching', desc: 'We match your profile with verified overseas employers. You review and approve the offer.', icon: 'fas fa-handshake' },
+  { num: 4, title: 'Visa & Medical Processing', desc: 'We process your visa, schedule medical tests, and handle all travel arrangements.', icon: 'fas fa-passport' },
+  { num: 5, title: 'Departure & Settlement', desc: 'Fly to your destination with full orientation. We stay in touch for post-arrival support.', icon: 'fas fa-plane' },
 ];
 
 export default function Process() {
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const revealRef = useScrollReveal();
 
   return (
-    <section id="process" className="relative py-16 lg:py-24 overflow-hidden">
+    <section id="process" className="relative py-16 sm:py-24 overflow-hidden">
       {/* Diagonal background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-highlight to-accent transform -skew-y-3 scale-110" />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-highlight to-accent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FF3366] to-[#FF6B9D] clip-diagonal" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FF3366] to-[#FF6B9D]" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-white/20 text-white border border-white/30 backdrop-blur-sm">
-            <i className="fas fa-arrow-right mr-1.5" />
-            HOW IT WORKS
-          </span>
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 text-white rounded-full text-xs font-semibold mb-4 backdrop-blur-sm">
+            <i className="fas fa-arrow-right" />
+            How It Works
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
+            Your Journey in 5 Steps
+          </h2>
+          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">
+            Simple, transparent process from inquiry to departure.
+          </p>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-4">
-          Your Journey Starts Here
-        </h2>
-        <p className="text-center text-white/80 max-w-2xl mx-auto mb-12">
-          A simple, transparent process from registration to departure.
-        </p>
 
-        <div
-          ref={ref}
-          className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6"
-        >
+        <div ref={revealRef} className="reveal max-w-4xl mx-auto space-y-6">
           {steps.map((step, i) => (
             <div
-              key={step.num}
-              className={`relative bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20 transition-all duration-500 hover:bg-white/20 ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${i * 150}ms` }}
+              key={i}
+              className="flex items-start gap-4 sm:gap-6 bg-white/95 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-xl transition-shadow"
             >
-              {/* Step number */}
-              <div className="w-12 h-12 rounded-full bg-cta text-ink font-extrabold text-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FF3366] flex items-center justify-center text-white font-bold text-lg sm:text-xl font-[Poppins] shadow-md">
                 {step.num}
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4">
-                <i className={`fas ${step.icon} text-2xl text-white`} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">{step.title}</h3>
-              <p className="text-white/80 text-sm leading-relaxed">{step.desc}</p>
-
-              {/* Connector arrow (desktop) */}
-              {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 text-cta/60 text-2xl">
-                  <i className="fas fa-chevron-right" />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <i className={`${step.icon} text-[#FF3366] text-sm`} />
+                  <h3 className="text-base sm:text-lg font-bold font-[Poppins] text-[#3A0A1E]">{step.title}</h3>
                 </div>
-              )}
+                <p className="text-sm text-[#3A0A1E]/60 leading-relaxed">{step.desc}</p>
+              </div>
             </div>
           ))}
         </div>

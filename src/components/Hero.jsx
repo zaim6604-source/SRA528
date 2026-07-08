@@ -1,57 +1,50 @@
-import useInView from '../hooks/useInView';
+import useScrollReveal from '../hooks/useScrollReveal';
+import OptimizedImage from './OptimizedImage';
 
 export default function Hero() {
-  const [ref, inView] = useInView({ threshold: 0.2 });
+  const revealRef = useScrollReveal();
 
   return (
-    <section id="hero" className="relative bg-gradient-to-br from-background via-white to-secondary/10 pt-8 pb-16 lg:pb-24 overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+    <section id="hero" className="relative pt-8 sm:pt-12 pb-16 sm:pb-24 overflow-hidden">
+      {/* Background decorative */}
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-[#FFF0F5] rounded-bl-[6rem] -z-10" />
+      <div className="absolute top-20 right-20 w-72 h-72 rounded-full bg-[#FF3366]/5 blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          ref={ref}
-          className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-center transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
+        <div ref={revealRef} className="reveal grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left content */}
           <div className="order-2 lg:order-1">
-            <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="pill-badge bg-primary/10 text-primary border border-primary/20 text-xs">
-                <i className="fas fa-shield-alt mr-1.5" />
-                Govt. Licensed — 2165/RWP
-              </span>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4 sm:mb-6 tracking-wide">
+              <i className="fas fa-check-circle text-[10px]" />
+              License #2168/MLK — Govt. Registered
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink leading-[1.1] mb-5">
-              Rawalpindi's Reliable Partner for a{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                Future Abroad
-              </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#3A0A1E] leading-tight mb-4 sm:mb-6">
+              From Malakand&apos;s Heart to the World&apos;s Worksites
             </h1>
 
-            <p className="text-lg text-ink/70 max-w-xl mb-8 leading-relaxed">
-              Janyal Recruiting Agency links workers to trusted Gulf and European employers — licensed, honest, complete.
+            <p className="text-base sm:text-lg text-[#3A0A1E]/70 mb-6 sm:mb-8 max-w-xl leading-relaxed">
+              Chakdara International Agency connects local workers to reliable overseas jobs —
+              licensed, clear, and caring.
             </p>
 
-            {/* CTA buttons */}
-            <div className="flex flex-wrap gap-4 mb-8">
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
               <a
-                href="https://wa.me/923015509434"
+                href="https://wa.me/923456222252"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-base font-bold bg-cta text-ink hover:bg-cta/90 transition-all shadow-lg shadow-cta/25 hover:shadow-xl hover:shadow-cta/30 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-[#3A0A1E] bg-[#FFCE47] rounded-full hover:bg-[#ffc62e] hover:shadow-xl hover:shadow-[#FFCE47]/30 transition-all no-underline"
               >
-                <i className="fab fa-whatsapp text-lg" />
+                <i className="fas fa-paper-plane" />
                 Apply Now
               </a>
               <a
-                href="https://wa.me/923015509434"
+                href="https://wa.me/923456222252"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-base font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all"
+                className="inline-flex items-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-[#FF3366] border-2 border-[#FF3366] rounded-full hover:bg-[#FF3366] hover:text-white transition-all no-underline"
               >
                 <i className="fab fa-whatsapp text-lg" />
                 WhatsApp
@@ -59,38 +52,40 @@ export default function Hero() {
             </div>
 
             {/* Stat chips */}
-            <div className="flex flex-wrap gap-3">
-              {[
-                { icon: 'fa-briefcase', label: '5000+ Placed' },
-                { icon: 'fa-building', label: '200+ Employers' },
-                { icon: 'fa-globe', label: '9 Countries' },
-                { icon: 'fa-star', label: '15+ Years' },
-              ].map((chip) => (
-                <span
-                  key={chip.label}
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white shadow-sm border border-secondary/20 text-sm font-medium text-ink/70"
-                >
-                  <i className={`fas ${chip.icon} text-primary`} />
-                  {chip.label}
-                </span>
-              ))}
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              <div className="chip">
+                <i className="fas fa-users text-[#FF3366]" />
+                <span>10,000+ Placed</span>
+              </div>
+              <div className="chip">
+                <i className="fas fa-globe-asia text-[#FF3366]" />
+                <span>9+ Countries</span>
+              </div>
+              <div className="chip">
+                <i className="fas fa-building text-[#FF3366]" />
+                <span>Gul City Center</span>
+              </div>
             </div>
           </div>
 
           {/* Right image */}
-          <div className="order-1 lg:order-2">
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl" />
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-secondary/30 aspect-[4/3]">
-                <img
-                  src="https://picsum.photos/seed/janyal-hero/800/600"
-                  alt="Professional recruitment consultation"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `<div class="flex items-center justify-center h-full bg-gradient-to-br from-primary/10 to-accent/10 p-8"><div class="text-center"><i class="fas fa-handshake text-6xl text-primary mb-4"></i><p class="text-ink/60 font-medium">Janyal Recruiting Agency</p></div></div>`;
-                  }}
-                />
+          <div className="order-1 lg:order-2 relative">
+            <div className="arc-panel overflow-hidden shadow-2xl shadow-[#FF3366]/20">
+              <OptimizedImage
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80"
+                alt="Modern professional office workspace"
+                className="aspect-[4/3]"
+                icon="fas fa-building"
+              />
+            </div>
+            {/* Floating badge */}
+            <div className="absolute -bottom-12 -left-3 sm:-bottom-20 sm:-left-5 bg-white rounded-xl shadow-lg px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
+              <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#FF3366] flex items-center justify-center text-white font-bold text-xs sm:text-sm font-[Poppins]">
+                2168
+              </div>
+              <div>
+                <div className="text-[10px] sm:text-xs text-gray-500">License No.</div>
+                <div className="text-xs sm:text-sm font-bold text-[#3A0A1E]">2168/MLK</div>
               </div>
             </div>
           </div>
