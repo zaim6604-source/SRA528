@@ -1,102 +1,108 @@
-import { Link } from 'react-router-dom';
-import useScrollReveal from '../hooks/useScrollReveal';
-import { services } from '../data/services';
+import { useState } from 'react';
+
+const services = [
+  {
+    icon: 'fa-briefcase',
+    title: 'Overseas Job Placement',
+    color: '#E0115F',
+    desc: 'We connect skilled and unskilled workers with verified employers across the Gulf, Europe, and Asia. Our extensive network and industry knowledge ensure the right match for every candidate.',
+  },
+  {
+    icon: 'fa-passport',
+    title: 'Visa Processing',
+    color: '#FF5C8A',
+    desc: 'End-to-end visa processing support. From document preparation to submission and follow-up, our team handles the entire visa process to ensure timely approvals.',
+  },
+  {
+    icon: 'fa-file-signature',
+    title: 'Document Attestation',
+    color: '#7B2D8E',
+    desc: 'We manage the complete attestation of educational certificates, experience letters, and personal documents from relevant authorities including MOFA, HEC, and foreign embassies.',
+  },
+  {
+    icon: 'fa-stethoscope',
+    title: 'Medical & Trade Tests',
+    color: '#B8004F',
+    desc: 'Coordinated medical examinations at approved centers and trade tests to verify candidate skills. We ensure all health and competency requirements are met.',
+  },
+  {
+    icon: 'fa-chalkboard-teacher',
+    title: 'Pre-Departure Training',
+    color: '#FFD700',
+    desc: 'Comprehensive orientation covering cultural awareness, workplace rights, travel tips, and destination-specific guidance to prepare candidates for a smooth transition.',
+  },
+  {
+    icon: 'fa-plane',
+    title: 'Air Ticketing & Travel',
+    color: '#E0115F',
+    desc: 'We arrange competitive air travel, assist with airport transfers, and provide travel documentation support so candidates can focus on their journey ahead.',
+  },
+  {
+    icon: 'fa-search-dollar',
+    title: 'Employer Verification',
+    color: '#FF5C8A',
+    desc: 'Thorough verification of overseas employers, job offers, and employment contracts. We ensure every opportunity is legitimate and meets agreed terms.',
+  },
+  {
+    icon: 'fa-users',
+    title: 'Manpower Supply',
+    color: '#7B2D8E',
+    desc: 'Bulk recruitment solutions for businesses requiring skilled and unskilled workforce. We handle screening, selection, and mobilization for large-scale projects.',
+  },
+];
 
 export default function Services() {
-  const revealRef = useScrollReveal();
+  const [flipped, setFlipped] = useState(null);
 
   return (
-    <div>
-      {/* Header */}
-      <section className="hero-gradient pt-12 pb-16 sm:pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFBE0B] font-[Plus Jakarta Sans]">
-            What We Do
-          </span>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-[Plus Jakarta Sans] text-white mt-3 mb-3">
-            Our Services
-          </h1>
-          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">
-            End-to-end recruitment solutions — from first contact to successful placement.
-          </p>
-        </div>
-      </section>
+    <div className="space-y-8">
+      <div className="text-center sm:text-left">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 mb-3">
+          <i className="fas fa-concierge-bell" />
+          OUR SERVICES
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink mt-2">
+          What We <span className="text-primary">Offer</span>
+        </h1>
+        <p className="text-ink/60 mt-2 max-w-2xl">
+          Comprehensive recruitment services from application to departure.
+        </p>
+      </div>
 
-      {/* Services Grid */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={revealRef} className="reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {services.map((svc) => (
-              <article
-                key={svc.id}
-                className="service-card group bg-white rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl border border-blue-100 hover:border-[#0496FF]/20 transition-all"
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ backgroundColor: `${svc.color}15`, color: svc.color }}
-                >
-                  <i className={`${svc.icon} text-xl`} />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {services.map((svc, i) => (
+          <div
+            key={svc.title}
+            className="flip-card h-56 cursor-pointer"
+            onClick={() => setFlipped(flipped === i ? null : i)}
+          >
+            <div className="flip-card-inner relative w-full h-full" style={{ transform: flipped === i ? 'rotateY(180deg)' : '' }}>
+              {/* Front */}
+              <div className="flip-card-front bg-white rounded-2xl shadow-sm border border-secondary/10 overflow-hidden">
+                <div style={{ background: svc.color }} className="h-2" />
+                <div className="p-5 flex flex-col items-center justify-center text-center h-[calc(100%-8px)]">
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-3" style={{ background: `${svc.color}15` }}>
+                    <i className={`fas ${svc.icon} text-2xl`} style={{ color: svc.color }} />
+                  </div>
+                  <h3 className="font-bold text-ink text-sm">{svc.title}</h3>
+                  <p className="text-xs text-ink/40 mt-2">Tap to learn more</p>
                 </div>
-                <h3 className="text-lg font-bold font-[Plus Jakarta Sans] text-[#062A45] mb-1">
-                  {svc.title}
-                </h3>
-                <p className="text-xs font-semibold text-[#0496FF] uppercase tracking-wider mb-3">
-                  {svc.tagline}
-                </p>
-                <p className="text-sm text-[#062A45]/60 leading-relaxed">
-                  {svc.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+              </div>
 
-      {/* Article-style feature */}
-      <section className="py-16 sm:py-24 bg-[#E8F5FF]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#0496FF] font-[Plus Jakarta Sans]">
-                Our Approach
-              </span>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-[Plus Jakarta Sans] text-[#062A45] mt-2 mb-4">
-                More Than Just Recruitment
-              </h2>
-              <p className="text-sm sm:text-base text-[#062A45]/70 leading-relaxed mb-4">
-                We believe that successful placement is about more than matching a CV to a job description. It&rsquo;s about understanding the candidate&rsquo;s aspirations, the employer&rsquo;s culture, and the realities of working in a foreign country.
-              </p>
-              <p className="text-sm sm:text-base text-[#062A45]/70 leading-relaxed mb-4">
-                Our team personally interviews every candidate, verifies every employer, and provides ongoing support that extends well beyond the day of departure. We don&rsquo;t just send workers abroad — we prepare them for success.
-              </p>
-              <div className="pull-quote text-base sm:text-lg">
-                We don&rsquo;t just send workers abroad — we prepare them for success.
+              {/* Back */}
+              <div className="flip-card-back bg-white rounded-2xl shadow-sm border border-secondary/10 overflow-hidden flex items-center justify-center p-5">
+                <div className="text-center">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: `${svc.color}15` }}>
+                    <i className={`fas ${svc.icon} text-lg`} style={{ color: svc.color }} />
+                  </div>
+                  <h3 className="font-bold text-ink text-sm mb-2">{svc.title}</h3>
+                  <p className="text-xs text-ink/60 leading-relaxed">{svc.desc}</p>
+                </div>
               </div>
             </div>
-            <div className="rounded-2xl overflow-hidden shadow-lg">
-              <img
-                src="/images/team.jpg"
-                alt="Team collaboration"
-                className="w-full aspect-[4/3] object-cover"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.classList.add('img-fallback');
-                }}
-              />
-            </div>
           </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              to="/guides"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-[#FB5607] rounded-full hover:bg-[#e04e06] transition-all no-underline"
-            >
-              <i className="fas fa-globe" />
-              Explore Destinations
-            </Link>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
     </div>
   );
 }
