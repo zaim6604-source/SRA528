@@ -1,37 +1,31 @@
-import Navbar from './components/Navbar';
-import MarqueeBar from './components/MarqueeBar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
-import Countries from './components/Countries';
-import Process from './components/Process';
-import Testimonials from './components/Testimonials';
-import Gallery from './components/Gallery';
-import CTABand from './components/CTABand';
-import Contact from './components/Contact';
-import FAQ from './components/FAQ';
-import Footer from './components/Footer';
-import QuickApply from './components/QuickApply';
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import ScrollToTop from './components/ScrollToTop'
+import QuickApply from './components/QuickApply'
+import Overview from './pages/Overview'
+import Services from './pages/Services'
+import Destinations from './pages/Destinations'
+import DestinationDetail from './pages/DestinationDetail'
+import Process from './pages/Process'
+import Apply from './pages/Apply'
+import NotFound from './pages/NotFound'
 
 export default function App() {
   return (
     <>
-      <Navbar />
-      <MarqueeBar />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Countries />
-        <Process />
-        <Testimonials />
-        <Gallery />
-        <CTABand />
-        <Contact />
-        <FAQ />
-      </main>
-      <Footer />
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Overview />} />
+          <Route path="services" element={<Services />} />
+          <Route path="destinations" element={<Destinations />} />
+          <Route path="destinations/:slug" element={<DestinationDetail />} />
+          <Route path="process" element={<Process />} />
+          <Route path="apply" element={<Apply />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
       <QuickApply />
     </>
-  );
+  )
 }

@@ -1,151 +1,53 @@
-import { Link } from 'react-router-dom';
-import FadeIn from '../components/FadeIn';
+import useInView from '../hooks/useInView'
 
 const services = [
-  {
-    title: 'Overseas Job Placement',
-    icon: 'fa-briefcase',
-    color: 'from-[var(--color-primary)] to-[#005a61]',
-    desc: 'End-to-end job placement services connecting skilled workers with reputable employers across the Gulf and Europe. We match your qualifications with the right opportunities.',
-    items: ['CV review & optimization', 'Job matching', 'Interview coordination', 'Offer negotiation'],
-  },
-  {
-    title: 'Visa Processing',
-    icon: 'fa-passport',
-    color: 'from-[var(--color-secondary)] to-[#6bb0a8]',
-    desc: 'Complete visa application assistance for all destination countries. We handle the paperwork so you can focus on preparing for your journey.',
-    items: ['Document preparation', 'Application submission', 'Follow-up & tracking', 'Visa stamping'],
-  },
-  {
-    title: 'Document Attestation',
-    icon: 'fa-file-contract',
-    color: 'from-[var(--color-cta)] to-[#d47d5e]',
-    desc: 'Professional attestation and authentication of your educational and professional documents for international recognition.',
-    items: ['Educational certificates', 'Professional licenses', 'Police clearance', 'Ministry attestation'],
-  },
-  {
-    title: 'Medical & Trade Test Coordination',
-    icon: 'fa-stethoscope',
-    color: 'from-[var(--color-highlight)] to-[#002a33]',
-    desc: 'Coordination of mandatory medical examinations and trade tests required by destination countries and employers.',
-    items: ['Medical appointments', 'Trade test scheduling', 'Result follow-up', 'Documentation'],
-  },
-  {
-    title: 'Pre-Departure Orientation',
-    icon: 'fa-graduation-cap',
-    color: 'from-[var(--color-primary)] to-[#005a61]',
-    desc: 'Comprehensive orientation sessions preparing workers for their new environment, culture, and job responsibilities abroad.',
-    items: ['Cultural awareness', 'Labor rights education', 'Language basics', 'Travel guidance'],
-  },
-  {
-    title: 'Air Ticketing & Travel Support',
-    icon: 'fa-plane',
-    color: 'from-[var(--color-secondary)] to-[#6bb0a8]',
-    desc: 'Hassle-free flight booking and travel coordination ensuring smooth departure to your destination country.',
-    items: ['Flight booking', 'Airport transfers', 'Travel insurance', '24/7 support'],
-  },
-  {
-    title: 'Employer Verification',
-    icon: 'fa-shield-halved',
-    color: 'from-[var(--color-cta)] to-[#d47d5e]',
-    desc: 'Thorough verification of potential employers to ensure legitimacy, fair wages, and safe working conditions.',
-    items: ['Company background check', 'Contract review', 'Salary verification', 'Accommodation check'],
-  },
-  {
-    title: 'Skilled & Unskilled Manpower Supply',
-    icon: 'fa-users',
-    color: 'from-[var(--color-highlight)] to-[#002a33]',
-    desc: 'Reliable supply of both skilled and unskilled manpower across various sectors including construction, healthcare, hospitality, and more.',
-    items: ['Skilled professionals', 'General laborers', 'Sector-specific staff', 'Bulk recruitment'],
-  },
-];
+  { icon: 'fa-briefcase', title: 'Overseas Job Placement', desc: 'Connecting candidates with verified employers across multiple countries, matching skills to the right opportunities.', color: 'bg-primary' },
+  { icon: 'fa-passport', title: 'Visa Processing', desc: 'End-to-end visa application support, from document preparation to submission and follow-up.', color: 'bg-secondary' },
+  { icon: 'fa-file-alt', title: 'Document Attestation', desc: 'Complete attestation and legalization of certificates and documents through relevant departments and embassies.', color: 'bg-accent' },
+  { icon: 'fa-stethoscope', title: 'Medical & Trade Tests', desc: 'Coordination of mandatory medical exams and trade tests at authorized centers.', color: 'bg-cta' },
+  { icon: 'fa-chalkboard-teacher', title: 'Pre-Departure Orientation', desc: 'Orientation sessions on cultural awareness, contract terms, worker rights, and practical tips.', color: 'bg-highlight' },
+  { icon: 'fa-plane', title: 'Air Ticketing & Travel', desc: 'Flight bookings, airport transfers, and travel documentation assistance.', color: 'bg-primary' },
+  { icon: 'fa-search', title: 'Employer Verification', desc: 'Thorough verification of employers and job offers to ensure legitimate, safe employment.', color: 'bg-secondary' },
+  { icon: 'fa-hard-hat', title: 'Manpower Supply', desc: 'Skilled and unskilled manpower supply for construction, hospitality, manufacturing, and more.', color: 'bg-accent' },
+]
 
-const colorMap = {
-  'from-[var(--color-primary)] to-[#005a61]': 'var(--color-primary)',
-  'from-[var(--color-secondary)] to-[#6bb0a8]': 'var(--color-secondary)',
-  'from-[var(--color-cta)] to-[#d47d5e]': 'var(--color-cta)',
-  'from-[var(--color-highlight)] to-[#002a33]': 'var(--color-highlight)',
-};
+function AnimateOnView({ children, delay = 0, className = '' }) {
+  const [ref, inView] = useInView({ threshold: 0.1 })
+  return (
+    <div ref={ref} className={`transition-all duration-700 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  )
+}
 
 export default function Services() {
   return (
-    <div>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-highlight)] text-white py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeIn>
-            <h1 className="text-4xl md:text-5xl font-extrabold">Our Services</h1>
-            <p className="mt-4 text-[var(--color-secondary)] text-lg max-w-2xl mx-auto">
-              Comprehensive recruitment and manpower solutions tailored to your needs.
-            </p>
-          </FadeIn>
+    <div className="max-w-5xl mx-auto">
+      <AnimateOnView>
+        <div className="mb-8">
+          <span className="inline-block bg-primary text-white text-xs font-bold px-3 py-1 rounded-full mb-3">OUR SERVICES</span>
+          <h1 className="text-2xl md:text-4xl font-extrabold text-primary">What We Offer</h1>
+          <p className="text-ink/60 mt-2 text-sm md:text-base">Complete overseas employment services under one roof</p>
         </div>
-      </section>
+      </AnimateOnView>
 
-      {/* Services Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {services.map((s, i) => (
-            <FadeIn key={s.title} delay={Math.min(i + 1, 6)}>
-              <div className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow bg-white border border-[var(--color-secondary)]/20">
-                <div className={`bg-gradient-to-r ${s.color} p-6 text-white`}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                      <i className={`fas ${s.icon} text-xl`} />
-                    </div>
-                    <h2 className="text-xl font-bold">{s.title}</h2>
-                  </div>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {services.map((s, i) => (
+          <AnimateOnView key={s.title} delay={i * 60}>
+            <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all group">
+              <div className={`h-2 ${s.color}`} />
+              <div className="p-5">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <i className={`fas ${s.icon} text-primary text-lg`} />
                 </div>
-                <div className="p-6">
-                  <p className="text-[var(--color-ink)]/80 text-sm leading-relaxed mb-4">
-                    {s.desc}
-                  </p>
-                  <ul className="space-y-2">
-                    {s.items.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm text-[var(--color-ink)]/70">
-                        <i className="fas fa-check text-[var(--color-primary)] text-xs" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <h3 className="font-bold text-ink text-base mb-2">{s.title}</h3>
+                <p className="text-ink/60 text-sm leading-relaxed">{s.desc}</p>
               </div>
-            </FadeIn>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-[var(--color-background)] py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <FadeIn>
-            <h2 className="text-3xl font-bold text-[var(--color-ink)]">Need a Custom Solution?</h2>
-            <p className="mt-3 text-[var(--color-ink)]/70">
-              Contact us to discuss your specific requirements. We are here to help.
-            </p>
-          </FadeIn>
-          <FadeIn delay={1}>
-            <div className="mt-6 flex flex-wrap justify-center gap-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 bg-[var(--color-cta)] text-white font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition-all"
-              >
-                <i className="fas fa-paper-plane" />
-                Contact Us
-              </Link>
-              <a
-                href="https://wa.me/923469358431"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-semibold px-6 py-3 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-all"
-              >
-                <i className="fab fa-whatsapp" />
-                WhatsApp
-              </a>
             </div>
-          </FadeIn>
-        </div>
-      </section>
+          </AnimateOnView>
+        ))}
+      </div>
     </div>
-  );
+  )
 }
