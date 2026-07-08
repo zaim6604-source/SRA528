@@ -1,41 +1,34 @@
-import useInView from '../hooks/useInView';
+import { Link } from 'react-router-dom';
 
 export default function CTABand() {
-  const [ref, visible] = useInView(0.2);
-
   return (
-    <section className="relative">
-      {/* Wavy divider */}
-      <div className="wavy-divider">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#EDF6F9" />
-        </svg>
-      </div>
+    <section className="py-20 px-4 bg-gradient-to-r from-primary via-secondary to-primary relative overflow-hidden">
+      <div className="absolute top-6 left-10 text-white/20 text-3xl"><i className="fas fa-star" /></div>
+      <div className="absolute bottom-6 right-10 text-white/20 text-2xl"><i className="fas fa-sparkle" /></div>
+      <div className="absolute top-1/2 right-1/4 text-white/10 text-4xl"><i className="fas fa-star" /></div>
 
-      <div
-        className="py-16 sm:py-20 lg:py-24 px-4"
-        style={{ background: 'linear-gradient(135deg, #006D77 0%, #E29578 100%)' }}
-      >
-        <div ref={ref} className={`fade-up ${visible ? 'visible' : ''} max-w-3xl mx-auto text-center space-y-6 sm:space-y-7`}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white m-0 leading-tight">
-            Licensed, Honest, Complete.
-          </h2>
-          <p className="text-base sm:text-lg text-white/80 max-w-xl mx-auto leading-relaxed">
-            Take the first step toward your overseas career. We're here to help.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-2">
-            <a href="https://wa.me/923335259127" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-              style={{ backgroundColor: '#FFDD00', color: '#003844' }}>
-              <i className="fa-brands fa-whatsapp" />
-              Apply via WhatsApp
-            </a>
-            <a href="tel:0514427780"
-              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-base font-semibold text-white border-2 border-white/60 transition-all duration-300 hover:scale-105 hover:bg-white/10">
-              <i className="fa-solid fa-phone" />
-              Call 051-4427780
-            </a>
-          </div>
+      <div className="max-w-3xl mx-auto text-center relative z-10">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-white font-heading mb-4">
+          Find the Job. Pick the Country.
+        </h2>
+        <p className="text-white/80 text-lg md:text-xl mb-8 max-w-xl mx-auto">
+          Your international career is one conversation away. Let's make it happen.
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Link
+            to="/jobs"
+            className="bg-cta text-white px-8 py-3.5 rounded-full text-lg font-bold hover:brightness-110 transition-all shadow-xl shadow-cta/40"
+          >
+            Apply Now
+          </Link>
+          <a
+            href="https://wa.me/923008477507"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white/20 backdrop-blur-sm text-white border-2 border-white px-8 py-3.5 rounded-full text-lg font-bold hover:bg-white hover:text-primary transition-all"
+          >
+            <i className="fab fa-whatsapp mr-2" />Chat on WhatsApp
+          </a>
         </div>
       </div>
     </section>

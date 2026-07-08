@@ -1,70 +1,33 @@
-import useInView from '../hooks/useInView';
+import { useState } from 'react';
 
-const FALLBACK = '/src/assets/images/fallback.svg';
-const handleImgError = (e) => {
-  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
-};
-
-const images = [
-  {
-    src: '/src/assets/images/gallery-1.jpg',
-    alt: 'Office building exterior',
-  },
-  {
-    src: '/src/assets/images/gallery-2.jpg',
-    alt: 'Modern office interior',
-  },
-  {
-    src: '/src/assets/images/gallery-3.jpg',
-    alt: 'Team collaboration',
-  },
-  {
-    src: '/src/assets/images/gallery-4.jpg',
-    alt: 'Travel documents and passports',
-  },
+const photos = [
+  { src: '/images/about-office.jpg', alt: 'Office team meeting' },
+  { src: '/images/team-meeting.jpg', alt: 'Team collaboration' },
+  { src: '/images/office-workspace.jpg', alt: 'Office workspace' },
+  { src: '/images/staff-meeting.jpg', alt: 'Staff meeting' },
 ];
 
 export default function Gallery() {
-  const [ref, visible] = useInView(0.1);
+  const [errors, setErrors] = useState({});
 
   return (
-    <section id="gallery" className="relative">
-      {/* Wavy divider */}
-      <div className="wavy-divider">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#E29578" />
-        </svg>
-      </div>
-
-      <div style={{ backgroundColor: '#E29578' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          {/* Pill Badge */}
-          <div className="flex justify-center mb-4">
-            <span className="pill-5 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
-              GALLERY
-            </span>
-          </div>
-
-          <p className="text-center text-base sm:text-lg mb-10 max-w-2xl mx-auto" style={{ color: '#003844' }}>
-            A glimpse into our workspace and team.
-          </p>
-
-          <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            {images.map((img, i) => (
-              <div
-                key={img.alt}
-                className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${i + 1} img-hover-zoom rounded-2xl overflow-hidden shadow-lg`}
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="w-full h-44 sm:h-52 object-cover"
-                  loading="lazy"
-                  onError={handleImgError}
-                />
-              </div>
-            ))}
-          </div>
+    <section className="py-16 px-4 bg-background">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-ink text-center font-heading mb-10">
+          A Glimpse of <span className="text-accent">Our Office</span>
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {photos.map((photo, i) => (
+            <div key={i} className="rounded-2xl overflow-hidden shadow-lg group">
+              <img
+                src={errors[i] ? '/images/office-workspace.jpg' : photo.src}
+                alt={photo.alt}
+                className="w-full h-48 md:h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                onError={() => setErrors((p) => ({ ...p, [i]: true }))}
+                loading="lazy"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

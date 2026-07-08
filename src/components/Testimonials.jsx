@@ -1,129 +1,71 @@
-import useInView from '../hooks/useInView';
-
-const FALLBACK = '/src/assets/images/fallback.svg';
-const handleImgError = (e) => {
-  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
-};
+import { useState } from 'react';
+import SectionWrapper from './SectionWrapper';
 
 const testimonials = [
   {
-    quote: 'Al-Awab International made the entire process so simple. From registration to departure, everything was handled professionally. I\'m now working in Dubai and supporting my family back in Rawalpindi.',
+    quote: "Rolla Corporation made my dream of working in Saudi Arabia a reality. From documentation to departure, they handled everything professionally. I'm now earning 3x what I was making locally.",
     name: 'Ahmed Raza',
-    dest: 'Dubai, UAE',
     role: 'Construction Supervisor',
-    avatar: '/src/assets/images/avatar-1.jpg',
-    bg: '#D4ECEC',
+    destination: 'Saudi Arabia',
+    img: '/images/candidate1.jpg',
   },
   {
-    quote: 'I was nervous about finding legitimate work abroad, but the team at Al-Awab put all my worries to rest. Transparent fees, honest guidance, and a job I love in Saudi Arabia. Highly recommended!',
-    name: 'Imran Khan',
-    dest: 'Riyadh, Saudi Arabia',
-    role: 'Heavy Equipment Operator',
-    avatar: '/src/assets/images/avatar-2.jpg',
-    bg: '#F8E8E2',
+    quote: "I was nervous about moving abroad for work, but the team at Rolla Corporation guided me at every step. The pre-departure orientation was incredibly helpful. Highly recommended!",
+    name: 'Bilal Khan',
+    role: 'Factory Worker',
+    destination: 'Poland',
+    img: '/images/candidate2.jpg',
   },
   {
-    quote: 'From Tingo Market to Kuala Lumpur &mdash; Al-Awab International made it happen. They took care of my visa, documents, and even my flight. A truly hassle-free experience.',
-    name: 'Sajid Mehmood',
-    dest: 'Kuala Lumpur, Malaysia',
-    role: 'Factory Technician',
-    avatar: '/src/assets/images/avatar-3.jpg',
-    bg: '#E8F4F2',
-  },
-  {
-    quote: 'What I appreciated most was the honesty. They told me exactly what to expect, what the costs were, and kept me updated through every step. Now I\'m in Doha with a great contract.',
-    name: 'Bilal Ahmed',
-    dest: 'Doha, Qatar',
-    role: 'Security Officer',
-    avatar: '/src/assets/images/avatar-4.jpg',
-    bg: '#D4E4E6',
-  },
-  {
-    quote: 'I went from Rawalpindi to Europe thanks to Al-Awab International. Their pre-departure orientation was incredibly helpful &mdash; I felt prepared from day one. Thank you for changing my life!',
-    name: 'Usman Ali',
-    dest: 'Berlin, Germany',
-    role: 'Skilled Technician',
-    avatar: '/src/assets/images/avatar-5.jpg',
-    bg: '#F0F0E8',
-  },
-  {
-    quote: 'Finding a legitimate recruiter in Rawalpindi is not easy, but Al-Awab International stood out. Licensed, professional, and they genuinely care. I\'ve already recommended them to my cousins.',
-    name: 'Tariq Javed',
-    dest: 'Muscat, Oman',
-    role: 'Driver',
-    avatar: '/src/assets/images/avatar-6.jpg',
-    bg: '#D4ECEC',
+    quote: "Thanks to Rolla Corporation, I secured a great position in Dubai within weeks of registering. They are honest, transparent, and truly care about their candidates. A blessing for Lahore's youth.",
+    name: 'Usman Ghani',
+    role: 'Logistics Coordinator',
+    destination: 'UAE',
+    img: '/images/candidate3.jpg',
   },
 ];
 
 export default function Testimonials() {
-  const [ref, visible] = useInView(0.05);
+  const [imgErrors, setImgErrors] = useState({});
 
   return (
-    <section id="testimonials" className="relative">
-      {/* Wavy divider */}
-      <div className="wavy-divider">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#EDF6F9" />
-        </svg>
-      </div>
+    <SectionWrapper id="testimonials" badge="SUCCESS STORIES" badgeColor="accent">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-ink font-heading mb-2">
+        Real Stories, Real Impact
+      </h2>
+      <p className="text-ink/60 mb-10 max-w-2xl">
+        Hear from the candidates we've helped place across the globe.
+      </p>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-        {/* Pill Badge */}
-        <div className="flex justify-center mb-4">
-          <span className="pill-1 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
-            SUCCESS STORIES
-          </span>
-        </div>
-
-        <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#00505A' }}>
-          Real stories from real people &mdash; our candidates share their experience.
-        </p>
-
-        <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {testimonials.map((t, i) => (
-            <div
-              key={t.name}
-              className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${(i % 3) + 1} relative rounded-2xl p-6 sm:p-7 shadow-md transition-transform duration-300 hover:-translate-y-2`}
-              style={{ backgroundColor: t.bg }}
-            >
-              {/* Decorative quote mark */}
-              <div className="absolute top-3 right-4 text-5xl sm:text-6xl font-serif opacity-20 leading-none" style={{ color: '#006D77' }}>
-                &quot;
-              </div>
-
-              {/* Stars — Yellow */}
-              <div className="flex gap-1 mb-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {testimonials.map((t) => (
+          <div
+            key={t.name}
+            className="relative rounded-2xl overflow-hidden shadow-xl h-[420px] group"
+          >
+            <img
+              src={imgErrors[t.name] ? '/images/hero-team.jpg' : t.img}
+              alt={t.name}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onError={() => setImgErrors((p) => ({ ...p, [t.name]: true }))}
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div className="flex text-cta mb-3">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <i key={s} className="fa-solid fa-star text-xs" style={{ color: '#FFDD00' }} />
+                  <i key={s} className="fas fa-star text-sm" />
                 ))}
               </div>
-
-              {/* Quote */}
-              <p className="text-sm sm:text-base leading-relaxed mb-5 relative z-10" style={{ color: '#003844' }}>
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              {/* Avatar + Name */}
-              <div className="flex items-center gap-3 mt-auto">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shadow-sm border-2 border-white"
-                  loading="lazy"
-                  onError={handleImgError}
-                />
-                <div>
-                  <div className="text-sm font-bold" style={{ color: '#003844' }}>{t.name}</div>
-                  <div className="text-xs" style={{ color: '#00505A' }}>
-                    {t.dest} &mdash; {t.role}
-                  </div>
-                </div>
+              <p className="text-sm leading-relaxed mb-4 italic">"{t.quote}"</p>
+              <div className="font-bold text-base">{t.name}</div>
+              <div className="text-xs text-white/70">
+                {t.role} &middot; {t.destination}
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

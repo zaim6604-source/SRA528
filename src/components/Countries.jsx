@@ -1,91 +1,73 @@
-import useInView from '../hooks/useInView';
-
-const FALLBACK = '/src/assets/images/fallback.svg';
-const handleImgError = (e) => {
-  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
-};
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import SectionWrapper from './SectionWrapper';
 
 const countries = [
-  { name: 'Saudi Arabia', flag: '🇸🇦', roles: 'Construction, Hospitality, Drivers, Technicians', img: '/src/assets/images/saudi.jpg' },
-  { name: 'UAE', flag: '🇦🇪', roles: 'Construction, Hospitality, Logistics, Retail', img: '/src/assets/images/uae.jpg' },
-  { name: 'Qatar', flag: '🇶🇦', roles: 'Construction, Oil & Gas, Hospitality, Security', img: '/src/assets/images/qatar.jpg' },
-  { name: 'Oman', flag: '🇴🇲', roles: 'Construction, Hospitality, Transport, Healthcare', img: '/src/assets/images/oman.jpg' },
-  { name: 'Germany', flag: '🇩🇪', roles: 'Nursing, IT, Engineering, Skilled Trades', img: '/src/assets/images/germany.jpg' },
-  { name: 'Poland', flag: '🇵🇱', roles: 'Manufacturing, Logistics, Construction, Hospitality', img: '/src/assets/images/poland.jpg' },
-  { name: 'Romania', flag: '🇷🇴', roles: 'Manufacturing, Assembly, Warehousing, Logistics', img: '/src/assets/images/romania.jpg' },
-  { name: 'Greece', flag: '🇬🇷', roles: 'Hospitality, Tourism, Agriculture, Construction', img: '/src/assets/images/greece.jpg' },
-  { name: 'Malaysia', flag: '🇲🇾', roles: 'Manufacturing, IT, Hospitality, Healthcare', img: '/src/assets/images/saudi.jpg' },
+  { name: 'Saudi Arabia', flag: '🇸🇦', slug: 'saudi-arabia', roles: 'Construction, Hospitality, Engineering', img: '/images/saudi.jpg' },
+  { name: 'UAE', flag: '🇦🇪', slug: 'uae', roles: 'Construction, Logistics, Hospitality', img: '/images/uae.jpg' },
+  { name: 'Qatar', flag: '🇶🇦', slug: 'qatar', roles: 'Hospitality, Facilities, Security', img: '/images/qatar.jpg' },
+  { name: 'Oman', flag: '🇴🇲', slug: 'oman', roles: 'Construction, Transport, Trade', img: '/images/oman.jpg' },
+  { name: 'Germany', flag: '🇩🇪', slug: 'germany', roles: 'Healthcare, IT, Skilled Trades', img: '/images/germany.jpg' },
+  { name: 'Poland', flag: '🇵🇱', slug: 'poland', roles: 'Manufacturing, Logistics, IT', img: '/images/poland.jpg' },
+  { name: 'Romania', flag: '🇷🇴', slug: 'romania', roles: 'Manufacturing, Agriculture, IT', img: '/images/romania.jpg' },
+  { name: 'Greece', flag: '🇬🇷', slug: 'greece', roles: 'Hospitality, Tourism, Services', img: '/images/greece.jpg' },
+  { name: 'Malaysia', flag: '🇲🇾', slug: 'malaysia', roles: 'Manufacturing, Hospitality, IT', img: '/images/malaysia.jpg' },
 ];
 
-const chipColors = ['#006D77', '#E29578', '#003844', '#83C5BE', '#006D77', '#E29578', '#003844', '#83C5BE', '#006D77'];
+const chipColors = ['bg-primary', 'bg-secondary', 'bg-accent', 'bg-cta', 'bg-highlight'];
 
 export default function Countries() {
-  const [ref, visible] = useInView(0.05);
-  const [chipsRef, chipsVisible] = useInView(0.1);
+  const [imgErrors, setImgErrors] = useState({});
 
   return (
-    <section id="countries" className="relative">
-      {/* Wavy divider */}
-      <div className="wavy-divider">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#EDF6F9" />
-        </svg>
-      </div>
+    <SectionWrapper id="countries" badge="DESTINATIONS" badgeColor="primary">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-ink font-heading mb-2">
+        Where We Can Take You
+      </h2>
+      <p className="text-ink/60 mb-10 max-w-2xl">
+        Opportunities across the globe — from the Middle East to Europe and Asia.
+      </p>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-        {/* Pill Badge */}
-        <div className="flex justify-center mb-4">
-          <span className="pill-5 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
-            DESTINATIONS
-          </span>
-        </div>
-
-        <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#00505A' }}>
-          We recruit for top employers across these global destinations.
-        </p>
-
-        {/* Country Cards Grid */}
-        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-12">
-          {countries.slice(0, 9).map((c, i) => (
-            <div
-              key={c.name}
-              className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${(i % 3) + 1} rounded-2xl overflow-hidden shadow-md bg-white transition-transform duration-300 hover:-translate-y-2`}
-            >
-              <div className="img-hover-zoom h-40 sm:h-44">
-                <img
-                  src={c.img}
-                  alt={c.name}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  onError={handleImgError}
-                />
-              </div>
-              <div className="p-4 sm:p-5">
-                <h3 className="text-base sm:text-lg font-bold m-0 flex items-center gap-2" style={{ color: '#003844' }}>
-                  <span className="text-xl">{c.flag}</span> {c.name}
-                </h3>
-                <p className="text-xs sm:text-sm mt-2 leading-relaxed" style={{ color: '#00505A' }}>
-                  <span className="font-semibold">In-demand:</span> {c.roles}
-                </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        {countries.map((country, idx) => (
+          <div
+            key={country.name}
+            className="rounded-2xl overflow-hidden bg-white shadow-lg hover:shadow-xl transition-all duration-300 group"
+          >
+            <div className="relative h-44 overflow-hidden bg-primary">
+              <img
+                src={imgErrors[country.name] ? '/images/hero-team.jpg' : country.img}
+                alt={`Landmark in ${country.name}`}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                onError={() => setImgErrors((p) => ({ ...p, [country.name]: true }))}
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
+              <div className="absolute bottom-3 left-4">
+                <span className="text-2xl">{country.flag}</span>
+                <h3 className="text-white font-bold text-lg">{country.name}</h3>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* Compact Country Chip Grid */}
-        <div ref={chipsRef} className={`fade-up ${chipsVisible ? 'visible' : ''} flex flex-wrap justify-center gap-3`}>
-          {countries.map((c, i) => (
-            <span
-              key={c.name}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold shadow-sm transition-transform duration-200 hover:scale-105"
-              style={{ backgroundColor: chipColors[i % chipColors.length] + '20', color: chipColors[i % chipColors.length], border: `1px solid ${chipColors[i % chipColors.length]}40` }}
-            >
-              <span className="text-base">{c.flag}</span>
-              {c.name}
-            </span>
-          ))}
-        </div>
+            <div className="p-4">
+              <p className="text-ink/60 text-sm">
+                <span className="font-semibold text-ink">In-demand roles:</span> {country.roles}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-    </section>
+
+      <div className="flex flex-wrap justify-center gap-3">
+        {countries.map((country, i) => (
+          <Link
+            key={country.name}
+            to={`/jobs?country=${country.slug}`}
+            className={`${chipColors[i % chipColors.length]} text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md hover:brightness-110 transition-all`}
+          >
+            {country.flag} {country.name}
+          </Link>
+        ))}
+      </div>
+    </SectionWrapper>
   );
 }

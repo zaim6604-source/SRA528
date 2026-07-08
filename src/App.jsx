@@ -1,37 +1,25 @@
-import Navbar from './components/Navbar';
-import MarqueeBar from './components/MarqueeBar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
-import Countries from './components/Countries';
-import Process from './components/Process';
-import Testimonials from './components/Testimonials';
-import Gallery from './components/Gallery';
-import CTABand from './components/CTABand';
-import Contact from './components/Contact';
-import FAQ from './components/FAQ';
-import Footer from './components/Footer';
-import QuickApply from './components/QuickApply';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+import JobsPage from './pages/JobsPage';
+import JobDetailPage from './pages/JobDetailPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import NotFound from './pages/NotFound';
 
-export default function App() {
+function App() {
   return (
-    <>
-      <Navbar />
-      <MarqueeBar />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Countries />
-        <Process />
-        <Testimonials />
-        <Gallery />
-        <CTABand />
-        <Contact />
-        <FAQ />
-      </main>
-      <Footer />
-      <QuickApply />
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="jobs" element={<JobsPage />} />
+        <Route path="jobs/:id" element={<JobDetailPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
+
+export default App;

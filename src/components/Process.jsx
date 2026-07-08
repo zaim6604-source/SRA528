@@ -1,84 +1,75 @@
-import useInView from '../hooks/useInView';
+import SectionWrapper from './SectionWrapper';
 
 const steps = [
-  { icon: 'fa-solid fa-clipboard-list', label: 'Register & Consult', desc: 'Reach out to us \u2014 we\u2019ll discuss your goals and match you with the right opportunity.', color: '#006D77' },
-  { icon: 'fa-solid fa-file-lines', label: 'Documents & Visa', desc: 'Submit your documents and we\u2019ll handle the visa application process for you.', color: '#E29578' },
-  { icon: 'fa-solid fa-stethoscope', label: 'Medical & Trade Test', desc: 'We coordinate your medical exams and any required trade skill assessments.', color: '#83C5BE' },
-  { icon: 'fa-solid fa-building-columns', label: 'Employer Confirmation', desc: 'Receive your official job offer and employment confirmation from your employer.', color: '#003844' },
-  { icon: 'fa-solid fa-plane-departure', label: 'Ticketing & Departure', desc: 'We book your flight and ensure you\u2019re fully prepared for departure.', color: '#FFDD00' },
+  { icon: 'fa-clipboard-list', label: 'Register & Consult', desc: 'Walk in or WhatsApp us for a free career consultation.' },
+  { icon: 'fa-file-alt', label: 'Documents & Visa', desc: 'We prepare your documents and handle visa applications.' },
+  { icon: 'fa-stethoscope', label: 'Medical & Trade Test', desc: 'Coordinated medical exams and skill assessments.' },
+  { icon: 'fa-handshake', label: 'Employer Confirmation', desc: 'Receive your formal offer and employment contract.' },
+  { icon: 'fa-plane-departure', label: 'Ticketing & Departure', desc: 'We book your flight and brief you before departure.' },
 ];
 
 export default function Process() {
-  const [ref, visible] = useInView(0.05);
-
   return (
-    <section id="process" className="relative">
-      {/* Wavy divider */}
-      <div className="wavy-divider">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#83C5BE" />
-        </svg>
-      </div>
+    <SectionWrapper id="process" badge="HOW IT WORKS" badgeColor="cta">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-ink font-heading mb-2">
+        Your Journey, Simplified
+      </h2>
+      <p className="text-ink/60 mb-10 max-w-2xl">
+        Five simple steps from registration to departure.
+      </p>
 
-      <div style={{ backgroundColor: '#83C5BE' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-          {/* Pill Badge */}
-          <div className="flex justify-center mb-4">
-            <span className="pill-3 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
-              HOW IT WORKS
-            </span>
+      <div className="hidden md:flex items-center justify-center py-12">
+        <div className="relative w-[500px] h-[500px] lg:w-[600px] lg:h-[600px]">
+          <div className="absolute inset-0 rounded-full border-2 border-dashed border-secondary/40" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white shadow-xl z-10">
+            <i className="fas fa-rocket text-2xl" />
           </div>
 
-          <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#003844' }}>
-            Five simple steps to your next opportunity abroad.
-          </p>
+          {steps.map((step, i) => {
+            const angle = (i * 360) / steps.length - 90;
+            const rad = (angle * Math.PI) / 180;
+            const radius = 220;
+            const x = Math.cos(rad) * radius;
+            const y = Math.sin(rad) * radius;
 
-          {/* Filmstrip */}
-          <div ref={ref} className="filmstrip relative bg-[#003844] rounded-2xl overflow-hidden shadow-xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-            <div className="filmstrip-scroll flex gap-4 sm:gap-6 overflow-x-auto pb-2 snap-x snap-mandatory">
-              {steps.map((s, i) => (
-                <div
-                  key={s.label}
-                  className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${i + 1} flex-shrink-0 w-[220px] sm:w-[250px] lg:w-[260px] snap-start`}
-                >
-                  <div
-                    className="rounded-xl p-5 sm:p-6 h-full shadow-lg border-2 transition-transform duration-300 hover:-translate-y-1"
-                    style={{ backgroundColor: s.color + '20', borderColor: s.color + '60' }}
-                  >
-                    {/* Step Number */}
-                    <div
-                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm mb-3 shadow-md"
-                      style={{ backgroundColor: s.color }}
-                    >
-                      {i + 1}
-                    </div>
-
-                    {/* Icon */}
-                    <i className={`${s.icon} text-xl sm:text-2xl mb-3`} style={{ color: s.color }} />
-
-                    {/* Label */}
-                    <h3 className="text-sm sm:text-base font-bold m-0 mb-2" style={{ color: '#fff' }}>
-                      {s.label}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#EDF6F9' }}>
-                      {s.desc}
-                    </p>
+            return (
+              <div
+                key={step.label}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-full bg-white shadow-lg border-2 border-secondary flex items-center justify-center text-secondary text-xl mb-2 hover:scale-110 transition-transform">
+                    <i className={`fas ${step.icon}`} />
                   </div>
+                  <span className="text-xs font-bold text-primary bg-cta/20 px-3 py-0.5 rounded-full mb-1">
+                    Step {i + 1}
+                  </span>
+                  <span className="text-sm font-bold text-ink max-w-[120px] leading-tight">{step.label}</span>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Scroll hint */}
-          <p className="text-center text-xs sm:text-sm mt-4 font-medium" style={{ color: '#003844' }}>
-            <i className="fa-solid fa-arrow-left mr-2" />
-            Scroll to explore
-            <i className="fa-solid fa-arrow-right ml-2" />
-          </p>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </section>
+
+      <div className="md:hidden space-y-6">
+        {steps.map((step, i) => (
+          <div key={step.label} className="flex gap-5 items-start">
+            <div className="flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                <i className={`fas ${step.icon}`} />
+              </div>
+              {i < steps.length - 1 && <div className="w-0.5 h-10 bg-secondary/30" />}
+            </div>
+            <div className="pt-1">
+              <span className="text-xs font-bold text-accent">Step {i + 1}</span>
+              <h3 className="text-lg font-bold text-ink">{step.label}</h3>
+              <p className="text-ink/60 text-sm">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </SectionWrapper>
   );
 }
