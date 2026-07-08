@@ -1,23 +1,23 @@
 import useInView from '../hooks/useInView';
 
-const FALLBACK = 'https://placehold.co/400x300/FFB6C1/FFB6C1';
+const FALLBACK = '/src/assets/images/fallback.svg';
 const handleImgError = (e) => {
   if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
 };
 
 const countries = [
-  { name: 'Saudi Arabia', flag: '🇸🇦', roles: 'Construction, Hospitality, Drivers, Technicians', img: 'https://picsum.photos/seed/saudi-arabia/400/300' },
-  { name: 'UAE', flag: '🇦🇪', roles: 'Construction, Hospitality, Logistics, Retail', img: 'https://picsum.photos/seed/uae/400/300' },
-  { name: 'Qatar', flag: '🇶🇦', roles: 'Construction, Oil & Gas, Hospitality, Security', img: 'https://picsum.photos/seed/qatar/400/300' },
-  { name: 'Malaysia', flag: '🇲🇾', roles: 'Manufacturing, IT, Hospitality, Healthcare', img: 'https://picsum.photos/seed/malaysia/400/300' },
-  { name: 'South Korea', flag: '🇰🇷', roles: 'Manufacturing, Agriculture, Fisheries, Construction', img: 'https://picsum.photos/seed/south-korea/400/300' },
-  { name: 'Oman', flag: '🇴🇲', roles: 'Construction, Hospitality, Transport, Healthcare', img: 'https://picsum.photos/seed/oman/400/300' },
-  { name: 'Kuwait', flag: '🇰🇼', roles: 'Construction, Oil & Gas, Hospitality, Drivers', img: 'https://picsum.photos/seed/kuwait/400/300' },
-  { name: 'Bahrain', flag: '🇧🇭', roles: 'Construction, Finance, Hospitality, IT', img: 'https://picsum.photos/seed/bahrain/400/300' },
-  { name: 'Italy', flag: '🇮🇹', roles: 'Hospitality, Manufacturing, Agriculture, Logistics', img: 'https://picsum.photos/seed/italy/400/300' },
+  { name: 'Saudi Arabia', flag: '🇸🇦', roles: 'Construction, Hospitality, Drivers, Technicians', img: '/src/assets/images/saudi.jpg' },
+  { name: 'UAE', flag: '🇦🇪', roles: 'Construction, Hospitality, Logistics, Retail', img: '/src/assets/images/uae.jpg' },
+  { name: 'Qatar', flag: '🇶🇦', roles: 'Construction, Oil & Gas, Hospitality, Security', img: '/src/assets/images/qatar.jpg' },
+  { name: 'Oman', flag: '🇴🇲', roles: 'Construction, Hospitality, Transport, Healthcare', img: '/src/assets/images/oman.jpg' },
+  { name: 'Germany', flag: '🇩🇪', roles: 'Nursing, IT, Engineering, Skilled Trades', img: '/src/assets/images/germany.jpg' },
+  { name: 'Poland', flag: '🇵🇱', roles: 'Manufacturing, Logistics, Construction, Hospitality', img: '/src/assets/images/poland.jpg' },
+  { name: 'Romania', flag: '🇷🇴', roles: 'Manufacturing, Assembly, Warehousing, Logistics', img: '/src/assets/images/romania.jpg' },
+  { name: 'Greece', flag: '🇬🇷', roles: 'Hospitality, Tourism, Agriculture, Construction', img: '/src/assets/images/greece.jpg' },
+  { name: 'Malaysia', flag: '🇲🇾', roles: 'Manufacturing, IT, Hospitality, Healthcare', img: '/src/assets/images/saudi.jpg' },
 ];
 
-const chipColors = ['#E0218A', '#FF6FB5', '#00BFA6', '#C2055E', '#FFB6C1', '#E0218A', '#00BFA6', '#FF6FB5', '#C2055E'];
+const chipColors = ['#006D77', '#E29578', '#003844', '#83C5BE', '#006D77', '#E29578', '#003844', '#83C5BE', '#006D77'];
 
 export default function Countries() {
   const [ref, visible] = useInView(0.05);
@@ -28,19 +28,19 @@ export default function Countries() {
       {/* Wavy divider */}
       <div className="wavy-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#FFEFF6" />
+          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#EDF6F9" />
         </svg>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         {/* Pill Badge */}
         <div className="flex justify-center mb-4">
-          <span className="pill-4 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+          <span className="pill-5 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
             DESTINATIONS
           </span>
         </div>
 
-        <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#5A1E3A' }}>
+        <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#00505A' }}>
           We recruit for top employers across these global destinations.
         </p>
 
@@ -61,10 +61,10 @@ export default function Countries() {
                 />
               </div>
               <div className="p-4 sm:p-5">
-                <h3 className="text-base sm:text-lg font-bold m-0 flex items-center gap-2" style={{ color: '#3D0A22' }}>
+                <h3 className="text-base sm:text-lg font-bold m-0 flex items-center gap-2" style={{ color: '#003844' }}>
                   <span className="text-xl">{c.flag}</span> {c.name}
                 </h3>
-                <p className="text-xs sm:text-sm mt-2 leading-relaxed" style={{ color: '#5A1E3A' }}>
+                <p className="text-xs sm:text-sm mt-2 leading-relaxed" style={{ color: '#00505A' }}>
                   <span className="font-semibold">In-demand:</span> {c.roles}
                 </p>
               </div>

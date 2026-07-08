@@ -1,6 +1,6 @@
 import useInView from '../hooks/useInView';
 
-const FALLBACK = 'https://placehold.co/400x300/FFB6C1/FFB6C1';
+const FALLBACK = '/src/assets/images/fallback.svg';
 const handleImgError = (e) => {
   if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
 };
@@ -9,50 +9,50 @@ const services = [
   {
     title: 'Overseas Job Placement',
     desc: 'Connecting skilled and unskilled workers with verified employers in top destination countries.',
-    color: '#E0218A',
-    img: 'https://picsum.photos/seed/job-placement/400/300',
+    color: '#006D77',
+    img: '/src/assets/images/hero.jpg',
   },
   {
     title: 'Visa Processing',
     desc: 'Complete visa application support, documentation, and follow-up for smooth processing.',
-    color: '#FF6FB5',
-    img: 'https://picsum.photos/seed/visa-processing/400/300',
+    color: '#E29578',
+    img: '/src/assets/images/office.jpg',
   },
   {
     title: 'Document Attestation',
     desc: 'Degree attestation, translation, and certification services for overseas requirements.',
-    color: '#00BFA6',
-    img: 'https://picsum.photos/seed/document-attestation/400/300',
+    color: '#003844',
+    img: '/src/assets/images/about.jpg',
   },
   {
     title: 'Medical & Trade Test Coordination',
     desc: 'Scheduling and coordination of mandatory medical exams and trade skill assessments.',
-    color: '#C2055E',
-    img: 'https://picsum.photos/seed/medical-test/400/300',
+    color: '#83C5BE',
+    img: '/src/assets/images/community.jpg',
   },
   {
     title: 'Pre-Departure Orientation',
     desc: 'Cultural guidance, travel briefings, and essential tips before you depart.',
-    color: '#FFB6C1',
-    img: 'https://picsum.photos/seed/orientation/400/300',
+    color: '#006D77',
+    img: '/src/assets/images/group-community.jpg',
   },
   {
     title: 'Air Ticketing & Travel Support',
     desc: 'Affordable flight bookings and travel coordination for a smooth journey abroad.',
-    color: '#E0218A',
-    img: 'https://picsum.photos/seed/ticketing/400/300',
+    color: '#E29578',
+    img: '/src/assets/images/helping-hands.jpg',
   },
   {
     title: 'Employer Verification',
     desc: 'Thorough background checks on overseas employers to ensure legitimate opportunities.',
-    color: '#00BFA6',
-    img: 'https://picsum.photos/seed/employer-verification/400/300',
+    color: '#003844',
+    img: '/src/assets/images/food-relief.jpg',
   },
   {
     title: 'Skilled & Unskilled Manpower Supply',
     desc: 'Reliable workforce solutions for construction, hospitality, factory, and service sectors.',
-    color: '#FF6FB5',
-    img: 'https://picsum.photos/seed/manpower/400/300',
+    color: '#83C5BE',
+    img: '/src/assets/images/office.jpg',
   },
 ];
 
@@ -64,11 +64,11 @@ export default function Services() {
       {/* Wavy divider */}
       <div className="wavy-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FFB6C1" />
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#83C5BE" />
         </svg>
       </div>
 
-      <div style={{ backgroundColor: '#FFB6C1' }}>
+      <div style={{ backgroundColor: '#83C5BE' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
           {/* Pill Badge */}
           <div className="flex justify-center mb-4">
@@ -77,8 +77,8 @@ export default function Services() {
             </span>
           </div>
 
-          <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#5A1E3A' }}>
-            Comprehensive recruitment and support services — from application to arrival.
+          <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#003844' }}>
+            Comprehensive recruitment and support services &mdash; from application to arrival.
           </p>
 
           <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
@@ -88,7 +88,7 @@ export default function Services() {
                 className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${(i % 4) + 1} service-card relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer`}
                 style={{ minHeight: '280px' }}
               >
-                {/* Background image or color */}
+                {/* Background image */}
                 <img
                   src={s.img}
                   alt={s.title}
@@ -111,8 +111,7 @@ export default function Services() {
                 >
                   <h3 className="text-base font-bold text-white mb-2">{s.title}</h3>
                   <p className="text-xs sm:text-sm text-white/90 leading-relaxed mb-3">{s.desc}</p>
-                  <a href="#contact"
-                    onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  <a href="https://wa.me/923335259127" target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-semibold text-white border border-white/50 rounded-full px-4 py-1.5 hover:bg-white/20 transition-colors">
                     Apply Now <i className="fa-solid fa-arrow-right text-[10px]" />
                   </a>

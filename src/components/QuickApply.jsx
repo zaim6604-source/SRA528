@@ -1,23 +1,35 @@
 import { useState } from 'react';
 
+const jobCategories = [
+  'Construction Worker',
+  'Driver',
+  'Technician',
+  'Hospitality Staff',
+  'Factory Worker',
+  'Security Guard',
+  'Healthcare Professional',
+  'IT Professional',
+  'Other',
+];
+
 export default function QuickApply() {
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: '', phone: '', role: '' });
+  const [form, setForm] = useState({ name: '', phone: '', category: '' });
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const text = encodeURIComponent(
-      `Quick Apply - Sufyan Recruiting Agency%0A%0AName: ${form.name}%0APhone: ${form.phone}%0ARole: ${form.role || 'Not specified'}`
+    const waText = encodeURIComponent(
+      `Quick Apply - Al-Awab International\n\nName: ${form.name}\nPhone: ${form.phone}\nJob Category: ${form.category}`
     );
-    window.open(`https://wa.me/923458649342?text=${text}`, '_blank');
+    window.open(`https://wa.me/923335259127?text=${waText}`, '_blank');
     setSubmitted(true);
   };
 
   const reset = () => {
-    setForm({ name: '', phone: '', role: '' });
+    setForm({ name: '', phone: '', category: '' });
     setSubmitted(false);
     setOpen(false);
   };
@@ -26,14 +38,14 @@ export default function QuickApply() {
     <div className="fixed bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end gap-3">
       {/* Expanded form */}
       <div
-        className={`bg-white rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}
-        style={{ maxWidth: '300px', width: '100%', border: '1px solid #FF206E30' }}
+        className={`quick-apply-form bg-white rounded-2xl shadow-2xl overflow-hidden ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}
+        style={{ maxWidth: '300px', width: '100%', border: '1px solid #83C5BE' }}
       >
         {!submitted ? (
           <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-3">
             <div className="flex items-center justify-between mb-1">
-              <h4 className="text-sm font-bold m-0" style={{ color: '#1A1423' }}>Quick Apply</h4>
-              <button type="button" onClick={reset} className="text-sm cursor-pointer" style={{ color: '#FF206E', background: 'none', border: 'none' }}>
+              <h4 className="text-sm font-bold m-0" style={{ color: '#003844' }}>Quick Apply</h4>
+              <button type="button" onClick={reset} className="text-sm cursor-pointer" style={{ color: '#006D77', background: 'none', border: 'none' }}>
                 <i className="fa-solid fa-xmark" />
               </button>
             </div>
@@ -45,7 +57,7 @@ export default function QuickApply() {
               required
               placeholder="Your Name"
               className="w-full px-3 py-2.5 rounded-lg border-2 text-xs outline-none"
-              style={{ borderColor: '#FF206E30', color: '#1A1423' }}
+              style={{ borderColor: '#83C5BE', color: '#003844' }}
             />
             <input
               type="tel"
@@ -55,42 +67,46 @@ export default function QuickApply() {
               required
               placeholder="Phone Number"
               className="w-full px-3 py-2.5 rounded-lg border-2 text-xs outline-none"
-              style={{ borderColor: '#FF206E30', color: '#1A1423' }}
+              style={{ borderColor: '#83C5BE', color: '#003844' }}
             />
-            <input
-              type="text"
-              name="role"
-              value={form.role}
+            <select
+              name="category"
+              value={form.category}
               onChange={handleChange}
-              placeholder="Job Role (optional)"
+              required
               className="w-full px-3 py-2.5 rounded-lg border-2 text-xs outline-none"
-              style={{ borderColor: '#FF206E30', color: '#1A1423' }}
-            />
+              style={{ borderColor: '#83C5BE', color: '#003844' }}
+            >
+              <option value="">Job Category</option>
+              {jobCategories.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
             <button
               type="submit"
-              className="w-full py-2.5 rounded-lg text-xs font-semibold shadow-md transition-all duration-200 hover:shadow-lg cursor-pointer"
-              style={{ backgroundColor: '#41EAD4', border: 'none', color: '#1A1423' }}
+              className="w-full py-2.5 rounded-lg text-xs font-semibold text-white shadow-md transition-all duration-200 hover:shadow-lg cursor-pointer"
+              style={{ backgroundColor: '#E29578', border: 'none' }}
             >
-              <i className="fab fa-whatsapp mr-2" />
-              Apply via WhatsApp
+              <i className="fa-brands fa-whatsapp mr-2" />
+              Submit
             </button>
           </form>
         ) : (
           <div className="p-4 sm:p-5 text-center space-y-3">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#41EAD4' }}>
-              <i className="fa-solid fa-check" style={{ color: '#1A1423' }} />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#006D77' }}>
+              <i className="fa-solid fa-check text-white" />
             </div>
-            <p className="text-xs font-semibold" style={{ color: '#1A1423' }}>Opening WhatsApp...</p>
-            <a href="tel:0514861137"
+            <p className="text-xs font-semibold" style={{ color: '#003844' }}>Application sent!</p>
+            <a href="tel:0514427780"
               className="block w-full py-2 rounded-lg text-xs font-semibold text-white shadow-md transition-all duration-200"
-              style={{ backgroundColor: '#FF206E' }}>
+              style={{ backgroundColor: '#E29578' }}>
               <i className="fa-solid fa-phone mr-2" />
               Call Us Instead
             </a>
             <button
               onClick={reset}
               className="text-xs underline cursor-pointer"
-              style={{ color: '#4A3F55', background: 'none', border: 'none' }}
+              style={{ color: '#00505A', background: 'none', border: 'none' }}
             >
               Close
             </button>
@@ -101,8 +117,8 @@ export default function QuickApply() {
       {/* FAB Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-xl transition-all duration-300 hover:scale-110 cursor-pointer"
-        style={{ backgroundColor: open ? '#FF206E' : '#41EAD4', border: 'none', color: open ? 'white' : '#1A1423' }}
+        className="w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white text-xl transition-all duration-300 hover:scale-110 cursor-pointer"
+        style={{ backgroundColor: open ? '#E29578' : '#006D77', border: 'none' }}
         aria-label="Quick Apply"
       >
         <i className={`fa-solid ${open ? 'fa-xmark' : 'fa-bolt'} transition-transform duration-300 ${open ? 'rotate-90' : ''}`} />

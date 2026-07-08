@@ -85,43 +85,43 @@ export const countries = [
 export const services = [
   {
     title: "Overseas Job Placement",
-    accent: "#E10600",
+    accent: "#006D77",
     description: "We connect skilled and unskilled workers with verified employers across the Gulf, Europe, and beyond. Our extensive network of trusted recruiters ensures that every placement is legitimate, fairly compensated, and properly documented."
   },
   {
     title: "Visa Processing",
-    accent: "#FF4D4D",
+    accent: "#E29578",
     description: "From work visas to family accompaniment, we handle the entire visa application process. Our team ensures all paperwork is accurate and complete, minimizing delays and maximizing approval rates."
   },
   {
     title: "Air Ticketing & Travel Support",
-    accent: "#FFD500",
+    accent: "#FFDD00",
     description: "We arrange competitive airfare and provide end-to-end travel support, including airport transfers, temporary accommodation coordination, and emergency contact handover at the destination."
   },
   {
     title: "Document Attestation",
-    accent: "#A30000",
+    accent: "#003844",
     description: "We manage the full attestation chain for educational certificates, professional degrees, and personal documents — from local boards and universities to the foreign ministry and embassy attestations."
   },
   {
     title: "Medical & Trade Test Coordination",
-    accent: "#1C1C1C",
+    accent: "#83C5BE",
     description: "We schedule and coordinate mandatory medical examinations and trade tests at government-approved centers, ensuring your qualifications meet the standards required by overseas employers."
   },
   {
     title: "Pre-Departure Orientation",
-    accent: "#E10600",
+    accent: "#006D77",
     description: "Our orientation sessions prepare workers for cultural, legal, and practical aspects of working abroad. From labor laws to daily life, we make sure you leave informed and confident."
   },
   {
     title: "Employer Verification",
-    accent: "#FFD500",
+    accent: "#FFDD00",
     description: "Before any placement, we thoroughly verify potential employers — their licenses, track record, accommodation standards, and salary history — to protect our workers from exploitation."
   },
   {
     title: "Travel & Tour Packages",
-    accent: "#A30000",
-    description: "Beyond recruitment, Rais Brothers offers comprehensive travel and tour services. From Hajj & Umrah packages to leisure travel, we make your journey seamless and memorable."
+    accent: "#E29578",
+    description: "Beyond recruitment, we offer comprehensive travel and tour services. From Hajj & Umrah packages to leisure travel, we make your journey seamless and memorable."
   }
 ];
 
@@ -129,7 +129,7 @@ export const processSteps = [
   {
     number: "01",
     title: "Register & Consult",
-    description: "Visit our office at Mehran Estate, Karachi Cantt, or contact us via phone or WhatsApp. Share your qualifications, experience, and preferred destination. We'll discuss suitable opportunities and answer all your questions."
+    description: "Visit our office at Tingo Market, Satellite Town, Rawalpindi, or contact us via phone or WhatsApp. Share your qualifications, experience, and preferred destination. We'll discuss suitable opportunities and answer all your questions."
   },
   {
     number: "02",
@@ -149,6 +149,6 @@ export const processSteps = [
   {
     number: "05",
     title: "Ticketing & Departure",
-    description: "We arrange your flight, provide pre-departure briefing, and coordinate arrival support. From the moment you leave Karachi to your first day on the job, we remain your trusted partner."
+    description: "We arrange your flight, provide pre-departure briefing, and coordinate arrival support. From the moment you leave to your first day on the job, we remain your trusted partner."
   }
 ];

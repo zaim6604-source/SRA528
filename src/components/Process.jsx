@@ -1,11 +1,11 @@
 import useInView from '../hooks/useInView';
 
 const steps = [
-  { icon: 'fa-solid fa-clipboard-list', label: 'Register & Consult', desc: 'Reach out to us — we\'ll discuss your goals and match you with the right opportunity.', color: '#E0218A' },
-  { icon: 'fa-solid fa-file-lines', label: 'Documents & Visa', desc: 'Submit your documents and we\'ll handle the visa application process for you.', color: '#FF6FB5' },
-  { icon: 'fa-solid fa-stethoscope', label: 'Medical & Trade Test', desc: 'We coordinate your medical exams and any required trade skill assessments.', color: '#00BFA6' },
-  { icon: 'fa-solid fa-building-columns', label: 'Employer Confirmation', desc: 'Receive your official job offer and employment confirmation from your employer.', color: '#C2055E' },
-  { icon: 'fa-solid fa-plane-departure', label: 'Ticketing & Departure', desc: 'We book your flight and ensure you\'re fully prepared for departure.', color: '#FFB6C1' },
+  { icon: 'fa-solid fa-clipboard-list', label: 'Register & Consult', desc: 'Reach out to us \u2014 we\u2019ll discuss your goals and match you with the right opportunity.', color: '#006D77' },
+  { icon: 'fa-solid fa-file-lines', label: 'Documents & Visa', desc: 'Submit your documents and we\u2019ll handle the visa application process for you.', color: '#E29578' },
+  { icon: 'fa-solid fa-stethoscope', label: 'Medical & Trade Test', desc: 'We coordinate your medical exams and any required trade skill assessments.', color: '#83C5BE' },
+  { icon: 'fa-solid fa-building-columns', label: 'Employer Confirmation', desc: 'Receive your official job offer and employment confirmation from your employer.', color: '#003844' },
+  { icon: 'fa-solid fa-plane-departure', label: 'Ticketing & Departure', desc: 'We book your flight and ensure you\u2019re fully prepared for departure.', color: '#FFDD00' },
 ];
 
 export default function Process() {
@@ -16,11 +16,11 @@ export default function Process() {
       {/* Wavy divider */}
       <div className="wavy-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FFB6C1" />
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#83C5BE" />
         </svg>
       </div>
 
-      <div style={{ backgroundColor: '#FFB6C1' }}>
+      <div style={{ backgroundColor: '#83C5BE' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
           {/* Pill Badge */}
           <div className="flex justify-center mb-4">
@@ -29,12 +29,12 @@ export default function Process() {
             </span>
           </div>
 
-          <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#5A1E3A' }}>
+          <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#003844' }}>
             Five simple steps to your next opportunity abroad.
           </p>
 
           {/* Filmstrip */}
-          <div ref={ref} className="filmstrip relative bg-[#2A0515] rounded-2xl overflow-hidden shadow-xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+          <div ref={ref} className="filmstrip relative bg-[#003844] rounded-2xl overflow-hidden shadow-xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
             <div className="filmstrip-scroll flex gap-4 sm:gap-6 overflow-x-auto pb-2 snap-x snap-mandatory">
               {steps.map((s, i) => (
                 <div
@@ -43,7 +43,7 @@ export default function Process() {
                 >
                   <div
                     className="rounded-xl p-5 sm:p-6 h-full shadow-lg border-2 transition-transform duration-300 hover:-translate-y-1"
-                    style={{ backgroundColor: s.color + '15', borderColor: s.color + '50' }}
+                    style={{ backgroundColor: s.color + '20', borderColor: s.color + '60' }}
                   >
                     {/* Step Number */}
                     <div
@@ -62,7 +62,7 @@ export default function Process() {
                     </h3>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#FFB6C1' }}>
+                    <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#EDF6F9' }}>
                       {s.desc}
                     </p>
                   </div>
@@ -72,7 +72,7 @@ export default function Process() {
           </div>
 
           {/* Scroll hint */}
-          <p className="text-center text-xs sm:text-sm mt-4 font-medium" style={{ color: '#5A1E3A' }}>
+          <p className="text-center text-xs sm:text-sm mt-4 font-medium" style={{ color: '#003844' }}>
             <i className="fa-solid fa-arrow-left mr-2" />
             Scroll to explore
             <i className="fa-solid fa-arrow-right ml-2" />

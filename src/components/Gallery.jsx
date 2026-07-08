@@ -1,25 +1,25 @@
 import useInView from '../hooks/useInView';
 
-const FALLBACK = 'https://placehold.co/500x350/FFB6C1/FFB6C1';
+const FALLBACK = '/src/assets/images/fallback.svg';
 const handleImgError = (e) => {
   if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
 };
 
 const images = [
   {
-    src: 'https://picsum.photos/seed/gallery-building/500/350',
+    src: '/src/assets/images/gallery-1.jpg',
     alt: 'Office building exterior',
   },
   {
-    src: 'https://picsum.photos/seed/gallery-interior/500/350',
+    src: '/src/assets/images/gallery-2.jpg',
     alt: 'Modern office interior',
   },
   {
-    src: 'https://picsum.photos/seed/gallery-team/500/350',
+    src: '/src/assets/images/gallery-3.jpg',
     alt: 'Team collaboration',
   },
   {
-    src: 'https://picsum.photos/seed/gallery-travel/500/350',
+    src: '/src/assets/images/gallery-4.jpg',
     alt: 'Travel documents and passports',
   },
 ];
@@ -32,20 +32,20 @@ export default function Gallery() {
       {/* Wavy divider */}
       <div className="wavy-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FF6FB5" />
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#E29578" />
         </svg>
       </div>
 
-      <div style={{ backgroundColor: '#FF6FB5' }}>
+      <div style={{ backgroundColor: '#E29578' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           {/* Pill Badge */}
           <div className="flex justify-center mb-4">
-            <span className="pill-3 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
-              OUR OFFICE
+            <span className="pill-5 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+              GALLERY
             </span>
           </div>
 
-          <p className="text-center text-base sm:text-lg mb-10 max-w-2xl mx-auto" style={{ color: '#3D0A22' }}>
+          <p className="text-center text-base sm:text-lg mb-10 max-w-2xl mx-auto" style={{ color: '#003844' }}>
             A glimpse into our workspace and team.
           </p>
 

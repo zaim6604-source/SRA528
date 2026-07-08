@@ -1,15 +1,15 @@
 import useInView from '../hooks/useInView';
 
-const FALLBACK = 'https://placehold.co/600x450/FFB6C1/FFB6C1';
+const FALLBACK = '/src/assets/images/fallback.svg';
 const handleImgError = (e) => {
   if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
 };
 
 const features = [
-  { icon: 'fa-solid fa-scale-balanced', label: 'Licensed & Legal', color: '#E0218A', bg: '#FFE0F0' },
-  { icon: 'fa-solid fa-gauge-high', label: 'Simple Process', color: '#00BFA6', bg: '#E6FCF5' },
-  { icon: 'fa-solid fa-coins', label: 'Transparent Fees', color: '#C2055E', bg: '#FFE6EE' },
-  { icon: 'fa-solid fa-headset', label: 'End-to-End Support', color: '#FF6FB5', bg: '#FFF0F5' },
+  { icon: 'fa-solid fa-scale-balanced', label: 'Licensed & Legal', color: '#006D77', bg: '#D4ECEC' },
+  { icon: 'fa-solid fa-gauge-high', label: 'Simple Process', color: '#E29578', bg: '#F8E8E2' },
+  { icon: 'fa-solid fa-coins', label: 'Transparent Fees', color: '#003844', bg: '#D4E4E6' },
+  { icon: 'fa-solid fa-headset', label: 'End-to-End Support', color: '#83C5BE', bg: '#E8F4F2' },
 ];
 
 export default function About() {
@@ -21,7 +21,7 @@ export default function About() {
       {/* Wavy divider top */}
       <div className="wavy-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#FFEFF6" />
+          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#EDF6F9" />
         </svg>
       </div>
 
@@ -36,44 +36,43 @@ export default function About() {
         {/* Top Band */}
         <div ref={ref} className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 lg:mb-20">
           <div className={`fade-up ${visible ? 'visible' : ''} space-y-5`}>
-            <h2 className="text-3xl sm:text-4xl font-bold m-0 leading-tight" style={{ color: '#3D0A22' }}>
+            <h2 className="text-3xl sm:text-4xl font-bold m-0 leading-tight" style={{ color: '#003844' }}>
               Your Trusted Partner in{' '}
-              <span style={{ color: '#E0218A' }}>Overseas Employment</span>
+              <span style={{ color: '#006D77' }}>Overseas Employment</span>
             </h2>
-            <p className="text-base sm:text-lg leading-relaxed" style={{ color: '#5A1E3A' }}>
-              Niaz Recruiting Agency is a government-licensed Overseas Employment Promoter (OEP)
-              based in Commercial Market, Rawalpindi. With License No. <strong>2178/RWP</strong>,
-              we have been connecting Pakistani workers with reputable employers across the Middle East,
-              Asia, and beyond — offering a refreshingly simple, transparent path to overseas employment.
+            <p className="text-base sm:text-lg leading-relaxed" style={{ color: '#00505A' }}>
+              Al-Awab International is a government-licensed Overseas Employment Promoter (OEP)
+              based in Tingo Market, Satellite Town, Rawalpindi. With License No. <strong>2261/RWP</strong>,
+              we have been connecting Pakistani workers with reputable employers across the Gulf,
+              Europe, and beyond &mdash; offering a licensed, honest, and complete pathway to overseas employment.
             </p>
-            <p className="text-base sm:text-lg leading-relaxed" style={{ color: '#5A1E3A' }}>
-              From our office at Nazar Plaza, near Quba Masjid, we provide end-to-end recruitment
-              services — from initial consultation and document processing to medical coordination,
-              visa processing, and pre-departure orientation. We believe in making the process clear,
-              honest, and stress-free.
+            <p className="text-base sm:text-lg leading-relaxed" style={{ color: '#00505A' }}>
+              From our office at Flat No. 5, B-343, Tingo Market, Commercial Centre, Satellite Town,
+              Rawalpindi, we provide end-to-end recruitment services &mdash; from initial consultation and
+              document processing to medical coordination, visa processing, and pre-departure orientation.
             </p>
-            <a href="tel:0514419415"
+            <a href="https://wa.me/923335259127" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 shadow-md"
-              style={{ backgroundColor: '#00BFA6', color: 'white' }}>
-              <i className="fa-solid fa-phone" />
-              Call 051-4419415
+              style={{ backgroundColor: '#E29578', color: 'white' }}>
+              <i className="fa-brands fa-whatsapp" />
+              WhatsApp 0333-5259127
             </a>
           </div>
 
           <div className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-2 relative`}>
             <div className="img-hover-zoom rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="https://picsum.photos/seed/agency-office/600/450"
-                alt="Niaz Recruiting Agency office"
+                src="/src/assets/images/about.jpg"
+                alt="Al-Awab International office"
                 className="w-full h-[280px] sm:h-[340px] object-cover"
                 loading="lazy"
                 onError={handleImgError}
               />
             </div>
             {/* Floating badge */}
-            <div className="absolute -bottom-3 -right-3 bg-white rounded-xl shadow-lg px-4 py-3 border-2 border-[#00BFA6]/40">
-              <div className="text-xs font-semibold" style={{ color: '#00BFA6' }}>License</div>
-              <div className="text-sm font-bold" style={{ color: '#3D0A22' }}>2178/RWP</div>
+            <div className="absolute -bottom-3 -right-3 bg-white rounded-xl shadow-lg px-4 py-3 border-2 border-[#006D77]/40">
+              <div className="text-xs font-semibold" style={{ color: '#006D77' }}>License</div>
+              <div className="text-sm font-bold" style={{ color: '#003844' }}>2261/RWP</div>
             </div>
           </div>
         </div>
@@ -92,14 +91,14 @@ export default function About() {
               >
                 <i className={`${f.icon} text-white text-xl sm:text-2xl`} />
               </div>
-              <h3 className="text-base sm:text-lg font-bold m-0" style={{ color: '#3D0A22' }}>
+              <h3 className="text-base sm:text-lg font-bold m-0" style={{ color: '#003844' }}>
                 {f.label}
               </h3>
-              <p className="text-xs sm:text-sm mt-2 leading-relaxed" style={{ color: '#5A1E3A' }}>
+              <p className="text-xs sm:text-sm mt-2 leading-relaxed" style={{ color: '#00505A' }}>
                 {f.label === 'Licensed & Legal' && 'Fully government-licensed OEP with authentic credentials.'}
                 {f.label === 'Simple Process' && 'Straightforward, no-hassle process from start to finish.'}
                 {f.label === 'Transparent Fees' && 'Clear pricing with no hidden charges, ever.'}
-                {f.label === 'End-to-End Support' && 'Guidance at every step — from application to departure.'}
+                {f.label === 'End-to-End Support' && 'Guidance at every step &mdash; from application to departure.'}
               </p>
             </div>
           ))}
