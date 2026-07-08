@@ -1,93 +1,110 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'
+
+const NAV_LINKS = [
+  { label: 'Home', href: '#hero' },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Countries', href: '#countries' },
+  { label: 'Process', href: '#process' },
+  { label: 'Contact', href: '#contact' },
+]
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  const links = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Countries', href: '#countries' },
-    { label: 'Process', href: '#process' },
-    { label: 'Contact', href: '#contact' },
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo / Brand */}
-          <a href="#home" className="flex items-center gap-2 shrink-0">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white text-sm font-bold">
-              <i className="fas fa-globe-asia" />
-            </div>
-            <div className="hidden sm:block">
-              <div className="text-sm font-extrabold leading-tight text-ink">SAREER RECRUITING</div>
-              <div className="text-[10px] font-semibold text-cta -mt-0.5">AGENCY</div>
-            </div>
-            <div className="sm:hidden text-xs font-bold leading-tight text-ink">
-              <div>SAREER</div>
-              <div className="text-[10px] text-cta">AGENCY</div>
-            </div>
-          </a>
-
-          {/* License badge */}
-          <div className="hidden md:flex items-center gap-1 text-xs font-semibold text-primary bg-background px-3 py-1 rounded-full">
-            <i className="fas fa-certificate" />
-            License 2218/MLK
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg'
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 md:h-18">
+        {/* Brand */}
+        <a href="#hero" className="flex items-center gap-2.5">
+          <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-primary text-white font-extrabold text-sm">
+            AB
+          </span>
+          <div className={`leading-tight transition-colors ${scrolled ? 'text-ink' : 'text-ink'}`}>
+            <p className="font-bold text-sm">Abu Bakar Bilal</p>
+            <p className="text-[11px] font-semibold opacity-70">Travel International</p>
           </div>
+        </a>
 
-          {/* Desktop nav pill-group */}
-          <div className="hidden lg:flex items-center gap-1 bg-background rounded-full px-2 py-1 shadow-sm">
-            {links.map((l) => (
-              <a key={l.href} href={l.href} className="text-sm font-semibold text-ink/80 hover:text-primary hover:bg-white px-3.5 py-1.5 rounded-full transition-colors">
-                {l.label}
-              </a>
-            ))}
-          </div>
-
-          {/* CTA */}
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                scrolled
+                  ? 'text-ink/70 hover:text-primary hover:bg-primary/5'
+                  : 'text-ink/70 hover:text-primary hover:bg-primary/5'
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
           <a
-            href="https://wa.me/923459454665"
+            href="https://wa.me/923064712919"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-cta text-white font-extrabold px-4 py-2 rounded-full text-sm hover:brightness-110 transition-all shadow-md"
+            className="ml-3 inline-flex items-center gap-2 bg-cta text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-teal-600 transition-colors shadow-lg"
           >
-            <i className="fas fa-paper-plane" />
-            <span className="hidden sm:inline">Apply Now</span>
+            <i className="fa-brands fa-whatsapp" />
+            Apply Now
           </a>
-
-          {/* Hamburger */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="lg:hidden ml-2 text-ink text-xl p-1"
-            aria-label="Toggle menu"
-          >
-            <i className={`fas ${open ? 'fa-times' : 'fa-bars'}`} />
-          </button>
         </div>
 
-        {/* Mobile menu */}
-        {open && (
-          <div className="lg:hidden pb-4 pt-2 border-t border-gray-100">
-            <div className="flex flex-col gap-3">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-semibold text-ink hover:text-primary transition-colors"
-                >
-                  {l.label}
-                </a>
-              ))}
-              <div className="text-xs font-semibold text-primary bg-background px-3 py-1 rounded-full self-start">
-                <i className="fas fa-certificate" /> License 2218/MLK
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Mobile toggle */}
+        <button
+          className={`md:hidden p-2 rounded-lg transition-colors ${
+            scrolled ? 'text-ink' : 'text-ink'
+          }`}
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+        >
+          <i className={`fas ${open ? 'fa-xmark' : 'fa-bars'} text-xl`} />
+        </button>
+      </div>
+
+      {/* Mobile drawer */}
+      <div
+        className={`md:hidden transition-all duration-300 overflow-hidden ${
+          open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="bg-white/95 backdrop-blur-md border-t border-primary/10 px-4 py-4 space-y-1">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2.5 rounded-xl text-ink/70 hover:text-primary hover:bg-primary/5 font-medium transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="https://wa.me/923064712919"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 bg-cta text-white font-semibold px-5 py-3 rounded-full mt-3 hover:bg-teal-600 transition-colors"
+          >
+            <i className="fa-brands fa-whatsapp" />
+            Apply Now
+          </a>
+        </div>
       </div>
     </nav>
-  );
+  )
 }

@@ -1,65 +1,82 @@
-import FadeUp from './FadeUp';
-import SafeImage from './SafeImage';
+import { useState } from 'react'
+
+const ABOUT_IMAGE = 'https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=800&q=80'
+
+const CHIPS = [
+  'Govt. Licensed 2224/MTN',
+  '12+ Years Experience',
+  'Travel & Overseas',
+  'Fast Processing',
+  'Skilled & Unskilled',
+  'Air Ticketing',
+]
 
 export default function About() {
-  const chips = [
-    'Gulf Recruitment', 'European Jobs', 'Skilled Workers',
-    'Documentation', 'Visa Processing', 'Medical Coordination',
-    'Pre-Departure Briefing', 'Malakand Focus',
-  ];
+  const [imgError, setImgError] = useState(false)
 
   return (
-    <section id="about" className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp>
-          <div className="pill-badge bg-primary text-white mb-6">
+    <section id="about" className="py-16 md:py-24 bg-background">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Section pill label */}
+        <div className="text-center mb-12">
+          <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-sm font-semibold px-5 py-2 rounded-full">
             <i className="fas fa-info-circle" />
             About Us
-          </div>
-        </FadeUp>
+          </span>
+        </div>
 
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
-          <FadeUp delay={100} className="w-full lg:w-5/12 shrink-0">
-            <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-background">
-              <SafeImage
-                src="/images/about.jpg"
-                alt="Sareer Recruiting Agency office"
-                className="w-full h-72 sm:h-96 object-cover"
-                fallbackType="about"
+        <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+          {/* Image */}
+          <div className="relative">
+            {!imgError ? (
+              <img
+                src={ABOUT_IMAGE}
+                alt="Abu Bakar Bilal Travel International office"
+                className="w-full h-80 sm:h-96 object-cover rounded-2xl shadow-xl"
+                onError={() => setImgError(true)}
               />
+            ) : (
+              <div className="w-full h-80 sm:h-96 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                <i className="fas fa-building text-5xl text-primary/40" />
+              </div>
+            )}
+            {/* Floating badge */}
+            <div className="absolute -bottom-4 -right-4 bg-cta text-white text-sm font-semibold px-5 py-3 rounded-xl shadow-lg shadow-cta/30">
+              <i className="fas fa-id-card mr-2" />
+              License 2224/MTN
             </div>
-          </FadeUp>
+          </div>
 
-          <FadeUp delay={200} className="flex-1">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-ink leading-tight">
-              Your Trusted Partner in{' '}
-              <span className="text-primary">Overseas Recruitment</span>
+          {/* Content */}
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-ink mb-6">
+              Trusted Travel & Recruitment{' '}
+              <span className="text-primary">in Pakhi More, Vehari</span>
             </h2>
-            <p className="text-ink/70 mt-4 leading-relaxed">
-              Based at <strong>Bahadur Khan Plaza, Batkhela, Malakand</strong>, Sareer Recruiting Agency
-              has been connecting skilled workers from Malakand Division with reputable employers
-              across the Gulf, Europe, and Asia since 2014.
-            </p>
-            <p className="text-ink/70 mt-3 leading-relaxed">
-              As a <strong>government-licensed agency (2218/MLK)</strong>, we handle every step
-              of the recruitment process — from documentation and visa processing to pre-departure
-              briefing — ensuring a smooth, dignified journey for every worker we place.
-            </p>
+            <div className="space-y-4 text-ink/70 leading-relaxed">
+              <p>
+                Based at <strong>Flat #01, Pakhi More, Dhahdi Complex, Vehari, Punjab</strong>, Abu Bakar Bilal Travel International is a government-licensed travel and recruitment agency (License <strong>2224/MTN</strong>) dedicated to providing fast, reliable overseas employment and travel services.
+              </p>
+              <p>
+                With an experienced and qualified team, we handle everything from overseas job placement and visa processing to air ticketing, document attestation, medical coordination, and pre-departure orientation. Whether you&apos;re seeking employment abroad or need travel assistance, we are your trusted partner.
+              </p>
+            </div>
 
-            <div className="flex flex-wrap gap-2 mt-6">
-              {chips.map((c) => (
+            {/* Chips */}
+            <div className="flex flex-wrap gap-2.5 mt-6">
+              {CHIPS.map((chip) => (
                 <span
-                  key={c}
-                  className="inline-flex items-center gap-1 bg-background text-primary text-xs font-bold px-3 py-1.5 rounded-full"
+                  key={chip}
+                  className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-medium px-3.5 py-1.5 rounded-full"
                 >
                   <i className="fas fa-check-circle text-[10px]" />
-                  {c}
+                  {chip}
                 </span>
               ))}
             </div>
-          </FadeUp>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

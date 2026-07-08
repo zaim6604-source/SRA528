@@ -1,100 +1,92 @@
-import FadeUp from './FadeUp';
-import SafeImage from './SafeImage';
+import { useState } from 'react'
+
+const HERO_IMAGE = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=80'
+
+const BENTO_TILES = [
+  { icon: 'fa-globe', label: '50+ Countries', color: 'from-primary/20 to-secondary/20' },
+  { icon: 'fa-ticket', label: 'Air Ticketing', color: 'from-cta/20 to-primary/20' },
+  { icon: 'fa-building', label: 'License 2224/MTN', color: 'from-secondary/20 to-cta/20' },
+  { icon: 'fa-users', label: '5k+ Placed', color: 'from-highlight/20 to-primary/20' },
+]
 
 export default function Hero() {
+  const [imgError, setImgError] = useState(false)
+
   return (
-    <section id="home" className="relative bg-background pt-8 pb-16 md:pb-24 overflow-hidden">
-      <div className="absolute top-10 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-0">
+      {/* Background */}
+      <div className="absolute inset-0">
+        {!imgError ? (
+          <img
+            src={HERO_IMAGE}
+            alt=""
+            className="w-full h-full object-cover"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-primary to-highlight" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/70 to-cta/50" />
+        <div className="absolute inset-0 bg-dot-pattern" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-          {/* Left content */}
-          <div className="flex-1 text-center lg:text-left">
-            <FadeUp>
-              <div className="inline-flex items-center gap-2 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 shadow-sm">
-                <i className="fas fa-certificate" />
-                GOVERNMENT LICENSED · 2218/MLK
-              </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-ink leading-[1.1] mt-4">
-                From{' '}
-                <span className="text-primary">Batkhela</span> to{' '}
-                <span className="text-primary">Jobs Abroad</span>
-              </h1>
-              <p className="text-base sm:text-lg text-ink/70 mt-5 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Sareer Recruiting Agency places workers from Malakand Division with trusted
-                employers across the Gulf, Europe, and Asia — licensed, local, and reliable.
-              </p>
-            </FadeUp>
+      {/* Content */}
+      <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 py-24 md:py-32">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+          {/* Left: Main hero text */}
+          <div>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-1.5 rounded-full mb-5 border border-white/20">
+              <i className="fas fa-check-circle text-accent" />
+              Licensed Agency · 2224/MTN
+            </div>
 
-            <FadeUp delay={150}>
-              <div className="flex flex-wrap items-center gap-3 mt-7 justify-center lg:justify-start">
-                <a
-                  href="https://wa.me/923459454665"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-cta text-white font-extrabold px-7 py-3.5 rounded-full text-base hover:brightness-110 transition-all shadow-lg"
-                >
-                  <i className="fas fa-paper-plane" />
-                  Apply Now
-                </a>
-                <a
-                  href="https://wa.me/923459454665"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border-2 border-primary text-primary font-bold px-7 py-3.5 rounded-full text-base hover:bg-primary hover:text-white transition-all"
-                >
-                  <i className="fab fa-whatsapp" />
-                  WhatsApp
-                </a>
-              </div>
-            </FadeUp>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-[1.1] mb-4">
+              Your Gateway to{' '}
+              <span className="text-accent">Global Opportunities</span>
+            </h1>
 
-            <FadeUp delay={300}>
-              <div className="flex flex-wrap gap-3 mt-8 justify-center lg:justify-start">
-                {[
-                  { icon: 'fa-briefcase', label: '1,500+ Placed' },
-                  { icon: 'fa-flag', label: '9 Countries' },
-                  { icon: 'fa-star', label: '4.8 Rating' },
-                  { icon: 'fa-calendar', label: '10+ Years' },
-                ].map((s) => (
-                  <span
-                    key={s.label}
-                    className="inline-flex items-center gap-1.5 bg-white text-ink text-xs font-bold px-3.5 py-2 rounded-full shadow-sm border border-gray-100"
-                  >
-                    <i className={`fas ${s.icon} text-primary`} />
-                    {s.label}
-                  </span>
-                ))}
-              </div>
-            </FadeUp>
+            <p className="text-lg sm:text-xl text-white/85 max-w-lg mb-8 leading-relaxed">
+              Abu Bakar Bilal Travel International — trusted overseas recruitment and travel services from Pakhi More, Vehari to the world.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="https://wa.me/923064712919"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 bg-cta text-white px-7 py-3.5 rounded-full text-base font-semibold hover:bg-teal-600 transition-all shadow-xl shadow-cta/40 hover:shadow-cta/60 hover:-translate-y-0.5"
+              >
+                <i className="fa-brands fa-whatsapp text-lg" />
+                Apply via WhatsApp
+              </a>
+              <a
+                href="https://wa.me/923064712919"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 border-2 border-white/40 text-white px-7 py-3.5 rounded-full text-base font-semibold hover:bg-white/10 hover:border-white/60 transition-all"
+              >
+                <i className="fa-brands fa-whatsapp text-lg" />
+                Inquire Now
+              </a>
+            </div>
           </div>
 
-          {/* Right — hero arc-panel image */}
-          <FadeUp delay={100}>
-            <div className="relative shrink-0">
-              <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 relative">
-                <div className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl border-4 border-white" style={{ borderRadius: '40% 60% 40% 60% / 40% 40% 60% 60%' }}>
-                  <SafeImage
-                    src="/images/hero.jpg"
-                    alt="Sareer Recruiting Agency — Global Recruitment"
-                    className="w-full h-full object-cover"
-                    fallbackType="hero"
-                  />
-                </div>
-                <div className="absolute -top-2 -right-2 bg-cta text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-lg rotate-6">
-                  <i className="fas fa-check-circle" /> Apply Now
-                </div>
-                <div className="absolute -bottom-1 -left-3 bg-white text-ink text-xs font-bold px-3 py-2 rounded-full shadow-md border border-gray-100">
-                  <i className="fas fa-certificate text-primary" /> 2218/MLK
-                </div>
-                <div className="absolute top-6 -right-6 w-4 h-4 bg-accent rounded-full animate-pulse" />
-                <div className="absolute bottom-12 -right-8 w-3 h-3 bg-cta rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+          {/* Right: Bento tile grid */}
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
+            {BENTO_TILES.map((tile) => (
+              <div
+                key={tile.label}
+                className={`rounded-2xl p-5 md:p-6 bg-gradient-to-br ${tile.color} backdrop-blur-sm border border-white/20 text-center flex flex-col items-center justify-center gap-2 min-h-[120px] md:min-h-[140px]`}
+              >
+                <i className={`fas ${tile.icon} text-white text-2xl md:text-3xl`} />
+                <span className="text-white font-semibold text-sm md:text-base">{tile.label}</span>
               </div>
-            </div>
-          </FadeUp>
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

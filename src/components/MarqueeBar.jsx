@@ -1,28 +1,37 @@
 export default function MarqueeBar() {
-  const items = [
-    '🇸🇦 Saudi Arabia', '🇶🇦 Qatar', '🇴🇲 Oman', '🇦🇪 UAE',
-    '🇩🇪 Germany', '🇷🇴 Romania', '🇬🇷 Greece', '🇭🇷 Croatia',
-    '🇲🇾 Malaysia',
-    '📜 License 2218/MLK',
-    '📍 Bahadur Khan Plaza, Batkhela',
-    '🛩️ Gulf & Europe Recruitment',
-    '📞 0345-9454665',
-  ];
-
   return (
-    <div className="bg-primary text-white text-sm font-semibold py-2 overflow-hidden mt-16 md:mt-20">
-      <div className="marquee-track">
-        {[0, 1].map((dup) => (
-          <div key={dup} className="flex items-center gap-8 px-4">
-            {items.map((item, i) => (
-              <span key={`${dup}-${i}`} className="inline-flex items-center gap-1.5">
-                <i className="fas fa-circle text-[6px] text-accent opacity-70" />
-                {item}
-              </span>
-            ))}
+    <div className="bg-primary mt-24 text-white overflow-hidden py-2.5">
+      <div className="marquee-track flex w-max gap-12 whitespace-nowrap">
+        {[...Array(2)].map((_, i) => (
+          <div key={i} className="flex items-center gap-12">
+            <span className="flex items-center gap-2">
+              <i className="fas fa-plane text-accent text-sm" />
+              Travel & Overseas Services
+            </span>
+            <span className="text-white/60">•</span>
+            <span className="flex items-center gap-2">
+              <i className="fas fa-bolt text-accent text-sm" />
+              Fast Processing
+            </span>
+            <span className="text-white/60">•</span>
+            <span className="flex items-center gap-2">
+              <i className="fas fa-id-card text-accent text-sm" />
+              License 2224/MTN
+            </span>
+            <span className="text-white/60">•</span>
+            <span className="flex items-center gap-2">
+              <i className="fas fa-location-dot text-accent text-sm" />
+              Pakhi More, Vehari
+            </span>
+            <span className="text-white/60">•</span>
+            <span className="flex items-center gap-2">
+              <i className="fas fa-ticket text-accent text-sm" />
+              Air Ticketing
+            </span>
+            <span className="text-white/60">•</span>
           </div>
         ))}
       </div>
     </div>
-  );
+  )
 }

@@ -1,61 +1,63 @@
-import FadeUp from './FadeUp';
-import SafeImage from './SafeImage';
-
-const services = [
-  { icon: 'fa-user-plus', title: 'Manpower Supply', desc: 'Skilled & semi-skilled workers for Gulf & European employers across all sectors.', color: 'bg-primary' },
-  { icon: 'fa-passport', title: 'Visa Processing', desc: 'End-to-end visa documentation and submission for work permits.', color: 'bg-secondary' },
-  { icon: 'fa-file-contract', title: 'Contract Facilitation', desc: 'Employment contract verification and authentication services.', color: 'bg-accent' },
-  { icon: 'fa-plane-departure', title: 'Pre-Departure', desc: 'Briefing, travel coordination, and airport assistance for departing workers.', color: 'bg-primary' },
-  { icon: 'fa-hospital', title: 'Medical Screening', desc: 'Coordination with authorized medical centers for fitness certificates.', color: 'bg-secondary' },
-  { icon: 'fa-gavel', title: 'Legal Attestation', desc: 'Document attestation from overseas missions and government bodies.', color: 'bg-accent' },
-  { icon: 'fa-language', title: 'Language Training', desc: 'Basic language and soft skills orientation for host countries.', color: 'bg-primary' },
-  { icon: 'fa-hand-holding-heart', title: 'Post-Placement Support', desc: 'Ongoing support for workers and families after deployment.', color: 'bg-secondary' },
-];
+import SERVICES from '../data/services'
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp>
-          <div className="pill-badge bg-primary text-white mb-4 mx-auto" style={{ width: 'fit-content' }}>
+    <section id="services" className="py-16 md:py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Section pill */}
+        <div className="text-center mb-12">
+          <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-sm font-semibold px-5 py-2 rounded-full">
             <i className="fas fa-briefcase" />
             Our Services
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center leading-tight">
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-ink mt-4 mb-3">
             What We Offer
           </h2>
-          <p className="text-ink/60 text-center mt-3 max-w-2xl mx-auto">
-            Comprehensive recruitment services from documentation to deployment
+          <p className="text-ink/60 max-w-xl mx-auto">
+            End-to-end travel and recruitment services tailored to get you working abroad — fast.
           </p>
-        </FadeUp>
+        </div>
 
-        <div className="services-grid mt-10">
-          {services.map((s, i) => (
-            <FadeUp key={s.title} delay={i * 60}>
-              <div className={`${s.color} text-white rounded-2xl shadow-lg hover:scale-[1.02] transition-transform overflow-hidden`}>
-                <div className="h-36 overflow-hidden">
-                  <SafeImage
-                    src={`/images/service-${i}.jpg`}
-                    alt={s.title}
-                    className="w-full h-full object-cover"
-                    fallbackType="service"
-                    fallbackSeed={i}
-                  />
+        {/* Masonry grid */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
+          {SERVICES.map((svc) => (
+            <div key={svc.id} className="break-inside-avoid">
+              <div
+                className={`bg-gradient-to-br ${svc.color} text-white rounded-2xl p-6 sm:p-7 h-full transition-transform hover:-translate-y-1 hover:shadow-xl`}
+              >
+                <div className="flex items-center justify-center w-12 h-12 bg-white/20 rounded-xl mb-5 text-xl">
+                  <i className={`fas ${svc.icon}`} />
                 </div>
-                <div className="p-6 sm:p-8 pt-5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-lg shrink-0">
-                      <i className={`fas ${s.icon}`} />
-                    </div>
-                    <h3 className="text-lg font-extrabold">{s.title}</h3>
-                  </div>
-                  <p className="text-sm leading-relaxed opacity-90">{s.desc}</p>
-                </div>
+                <h3 className="text-lg font-bold mb-3">{svc.title}</h3>
+                <p className="text-white/80 text-sm leading-relaxed">{svc.desc}</p>
               </div>
-            </FadeUp>
+            </div>
           ))}
+        </div>
+
+        {/* Highlight banner */}
+        <div className="mt-10 bg-gradient-to-r from-primary to-cta rounded-2xl p-6 sm:p-8 text-white text-center">
+          <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+            <i className="fas fa-star text-accent" />
+            Trusted Service
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-extrabold mb-2">
+            Overseas Recruitment & Travel Services
+          </h3>
+          <p className="text-white/85 max-w-2xl mx-auto mb-4">
+            From job placement to air ticketing, we handle everything for your journey abroad. Licensed and reliable.
+          </p>
+          <a
+            href="https://wa.me/923064712919"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-white text-primary font-bold px-6 py-3 rounded-full hover:bg-accent hover:text-ink transition-colors"
+          >
+            <i className="fa-brands fa-whatsapp" />
+            Start Your Application
+          </a>
         </div>
       </div>
     </section>
-  );
+  )
 }
