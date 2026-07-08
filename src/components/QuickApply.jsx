@@ -1,109 +1,60 @@
-import { useState, useRef } from 'react';
+import React from 'react';
+import { useState } from 'react'
 
-const JOB_CATEGORIES = [
-  'Construction Worker',
-  'Driver',
-  'Electrician',
-  'Factory Worker',
-  'Healthcare Worker',
-  'Hospitality Staff',
-  'IT Professional',
-  'Plumber',
-  'Security Guard',
-  'Technician',
-  'Other',
-];
-
-const WHATSAPP_NUMBER = '923341999588';
+const categories = [
+  'Construction Worker', 'Driver', 'Technician', 'Hospitality Staff',
+  'Factory Worker', 'Security Guard', 'Healthcare Professional',
+  'Engineer', 'IT Professional', 'Other',
+]
 
 export default function QuickApply() {
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
-  const formRef = useRef(null);
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [category, setCategory] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!name || !phone || !category) return;
-    const text = `Hello Gulalai Overseas Employment! I'd like to apply for a job.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AJob Category: ${encodeURIComponent(category)}%0A%0APlease guide me about the process.`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
-    setName('');
-    setPhone('');
-    setCategory('');
-    setOpen(false);
-  };
+    e.preventDefault()
+    const text = `*Quick Apply - Jhelum Overseas*%0A%0A_Name:_ ${encodeURIComponent(name)}%0A_Phone:_ ${encodeURIComponent(phone)}%0A_Category:_ ${encodeURIComponent(category)}`
+    window.open(`https://wa.me/923711940342?text=${text}`, '_blank')
+    setOpen(false)
+  }
 
   return (
-    <div className="fixed bottom-6 right-4 sm:right-6 z-50 flex flex-col items-end gap-3">
-      {/* Form Card */}
-      <div
-        className={`overflow-hidden quick-apply-expand ${
-          open ? 'max-h-[400px] opacity-100 scale-100' : 'max-h-0 opacity-0 scale-95'
-        }`}
-        style={{ transformOrigin: 'bottom right' }}
-      >
-        <div className="bg-white rounded-2xl shadow-2xl p-5 w-[280px] sm:w-[320px] border border-[#FF6B35]/20">
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="font-bold text-[#0B2436] text-sm flex items-center gap-2">
-              <i className="fas fa-bolt text-[#FF6B35]" />
-              Quick Apply
-            </h4>
-            <button onClick={() => setOpen(false)} className="text-[#0B2436]/40 hover:text-[#FF6B35] text-sm">
+    <div className="fixed bottom-5 right-4 md:right-6 z-50 flex flex-col items-end">
+      {open && (
+        <div className="mb-3 bg-white rounded-2xl shadow-2xl p-5 w-72 md:w-80 border border-primary/20 animate-fade-in">
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="font-bold text-primary text-sm">Quick Apply</h4>
+            <button onClick={() => setOpen(false)} className="text-ink/40 hover:text-cta transition-colors">
               <i className="fas fa-times" />
             </button>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-3" ref={formRef}>
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={name}
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <input type="text" placeholder="Your Name" required value={name}
               onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-xl focus:border-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35]/20 outline-none bg-gray-50 text-[#0B2436]"
-            />
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              value={phone}
+              className="w-full px-3 py-2.5 rounded-lg border border-primary/20 text-sm outline-none focus:border-secondary bg-background text-ink" />
+            <input type="tel" placeholder="Phone Number" required value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              required
-              className="w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-xl focus:border-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35]/20 outline-none bg-gray-50 text-[#0B2436]"
-            />
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-              className="w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-xl focus:border-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35]/20 outline-none bg-gray-50 text-[#0B2436]"
-            >
-              <option value="">Select Job Category</option>
-              {JOB_CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
+              className="w-full px-3 py-2.5 rounded-lg border border-primary/20 text-sm outline-none focus:border-secondary bg-background text-ink" />
+            <select required value={category} onChange={(e) => setCategory(e.target.value)}
+              className="w-full px-3 py-2.5 rounded-lg border border-primary/20 text-sm outline-none focus:border-secondary bg-background text-ink">
+              <option value="">Job Category</option>
+              {categories.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
-            <button
-              type="submit"
-              className="w-full bg-[#FF6B35] hover:bg-[#e85d2a] text-white font-semibold py-2.5 rounded-xl text-sm transition-all shadow-md"
-            >
-              <i className="fab fa-whatsapp mr-2" />
-              Apply via WhatsApp
+            <button type="submit" className="w-full bg-cta text-white font-bold py-2.5 rounded-lg text-sm hover:opacity-90 transition-all shadow-md">
+              <i className="fab fa-whatsapp mr-1" /> Apply Now
             </button>
           </form>
         </div>
-      </div>
-
-      {/* Floating Button */}
+      )}
       <button
         onClick={() => setOpen(!open)}
-        className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full shadow-xl flex items-center justify-center text-white text-xl transition-all duration-300 hover:scale-105 ${
-          open
-            ? 'bg-[#0B3954] rotate-45'
-            : 'bg-[#FF6B35]'
-        }`}
+        className="w-14 h-14 rounded-full bg-cta text-white shadow-lg hover:opacity-90 transition-all flex items-center justify-center text-2xl shadow-cta/40 animate-bounce-subtle"
         aria-label="Quick Apply"
       >
-        <i className={`fas ${open ? 'fa-times' : 'fa-bolt'} transition-transform`} />
+        <i className={`fas ${open ? 'fa-times' : 'fa-file-pen'}`} />
       </button>
     </div>
-  );
+  )
 }
