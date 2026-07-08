@@ -1,31 +1,44 @@
-import { Routes, Route } from 'react-router-dom'
-import Layout from './components/Layout'
-import ScrollToTop from './components/ScrollToTop'
-import QuickApply from './components/QuickApply'
-import Overview from './pages/Overview'
-import Services from './pages/Services'
-import Destinations from './pages/Destinations'
-import DestinationDetail from './pages/DestinationDetail'
-import Process from './pages/Process'
-import Apply from './pages/Apply'
-import NotFound from './pages/NotFound'
+import Navbar from './components/Navbar';
+import MarqueeBar from './components/MarqueeBar';
+import Hero from './components/Hero';
+import StatBand from './components/StatBand';
+import WavyDivider from './components/WavyDivider';
+import About from './components/About';
+import Services from './components/Services';
+import CountryGuide from './components/CountryGuide';
+import Process from './components/Process';
+import Testimonials from './components/Testimonials';
+import GalleryStrip from './components/GalleryStrip';
+import CTABand from './components/CTABand';
+import ContactMap from './components/ContactMap';
+import FAQs from './components/FAQs';
+import QuickApply from './components/QuickApply';
+import Footer from './components/Footer';
 
-export default function App() {
+function App() {
   return (
     <>
-      <ScrollToTop />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Overview />} />
-          <Route path="services" element={<Services />} />
-          <Route path="destinations" element={<Destinations />} />
-          <Route path="destinations/:slug" element={<DestinationDetail />} />
-          <Route path="process" element={<Process />} />
-          <Route path="apply" element={<Apply />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <Navbar />
+      <MarqueeBar />
+      <Hero />
+      <StatBand />
+      <WavyDivider color="#FFF0F3" />
+      <About />
+      <WavyDivider color="#FFF0F3" flip />
+      <Services />
+      <WavyDivider color="#fff" />
+      <CountryGuide />
+      <WavyDivider color="#fff" flip />
+      <Process />
+      <Testimonials />
+      <GalleryStrip />
+      <CTABand />
+      <ContactMap />
+      <FAQs />
       <QuickApply />
+      <Footer />
     </>
-  )
+  );
 }
+
+export default App;
