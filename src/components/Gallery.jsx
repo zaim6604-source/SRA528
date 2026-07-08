@@ -1,51 +1,70 @@
 import useInView from '../hooks/useInView';
 
-const photos = [
-  { src: 'https://picsum.photos/seed/namir-gallery-1/600/450', alt: 'Office consultation' },
-  { src: 'https://picsum.photos/seed/namir-gallery-2/600/450', alt: 'Team meeting' },
-  { src: 'https://picsum.photos/seed/namir-gallery-3/600/450', alt: 'Business handshake' },
-  { src: 'https://picsum.photos/seed/namir-gallery-4/600/450', alt: 'People collaboration' },
+const FALLBACK = 'https://placehold.co/500x350/FFB6C1/FFB6C1';
+const handleImgError = (e) => {
+  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
+};
+
+const images = [
+  {
+    src: 'https://picsum.photos/seed/gallery-building/500/350',
+    alt: 'Office building exterior',
+  },
+  {
+    src: 'https://picsum.photos/seed/gallery-interior/500/350',
+    alt: 'Modern office interior',
+  },
+  {
+    src: 'https://picsum.photos/seed/gallery-team/500/350',
+    alt: 'Team collaboration',
+  },
+  {
+    src: 'https://picsum.photos/seed/gallery-travel/500/350',
+    alt: 'Travel documents and passports',
+  },
 ];
 
 export default function Gallery() {
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [ref, visible] = useInView(0.1);
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-            <i className="fas fa-camera mr-1.5" />
-            OUR GALLERY
-          </span>
-        </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-12">
-          A Glimpse Into Our Work
-        </h2>
+    <section id="gallery" className="relative">
+      {/* Wavy divider */}
+      <div className="wavy-divider">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FF6FB5" />
+        </svg>
+      </div>
 
-        <div ref={ref} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {photos.map((photo, i) => (
-            <div
-              key={i}
-              className={`rounded-xl overflow-hidden shadow-md transition-all duration-500 hover:shadow-xl ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              <div className="aspect-[4/3] bg-secondary/10">
+      <div style={{ backgroundColor: '#FF6FB5' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          {/* Pill Badge */}
+          <div className="flex justify-center mb-4">
+            <span className="pill-3 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+              OUR OFFICE
+            </span>
+          </div>
+
+          <p className="text-center text-base sm:text-lg mb-10 max-w-2xl mx-auto" style={{ color: '#3D0A22' }}>
+            A glimpse into our workspace and team.
+          </p>
+
+          <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            {images.map((img, i) => (
+              <div
+                key={img.alt}
+                className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${i + 1} img-hover-zoom rounded-2xl overflow-hidden shadow-lg`}
+              >
                 <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover gallery-img"
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-44 sm:h-52 object-cover"
                   loading="lazy"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `<div class="flex items-center justify-center h-full bg-gradient-to-br from-primary/5 to-secondary/5"><i class="fas fa-image text-3xl text-secondary"></i></div>`;
-                  }}
+                  onError={handleImgError}
                 />
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

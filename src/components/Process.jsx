@@ -1,63 +1,82 @@
 import useInView from '../hooks/useInView';
 
 const steps = [
-  { num: '01', icon: 'fa-clipboard-list', title: 'Register', desc: 'Submit your application online or visit our office at Bacha Plaza, Mingora, Swat.' },
-  { num: '02', icon: 'fa-file-contract', title: 'Documents & Visa', desc: 'Submit required documents; we handle visa processing and attestation.' },
-  { num: '03', icon: 'fa-stethoscope', title: 'Medical & Trade Test', desc: 'Complete medical examination and any required trade tests.' },
-  { num: '04', icon: 'fa-check-double', title: 'Employer Confirmation', desc: 'Receive your job offer and employment contract from the employer.' },
-  { num: '05', icon: 'fa-plane-departure', title: 'Ticketing & Departure', desc: 'We arrange your flight and provide pre-departure orientation.' },
+  { icon: 'fa-solid fa-clipboard-list', label: 'Register & Consult', desc: 'Reach out to us — we\'ll discuss your goals and match you with the right opportunity.', color: '#E0218A' },
+  { icon: 'fa-solid fa-file-lines', label: 'Documents & Visa', desc: 'Submit your documents and we\'ll handle the visa application process for you.', color: '#FF6FB5' },
+  { icon: 'fa-solid fa-stethoscope', label: 'Medical & Trade Test', desc: 'We coordinate your medical exams and any required trade skill assessments.', color: '#00BFA6' },
+  { icon: 'fa-solid fa-building-columns', label: 'Employer Confirmation', desc: 'Receive your official job offer and employment confirmation from your employer.', color: '#C2055E' },
+  { icon: 'fa-solid fa-plane-departure', label: 'Ticketing & Departure', desc: 'We book your flight and ensure you\'re fully prepared for departure.', color: '#FFB6C1' },
 ];
 
 export default function Process() {
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [ref, visible] = useInView(0.05);
 
   return (
-    <section id="process" className="relative py-16 lg:py-24 overflow-hidden">
-      {/* Diagonal band background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-highlight to-cta transform -skew-y-3 scale-110" />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-highlight to-cta" />
+    <section id="process" className="relative">
+      {/* Wavy divider */}
+      <div className="wavy-divider">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FFB6C1" />
+        </svg>
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-white/20 text-white border border-white/30 backdrop-blur-sm">
-            <i className="fas fa-arrow-right mr-1.5" />
-            HOW IT WORKS
-          </span>
-        </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-4">
-          Your Journey Starts Here
-        </h2>
-        <p className="text-center text-white/80 max-w-2xl mx-auto mb-12">
-          A simple, transparent process from registration to departure.
-        </p>
+      <div style={{ backgroundColor: '#FFB6C1' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          {/* Pill Badge */}
+          <div className="flex justify-center mb-4">
+            <span className="pill-3 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+              HOW IT WORKS
+            </span>
+          </div>
 
-        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {steps.map((step, i) => (
-            <div
-              key={step.num}
-              className={`relative bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20 transition-all duration-500 hover:bg-white/20 ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${i * 150}ms` }}
-            >
-              {/* Step number */}
-              <div className="w-12 h-12 rounded-full bg-accent text-ink font-extrabold text-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
-                {step.num}
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4">
-                <i className={`fas ${step.icon} text-2xl text-white`} />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">{step.title}</h3>
-              <p className="text-white/80 text-sm leading-relaxed">{step.desc}</p>
+          <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#5A1E3A' }}>
+            Five simple steps to your next opportunity abroad.
+          </p>
 
-              {/* Connector arrow (desktop) */}
-              {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 text-accent/60 text-2xl">
-                  <i className="fas fa-chevron-right" />
+          {/* Filmstrip */}
+          <div ref={ref} className="filmstrip relative bg-[#2A0515] rounded-2xl overflow-hidden shadow-xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+            <div className="filmstrip-scroll flex gap-4 sm:gap-6 overflow-x-auto pb-2 snap-x snap-mandatory">
+              {steps.map((s, i) => (
+                <div
+                  key={s.label}
+                  className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${i + 1} flex-shrink-0 w-[220px] sm:w-[250px] lg:w-[260px] snap-start`}
+                >
+                  <div
+                    className="rounded-xl p-5 sm:p-6 h-full shadow-lg border-2 transition-transform duration-300 hover:-translate-y-1"
+                    style={{ backgroundColor: s.color + '15', borderColor: s.color + '50' }}
+                  >
+                    {/* Step Number */}
+                    <div
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white font-bold text-sm mb-3 shadow-md"
+                      style={{ backgroundColor: s.color }}
+                    >
+                      {i + 1}
+                    </div>
+
+                    {/* Icon */}
+                    <i className={`${s.icon} text-xl sm:text-2xl mb-3`} style={{ color: s.color }} />
+
+                    {/* Label */}
+                    <h3 className="text-sm sm:text-base font-bold m-0 mb-2" style={{ color: '#fff' }}>
+                      {s.label}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-sm leading-relaxed" style={{ color: '#FFB6C1' }}>
+                      {s.desc}
+                    </p>
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Scroll hint */}
+          <p className="text-center text-xs sm:text-sm mt-4 font-medium" style={{ color: '#5A1E3A' }}>
+            <i className="fa-solid fa-arrow-left mr-2" />
+            Scroll to explore
+            <i className="fa-solid fa-arrow-right ml-2" />
+          </p>
         </div>
       </div>
     </section>

@@ -1,53 +1,125 @@
 import useInView from '../hooks/useInView';
 
+const FALLBACK = 'https://placehold.co/400x300/FFB6C1/FFB6C1';
+const handleImgError = (e) => {
+  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
+};
+
 const services = [
-  { icon: 'fa-briefcase', title: 'Overseas Job Placement', desc: 'Connecting qualified candidates with trusted employers across Gulf and European countries.', color: 'from-rose-500 to-rose-700' },
-  { icon: 'fa-passport', title: 'Visa Processing', desc: 'End-to-end visa application assistance for work visas to Saudi Arabia, UAE, Qatar, and more.', color: 'from-fuchsia-500 to-fuchsia-700' },
-  { icon: 'fa-file-alt', title: 'Document Attestation', desc: 'Professional attestation of educational certificates, experience letters, and personal documents.', color: 'from-purple-500 to-purple-700' },
-  { icon: 'fa-stethoscope', title: 'Medical & Trade Test Coordination', desc: 'Scheduling and coordination of medical examinations and trade tests required for overseas employment.', color: 'from-teal-500 to-teal-700' },
-  { icon: 'fa-chalkboard-teacher', title: 'Pre-Departure Orientation', desc: 'Comprehensive orientation sessions covering cultural awareness, workplace rights, and travel tips.', color: 'from-orange-500 to-orange-700' },
-  { icon: 'fa-plane-departure', title: 'Air Ticketing & Travel Support', desc: 'Affordable airfare booking and travel logistics support for a smooth journey to your destination.', color: 'from-cyan-500 to-cyan-700' },
-  { icon: 'fa-search', title: 'Employer Verification', desc: 'Thorough verification of overseas employers to ensure legitimate and safe job opportunities.', color: 'from-green-500 to-green-700' },
-  { icon: 'fa-users-gear', title: 'Skilled & Unskilled Manpower Supply', desc: 'Reliable workforce solutions for employers across construction, hospitality, healthcare, and industry.', color: 'from-amber-500 to-amber-700' },
+  {
+    title: 'Overseas Job Placement',
+    desc: 'Connecting skilled and unskilled workers with verified employers in top destination countries.',
+    color: '#E0218A',
+    img: 'https://picsum.photos/seed/job-placement/400/300',
+  },
+  {
+    title: 'Visa Processing',
+    desc: 'Complete visa application support, documentation, and follow-up for smooth processing.',
+    color: '#FF6FB5',
+    img: 'https://picsum.photos/seed/visa-processing/400/300',
+  },
+  {
+    title: 'Document Attestation',
+    desc: 'Degree attestation, translation, and certification services for overseas requirements.',
+    color: '#00BFA6',
+    img: 'https://picsum.photos/seed/document-attestation/400/300',
+  },
+  {
+    title: 'Medical & Trade Test Coordination',
+    desc: 'Scheduling and coordination of mandatory medical exams and trade skill assessments.',
+    color: '#C2055E',
+    img: 'https://picsum.photos/seed/medical-test/400/300',
+  },
+  {
+    title: 'Pre-Departure Orientation',
+    desc: 'Cultural guidance, travel briefings, and essential tips before you depart.',
+    color: '#FFB6C1',
+    img: 'https://picsum.photos/seed/orientation/400/300',
+  },
+  {
+    title: 'Air Ticketing & Travel Support',
+    desc: 'Affordable flight bookings and travel coordination for a smooth journey abroad.',
+    color: '#E0218A',
+    img: 'https://picsum.photos/seed/ticketing/400/300',
+  },
+  {
+    title: 'Employer Verification',
+    desc: 'Thorough background checks on overseas employers to ensure legitimate opportunities.',
+    color: '#00BFA6',
+    img: 'https://picsum.photos/seed/employer-verification/400/300',
+  },
+  {
+    title: 'Skilled & Unskilled Manpower Supply',
+    desc: 'Reliable workforce solutions for construction, hospitality, factory, and service sectors.',
+    color: '#FF6FB5',
+    img: 'https://picsum.photos/seed/manpower/400/300',
+  },
 ];
 
 export default function Services() {
-  const [ref, inView] = useInView({ threshold: 0.05 });
+  const [ref, visible] = useInView(0.05);
 
   return (
-    <section id="services" className="py-16 lg:py-24 bg-background/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-            <i className="fas fa-concierge-bell mr-1.5" />
-            OUR SERVICES
-          </span>
-        </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
-          What We Offer
-        </h2>
-        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
-          Comprehensive recruitment and support services tailored to your overseas employment journey.
-        </p>
+    <section id="services" className="relative">
+      {/* Wavy divider */}
+      <div className="wavy-divider">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FFB6C1" />
+        </svg>
+      </div>
 
-        <div ref={ref} className="masonry-grid">
-          {services.map((svc, i) => (
-            <div
-              key={svc.title}
-              className={`masonry-item rounded-xl overflow-hidden shadow-lg text-white transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-default ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              <div className={`bg-gradient-to-br ${svc.color} p-6`}>
-                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-4">
-                  <i className={`fas ${svc.icon} text-xl`} />
+      <div style={{ backgroundColor: '#FFB6C1' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          {/* Pill Badge */}
+          <div className="flex justify-center mb-4">
+            <span className="pill-1 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+              OUR SERVICES
+            </span>
+          </div>
+
+          <p className="text-center text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl mx-auto" style={{ color: '#5A1E3A' }}>
+            Comprehensive recruitment and support services — from application to arrival.
+          </p>
+
+          <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {services.map((s, i) => (
+              <div
+                key={s.title}
+                className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${(i % 4) + 1} service-card relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer`}
+                style={{ minHeight: '280px' }}
+              >
+                {/* Background image or color */}
+                <img
+                  src={s.img}
+                  alt={s.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  onError={handleImgError}
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, transparent 40%, ${s.color}ee 100%)` }} />
+
+                {/* Title */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                  <h3 className="text-base font-bold text-white m-0">{s.title}</h3>
                 </div>
-                <h3 className="text-lg font-bold mb-2">{svc.title}</h3>
-                <p className="text-white/85 text-sm leading-relaxed">{svc.desc}</p>
+
+                {/* Hover overlay */}
+                <div
+                  className="service-overlay absolute inset-0 flex flex-col justify-center items-center p-5 text-center translate-y-full"
+                  style={{ backgroundColor: s.color }}
+                >
+                  <h3 className="text-base font-bold text-white mb-2">{s.title}</h3>
+                  <p className="text-xs sm:text-sm text-white/90 leading-relaxed mb-3">{s.desc}</p>
+                  <a href="#contact"
+                    onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-white border border-white/50 rounded-full px-4 py-1.5 hover:bg-white/20 transition-colors">
+                    Apply Now <i className="fa-solid fa-arrow-right text-[10px]" />
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

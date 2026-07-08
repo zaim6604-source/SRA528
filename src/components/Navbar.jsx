@@ -1,116 +1,109 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Destinations', href: '#countries' },
-  { label: 'Process', href: '#process' },
-  { label: 'Contact', href: '#contact' },
+const links = [
+  { label: 'Home', to: '/' },
+  { label: 'Jobs', to: '/jobs' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-secondary/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FFF8E0]/80 backdrop-blur-md border-b border-[#FF206E]/20 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo + License pill */}
-          <div className="flex items-center gap-3">
-            <a href="#hero" className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-white font-extrabold text-lg">
-                N
-              </div>
-              <span className="font-bold text-lg text-ink">
-                Namir<span className="text-primary">Brothers</span>
+        <div className="flex items-center justify-between h-16 sm:h-18">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#FF206E] flex items-center justify-center text-white font-bold text-sm sm:text-base shadow-md">
+              S
+            </div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-[15px] sm:text-[17px] leading-tight" style={{ color: '#1A1423' }}>
+                Sufyan Recruiting
               </span>
-            </a>
-            <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
-              <i className="fas fa-check-circle mr-1 text-xs" /> 2256/MLK
+              <span className="text-[10px] sm:text-[11px] font-medium tracking-wide" style={{ color: '#FF206E' }}>
+                Agency
+              </span>
+            </div>
+          </Link>
+
+          {/* License Pill */}
+          <div className="hidden md:flex items-center">
+            <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-[#FF206E]/10 text-[#FF206E] border border-[#FF206E]/30 tracking-wide">
+              License 2237/RWP
             </span>
           </div>
 
-          {/* Desktop nav */}
+          {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="relative px-3 py-2 text-sm font-medium text-ink/70 hover:text-primary rounded-lg hover:bg-primary/5 transition-colors after:content-[''] after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
+                  isActive(link.to) ? 'bg-[#FF206E]/10 text-[#FF206E]' : 'text-[#4A3F55] hover:text-[#FF206E]'
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
-          {/* Right actions */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://www.facebook.com/namir4805/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:flex w-9 h-9 items-center justify-center rounded-lg text-secondary hover:text-primary hover:bg-primary/5 transition-all"
-              aria-label="Facebook"
-            >
-              <i className="fab fa-facebook-f text-lg" />
-            </a>
-            <a
-              href="https://wa.me/923435644441"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-cta text-white hover:bg-cta/90 transition-all shadow-sm hover:shadow-md"
-            >
-              <i className="fab fa-whatsapp" />
-              Apply Now
-            </a>
-            {/* Mobile toggle */}
-            <button
-              onClick={() => setOpen(!open)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg text-ink hover:bg-primary/5 transition-colors"
-              aria-label="Toggle menu"
-            >
-              <i className={`fas ${open ? 'fa-times' : 'fa-bars'} text-xl`} />
-            </button>
-          </div>
+          {/* Desktop CTA */}
+          <Link
+            to="/jobs"
+            className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            style={{ backgroundColor: '#41EAD4' }}
+          >
+            <i className="fa-regular fa-briefcase text-xs" />
+            Browse Jobs
+          </Link>
+
+          {/* Hamburger */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="lg:hidden p-2 rounded-lg transition-colors"
+            style={{ color: '#1A1423' }}
+            aria-label="Toggle menu"
+          >
+            <i className={`fa-solid ${menuOpen ? 'fa-xmark' : 'fa-bars'} text-xl`} />
+          </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <div
-        className={`lg:hidden transition-all duration-300 overflow-hidden ${
-          open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
+        style={{ backgroundColor: '#FFF8E0' }}
       >
-        <div className="px-4 pb-4 pt-2 space-y-1 bg-white border-t border-secondary/10">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block px-3 py-2.5 rounded-lg text-sm font-medium text-ink/70 hover:text-primary hover:bg-primary/5 transition-colors"
+        <div className="px-4 py-3 space-y-1 border-t border-[#FF206E]/20">
+          {links.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setMenuOpen(false)}
+              className={`block px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                isActive(link.to) ? 'bg-[#FF206E]/10 text-[#FF206E]' : 'text-[#4A3F55]'
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="https://www.facebook.com/namir4805/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 mt-2 px-4 py-2.5 rounded-lg text-sm font-semibold border border-secondary/30 text-secondary hover:bg-secondary/5 transition-all"
+          <Link
+            to="/jobs"
+            onClick={() => setMenuOpen(false)}
+            className="block w-full text-center px-4 py-2.5 rounded-full text-sm font-semibold text-white shadow-md mt-2"
+            style={{ backgroundColor: '#41EAD4' }}
           >
-            <i className="fab fa-facebook-f" />
-            Facebook
-          </a>
-          <a
-            href="https://wa.me/923435644441"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 mt-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-cta text-white hover:bg-cta/90 transition-all"
-          >
-            <i className="fab fa-whatsapp" />
-            Apply Now
-          </a>
+            <i className="fa-regular fa-briefcase mr-2" />
+            Browse Jobs
+          </Link>
         </div>
       </div>
     </nav>

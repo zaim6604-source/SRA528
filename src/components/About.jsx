@@ -1,85 +1,108 @@
 import useInView from '../hooks/useInView';
 
-const trustChips = [
-  { icon: 'fa-check-circle', label: 'Govt. Licensed (2256/MLK)' },
-  { icon: 'fa-handshake', label: 'Ethical Recruitment' },
-  { icon: 'fa-shield-alt', label: 'Transparent Process' },
-  { icon: 'fa-users', label: 'Skilled & Unskilled' },
-  { icon: 'fa-passport', label: 'Visa Assistance' },
-  { icon: 'fa-plane', label: 'Pre-Departure Support' },
+const FALLBACK = 'https://placehold.co/600x450/FFB6C1/FFB6C1';
+const handleImgError = (e) => {
+  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
+};
+
+const features = [
+  { icon: 'fa-solid fa-scale-balanced', label: 'Licensed & Legal', color: '#E0218A', bg: '#FFE0F0' },
+  { icon: 'fa-solid fa-gauge-high', label: 'Simple Process', color: '#00BFA6', bg: '#E6FCF5' },
+  { icon: 'fa-solid fa-coins', label: 'Transparent Fees', color: '#C2055E', bg: '#FFE6EE' },
+  { icon: 'fa-solid fa-headset', label: 'End-to-End Support', color: '#FF6FB5', bg: '#FFF0F5' },
 ];
 
 export default function About() {
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [ref, visible] = useInView(0.1);
+  const [cardsRef, cardsVisible] = useInView(0.1);
 
   return (
-    <section id="about" className="py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          ref={ref}
-          className={`transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <div className="text-center mb-4">
-            <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-              <i className="fas fa-info-circle mr-1.5" />
-              WHO WE ARE
-            </span>
+    <section id="about" className="relative">
+      {/* Wavy divider top */}
+      <div className="wavy-divider">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,20 C240,60 480,0 720,20 C960,40 1200,0 1440,20 L1440,0 L0,0 Z" fill="#FFEFF6" />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        {/* Pill Badge */}
+        <div className="flex justify-center mb-4">
+          <span className="pill-2 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+            ABOUT US
+          </span>
+        </div>
+
+        {/* Top Band */}
+        <div ref={ref} className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 lg:mb-20">
+          <div className={`fade-up ${visible ? 'visible' : ''} space-y-5`}>
+            <h2 className="text-3xl sm:text-4xl font-bold m-0 leading-tight" style={{ color: '#3D0A22' }}>
+              Your Trusted Partner in{' '}
+              <span style={{ color: '#E0218A' }}>Overseas Employment</span>
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed" style={{ color: '#5A1E3A' }}>
+              Niaz Recruiting Agency is a government-licensed Overseas Employment Promoter (OEP)
+              based in Commercial Market, Rawalpindi. With License No. <strong>2178/RWP</strong>,
+              we have been connecting Pakistani workers with reputable employers across the Middle East,
+              Asia, and beyond — offering a refreshingly simple, transparent path to overseas employment.
+            </p>
+            <p className="text-base sm:text-lg leading-relaxed" style={{ color: '#5A1E3A' }}>
+              From our office at Nazar Plaza, near Quba Masjid, we provide end-to-end recruitment
+              services — from initial consultation and document processing to medical coordination,
+              visa processing, and pre-departure orientation. We believe in making the process clear,
+              honest, and stress-free.
+            </p>
+            <a href="tel:0514419415"
+              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 shadow-md"
+              style={{ backgroundColor: '#00BFA6', color: 'white' }}>
+              <i className="fa-solid fa-phone" />
+              Call 051-4419415
+            </a>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mt-10">
-            {/* Image with frame */}
-            <div className="relative">
-              <div className="absolute -inset-3 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl" />
-              <div className="absolute -top-3 -left-3 w-24 h-24 border-t-4 border-l-4 border-primary/40 rounded-tl-2xl" />
-              <div className="absolute -bottom-3 -right-3 w-24 h-24 border-b-4 border-r-4 border-primary/40 rounded-br-2xl" />
-              <div className="relative rounded-2xl overflow-hidden shadow-lg bg-secondary/20 aspect-[4/3]">
-                <img
-                  src="https://picsum.photos/seed/namir-about/800/600"
-                  alt="Namir Brothers team"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `<div class="flex items-center justify-center h-full bg-gradient-to-br from-primary/5 to-secondary/5 p-8"><div class="text-center"><i class="fas fa-building text-5xl text-primary mb-3"></i><p class="text-ink/60 font-medium">Office No. 05, Ground Floor<br/>Bacha Plaza, New Road<br/>Mingora, Swat, KPK</p></div></div>`;
-                  }}
-                />
-              </div>
+          <div className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-2 relative`}>
+            <div className="img-hover-zoom rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="https://picsum.photos/seed/agency-office/600/450"
+                alt="Niaz Recruiting Agency office"
+                className="w-full h-[280px] sm:h-[340px] object-cover"
+                loading="lazy"
+                onError={handleImgError}
+              />
             </div>
-
-            {/* Content */}
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-ink mb-5">
-                Your Trusted Gateway to{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  Global Opportunities
-                </span>
-              </h2>
-              <p className="text-ink/70 leading-relaxed mb-4">
-                Namir Brothers Recruiting Agency, located at Bacha Plaza in Mingora, Swat, has been a trusted name
-                in overseas employment for over 12 years. As a government-licensed recruitment firm (License 2256/MLK),
-                we specialize in connecting skilled and unskilled workers with reputable employers across the Gulf and Europe.
-              </p>
-              <p className="text-ink/70 leading-relaxed mb-6">
-                Our comprehensive services cover everything from visa processing and document attestation to medical
-                coordination, pre-departure orientation, and travel support. We are committed to ethical, transparent
-                recruitment that puts the welfare of our candidates first.
-              </p>
-
-              {/* Trust chips */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {trustChips.map((chip) => (
-                  <div
-                    key={chip.label}
-                    className="flex items-start gap-2 p-2.5 rounded-lg bg-background/50 border border-secondary/10"
-                  >
-                    <i className={`fas ${chip.icon} text-primary mt-0.5 text-sm`} />
-                    <span className="text-xs font-medium text-ink/70">{chip.label}</span>
-                  </div>
-                ))}
-              </div>
+            {/* Floating badge */}
+            <div className="absolute -bottom-3 -right-3 bg-white rounded-xl shadow-lg px-4 py-3 border-2 border-[#00BFA6]/40">
+              <div className="text-xs font-semibold" style={{ color: '#00BFA6' }}>License</div>
+              <div className="text-sm font-bold" style={{ color: '#3D0A22' }}>2178/RWP</div>
             </div>
           </div>
+        </div>
+
+        {/* Bottom Band — Why Choose Us */}
+        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          {features.map((f, i) => (
+            <div
+              key={f.label}
+              className={`fade-up ${cardsVisible ? 'visible' : ''} fade-up-delay-${i + 1} rounded-2xl p-6 sm:p-7 text-center transition-transform duration-300 hover:-translate-y-2 shadow-md`}
+              style={{ backgroundColor: f.bg }}
+            >
+              <div
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-sm"
+                style={{ backgroundColor: f.color }}
+              >
+                <i className={`${f.icon} text-white text-xl sm:text-2xl`} />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold m-0" style={{ color: '#3D0A22' }}>
+                {f.label}
+              </h3>
+              <p className="text-xs sm:text-sm mt-2 leading-relaxed" style={{ color: '#5A1E3A' }}>
+                {f.label === 'Licensed & Legal' && 'Fully government-licensed OEP with authentic credentials.'}
+                {f.label === 'Simple Process' && 'Straightforward, no-hassle process from start to finish.'}
+                {f.label === 'Transparent Fees' && 'Clear pricing with no hidden charges, ever.'}
+                {f.label === 'End-to-End Support' && 'Guidance at every step — from application to departure.'}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

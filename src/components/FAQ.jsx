@@ -3,94 +3,96 @@ import useInView from '../hooks/useInView';
 
 const faqs = [
   {
-    q: 'What documents do I need to apply for overseas jobs?',
-    a: 'You typically need your CNIC, passport (valid for at least 6 months), educational certificates, experience letters, and passport-sized photographs. Additional documents may be required depending on the country and job role.',
+    q: 'Is Niaz Recruiting Agency government licensed?',
+    a: 'Yes, absolutely. Niaz Recruiting Agency is a fully government-licensed Overseas Employment Promoter (OEP) under License No. 2178/RWP. We operate in full compliance with Pakistani overseas employment regulations.',
   },
   {
-    q: 'How long does the recruitment process take?',
-    a: 'The process usually takes 4–8 weeks from registration to departure, depending on the destination country, visa processing times, and document attestation requirements. We keep you updated at every stage.',
+    q: 'Which countries do you recruit for?',
+    a: 'We recruit for a wide range of countries including Saudi Arabia, UAE, Qatar, Malaysia, South Korea, Oman, Kuwait, Bahrain, and Italy. We are continuously expanding our network of trusted employers across new destinations.',
   },
   {
-    q: 'Is Namir Brothers Recruiting Agency government-licensed?',
-    a: 'Yes, we are fully licensed by the Government of Pakistan under license number 2256/MLK. Our office is located at Office No. 05, Ground Floor, Bacha Plaza, New Road, Mingora, Swat, KPK.',
+    q: 'Where is your office located?',
+    a: 'Our office is located at Flat No. 07, 2nd Floor, Nazar Plaza, Near Quba Masjid, Commercial Market, Rawalpindi, Punjab. We warmly welcome walk-in inquiries during business hours.',
   },
   {
-    q: 'What countries do you recruit for?',
-    a: 'We recruit for Saudi Arabia, UAE, Qatar, Oman (Muscat), Germany, Romania, Greece, Croatia (Dubrovnik), and Malaysia (KL). We are continuously expanding our network of trusted employers across the Gulf and Europe.',
+    q: 'What documents are required to apply?',
+    a: 'Typically you will need a valid passport (minimum 6 months validity), educational certificates, professional experience letters, CNIC, and passport-sized photographs. We will guide you through the complete document checklist after your initial consultation.',
   },
   {
-    q: 'What types of jobs do you offer?',
-    a: 'We offer both skilled and unskilled positions including construction workers, drivers, nurses, electricians, welders, hotel staff, factory workers, security personnel, and more. Contact us with your profile for a personalized match.',
+    q: 'How long does visa processing take?',
+    a: 'Processing times vary by country and job category, but typically range from 2 to 8 weeks. We keep you updated throughout the process and work to ensure timely processing.',
   },
   {
-    q: 'How much does your service cost?',
-    a: 'Our fees are transparent and competitive. We provide a complete breakdown of all charges before you begin the process. There are no hidden costs. Contact us for a detailed quotation based on your desired destination and job role.',
-  },
-  {
-    q: 'Do you provide pre-departure training?',
-    a: 'Yes, we provide comprehensive pre-departure orientation covering cultural awareness, workplace rights, travel tips, and what to expect in your destination country. This ensures you are well-prepared for your new role.',
+    q: 'Are there any registration fees?',
+    a: 'We believe in complete transparency. Any applicable fees are clearly communicated upfront, with no hidden charges. We encourage you to visit our office in Commercial Market, Rawalpindi for a detailed consultation on fees and the complete process.',
   },
 ];
 
 export default function FAQ() {
-  const [openIdx, setOpenIdx] = useState(null);
-  const [ref, inView] = useInView({ threshold: 0.05 });
+  const [openIndex, setOpenIndex] = useState(null);
+  const [ref, visible] = useInView(0.1);
 
-  const toggle = (idx) => {
-    setOpenIdx(openIdx === idx ? null : idx);
-  };
+  const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
+
+  const borderColors = ['#E0218A', '#FF6FB5', '#00BFA6', '#C2055E', '#FFB6C1', '#E0218A'];
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-4">
-          <span className="pill-badge bg-primary/10 text-primary border border-primary/20">
-            <i className="fas fa-question-circle mr-1.5" />
-            FAQS
-          </span>
-        </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-ink text-center mb-4">
-          Frequently Asked Questions
-        </h2>
-        <p className="text-center text-ink/60 max-w-2xl mx-auto mb-12">
-          Answers to common questions about our recruitment process.
-        </p>
+    <section id="faqs" className="relative">
+      {/* Wavy divider */}
+      <div className="wavy-divider">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FFB6C1" />
+        </svg>
+      </div>
 
-        <div
-          ref={ref}
-          className={`space-y-3 transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className="border border-secondary/20 rounded-xl overflow-hidden bg-white shadow-sm"
-            >
-              <button
-                onClick={() => toggle(i)}
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-background/30"
-              >
-                <span className="font-semibold text-ink text-sm sm:text-base">
-                  {faq.q}
-                </span>
-                <i
-                  className={`fas fa-chevron-down text-primary shrink-0 transition-transform duration-300 ${
-                    openIdx === i ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
+      <div style={{ backgroundColor: '#FFB6C1' }}>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          {/* Pill Badge */}
+          <div className="flex justify-center mb-4">
+            <span className="pill-2 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+              FAQS
+            </span>
+          </div>
+
+          <p className="text-center text-base sm:text-lg mb-10 max-w-2xl mx-auto" style={{ color: '#5A1E3A' }}>
+            Quick answers to common questions.
+          </p>
+
+          <div ref={ref} className="space-y-3 sm:space-y-4">
+            {faqs.map((faq, i) => (
               <div
-                className={`transition-all duration-300 overflow-hidden ${
-                  openIdx === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
+                key={i}
+                className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${(i % 3) + 1} rounded-xl overflow-hidden shadow-sm transition-all duration-300`}
+                style={{
+                  backgroundColor: 'white',
+                  borderLeft: `4px solid ${borderColors[i]}`,
+                }}
               >
-                <p className="px-5 pb-4 text-ink/65 text-sm sm:text-base leading-relaxed">
-                  {faq.a}
-                </p>
+                <button
+                  onClick={() => toggle(i)}
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left cursor-pointer"
+                  style={{ backgroundColor: 'transparent', border: 'none' }}
+                >
+                  <span className="text-sm sm:text-base font-semibold pr-4" style={{ color: '#3D0A22' }}>
+                    {faq.q}
+                  </span>
+                  <i
+                    className={`fa-solid fa-chevron-down text-sm transition-transform duration-300 shrink-0 ${openIndex === i ? 'rotate-180' : ''}`}
+                    style={{ color: '#E0218A' }}
+                  />
+                </button>
+                <div className={`accordion-content ${openIndex === i ? 'open' : ''}`}>
+                  <div>
+                    <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
+                      <p className="text-sm sm:text-base leading-relaxed m-0" style={{ color: '#5A1E3A' }}>
+                        {faq.a}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

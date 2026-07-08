@@ -1,17 +1,112 @@
+import { useState } from 'react';
+
 export default function QuickApply() {
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({ name: '', phone: '', role: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const text = encodeURIComponent(
+      `Quick Apply - Sufyan Recruiting Agency%0A%0AName: ${form.name}%0APhone: ${form.phone}%0ARole: ${form.role || 'Not specified'}`
+    );
+    window.open(`https://wa.me/923458649342?text=${text}`, '_blank');
+    setSubmitted(true);
+  };
+
+  const reset = () => {
+    setForm({ name: '', phone: '', role: '' });
+    setSubmitted(false);
+    setOpen(false);
+  };
+
   return (
-    <div className="fixed bottom-6 right-6 z-40">
-      <a
-        href="https://wa.me/923435644441"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group flex items-center gap-3 px-5 py-3.5 rounded-full bg-cta text-white shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+    <div className="fixed bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end gap-3">
+      {/* Expanded form */}
+      <div
+        className={`bg-white rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}
+        style={{ maxWidth: '300px', width: '100%', border: '1px solid #FF206E30' }}
       >
-        <i className="fab fa-whatsapp text-xl" />
-        <span className="font-bold text-sm hidden sm:inline">Quick Apply</span>
-        {/* Pulse ring */}
-        <span className="absolute inset-0 rounded-full bg-cta/40 animate-ping opacity-30 group-hover:opacity-50" />
-      </a>
+        {!submitted ? (
+          <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-3">
+            <div className="flex items-center justify-between mb-1">
+              <h4 className="text-sm font-bold m-0" style={{ color: '#1A1423' }}>Quick Apply</h4>
+              <button type="button" onClick={reset} className="text-sm cursor-pointer" style={{ color: '#FF206E', background: 'none', border: 'none' }}>
+                <i className="fa-solid fa-xmark" />
+              </button>
+            </div>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              placeholder="Your Name"
+              className="w-full px-3 py-2.5 rounded-lg border-2 text-xs outline-none"
+              style={{ borderColor: '#FF206E30', color: '#1A1423' }}
+            />
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              required
+              placeholder="Phone Number"
+              className="w-full px-3 py-2.5 rounded-lg border-2 text-xs outline-none"
+              style={{ borderColor: '#FF206E30', color: '#1A1423' }}
+            />
+            <input
+              type="text"
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              placeholder="Job Role (optional)"
+              className="w-full px-3 py-2.5 rounded-lg border-2 text-xs outline-none"
+              style={{ borderColor: '#FF206E30', color: '#1A1423' }}
+            />
+            <button
+              type="submit"
+              className="w-full py-2.5 rounded-lg text-xs font-semibold shadow-md transition-all duration-200 hover:shadow-lg cursor-pointer"
+              style={{ backgroundColor: '#41EAD4', border: 'none', color: '#1A1423' }}
+            >
+              <i className="fab fa-whatsapp mr-2" />
+              Apply via WhatsApp
+            </button>
+          </form>
+        ) : (
+          <div className="p-4 sm:p-5 text-center space-y-3">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#41EAD4' }}>
+              <i className="fa-solid fa-check" style={{ color: '#1A1423' }} />
+            </div>
+            <p className="text-xs font-semibold" style={{ color: '#1A1423' }}>Opening WhatsApp...</p>
+            <a href="tel:0514861137"
+              className="block w-full py-2 rounded-lg text-xs font-semibold text-white shadow-md transition-all duration-200"
+              style={{ backgroundColor: '#FF206E' }}>
+              <i className="fa-solid fa-phone mr-2" />
+              Call Us Instead
+            </a>
+            <button
+              onClick={reset}
+              className="text-xs underline cursor-pointer"
+              style={{ color: '#4A3F55', background: 'none', border: 'none' }}
+            >
+              Close
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* FAB Button */}
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-xl transition-all duration-300 hover:scale-110 cursor-pointer"
+        style={{ backgroundColor: open ? '#FF206E' : '#41EAD4', border: 'none', color: open ? 'white' : '#1A1423' }}
+        aria-label="Quick Apply"
+      >
+        <i className={`fa-solid ${open ? 'fa-xmark' : 'fa-bolt'} transition-transform duration-300 ${open ? 'rotate-90' : ''}`} />
+      </button>
     </div>
   );
 }

@@ -1,107 +1,187 @@
+import FadeIn from '../components/FadeIn';
+import useInView from '../hooks/useInView';
+
+const whyUs = [
+  { icon: 'fa-shield-halved', title: 'Licensed & Registered', desc: 'Fully authorized overseas employment promoter with verified credentials. License 2237/RWP.' },
+  { icon: 'fa-handshake', title: 'Gulf Specialists', desc: 'Exclusive focus on Gulf countries — we know the market, the employers, and the process inside out.' },
+  { icon: 'fa-globe', title: 'Established Network', desc: 'Over two decades of trusted partnerships with employers across Saudi Arabia, UAE, Qatar, and more.' },
+  { icon: 'fa-clock', title: 'Timely Processing', desc: 'Efficient visa, documentation, and travel coordination to get you deployed faster.' },
+  { icon: 'fa-star', title: 'Proven Track Record', desc: 'Thousands of successful placements with satisfied workers and employers since 2003.' },
+  { icon: 'fa-user-shield', title: 'Worker Welfare First', desc: 'Commitment to fair contracts, safe working conditions, and complete transparency.' },
+];
+
 const trustChips = [
-  'Government Licensed (2228/KAR)',
-  '10+ Years Industry Experience',
-  '5000+ Successful Placements',
-  '100% Transparent Process',
-  'Pre-Departure Training',
-  'Post-Placement Support',
+  'Government Licensed',
+  '100% Transparent',
+  'No Hidden Fees',
+  'Verified Gulf Employers',
+  'Safe & Legal Process',
+  'Community Trusted',
 ];
 
 export default function About() {
+  const [cardsRef, cardsVisible] = useInView(0.1);
+
   return (
-    <div className="space-y-10">
-      {/* Header */}
-      <div>
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 mb-3">
-          <i className="fas fa-info-circle" />
-          ABOUT US
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink mt-2">
-          Your Trusted Partner in <span className="text-primary">Overseas Recruitment</span>
-        </h1>
-      </div>
+    <div>
+      {/* Hero */}
+      <section className="pt-24 pb-16 md:pb-20" style={{ backgroundColor: '#FF206E' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide mb-4" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#FBFF12' }}>
+              <i className="fa-solid fa-info-circle" />
+              About Sufyan Recruiting Agency
+            </span>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white">About Us</h1>
+            <p className="mt-4 text-lg max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.75)' }}>
+              Your trusted partner in Gulf manpower recruitment since 2003. Licensed, transparent, and driven by results.
+            </p>
+          </FadeIn>
+        </div>
+      </section>
 
-      {/* Story + Office photo */}
-      <div className="grid lg:grid-cols-5 gap-6">
-        <div className="lg:col-span-3 bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-secondary/10">
-          <h2 className="text-xl font-bold text-ink mb-4">Our Story</h2>
-          <div className="space-y-4 text-ink/65 text-sm sm:text-base leading-relaxed">
-            <p>
-              Hasil International was founded with a single mission: to create genuine,
-              life-changing overseas employment opportunities for the people of Karachi
-              and beyond. Based at M-7, Falak Naz Heights, opposite Jinnah Terminal on
-              Shahrah-e-Faisal — one of Karachi's most prominent arteries — we have
-              become a trusted name in international recruitment.
-            </p>
-            <p>
-              Over the years, we have successfully placed thousands of skilled and
-              unskilled workers with reputable employers across the Gulf, Europe, and
-              Asia. Our deep understanding of both local talent and international
-              market demands allows us to deliver results that matter.
-            </p>
-            <p>
-              Licensed by the Government of Pakistan under license number 2228/KAR,
-              we operate with full transparency, integrity, and a commitment to the
-              well-being of every candidate we serve.
-            </p>
+      {/* Story */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <FadeIn>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1A1423' }}>Our Story</h2>
+              <div className="w-16 h-1 mt-4 mb-6" style={{ backgroundColor: '#41EAD4' }} />
+              <p className="leading-relaxed mb-4" style={{ color: '#4A3F55' }}>
+                Sufyan Recruiting Agency is a well-known overseas employment promoter that has been providing skilled and semi-skilled manpower to Gulf countries on a contract basis since 2003.
+              </p>
+              <p className="leading-relaxed mb-4" style={{ color: '#4A3F55' }}>
+                Based at Office 20, 2nd Floor, Zaki Centre, I-8 Markaz, Islamabad, we have built a reputation for reliability, transparency, and successful placements across Saudi Arabia, UAE, Qatar, Oman, Kuwait, and Bahrain.
+              </p>
+              <p className="leading-relaxed" style={{ color: '#4A3F55' }}>
+                Our team brings decades of combined experience in international recruitment, visa processing, and manpower placement. We are fully licensed under the Government of Pakistan (License No. 2237/RWP) and operate in full compliance with overseas employment regulations.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={1}>
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="/src/assets/images/about.jpg"
+                alt="Sufyan Recruiting Agency office"
+                className="w-full h-80 object-cover"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Stats Band */}
+      <section style={{ backgroundColor: '#FF206E' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: '5000+', label: 'Workers Placed' },
+              { value: '6', label: 'Gulf Countries' },
+              { value: '22+', label: 'Years Experience' },
+              { value: '2237/RWP', label: 'License' },
+            ].map((s, i) => (
+              <FadeIn key={s.label} delay={i * 1}>
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-extrabold text-white mb-1" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    {s.value}
+                  </div>
+                  <div className="text-sm sm:text-base font-medium" style={{ color: '#FBFF12' }}>
+                    {s.label}
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Office photo */}
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-secondary/10 overflow-hidden flex items-center justify-center">
-          <div className="p-8 text-center">
-            <div className="w-24 h-24 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <i className="fas fa-building text-4xl text-primary" />
-            </div>
-            <h3 className="font-bold text-ink text-lg">Our Office</h3>
-            <p className="text-ink/50 text-sm mt-1">
-              M-7, Falak Naz Heights<br />
-              Opp. Jinnah Terminal<br />
-              Shahrah-e-Faisal, Karachi
-            </p>
-            <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-accent/10 text-amber-700 border border-accent/20">
-              <i className="fas fa-map-pin text-[10px]" />
-              Landmark Location
-            </div>
+      {/* Mission / Vision / Values */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: '#FFF8E0' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            <FadeIn>
+              <div className="bg-white rounded-2xl p-8 shadow-sm border text-center" style={{ borderColor: '#FF206E10' }}>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#FF206E10' }}>
+                  <i className="fas fa-bullseye text-2xl" style={{ color: '#FF206E' }} />
+                </div>
+                <h3 className="font-bold text-lg" style={{ color: '#1A1423' }}>Our Mission</h3>
+                <p className="text-sm mt-2 leading-relaxed" style={{ color: '#4A3F55' }}>
+                  To connect the skilled workforce of Pakistan with legitimate overseas employment opportunities in the Gulf, ensuring dignity, fairness, and success.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={1}>
+              <div className="bg-white rounded-2xl p-8 shadow-sm border text-center" style={{ borderColor: '#FF206E10' }}>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#FF206E10' }}>
+                  <i className="fas fa-eye text-2xl" style={{ color: '#FF206E' }} />
+                </div>
+                <h3 className="font-bold text-lg" style={{ color: '#1A1423' }}>Our Vision</h3>
+                <p className="text-sm mt-2 leading-relaxed" style={{ color: '#4A3F55' }}>
+                  To be the most trusted overseas employment bridge between Pakistan and the Gulf, transforming lives through legitimate international careers.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={2}>
+              <div className="bg-white rounded-2xl p-8 shadow-sm border text-center" style={{ borderColor: '#FF206E10' }}>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#FF206E10' }}>
+                  <i className="fas fa-heart text-2xl" style={{ color: '#FF206E' }} />
+                </div>
+                <h3 className="font-bold text-lg" style={{ color: '#1A1423' }}>Our Values</h3>
+                <p className="text-sm mt-2 leading-relaxed" style={{ color: '#4A3F55' }}>
+                  Integrity, transparency, community commitment, and a relentless focus on worker welfare and successful outcomes.
+                </p>
+              </div>
+            </FadeIn>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Why Us */}
-      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-secondary/10">
-        <h2 className="text-xl font-bold text-ink mb-5">Why Choose Hasil International?</h2>
-        <div className="grid sm:grid-cols-2 gap-4">
-          {[
-            { icon: 'fa-shield-alt', title: 'Licensed & Regulated', desc: 'Government license 2228/KAR. Fully compliant with overseas employment rules.' },
-            { icon: 'fa-handshake', title: 'Trusted by Thousands', desc: 'Over 5,000 successful placements across 12+ countries.' },
-            { icon: 'fa-eye', title: 'Complete Transparency', desc: 'No hidden fees. Clear communication at every step of the process.' },
-            { icon: 'fa-people-arrows', title: 'End-to-End Support', desc: 'From registration to departure, we handle everything for you.' },
-          ].map((item) => (
-            <div key={item.title} className="flex gap-4 p-4 rounded-xl bg-background/50">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                <i className={`fas ${item.icon} text-lg text-primary`} />
+      {/* Why Choose Us */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <FadeIn>
+          <h2 className="text-3xl md:text-4xl font-bold text-center" style={{ color: '#1A1423' }}>
+            Why Choose Sufyan Recruiting Agency?
+          </h2>
+          <p className="mt-3 text-center max-w-xl mx-auto" style={{ color: '#4A3F55' }}>
+            What sets us apart in the Gulf overseas employment industry.
+          </p>
+        </FadeIn>
+        <div ref={cardsRef} className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {whyUs.map((item, i) => (
+            <FadeIn key={item.title} delay={Math.min(i + 1, 6)}>
+              <div className="flex gap-4 p-5 rounded-xl bg-white border shadow-sm hover:shadow-md transition-shadow" style={{ borderColor: '#FF206E10' }}>
+                <div className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: '#FF206E10' }}>
+                  <i className={`fas ${item.icon}`} style={{ color: '#FF206E' }} />
+                </div>
+                <div>
+                  <h3 className="font-bold" style={{ color: '#1A1423' }}>{item.title}</h3>
+                  <p className="text-sm mt-1" style={{ color: '#4A3F55' }}>{item.desc}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-ink text-sm">{item.title}</h3>
-                <p className="text-ink/50 text-xs mt-1">{item.desc}</p>
-              </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Trust Chips */}
-      <div>
-        <h2 className="text-lg font-bold text-ink mb-4 text-center">Our Credentials</h2>
-        <div className="flex flex-wrap justify-center gap-3">
-          {trustChips.map((chip) => (
-            <span key={chip} className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/20 text-ink shadow-sm">
-              <i className="fas fa-check-circle text-primary" />
-              {chip}
-            </span>
-          ))}
+      <section className="py-12" style={{ backgroundColor: '#D4005A' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h3 className="text-xl font-bold text-center mb-6 text-white">Trust & Credentials</h3>
+          </FadeIn>
+          <div className="flex flex-wrap justify-center gap-3">
+            {trustChips.map((chip, i) => (
+              <FadeIn key={chip} delay={Math.min(i + 1, 4)}>
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium" style={{ backgroundColor: 'rgba(255,255,255,0.12)', color: 'white' }}>
+                  <i className="fas fa-check-circle" style={{ color: '#41EAD4' }} />
+                  {chip}
+                </span>
+              </FadeIn>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

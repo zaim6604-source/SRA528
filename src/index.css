@@ -1,15 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  --color-primary: #E0115F;
-  --color-secondary: #FF5C8A;
-  --color-accent: #FFD700;
-  --color-cta: #7B2D8E;
-  --color-highlight: #B8004F;
-  --color-background: #FFF0F4;
-  --color-ink: #2E0A1C;
+  --color-primary: #FF206E;
+  --color-secondary: #FBFF12;
+  --color-accent: #41EAD4;
+  --color-cta: #41EAD4;
+  --color-highlight: #D4005A;
+  --color-background: #FFF8E0;
+  --color-ink: #1A1423;
+  --color-ink-light: #4A3F55;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
 }
 
 html {
@@ -17,85 +20,86 @@ html {
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  margin: 0;
+  background-color: var(--color-background);
   color: var(--color-ink);
-  background-color: #ffffff;
 }
 
-/* Marquee Animation */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
 }
 
-.animate-marquee {
-  animation: marquee 40s linear infinite;
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.animate-marquee:hover {
-  animation-play-state: paused;
+/* Fade up animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* Smooth fade-up animation */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.6s ease-out forwards;
+.fade-up-delay-1 { transition-delay: 0.1s; }
+.fade-up-delay-2 { transition-delay: 0.2s; }
+.fade-up-delay-3 { transition-delay: 0.3s; }
+.fade-up-delay-4 { transition-delay: 0.4s; }
+.fade-up-delay-5 { transition-delay: 0.5s; }
+.fade-up-delay-6 { transition-delay: 0.6s; }
+
+/* Accordion */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
 }
 
-/* Wavy SVG divider */
-.wavy-divider {
-  position: relative;
-  width: 100%;
+.accordion-content.open {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content > div {
   overflow: hidden;
-  line-height: 0;
 }
 
-.wavy-divider svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 60px;
+/* Job card hover */
+.job-card {
+  transition: all 0.3s ease;
 }
 
-/* Pill badge */
-.pill-badge {
-  @apply inline-block px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider;
+.job-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(255, 32, 110, 0.15);
+}
+
+/* Filter chip active state */
+.filter-chip {
+  transition: all 0.2s ease;
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--color-background); }
-::-webkit-scrollbar-thumb { background: var(--color-secondary); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
-
-/* Gallery hover zoom */
-.gallery-img {
-  @apply object-cover rounded-lg transition-transform duration-500;
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.gallery-img:hover {
-  transform: scale(1.05);
+::-webkit-scrollbar-track {
+  background: var(--color-background);
 }
 
-/* Masonry grid */
-.masonry-grid {
-  column-count: 3;
-  column-gap: 1.5rem;
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
 }
 
-@media (max-width: 1024px) {
-  .masonry-grid { column-count: 2; }
-}
-
-@media (max-width: 640px) {
-  .masonry-grid { column-count: 1; }
-}
-
-.masonry-item {
-  break-inside: avoid;
-  margin-bottom: 1.5rem;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-highlight);
 }
