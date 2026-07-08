@@ -1,152 +1,165 @@
-import ScrollReveal from '../components/ScrollReveal'
-import FallbackImage from '../components/FallbackImage'
-import { COMPANY } from '../data/siteData'
+import FadeIn from '../components/FadeIn';
 
-const CHIPS = [
-  `Government Licensed ${COMPANY.license}`,
-  '12+ Years Experience',
-  'Gulf & Europe Placement',
-  'Visa Processing',
-  'Pre-Departure Training',
-  '24/7 Support',
-]
+const whyUs = [
+  { icon: 'fa-shield-halved', title: 'Licensed & Registered', desc: 'Fully authorized overseas employment promoter with verified credentials.' },
+  { icon: 'fa-handshake', title: 'Personalized Guidance', desc: 'End-to-end support tailored to your skills and destination preferences.' },
+  { icon: 'fa-globe', title: 'Global Network', desc: 'Strong partnerships with employers across the Gulf and Europe.' },
+  { icon: 'fa-clock', title: 'Timely Processing', desc: 'Efficient visa, documentation, and travel coordination.' },
+  { icon: 'fa-star', title: 'Proven Track Record', desc: 'Hundreds of successful placements with satisfied workers.' },
+  { icon: 'fa-heart', title: 'Community Focused', desc: 'Rooted in Shergarh, serving the KPK community with integrity.' },
+];
 
 export default function About() {
   return (
-    <section className="relative animate-page-enter">
-      <div className="wavy-divider -mb-1">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
-          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
-        </svg>
-      </div>
+    <div>
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-highlight)] text-white py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <h1 className="text-4xl md:text-5xl font-extrabold">About Us</h1>
+            <p className="mt-4 text-[var(--color-secondary)] text-lg max-w-2xl mx-auto">
+              Learn about our mission, our story, and why we are the trusted choice for overseas employment.
+            </p>
+          </FadeIn>
+        </div>
+      </section>
 
-      <div className="bg-white py-16 lg:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
-                <i className="fas fa-info-circle" />
-                About Us
-              </span>
-              <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
-                Chakwal's Trusted Recruitment Partner
-              </h2>
-              <p className="text-ink/60 max-w-2xl mx-auto">
-                {COMPANY.name} has been connecting skilled workers from Punjab with reputable employers worldwide.
+      {/* Story */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <FadeIn>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-ink)]">Our Story</h2>
+              <div className="w-16 h-1 bg-[var(--color-accent)] mt-4 mb-6" />
+              <p className="text-[var(--color-ink)]/80 leading-relaxed mb-4">
+                Talab Overseas Employment Promoter was founded with a singular mission: to create
+                legitimate, safe, and rewarding overseas employment opportunities for the skilled
+                workforce of Khyber Pakhtunkhwa.
+              </p>
+              <p className="text-[var(--color-ink)]/80 leading-relaxed mb-4">
+                Based in Shergarh, Mardan district, we understand the aspirations of our community.
+                Our team brings decades of combined experience in international recruitment, visa
+                processing, and manpower placement.
+              </p>
+              <p className="text-[var(--color-ink)]/80 leading-relaxed">
+                From the Gulf countries to Europe, we have helped hundreds of workers find
+                meaningful employment, ensuring fair treatment, proper documentation, and safe
+                travel every step of the way.
               </p>
             </div>
-          </ScrollReveal>
+          </FadeIn>
+          <FadeIn delay={1}>
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="/images/community.jpg"
+                alt="Talab Overseas office"
+                className="w-full h-80 object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/images/hero.jpg';
+                }}
+              />
+            </div>
+          </FadeIn>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <ScrollReveal className="relative" delay={100}>
-              <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                <FallbackImage
-                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop&auto=format"
-                  alt={`${COMPANY.name} office at Usmania Plaza, Chakwal`}
-                  className="w-full h-72 lg:h-96"
-                  icon="fa-building"
-                  bgClass="from-primary to-secondary"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-primary text-white px-5 py-3 rounded-xl shadow-lg hidden lg:block">
-                <div className="text-sm font-bold">Serving Since</div>
-                <div className="text-2xl font-extrabold">2012</div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <div className="space-y-4">
-                <p className="text-ink/70 leading-relaxed">
-                  Based at <strong>Usmania Plaza, Pindi Road, Chakwal</strong>, {COMPANY.name} (License {COMPANY.license})
-                  is a government-approved manpower recruitment agency dedicated to serving the people of
-                  <strong> Chakwal, Talagang, Jhelum, and across Punjab</strong>.
-                </p>
-                <p className="text-ink/70 leading-relaxed">
-                  We specialize in placing skilled and semi-skilled workers with trusted employers in
-                  <strong> Saudi Arabia, UAE, Qatar, Oman, Germany, Poland, Italy, Greece, and Romania</strong>.
-                  Our process is transparent, our fees are fair, and our commitment to our candidates is unwavering.
-                </p>
-                <p className="text-ink/70 leading-relaxed">
-                  At {COMPANY.name}, we believe every hardworking Pakistani deserves access to genuine overseas
-                  employment opportunities. Our team personally guides each candidate from documentation through
-                  departure, ensuring a smooth and stress-free experience.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {CHIPS.map((chip) => (
-                    <span
-                      key={chip}
-                      className="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/10"
-                    >
-                      <i className="fas fa-check-circle text-primary text-[10px]" />
-                      {chip}
-                    </span>
-                  ))}
+      {/* Mission */}
+      <section className="bg-[var(--color-background)] py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            <FadeIn>
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-[var(--color-secondary)]/20 text-center">
+                <div className="w-14 h-14 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center mx-auto mb-4">
+                  <i className="fas fa-bullseye text-2xl text-[var(--color-primary)]" />
                 </div>
-                <a
-                  href={COMPANY.whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-full font-bold hover:brightness-110 transition-all shadow-lg mt-2"
-                >
-                  <i className="fab fa-whatsapp" />
-                  Apply Now
-                </a>
+                <h3 className="font-bold text-lg text-[var(--color-ink)]">Our Mission</h3>
+                <p className="text-[var(--color-ink)]/70 text-sm mt-2 leading-relaxed">
+                  To connect the skilled workforce of KPK with legitimate overseas employment
+                  opportunities, ensuring dignity, fairness, and success.
+                </p>
               </div>
-            </ScrollReveal>
+            </FadeIn>
+            <FadeIn delay={1}>
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-[var(--color-secondary)]/20 text-center">
+                <div className="w-14 h-14 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center mx-auto mb-4">
+                  <i className="fas fa-eye text-2xl text-[var(--color-primary)]" />
+                </div>
+                <h3 className="font-bold text-lg text-[var(--color-ink)]">Our Vision</h3>
+                <p className="text-[var(--color-ink)]/70 text-sm mt-2 leading-relaxed">
+                  To be the most trusted overseas employment bridge between KPK and the world,
+                  transforming lives through legitimate international careers.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={2}>
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-[var(--color-secondary)]/20 text-center">
+                <div className="w-14 h-14 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center mx-auto mb-4">
+                  <i className="fas fa-heart text-2xl text-[var(--color-primary)]" />
+                </div>
+                <h3 className="font-bold text-lg text-[var(--color-ink)]">Our Values</h3>
+                <p className="text-[var(--color-ink)]/70 text-sm mt-2 leading-relaxed">
+                  Integrity, transparency, community commitment, and a relentless focus on worker
+                  welfare and successful outcomes.
+                </p>
+              </div>
+            </FadeIn>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Mission Section */}
-      <div className="bg-background py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ScrollReveal delay={0}>
-              <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-primary text-3xl mx-auto mb-4">
-                  <i className="fas fa-bullseye" />
+      {/* Why Us */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <FadeIn>
+          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-ink)] text-center">
+            Why Choose Talab Overseas?
+          </h2>
+          <p className="mt-3 text-[var(--color-ink)]/70 text-center max-w-xl mx-auto">
+            What sets us apart in the overseas employment industry.
+          </p>
+        </FadeIn>
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {whyUs.map((item, i) => (
+            <FadeIn key={item.title} delay={Math.min(i + 1, 6)}>
+              <div className="flex gap-4 p-5 rounded-xl bg-white border border-[var(--color-secondary)]/20 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-11 h-11 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center shrink-0">
+                  <i className={`fas ${item.icon} text-[var(--color-primary)]`} />
                 </div>
-                <h3 className="text-xl font-bold text-ink mb-3">Our Mission</h3>
-                <p className="text-sm text-ink/60 leading-relaxed">
-                  To connect skilled Pakistani workers with genuine overseas employment opportunities,
-                  ensuring fair treatment, transparent processes, and successful outcomes.
-                </p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={100}>
-              <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-cta/20 flex items-center justify-center text-accent text-3xl mx-auto mb-4">
-                  <i className="fas fa-eye" />
+                <div>
+                  <h3 className="font-bold text-[var(--color-ink)]">{item.title}</h3>
+                  <p className="text-sm text-[var(--color-ink)]/70 mt-1">{item.desc}</p>
                 </div>
-                <h3 className="text-xl font-bold text-ink mb-3">Our Vision</h3>
-                <p className="text-sm text-ink/60 leading-relaxed">
-                  To be Punjab's most trusted recruitment agency, known for integrity, reliability,
-                  and transforming lives through ethical overseas employment.
-                </p>
               </div>
-            </ScrollReveal>
-            <ScrollReveal delay={200}>
-              <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cta/20 to-primary/20 flex items-center justify-center text-cta text-3xl mx-auto mb-4">
-                  <i className="fas fa-heart" />
-                </div>
-                <h3 className="text-xl font-bold text-ink mb-3">Our Values</h3>
-                <p className="text-sm text-ink/60 leading-relaxed">
-                  Transparency, integrity, and candidate welfare are at the core of everything we do.
-                  Every candidate is treated with dignity and respect.
-                </p>
-              </div>
-            </ScrollReveal>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* Trust Chips */}
+      <section className="bg-[var(--color-highlight)] text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h3 className="text-xl font-bold text-center mb-6">Trust & Credentials</h3>
+          </FadeIn>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              'Government Licensed',
+              '100% Transparent',
+              'No Hidden Fees',
+              'Verified Employers',
+              'Safe & Legal',
+              'Community Trusted',
+            ].map((chip, i) => (
+              <FadeIn key={chip} delay={Math.min(i + 1, 4)}>
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 text-sm font-medium">
+                  <i className="fas fa-check-circle text-[var(--color-accent)]" />
+                  {chip}
+                </span>
+              </FadeIn>
+            ))}
           </div>
         </div>
-      </div>
-
-      <div className="wavy-divider -mt-1 rotate-180">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
-          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
-        </svg>
-      </div>
-    </section>
-  )
+      </section>
+    </div>
+  );
 }

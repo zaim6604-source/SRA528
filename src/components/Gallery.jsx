@@ -1,50 +1,72 @@
-import ScrollReveal from './ScrollReveal'
-import FallbackImage from './FallbackImage'
+import useInView from '../hooks/useInView';
 
-const GALLERY = [
-  { src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=450&fit=crop&auto=format', label: 'Office at Tahir Plaza' },
-  { src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=450&fit=crop&auto=format', label: 'Candidate Counseling' },
-  { src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=450&fit=crop&auto=format', label: 'Pre-Departure Orientation' },
-  { src: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=450&fit=crop&auto=format', label: 'Documentation Center' },
-  { src: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=450&fit=crop&auto=format', label: 'Visa Processing' },
-  { src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=450&fit=crop&auto=format', label: 'Team at Work' },
-]
+const FALLBACK = 'https://placehold.co/500x350/FFB6C1/FFB6C1';
+const handleImgError = (e) => {
+  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
+};
+
+const images = [
+  {
+    src: 'https://picsum.photos/seed/gallery-building/500/350',
+    alt: 'Office building exterior',
+  },
+  {
+    src: 'https://picsum.photos/seed/gallery-interior/500/350',
+    alt: 'Modern office interior',
+  },
+  {
+    src: 'https://picsum.photos/seed/gallery-team/500/350',
+    alt: 'Team collaboration',
+  },
+  {
+    src: 'https://picsum.photos/seed/gallery-travel/500/350',
+    alt: 'Travel documents and passports',
+  },
+];
 
 export default function Gallery() {
-  return (
-    <section className="py-16 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <ScrollReveal>
-          <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
-              <i className="fas fa-images" />
-              Gallery
-            </span>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
-              A Glimpse of Our Work
-            </h2>
-          </div>
-        </ScrollReveal>
+  const [ref, visible] = useInView(0.1);
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          {GALLERY.map((item, i) => (
-            <ScrollReveal key={item.label} delay={i * 60}>
-              <div className="relative rounded-xl overflow-hidden shadow-md group cursor-pointer aspect-[4/3]">
-                <FallbackImage
-                  src={item.src}
-                  alt={item.label}
-                  className="w-full h-full group-hover:scale-110 transition-transform duration-500"
-                  icon="fa-image"
-                  bgClass="from-primary/20 to-secondary/20"
+  return (
+    <section id="gallery" className="relative">
+      {/* Wavy divider */}
+      <div className="wavy-divider">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,40 C240,0 480,60 720,40 C960,20 1200,60 1440,40 L1440,60 L0,60 Z" fill="#FF6FB5" />
+        </svg>
+      </div>
+
+      <div style={{ backgroundColor: '#FF6FB5' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          {/* Pill Badge */}
+          <div className="flex justify-center mb-4">
+            <span className="pill-3 px-5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider">
+              OUR OFFICE
+            </span>
+          </div>
+
+          <p className="text-center text-base sm:text-lg mb-10 max-w-2xl mx-auto" style={{ color: '#3D0A22' }}>
+            A glimpse into our workspace and team.
+          </p>
+
+          <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            {images.map((img, i) => (
+              <div
+                key={img.alt}
+                className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-${i + 1} img-hover-zoom rounded-2xl overflow-hidden shadow-lg`}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-44 sm:h-52 object-cover"
+                  loading="lazy"
+                  onError={handleImgError}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                  <span className="text-white text-xs font-semibold">{item.label}</span>
-                </div>
               </div>
-            </ScrollReveal>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

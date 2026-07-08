@@ -1,111 +1,170 @@
-import FallbackImage from './FallbackImage'
-import ScrollReveal from './ScrollReveal'
+import useInView from '../hooks/useInView';
+
+const FALLBACK = 'https://placehold.co/800x1000/FFB6C1/FFB6C1';
+
+const handleImgError = (e) => {
+  if (e.target.src !== FALLBACK) e.target.src = FALLBACK;
+};
+
+const statCards = [
+  { icon: 'fa-solid fa-users', value: '3000+', label: 'Workers Placed' },
+  { icon: 'fa-solid fa-flag', value: '10+', label: 'Countries' },
+  { icon: 'fa-solid fa-certificate', value: '100%', label: 'Govt. Licensed' },
+  { icon: 'fa-solid fa-handshake', value: '15+', label: 'Years Experience' },
+];
 
 export default function Hero() {
-  return (
-    <section id="hero" className="relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-cta/5 pointer-events-none" />
+  const [ref, visible] = useInView(0.1);
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
-          {/* Headline tile - spans 2 cols */}
-          <ScrollReveal className="lg:col-span-2 lg:row-span-2 bg-white rounded-2xl p-8 lg:p-12 shadow-lg border border-primary/5 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 bg-accent/20 text-accent-800 text-xs font-bold px-3 py-1 rounded-full mb-4 w-fit">
-              <i className="fas fa-badge-check" />
-              License 2167/MLK
-            </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink leading-tight mb-4">
-              Batkhela's Steady Route to{' '}
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Well-Paid Work Abroad
+  return (
+    <section id="hero">
+      {/* Hero Main */}
+      <div className="relative pt-28 sm:pt-40 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" ref={ref}>
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* Left Content */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-7">
+            {/* Kicker Pill */}
+            <div className={`fade-up ${visible ? 'visible' : ''}`}>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide shadow-sm"
+                style={{ backgroundColor: '#E0218A', color: 'white' }}>
+                <i className="fa-solid fa-check-circle text-[10px]" />
+                Govt. Licensed OEP 2178/RWP
               </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-1 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight m-0`}
+              style={{ color: '#3D0A22' }}>
+              A{' '}
+              <span style={{ color: '#E0218A' }}>Simpler</span>
+              {' '}Way Abroad
             </h1>
-            <p className="text-base lg:text-lg text-ink/70 max-w-xl mb-6 leading-relaxed">
-              Hammad Recruiting Agency places Malakand's workers with trusted Gulf and European employers — licensed and straightforward.
+
+            {/* Subhead */}
+            <p className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-2 text-base sm:text-lg lg:text-xl leading-relaxed max-w-xl`}
+              style={{ color: '#6B3A52' }}>
+              Connecting Rawalpindi's skilled workforce with trusted employers across the globe —
+              a refreshingly simple, transparent path to overseas employment.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="https://wa.me/923459691639"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-cta text-white px-6 py-3 rounded-full font-bold hover:brightness-110 transition-all shadow-lg shadow-cta/30"
-              >
-                <i className="fab fa-whatsapp" />
+
+            {/* Buttons */}
+            <div className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-3 flex flex-wrap gap-4 pt-1`}>
+              <a href="#contact"
+                onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-base font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                style={{ backgroundColor: '#00BFA6' }}>
+                <i className="fa-regular fa-paper-plane" />
                 Apply Now
               </a>
-              <a
-                href="https://wa.me/923459691639"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border-2 border-primary text-primary px-6 py-3 rounded-full font-bold hover:bg-primary hover:text-white transition-all"
-              >
-                <i className="fab fa-whatsapp" />
-                WhatsApp
+              <a href="tel:0514419415"
+                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-base font-semibold transition-all duration-300 hover:scale-105 border-2 shadow-sm"
+                style={{ borderColor: '#E0218A', color: '#E0218A' }}>
+                <i className="fa-solid fa-phone" />
+                Call Now
               </a>
             </div>
-          </ScrollReveal>
 
-          {/* Photo tile 1 */}
-          <ScrollReveal className="relative rounded-2xl overflow-hidden shadow-lg" delay={100}>
-            <div className="h-52 lg:h-72">
-              <FallbackImage
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&auto=format"
-                alt="Construction workers on site"
-                className="w-full h-full"
-                icon="fa-users"
-                bgClass="from-primary to-secondary"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
-              <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-xs font-bold text-ink flex items-center gap-1">
-                <i className="fas fa-star text-accent" /> Trusted Since 2020
+            {/* Trust badges */}
+            <div className={`fade-up ${visible ? 'visible' : ''} fade-up-delay-4 flex flex-wrap items-center gap-5 pt-3`}>
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-building-columns text-sm" style={{ color: '#00BFA6' }} />
+                <span className="text-xs sm:text-sm font-medium" style={{ color: '#5A1E3A' }}>Govt. Licensed</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-globe text-sm" style={{ color: '#E0218A' }} />
+                <span className="text-xs sm:text-sm font-medium" style={{ color: '#5A1E3A' }}>10+ Countries</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-shield-halved text-sm" style={{ color: '#00BFA6' }} />
+                <span className="text-xs sm:text-sm font-medium" style={{ color: '#5A1E3A' }}>Trusted Since 2010</span>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
 
-          {/* Photo tile 2 */}
-          <ScrollReveal className="relative rounded-2xl overflow-hidden shadow-lg" delay={200}>
-            <div className="h-52 lg:h-72">
-              <FallbackImage
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&auto=format"
-                alt="Modern office building"
-                className="w-full h-full"
-                icon="fa-building"
-                bgClass="from-secondary to-accent"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
-              <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-xs font-bold text-ink flex items-center gap-1">
-                <i className="fas fa-location-dot text-primary" /> Tahir Plaza, Batkhela
+          {/* Right — Triple Photo Strips */}
+          <div className="lg:col-span-5 relative">
+            <div className="flex gap-2 sm:gap-3 h-[340px] sm:h-[420px] lg:h-[480px]">
+              {/* Strip 1 */}
+              <div className="flex-1 rounded-2xl overflow-hidden img-hover-zoom shadow-lg relative"
+                style={{ backgroundColor: '#FFB6C1' }}>
+                <img
+                  src="https://picsum.photos/seed/departures/400/800"
+                  alt="Departures"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={handleImgError}
+                />
+              </div>
+              {/* Strip 2 */}
+              <div className="flex-1 rounded-2xl overflow-hidden img-hover-zoom shadow-lg relative mt-6 lg:mt-8"
+                style={{ backgroundColor: '#FF6FB5' }}>
+                <img
+                  src="https://picsum.photos/seed/worker/400/800"
+                  alt="Professional"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={handleImgError}
+                />
+              </div>
+              {/* Strip 3 */}
+              <div className="flex-1 rounded-2xl overflow-hidden img-hover-zoom shadow-lg relative"
+                style={{ backgroundColor: '#E0218A' }}>
+                <img
+                  src="https://picsum.photos/seed/office/400/800"
+                  alt="Office"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={handleImgError}
+                />
               </div>
             </div>
-          </ScrollReveal>
 
-          {/* Stat tile */}
-          <ScrollReveal className="bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 shadow-lg text-white flex flex-col justify-center items-center text-center" delay={150}>
-            <div className="text-4xl font-extrabold">500+</div>
-            <div className="text-sm font-medium opacity-90 mt-1">Workers Placed</div>
-            <div className="w-12 h-0.5 bg-white/30 rounded-full my-3" />
-            <div className="flex items-center gap-1 text-accent">
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
-              <i className="fas fa-star" />
+            {/* Floating stat chip */}
+            <div className="absolute -top-3 -right-2 sm:-top-4 sm:-right-4 bg-white rounded-xl shadow-lg px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 border border-[#FFB6C1]/50">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-sm sm:text-base font-bold"
+                style={{ backgroundColor: '#E0218A' }}>
+                N
+              </div>
+              <div>
+                <div className="text-[10px] sm:text-xs font-semibold" style={{ color: '#E0218A' }}>License</div>
+                <div className="text-xs sm:text-sm font-bold" style={{ color: '#3D0A22' }}>2178/RWP</div>
+              </div>
             </div>
-          </ScrollReveal>
 
-          {/* Badge tile */}
-          <ScrollReveal className="bg-white rounded-2xl p-4 shadow-lg border border-accent/30 flex items-center justify-center gap-3" delay={250}>
-            <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xl">
-              <i className="fas fa-certificate" />
+            {/* Floating stat 1 */}
+            <div className="absolute bottom-6 -left-3 sm:bottom-8 sm:-left-4 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg px-3 sm:px-4 py-2 sm:py-2.5 border border-[#00BFA6]/30">
+              <div className="text-xs sm:text-sm font-bold" style={{ color: '#00BFA6' }}>3000+</div>
+              <div className="text-[10px] sm:text-xs font-medium" style={{ color: '#5A1E3A' }}>Workers Placed</div>
             </div>
-            <div className="text-left">
-              <div className="text-xs text-ink/60 font-medium">Government Licensed</div>
-              <div className="font-extrabold text-ink text-sm">2167/MLK</div>
-            </div>
-          </ScrollReveal>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats Band */}
+      <div style={{ backgroundColor: '#E0218A' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            {statCards.map((stat, i) => (
+              <StatCounter key={stat.label} stat={stat} delay={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
+}
+
+function StatCounter({ stat, delay }) {
+  const [ref, visible] = useInView(0.3);
+  return (
+    <div ref={ref} className={`text-center fade-up ${visible ? 'visible' : ''} fade-up-delay-${delay + 1}`}>
+      <i className={`${stat.icon} text-2xl sm:text-3xl mb-2 sm:mb-3`} style={{ color: '#00BFA6' }} />
+      <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-1">
+        {visible ? stat.value : '0'}
+      </div>
+      <div className="text-sm sm:text-base font-medium tracking-wide" style={{ color: '#FFB6C1' }}>
+        {stat.label}
+      </div>
+    </div>
+  );
 }

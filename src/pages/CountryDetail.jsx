@@ -1,187 +1,222 @@
-import { useParams, Link } from 'react-router-dom'
-import ScrollReveal from '../components/ScrollReveal'
-import FallbackImage from '../components/FallbackImage'
-import { COUNTRIES, COMPANY } from '../data/siteData'
+import { useParams, Link } from 'react-router-dom';
+import FadeIn from '../components/FadeIn';
 
-const UNSPlASH_IDS = [
-  '1574958269340-fa927503f3dd',
-  '1512453979798-5ea266f8880c',
-  '1611735341450-74d61e660ad2',
-  '1602002418082-a4443e081dd1',
-  '1467269204594-9661b134dd2b',
-  '1561948955-570b270e7c36',
-  '1555992336-03a23c7b20ee',
-  '1596422846543-75c6fc197f07',
-  '1600791623437-8ca5c7b67e41',
-]
+const countries = {
+  'saudi-arabia': {
+    name: 'Saudi Arabia',
+    flag: '🇸🇦',
+    image: 'https://images.unsplash.com/photo-1586724237569-f1e64b5e5d5b?w=800',
+    roles: ['Construction Workers', 'Healthcare Professionals', 'Oil & Gas Technicians', 'Hospitality Staff', 'Drivers', 'Electricians', 'Plumbers', 'IT Specialists'],
+    requirements: ['Valid passport (min 6 months validity)', 'Educational certificates attested', 'Medical fitness certificate', 'Clean police clearance', 'Age 22–50 years', 'Relevant work experience (2+ years)'],
+    desc: 'Saudi Arabia offers vast employment opportunities under the Vision 2030 initiative. With mega-projects, expanding healthcare, and a growing tourism sector, the demand for skilled and unskilled workers remains high.',
+  },
+  'uae': {
+    name: 'United Arab Emirates',
+    flag: '🇦🇪',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
+    roles: ['Construction Workers', 'Hospitality Staff', 'Logistics Personnel', 'Retail Staff', 'Drivers', 'Cleaners', 'Technicians', 'Security Guards'],
+    requirements: ['Valid passport (min 6 months validity)', 'Educational certificates attested', 'Medical fitness certificate', 'Clean police clearance', 'Age 20–45 years', 'Basic English proficiency'],
+    desc: 'The UAE is a global hub for business, tourism, and logistics. With world-class infrastructure and a tax-free income environment, it remains one of the top destinations for overseas workers.',
+  },
+  'qatar': {
+    name: 'Qatar',
+    flag: '🇶🇦',
+    image: 'https://images.unsplash.com/photo-1572204292164-eafb3b90b8b4?w=800',
+    roles: ['Construction Workers', 'Hospitality Staff', 'Healthcare Workers', 'Energy Sector Technicians', 'Drivers', 'Security Personnel', 'Maintenance Staff'],
+    requirements: ['Valid passport (min 6 months validity)', 'Educational certificates attested', 'Medical fitness certificate', 'Clean police clearance', 'Age 22–50 years', 'Relevant experience'],
+    desc: 'Qatar has undergone rapid development with world-class infrastructure. The growing economy continues to demand skilled workers across construction, hospitality, healthcare, and energy sectors.',
+  },
+  'oman': {
+    name: 'Oman',
+    flag: '🇴🇲',
+    image: 'https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=800',
+    roles: ['Construction Workers', 'Tourism Staff', 'Logistics Personnel', 'Healthcare Workers', 'Drivers', 'Technicians'],
+    requirements: ['Valid passport (min 6 months validity)', 'Educational certificates attested', 'Medical fitness certificate', 'Clean police clearance', 'Age 22–50 years'],
+    desc: 'Oman offers a stable and welcoming environment for overseas workers. With growing investments in tourism, logistics, and healthcare, opportunities continue to expand.',
+  },
+  'germany': {
+    name: 'Germany',
+    flag: '🇩🇪',
+    image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&q=80',
+    roles: ['Engineers', 'IT Professionals', 'Healthcare Workers', 'Manufacturing Specialists', 'Electricians', 'Welders', 'Nurses', 'Software Developers'],
+    requirements: ['Valid passport', 'Recognized qualifications', 'German language (A1–B1 recommended)', 'Health insurance', 'Employment contract', 'Age 22–45 years'],
+    desc: 'Germany is Europe\'s largest economy with a strong demand for skilled professionals. The country offers excellent working conditions, competitive salaries, and pathways to permanent residency.',
+  },
+  'poland': {
+    name: 'Poland',
+    flag: '🇵🇱',
+    image: 'https://images.unsplash.com/photo-1607427293702-8f7f0e5a5c5d?w=800',
+    roles: ['Manufacturing Workers', 'Logistics Staff', 'Construction Workers', 'IT Professionals', 'Warehouse Workers', 'Drivers'],
+    requirements: ['Valid passport', 'Work permit (arranged by employer)', 'Medical insurance', 'Age 22–50 years', 'Basic English or Polish'],
+    desc: 'Poland has a rapidly growing economy with strong demand for foreign workers in manufacturing, logistics, construction, and IT sectors.',
+  },
+  'romania': {
+    name: 'Romania',
+    flag: '🇷🇴',
+    image: 'https://images.unsplash.com/photo-1534445867742-7f4b5e4b5e5d?w=600&q=80',
+    roles: ['Construction Workers', 'Agricultural Workers', 'IT Professionals', 'Manufacturing Staff', 'Drivers', 'Chefs'],
+    requirements: ['Valid passport', 'Work permit (arranged by employer)', 'Medical insurance', 'Age 22–50 years', 'Relevant experience'],
+    desc: 'Romania is an emerging European destination for overseas workers. With growing construction, agriculture, and IT sectors, opportunities are expanding for skilled professionals.',
+  },
+  'greece': {
+    name: 'Greece',
+    flag: '🇬🇷',
+    image: 'https://images.unsplash.com/photo-1503152394-c5710fd3e5d5?w=800',
+    roles: ['Tourism & Hospitality Staff', 'Construction Workers', 'Maritime Workers', 'Agricultural Workers', 'Chefs', 'Cleaners'],
+    requirements: ['Valid passport', 'Work permit (arranged by employer)', 'Medical insurance', 'Age 22–50 years', 'Relevant experience'],
+    desc: 'Greece offers opportunities primarily in tourism, hospitality, construction, and maritime industries. The country\'s scenic beauty and Mediterranean lifestyle attract workers from around the world.',
+  },
+  'malaysia': {
+    name: 'Malaysia',
+    flag: '🇲🇾',
+    image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800',
+    roles: ['Manufacturing Workers', 'Construction Workers', 'Palm Oil Plantation Workers', 'Hospitality Staff', 'Technicians', 'Drivers'],
+    requirements: ['Valid passport (min 18 months validity)', 'Medical fitness certificate', 'Employment contract', 'Age 22–45 years', 'Relevant experience'],
+    desc: 'Malaysia offers a dynamic work environment with opportunities in manufacturing, construction, palm oil, and hospitality sectors. The cost of living is affordable and the culture is diverse.',
+  },
+};
 
 export default function CountryDetail() {
-  const { slug } = useParams()
-  const country = COUNTRIES.find((c) => c.slug === slug)
-  const idx = COUNTRIES.findIndex((c) => c.slug === slug)
+  const { slug } = useParams();
+  const country = countries[slug];
 
   if (!country) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center animate-page-enter">
-        <div className="text-center">
-          <i className="fas fa-map-marked-alt text-6xl text-primary/30 mb-4" />
-          <h2 className="text-2xl font-extrabold text-ink mb-2">Country Not Found</h2>
-          <p className="text-ink/60 mb-6">The destination you're looking for doesn't exist.</p>
-          <Link to="/countries" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-bold hover:brightness-110 transition-all">
-            <i className="fas fa-arrow-left" />
-            Back to Countries
-          </Link>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 py-24 text-center">
+        <h1 className="text-4xl font-bold text-[var(--color-ink)] mb-4">Country Not Found</h1>
+        <p className="text-[var(--color-ink)]/70 mb-8">The destination you are looking for does not exist.</p>
+        <Link
+          to="/countries"
+          className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition-all"
+        >
+          <i className="fas fa-arrow-left" />
+          View All Countries
+        </Link>
       </div>
-    )
+    );
   }
 
-  const whatsappText = encodeURIComponent(
-    `Hello ${COMPANY.name}! I am interested in applying for ${country.name}. Please guide me on the available roles and process.`
-  )
+  const applyText = encodeURIComponent(
+    `Hello! I'm interested in applying for employment in ${country.name}. Please provide me with more information about available opportunities.`
+  );
 
   return (
-    <section className="relative animate-page-enter">
-      <div className="wavy-divider -mb-1">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
-          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
-        </svg>
-      </div>
-
-      <div className="bg-white py-16 lg:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-ink/50 mb-8">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-            <i className="fas fa-chevron-right text-[10px]" />
-            <Link to="/countries" className="hover:text-primary transition-colors">Countries</Link>
-            <i className="fas fa-chevron-right text-[10px]" />
-            <span className="text-primary font-semibold">{country.name}</span>
-          </div>
-
-          {/* Hero Banner */}
-          <ScrollReveal>
-            <div className="relative rounded-2xl overflow-hidden shadow-xl mb-12">
-              <div className="h-64 lg:h-80">
-                <FallbackImage
-                  src={`https://images.unsplash.com/photo-${UNSPlASH_IDS[idx] || UNSPlASH_IDS[0]}?w=1200&h=600&fit=crop&auto=format`}
-                  alt={country.name}
-                  className="w-full h-full"
-                  icon="fa-globe"
-                  bgClass="from-primary to-secondary"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <h1 className="text-4xl lg:text-5xl font-extrabold text-white mb-2">
-                    {country.flag} {country.name}
-                  </h1>
-                  <p className="text-white/80 text-lg max-w-xl">{country.description}</p>
-                </div>
+    <div>
+      {/* Hero */}
+      <section className="relative h-64 md:h-80 overflow-hidden">
+        <img
+          src={country.image}
+          alt={country.name}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/images/hero.jpg';
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+          <div className="max-w-7xl mx-auto">
+            <FadeIn>
+              <div className="flex items-center gap-3">
+                <span className="text-4xl">{country.flag}</span>
+                <h1 className="text-3xl md:text-5xl font-extrabold text-white">
+                  {country.name}
+                </h1>
               </div>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Available Roles */}
-              <ScrollReveal>
-                <div className="bg-background rounded-2xl p-6 lg:p-8">
-                  <h2 className="text-2xl font-bold text-ink mb-4 flex items-center gap-2">
-                    <i className="fas fa-briefcase text-primary" />
-                    Available Roles
-                  </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {country.roles.map((role) => (
-                      <div key={role} className="flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm border border-primary/5">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                          <i className="fas fa-user-check" />
-                        </div>
-                        <span className="font-medium text-sm text-ink">{role}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </ScrollReveal>
-
-              {/* Requirements */}
-              <ScrollReveal delay={100}>
-                <div className="bg-background rounded-2xl p-6 lg:p-8">
-                  <h2 className="text-2xl font-bold text-ink mb-4 flex items-center gap-2">
-                    <i className="fas fa-clipboard-check text-accent" />
-                    Requirements
-                  </h2>
-                  <ul className="space-y-3">
-                    {country.requirements.map((req) => (
-                      <li key={req} className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0 mt-0.5">
-                          <i className="fas fa-check text-[10px]" />
-                        </div>
-                        <span className="text-sm text-ink/70">{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </ScrollReveal>
-
-              {/* Landmark */}
-              <ScrollReveal delay={150}>
-                <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl p-6 lg:p-8 border border-primary/10">
-                  <h2 className="text-xl font-bold text-ink mb-3 flex items-center gap-2">
-                    <i className="fas fa-landmark text-primary" />
-                    Famous Landmark
-                  </h2>
-                  <p className="text-ink/70 text-sm leading-relaxed">
-                    {country.landmark} — a must-visit destination when you arrive in {country.name}.
-                  </p>
-                </div>
-              </ScrollReveal>
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              <ScrollReveal delay={100}>
-                <div className="bg-white rounded-2xl p-6 shadow-lg border border-primary/5 sticky top-24">
-                  <h3 className="text-lg font-bold text-ink mb-4">Ready to Apply?</h3>
-                  <p className="text-sm text-ink/60 mb-4">
-                    Apply now for {country.name} positions. Our team will guide you through the entire process.
-                  </p>
-                  <a
-                    href={`${COMPANY.whatsappLink}?text=${whatsappText}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full bg-cta text-white py-3.5 rounded-full font-bold text-center hover:brightness-110 transition-all shadow-lg shadow-cta/30 mb-3"
-                  >
-                    <i className="fab fa-whatsapp mr-2" />
-                    Apply for {country.name}
-                  </a>
-                  <a
-                    href={COMPANY.whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full border-2 border-primary text-primary py-3 rounded-full font-bold text-center hover:bg-primary hover:text-white transition-all"
-                  >
-                    <i className="fab fa-whatsapp mr-2" />
-                    General Inquiry
-                  </a>
-                  <div className="mt-4 pt-4 border-t border-primary/10">
-                    <div className="flex items-center gap-2 text-sm text-ink/60">
-                      <i className="fas fa-phone text-primary" />
-                      <a href={`tel:${COMPANY.phone}`} className="hover:text-primary transition-colors">{COMPANY.phone}</a>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            </div>
+            </FadeIn>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="wavy-divider -mt-1 rotate-180">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
-          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
-        </svg>
-      </div>
-    </section>
-  )
+      {/* Content */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid md:grid-cols-3 gap-10">
+          {/* Main */}
+          <div className="md:col-span-2 space-y-10">
+            {/* Description */}
+            <FadeIn>
+              <div>
+                <h2 className="text-2xl font-bold text-[var(--color-ink)] mb-4">Overview</h2>
+                <p className="text-[var(--color-ink)]/80 leading-relaxed">{country.desc}</p>
+              </div>
+            </FadeIn>
+
+            {/* In-Demand Roles */}
+            <FadeIn delay={1}>
+              <div>
+                <h2 className="text-2xl font-bold text-[var(--color-ink)] mb-4">In-Demand Roles</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {country.roles.map((role) => (
+                    <div
+                      key={role}
+                      className="flex items-center gap-3 p-3 rounded-lg bg-[var(--color-background)] border border-[var(--color-secondary)]/20"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center shrink-0">
+                        <i className="fas fa-check text-[var(--color-primary)] text-xs" />
+                      </div>
+                      <span className="text-sm font-medium text-[var(--color-ink)]">{role}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Requirements */}
+            <FadeIn delay={2}>
+              <div>
+                <h2 className="text-2xl font-bold text-[var(--color-ink)] mb-4">Requirements</h2>
+                <ul className="space-y-3">
+                  {country.requirements.map((req) => (
+                    <li key={req} className="flex items-start gap-3">
+                      <i className="fas fa-circle-check text-[var(--color-primary)] mt-1" />
+                      <span className="text-[var(--color-ink)]/80">{req}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Sidebar */}
+          <div>
+            <FadeIn delay={1}>
+              <div className="sticky top-24 bg-white rounded-2xl shadow-lg border border-[var(--color-secondary)]/20 p-6">
+                <h3 className="font-bold text-lg text-[var(--color-ink)] mb-2">
+                  Apply for {country.name}
+                </h3>
+                <p className="text-sm text-[var(--color-ink)]/70 mb-6">
+                  Ready to start your journey? Apply now and our team will guide you through the process.
+                </p>
+                <a
+                  href={`https://wa.me/923469358431?text=${applyText}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[var(--color-cta)] text-white font-semibold px-5 py-3 rounded-lg hover:brightness-110 transition-all mb-3"
+                >
+                  <i className="fab fa-whatsapp" />
+                  Apply via WhatsApp
+                </a>
+                <Link
+                  to="/contact"
+                  className="w-full inline-flex items-center justify-center gap-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-semibold px-5 py-3 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-all"
+                >
+                  <i className="fas fa-paper-plane" />
+                  Contact Form
+                </Link>
+                <div className="mt-6 pt-4 border-t border-gray-100">
+                  <Link
+                    to="/countries"
+                    className="text-sm text-[var(--color-primary)] hover:underline flex items-center gap-1"
+                  >
+                    <i className="fas fa-arrow-left" />
+                    Back to all countries
+                  </Link>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }

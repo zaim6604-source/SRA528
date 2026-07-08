@@ -1,76 +1,88 @@
-import ScrollReveal from '../components/ScrollReveal'
-import { SERVICES } from '../data/siteData'
+import { Link } from 'react-router-dom';
+import FadeIn from '../components/FadeIn';
+import { services } from '../data/countries';
 
-const SERVICE_IMAGES = [
-  'https://picsum.photos/seed/job-placement/600/400',
-  'https://picsum.photos/seed/visa-processing/600/400',
-  'https://picsum.photos/seed/documentation/600/400',
-  'https://picsum.photos/seed/language/600/400',
-  'https://picsum.photos/seed/departure/600/400',
-  'https://picsum.photos/seed/employer/600/400',
-  'https://picsum.photos/seed/legal/600/400',
-  'https://picsum.photos/seed/support/600/400',
-]
+const iconMap = [
+  'fa-briefcase',
+  'fa-passport',
+  'fa-file-contract',
+  'fa-stethoscope',
+  'fa-graduation-cap',
+  'fa-plane',
+  'fa-shield-halved',
+  'fa-users',
+];
 
 export default function Services() {
   return (
-    <section className="relative animate-page-enter">
-      <div className="wavy-divider -mb-1">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
-          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
-        </svg>
-      </div>
+    <div className="page-transition">
+      {/* Hero */}
+      <section className="services-hero">
+        <div className="container">
+          <FadeIn>
+            <span className="tag" style={{ background: 'rgba(255,255,255,0.15)', color: 'var(--color-accent)' }}>
+              <i className="fas fa-concierge-bell" style={{ marginRight: 8 }} />
+              Our Services
+            </span>
+            <h1>Comprehensive Recruitment Solutions</h1>
+            <p>
+              From initial consultation to departure day — every service designed to make your
+              overseas employment journey smooth, safe, and successful.
+            </p>
+          </FadeIn>
+        </div>
+      </section>
 
-      <div className="bg-white py-16 lg:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
-                <i className="fas fa-briefcase" />
-                Our Services
-              </span>
-              <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
-                Everything You Need for Overseas Employment
-              </h2>
-              <p className="text-ink/60 max-w-2xl mx-auto">
-                End-to-end recruitment services designed to make your journey abroad seamless.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SERVICES.map((svc, i) => (
-              <ScrollReveal key={svc.title} delay={i * 50}>
-                <div className="group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-background">
-                  <div className="relative h-40 overflow-hidden bg-gradient-to-br from-primary/60 to-accent/60">
-                    <img
-                      src={SERVICE_IMAGES[i]}
-                      alt={svc.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      onError={(e) => { e.target.style.display = 'none' }}
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent z-10 pointer-events-none" />
-                    <div className="absolute bottom-3 left-4 text-white z-20">
-                      <i className={`fas ${svc.icon} text-2xl`} />
-                    </div>
+      {/* Services List */}
+      <section className="section">
+        <div className="container">
+          <div className="services-list">
+            {services.map((service, i) => (
+              <FadeIn key={service.title} delay={Math.min(i + 1, 4)}>
+                <div className="service-article">
+                  <div
+                    className="service-accent"
+                    style={{ backgroundColor: service.accent }}
+                  >
+                    <i className={`fas ${iconMap[i]}`} />
                   </div>
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-ink mb-2">{svc.title}</h3>
-                    <p className="text-sm text-ink/60 leading-relaxed">{svc.desc}</p>
+                  <div>
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
                   </div>
                 </div>
-              </ScrollReveal>
+              </FadeIn>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="wavy-divider -mt-1 rotate-180">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
-          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
-        </svg>
-      </div>
-    </section>
-  )
+      {/* CTA */}
+      <section className="section" style={{ background: 'var(--color-primary)', textAlign: 'center' }}>
+        <div className="container">
+          <FadeIn>
+            <h2 style={{ color: 'white', fontSize: '1.8rem', marginBottom: 16 }}>
+              Ready to Get Started?
+            </h2>
+            <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: 32, maxWidth: 500, margin: '0 auto 32px' }}>
+              Contact us today and let our team guide you through every step of the process.
+            </p>
+            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a
+                href="https://wa.me/923005967332"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <i className="fab fa-whatsapp" /> Apply via WhatsApp
+              </a>
+              <Link to="/contact" className="btn btn-outline" style={{ borderColor: 'rgba(255,255,255,0.6)', color: 'white' }}>
+                <i className="fas fa-paper-plane" /> Contact Form
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+    </div>
+  );
 }
