@@ -1,49 +1,51 @@
 import { Link } from 'react-router-dom';
 
-export default function Footer() {
-  const year = new Date().getFullYear();
+const quickLinks = [
+  { label: 'Overview', to: '/' },
+  { label: 'Services', to: '/services' },
+  { label: 'Destinations', to: '/destinations' },
+  { label: 'Process', to: '/process' },
+  { label: 'Apply', to: '/apply' },
+];
 
+const services = [
+  'Overseas Job Placement',
+  'Visa Processing',
+  'Document Attestation',
+  'Medical & Trade Tests',
+  'Pre-Departure Orientation',
+  'Air Ticketing & Travel',
+];
+
+export default function Footer() {
   return (
-    <footer className="bg-[#D60046] text-white">
-      {/* Top section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+    <footer className="bg-ink text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center text-white font-bold text-sm font-[Poppins]">
-                VM
+              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-white font-extrabold text-lg">
+                F
               </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-bold font-[Poppins] text-white leading-tight">Visa Master</span>
-                <span className="text-[10px] font-medium text-white/70 tracking-wide leading-tight">Overseas</span>
-              </div>
+              <span className="font-bold text-lg text-white">
+                Fejar<span className="text-secondary">.</span>
+              </span>
             </div>
-            <p className="text-xs sm:text-sm text-white/60 leading-relaxed mb-4">
-              Licensed overseas employment agency serving Sherpao, Charsadda, and KPK. License OP&HRD/4951/PWR/2023.
+            <p className="text-white/50 text-sm leading-relaxed mb-4">
+              Rawalpindi's dependable desk for overseas careers. Licensed, honest, and committed to your success.
             </p>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <a
-                href="https://wa.me/923459090790"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors no-underline"
-                aria-label="WhatsApp"
+                href="tel:+920514410484"
+                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white hover:bg-cta hover:text-white transition-all"
+                aria-label="Phone"
               >
-                <i className="fab fa-whatsapp" />
+                <i className="fas fa-phone" />
               </a>
               <a
-                href="https://www.facebook.com/saweratravel/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors no-underline"
-                aria-label="Facebook"
-              >
-                <i className="fab fa-facebook-f" />
-              </a>
-              <a
-                href="mailto:sawerapvt@gmail.com"
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors no-underline"
+                href="mailto:info@fejarenterprises.pk"
+                className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white hover:bg-cta hover:text-white transition-all"
                 aria-label="Email"
               >
                 <i className="fas fa-envelope" />
@@ -53,86 +55,82 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-bold font-[Poppins] mb-4 text-white">Quick Links</h4>
+            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">
+              Quick Links
+            </h4>
             <ul className="space-y-2.5">
-              {[
-                { label: 'Home', path: '/' },
-                { label: 'Jobs Portal', path: '/jobs' },
-                { label: 'About Us', path: '/about' },
-                { label: 'Contact', path: '/contact' },
-              ].map((l) => (
-                <li key={l.path}>
+              {quickLinks.map((link) => (
+                <li key={link.label}>
                   <Link
-                    to={l.path}
-                    className="text-xs sm:text-sm text-white/60 hover:text-white transition-colors no-underline"
+                    to={link.to}
+                    className="text-white/50 text-sm hover:text-secondary transition-colors flex items-center gap-2"
                   >
-                    {l.label}
+                    <i className="fas fa-chevron-right text-xs text-secondary" />
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Destinations */}
+          {/* Services */}
           <div>
-            <h4 className="text-sm font-bold font-[Poppins] mb-4 text-white">Destinations</h4>
+            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">
+              Our Services
+            </h4>
             <ul className="space-y-2.5">
-              {['Saudi Arabia', 'UAE', 'Qatar', 'Oman', 'Kuwait'].map((d) => (
-                <li key={d}>
-                  <span className="text-xs sm:text-sm text-white/60">{d}</span>
+              {services.map((svc) => (
+                <li key={svc}>
+                  <span className="text-white/50 text-sm flex items-center gap-2">
+                    <i className="fas fa-circle text-[6px] text-secondary" />
+                    {svc}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact + Quick Apply */}
+          {/* Contact */}
           <div>
-            <h4 className="text-sm font-bold font-[Poppins] mb-4 text-white">Contact</h4>
-            <div className="space-y-3 text-xs sm:text-sm text-white/60">
-              <div className="flex items-start gap-2">
-                <i className="fas fa-map-marker-alt mt-0.5 text-[#FFD400]" />
-                <span>
-                  Adda Bazar, Sherpao<br />
-                  24530, Charsadda<br />
-                  KPK, Pakistan
+            <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">
+              Contact Info
+            </h4>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <i className="fas fa-map-marker-alt text-secondary mt-0.5" />
+                <span className="text-white/50 text-sm">
+                  Flat No. 7, 1st Floor, Al-Mustafa Plaza,<br />
+                  6th Road, Murree Road, Rawalpindi
                 </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <i className="fab fa-whatsapp text-[#FFD400]" />
+              </li>
+              <li className="flex items-center gap-3">
+                <i className="fas fa-phone text-secondary" />
+                <a href="tel:0514410484" className="text-white/50 text-sm hover:text-secondary transition-colors">
+                  051-4410484
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <i className="fas fa-envelope text-secondary" />
                 <a
-                  href="https://wa.me/923459090790"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/60 hover:text-white no-underline"
+                  href="mailto:info@fejarenterprises.pk"
+                  className="text-white/50 text-sm hover:text-secondary transition-colors"
                 >
-                  0345-9090790
+                  info@fejarenterprises.pk
                 </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <i className="fas fa-envelope text-[#FFD400]" />
-                <a href="mailto:sawerapvt@gmail.com" className="text-white/60 hover:text-white no-underline">
-                  sawerapvt@gmail.com
-                </a>
-              </div>
-            </div>
-            <a
-              href="https://wa.me/923459090790?text=Hello%20Visa%20Master%20Overseas!%20I%20am%20interested%20in%20overseas%20job%20opportunities."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-[#152935] bg-[#FFD400] rounded-full hover:bg-[#e6bf00] transition-all no-underline"
-            >
-              <i className="fas fa-paper-plane text-xs" />
-              Quick Apply
-            </a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-white/40">
-          <span>&copy; {year} Visa Master Overseas. All rights reserved.</span>
-          <span>License OP&HRD/4951/PWR/2023 | Govt. Registered Overseas Employment Agency</span>
+        {/* Bottom bar */}
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-white/40 text-xs">
+            &copy; {new Date().getFullYear()} Fejar Enterprises — License 2207/RWP. All rights reserved.
+          </p>
+          <p className="text-white/40 text-xs">
+            <i className="fas fa-map-pin mr-1" />
+            Al-Mustafa Plaza, 6th Road, Rawalpindi
+          </p>
         </div>
       </div>
     </footer>
