@@ -1,54 +1,55 @@
-import { Link } from 'react-router-dom'
-import COUNTRIES from '../data/countries'
+import { Link } from 'react-router-dom';
+import countries from '../data/countries';
+
+const landmarkEmojis = [
+  '🕋', '🏗️', '🏜️', '🏙️', '🏢', '🏰', '🏭', '🏛️', '🏝️',
+];
 
 export default function Countries() {
   return (
-    <div className="space-y-10 animate-fade-up pt-6 lg:pt-10">
+    <div className="space-y-8">
       <div>
-        <span className="inline-block px-3 py-1 bg-primary/5 text-primary text-xs font-semibold rounded-full mb-3 border border-primary/10">
-          Destinations
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 mb-3">
+          <i className="fas fa-globe-asia" />
+          DESTINATIONS
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink mb-4">
-          Countries We Serve
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink mt-2">
+          Countries We <span className="text-primary">Recruit For</span>
         </h1>
-        <p className="text-ink/60 leading-relaxed max-w-3xl">
-          We recruit for top employers across the Middle East, Europe, and Asia.
-          Click a country to explore available roles and requirements.
+        <p className="text-ink/60 mt-2 max-w-2xl">
+          Explore opportunities across the Gulf, Europe, and Asia.
         </p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {COUNTRIES.map(({ slug, name, flag, landmark, image, description }) => (
+        {countries.map((c, i) => (
           <Link
-            key={slug}
-            to={`/countries/${slug}`}
-            className="group block bg-white rounded-2xl overflow-hidden border border-ink/5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            key={c.slug}
+            to={`/countries/${c.slug}`}
+            className="bg-white rounded-2xl shadow-sm border border-secondary/10 overflow-hidden hover:shadow-md hover:border-primary/30 transition-all group"
           >
-            <div className="aspect-[4/3] overflow-hidden bg-ink/5">
-              <img
-                src={image}
-                alt={landmark}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                onError={(e) => {
-                  e.target.onerror = null
-                  e.target.style.display = 'none'
-                  e.target.nextSibling.style.display = 'flex'
-                }}
-              />
-              <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-primary/10 to-cta/10">
-                <i className="fas fa-image text-3xl text-ink/20" />
-              </div>
+            {/* Landmark image area */}
+            <div className="h-36 bg-gradient-to-br from-background to-primary/5 flex items-center justify-center relative overflow-hidden">
+              <span className="text-6xl opacity-80 group-hover:scale-110 transition-transform duration-500">
+                {landmarkEmojis[i % landmarkEmojis.length]}
+              </span>
+              <span className="absolute top-3 right-3 text-3xl">{c.flag}</span>
             </div>
             <div className="p-4">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">{flag}</span>
-                <h3 className="font-bold text-ink">{name}</h3>
+              <h3 className="font-bold text-ink text-lg group-hover:text-primary transition-colors">{c.name}</h3>
+              <p className="text-xs text-ink/50 mt-1 line-clamp-2">{c.description}</p>
+              <div className="flex items-center gap-2 mt-3">
+                <span className="text-xs font-semibold text-primary bg-primary/5 px-2.5 py-1 rounded-full">
+                  {c.roles.length} Roles
+                </span>
+                <span className="text-xs text-ink/40 flex items-center gap-1">
+                  View Details <i className="fas fa-arrow-right text-[10px]" />
+                </span>
               </div>
-              <p className="text-xs text-ink/50 line-clamp-2">{description}</p>
             </div>
           </Link>
         ))}
       </div>
     </div>
-  )
+  );
 }

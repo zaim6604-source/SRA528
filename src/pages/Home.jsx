@@ -1,131 +1,121 @@
-import { Link } from 'react-router-dom'
-
-const WHATSAPP = 'https://wa.me/923215344448'
+import { Link } from 'react-router-dom';
+import countries from '../data/countries';
 
 const stats = [
-  { value: '15+', label: 'Years Experience' },
-  { value: '10,000+', label: 'Professionals Placed' },
-  { value: '9', label: 'Countries' },
-  { value: '2251/RWP', label: 'Govt. License' },
-]
+  { label: 'Professionals Placed', value: '3,200+' },
+  { label: 'Countries Served', value: '12+' },
+  { label: 'Years of Experience', value: '8+' },
+  { label: 'Licensed Since', value: '2016' },
+];
 
-const services = [
-  { title: 'Job Placement', icon: 'fa-briefcase', desc: 'Connect with verified employers worldwide.' },
-  { title: 'Visa Processing', icon: 'fa-passport', desc: 'Hassle-free visa applications for all destinations.' },
-  { title: 'Manpower Supply', icon: 'fa-people-group', desc: 'Skilled & unskilled manpower for international employers.' },
-]
-
-const destinations = [
-  { name: 'Saudi Arabia', flag: '🇸🇦', slug: 'saudi-arabia' },
-  { name: 'UAE', flag: '🇦🇪', slug: 'uae' },
-  { name: 'Qatar', flag: '🇶🇦', slug: 'qatar' },
-  { name: 'Germany', flag: '🇩🇪', slug: 'germany' },
-  { name: 'Malaysia', flag: '🇲🇾', slug: 'malaysia' },
-]
+const servicesList = [
+  { icon: 'fa-briefcase', label: 'Overseas Job Placement', color: 'bg-primary' },
+  { icon: 'fa-passport', label: 'Visa Processing', color: 'bg-secondary' },
+  { icon: 'fa-file-signature', label: 'Document Attestation', color: 'bg-cta' },
+  { icon: 'fa-stethoscope', label: 'Medical & Trade Tests', color: 'bg-highlight' },
+];
 
 export default function Home() {
   return (
-    <div className="space-y-16 animate-fade-up">
-      {/* Hero */}
-      <section className="text-center pt-6 lg:pt-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 text-primary text-xs font-semibold rounded-full mb-5 border border-primary/10">
-          <i className="fas fa-certificate text-[10px]" />
-          License 2251/RWP — Govt. Recognized
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <div className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm border border-secondary/10">
+        <div className="max-w-2xl">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 mb-4">
+            <i className="fas fa-check-circle text-[10px]" />
+            License 2228/KAR
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink leading-tight">
+            Karachi's Result-Driven Route to{' '}
+            <span className="text-primary">Working Abroad</span>
+          </h1>
+          <p className="text-ink/60 mt-4 text-base sm:text-lg leading-relaxed">
+            Hasil International connects skilled and unskilled workers from Karachi with
+            trusted employers across the Gulf, Europe, and Asia. Licensed, transparent, and
+            committed to your success.
+          </p>
+          <div className="flex flex-wrap gap-3 mt-6">
+            <a
+              href="https://wa.me/923333315228"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-bold bg-cta text-white hover:bg-cta/90 transition-all shadow-lg hover:shadow-xl"
+            >
+              <i className="fab fa-whatsapp text-lg" />
+              Apply via WhatsApp
+            </a>
+            <a
+              href="https://wa.me/923333315228"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all"
+            >
+              <i className="fab fa-whatsapp" />
+              WhatsApp Inquiry
+            </a>
+          </div>
         </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-ink mb-4">
-          World-Class <br />
-          <span className="text-primary">Professionals</span>, Global{' '}
-          <span className="text-primary">Opportunities</span>
-        </h1>
-        <p className="text-base sm:text-lg text-ink/60 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Al-Bassami Recruiting Agency connects Pakistan's top talent with leading
-          employers worldwide. Licensed, trusted, and results-driven.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <a
-            href={WHATSAPP}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cta hover:bg-cta/90 text-white text-sm font-semibold transition-all shadow-lg shadow-cta/20"
-          >
-            <i className="fab fa-whatsapp text-lg" />
-            Apply Now
-          </a>
-          <a
-            href={WHATSAPP}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-primary/20 text-primary hover:bg-primary/5 text-sm font-semibold transition-all"
-          >
-            <i className="fab fa-whatsapp text-lg" />
-            Chat with Us
-          </a>
-        </div>
-      </section>
+      </div>
 
-      {/* Stats Band */}
-      <section className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {stats.map(({ value, label }) => (
-          <div key={label} className="bg-white rounded-2xl p-5 text-center border border-ink/5 shadow-sm">
-            <div className="text-2xl font-extrabold text-primary">{value}</div>
-            <div className="text-xs text-ink/50 mt-1 font-medium">{label}</div>
+      {/* Stats band */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {stats.map((s) => (
+          <div key={s.label} className="bg-white rounded-xl p-5 shadow-sm border border-secondary/10 text-center">
+            <div className="text-2xl sm:text-3xl font-extrabold text-primary">{s.value}</div>
+            <div className="text-xs sm:text-sm text-ink/60 font-medium mt-1">{s.label}</div>
           </div>
         ))}
-      </section>
+      </div>
 
-      {/* Services Teaser */}
-      <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-ink">Our Services</h2>
-          <Link to="/services" className="text-sm text-primary font-semibold hover:underline">
-            View All &rarr;
+      {/* Services teaser */}
+      <div>
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl sm:text-2xl font-bold text-ink">Our Services</h2>
+          <Link to="/services" className="text-sm font-semibold text-primary hover:text-highlight transition-colors flex items-center gap-1">
+            View All <i className="fas fa-arrow-right text-xs" />
           </Link>
         </div>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {services.map(({ title, icon, desc }) => (
-            <div key={title} className="bg-white rounded-2xl p-5 border border-ink/5 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
-                <i className={`fas ${icon} text-primary`} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {servicesList.map((svc) => (
+            <div key={svc.label} className="bg-white rounded-xl shadow-sm border border-secondary/10 overflow-hidden hover:shadow-md transition-all">
+              <div className={`${svc.color} h-2`} />
+              <div className="p-5">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <i className={`fas ${svc.icon} text-lg text-primary`} />
+                </div>
+                <h3 className="font-bold text-ink text-sm">{svc.label}</h3>
               </div>
-              <h3 className="font-semibold text-ink mb-1">{title}</h3>
-              <p className="text-xs text-ink/50 leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* Featured Destinations */}
-      <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-ink">Top Destinations</h2>
-          <Link to="/countries" className="text-sm text-primary font-semibold hover:underline">
-            All Countries &rarr;
+      {/* Featured destinations */}
+      <div>
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl sm:text-2xl font-bold text-ink">Featured Destinations</h2>
+          <Link to="/countries" className="text-sm font-semibold text-primary hover:text-highlight transition-colors flex items-center gap-1">
+            All Countries <i className="fas fa-arrow-right text-xs" />
           </Link>
         </div>
-        <div className="flex flex-wrap gap-3">
-          {destinations.map(({ name, flag, slug }) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {countries.slice(0, 6).map((c) => (
             <Link
-              key={slug}
-              to={`/countries/${slug}`}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl border border-ink/5 shadow-sm hover:shadow-md hover:border-primary/20 transition-all text-sm font-medium"
+              key={c.slug}
+              to={`/countries/${c.slug}`}
+              className="bg-white rounded-xl shadow-sm border border-secondary/10 overflow-hidden hover:shadow-md transition-all group"
             >
-              <span className="text-lg">{flag}</span>
-              {name}
+              <div className="h-32 bg-ink/5 flex items-center justify-center text-5xl">
+                {c.flag}
+              </div>
+              <div className="p-4">
+                <h3 className="font-bold text-ink group-hover:text-primary transition-colors">{c.name}</h3>
+                <p className="text-xs text-ink/50 mt-1">{c.roles.length} job categories</p>
+              </div>
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* Mission Line */}
-      <section className="bg-gradient-to-br from-primary/5 to-cta/5 rounded-3xl p-8 sm:p-10 text-center border border-primary/10">
-        <i className="fas fa-quote-left text-2xl text-primary/20 mb-3" />
-        <blockquote className="text-lg sm:text-xl text-ink/80 font-medium italic leading-relaxed max-w-3xl mx-auto">
-          To provide Pakistan-based companies with world-class professionals and
-          open career opportunities that upgrade the competitiveness of the
-          Pakistani workforce.
-        </blockquote>
-        <div className="mt-4 text-sm font-semibold text-primary">— Our Mission</div>
-      </section>
+      </div>
     </div>
-  )
+  );
 }

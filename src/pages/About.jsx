@@ -1,105 +1,107 @@
-const WHY_US = [
-  'Government Licensed (2251/RWP)',
-  '15+ Years of Industry Experience',
-  '10,000+ Successful Placements',
-  'Verified International Employers',
-  'End-to-End Processing Support',
-  'Transparent & Ethical Practices',
-]
+const trustChips = [
+  'Government Licensed (2228/KAR)',
+  '10+ Years Industry Experience',
+  '5000+ Successful Placements',
+  '100% Transparent Process',
+  'Pre-Departure Training',
+  'Post-Placement Support',
+];
 
 export default function About() {
   return (
-    <div className="space-y-12 animate-fade-up pt-6 lg:pt-10">
+    <div className="space-y-10">
+      {/* Header */}
       <div>
-        <span className="inline-block px-3 py-1 bg-primary/5 text-primary text-xs font-semibold rounded-full mb-3 border border-primary/10">
-          About Us
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20 mb-3">
+          <i className="fas fa-info-circle" />
+          ABOUT US
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink mb-4">
-          Who We Are
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-ink mt-2">
+          Your Trusted Partner in <span className="text-primary">Overseas Recruitment</span>
         </h1>
-        <p className="text-ink/60 leading-relaxed max-w-3xl">
-          Based in the heart of <strong>Chandni Chowk, Satellite Town, Rawalpindi</strong>,
-          Al-Bassami Recruiting Agency has been a trusted name in overseas employment
-          since our establishment. Licensed under <strong>2251/RWP</strong>, we specialize
-          in connecting Pakistani professionals with reputable employers across the
-          Middle East, Europe, and Asia.
-        </p>
       </div>
 
-      {/* Mission & Vision */}
-      <div className="grid sm:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-ink/5 shadow-sm">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-            <i className="fas fa-bullseye text-primary" />
+      {/* Story + Office photo */}
+      <div className="grid lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3 bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-secondary/10">
+          <h2 className="text-xl font-bold text-ink mb-4">Our Story</h2>
+          <div className="space-y-4 text-ink/65 text-sm sm:text-base leading-relaxed">
+            <p>
+              Hasil International was founded with a single mission: to create genuine,
+              life-changing overseas employment opportunities for the people of Karachi
+              and beyond. Based at M-7, Falak Naz Heights, opposite Jinnah Terminal on
+              Shahrah-e-Faisal — one of Karachi's most prominent arteries — we have
+              become a trusted name in international recruitment.
+            </p>
+            <p>
+              Over the years, we have successfully placed thousands of skilled and
+              unskilled workers with reputable employers across the Gulf, Europe, and
+              Asia. Our deep understanding of both local talent and international
+              market demands allows us to deliver results that matter.
+            </p>
+            <p>
+              Licensed by the Government of Pakistan under license number 2228/KAR,
+              we operate with full transparency, integrity, and a commitment to the
+              well-being of every candidate we serve.
+            </p>
           </div>
-          <h2 className="text-xl font-bold text-ink mb-3">Our Mission</h2>
-          <p className="text-sm text-ink/60 leading-relaxed">
-            To provide Pakistan-based companies with world-class professionals and
-            open career opportunities that upgrade the competitiveness of the
-            Pakistani workforce on a global scale.
-          </p>
         </div>
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-ink/5 shadow-sm">
-          <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
-            <i className="fas fa-eye text-secondary" />
-          </div>
-          <h2 className="text-xl font-bold text-ink mb-3">Our Vision</h2>
-          <p className="text-sm text-ink/60 leading-relaxed">
-            To become a leading HR name in Pakistan's recruitment industry,
-            recognized for integrity, excellence, and our commitment to transforming
-            lives through meaningful international employment.
-          </p>
-        </div>
-      </div>
 
-      {/* Office Photo Placeholder */}
-      <div className="bg-gradient-to-br from-primary/5 to-cta/5 rounded-2xl border border-ink/5 overflow-hidden">
-        <div className="aspect-video bg-ink/5 flex items-center justify-center">
-          <div className="text-center">
-            <i className="fas fa-building text-4xl text-ink/20 mb-2" />
-            <p className="text-sm text-ink/40">Office No. 16, 2nd Floor, Resham Plaza</p>
-            <p className="text-sm text-ink/40">Chandni Chowk, Satellite Town, Rawalpindi</p>
+        {/* Office photo */}
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-secondary/10 overflow-hidden flex items-center justify-center">
+          <div className="p-8 text-center">
+            <div className="w-24 h-24 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <i className="fas fa-building text-4xl text-primary" />
+            </div>
+            <h3 className="font-bold text-ink text-lg">Our Office</h3>
+            <p className="text-ink/50 text-sm mt-1">
+              M-7, Falak Naz Heights<br />
+              Opp. Jinnah Terminal<br />
+              Shahrah-e-Faisal, Karachi
+            </p>
+            <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-accent/10 text-amber-700 border border-accent/20">
+              <i className="fas fa-map-pin text-[10px]" />
+              Landmark Location
+            </div>
           </div>
         </div>
       </div>
 
       {/* Why Us */}
-      <div>
-        <h2 className="text-2xl font-bold text-ink mb-5">Why Choose Us?</h2>
-        <div className="flex flex-wrap gap-3">
-          {WHY_US.map((item) => (
-            <span
-              key={item}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-ink/5 shadow-sm text-sm font-medium"
-            >
-              <i className="fas fa-check-circle text-primary text-xs" />
-              {item}
-            </span>
+      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-secondary/10">
+        <h2 className="text-xl font-bold text-ink mb-5">Why Choose Hasil International?</h2>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {[
+            { icon: 'fa-shield-alt', title: 'Licensed & Regulated', desc: 'Government license 2228/KAR. Fully compliant with overseas employment rules.' },
+            { icon: 'fa-handshake', title: 'Trusted by Thousands', desc: 'Over 5,000 successful placements across 12+ countries.' },
+            { icon: 'fa-eye', title: 'Complete Transparency', desc: 'No hidden fees. Clear communication at every step of the process.' },
+            { icon: 'fa-people-arrows', title: 'End-to-End Support', desc: 'From registration to departure, we handle everything for you.' },
+          ].map((item) => (
+            <div key={item.title} className="flex gap-4 p-4 rounded-xl bg-background/50">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <i className={`fas ${item.icon} text-lg text-primary`} />
+              </div>
+              <div>
+                <h3 className="font-bold text-ink text-sm">{item.title}</h3>
+                <p className="text-ink/50 text-xs mt-1">{item.desc}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Trust Chips */}
-      <div className="bg-cta/5 rounded-2xl p-6 sm:p-8 border border-cta/10">
-        <h3 className="text-lg font-bold text-ink mb-4 flex items-center gap-2">
-          <i className="fas fa-shield-halved text-cta" />
-          Trust & Credentials
-        </h3>
-        <div className="grid sm:grid-cols-3 gap-4 text-sm text-ink/60">
-          <div className="flex items-start gap-3">
-            <i className="fas fa-certificate text-cta mt-0.5" />
-            <span>Government Licensed (2251/RWP) — fully compliant with Overseas Employment Corporation regulations.</span>
-          </div>
-          <div className="flex items-start gap-3">
-            <i className="fas fa-handshake text-cta mt-0.5" />
-            <span>Member of recognized trade bodies with a track record of ethical recruitment practices.</span>
-          </div>
-          <div className="flex items-start gap-3">
-            <i className="fas fa-star text-cta mt-0.5" />
-            <span>Thousands of satisfied candidates placed across 9+ countries worldwide.</span>
-          </div>
+      <div>
+        <h2 className="text-lg font-bold text-ink mb-4 text-center">Our Credentials</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          {trustChips.map((chip) => (
+            <span key={chip} className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/20 text-ink shadow-sm">
+              <i className="fas fa-check-circle text-primary" />
+              {chip}
+            </span>
+          ))}
         </div>
       </div>
     </div>
-  )
+  );
 }
