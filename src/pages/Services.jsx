@@ -1,151 +1,85 @@
 import { Link } from 'react-router-dom';
-import FadeIn from '../components/FadeIn';
-
-const services = [
-  {
-    title: 'Overseas Job Placement',
-    icon: 'fa-briefcase',
-    color: 'from-[var(--color-primary)] to-[#005a61]',
-    desc: 'End-to-end job placement services connecting skilled workers with reputable employers across the Gulf and Europe. We match your qualifications with the right opportunities.',
-    items: ['CV review & optimization', 'Job matching', 'Interview coordination', 'Offer negotiation'],
-  },
-  {
-    title: 'Visa Processing',
-    icon: 'fa-passport',
-    color: 'from-[var(--color-secondary)] to-[#6bb0a8]',
-    desc: 'Complete visa application assistance for all destination countries. We handle the paperwork so you can focus on preparing for your journey.',
-    items: ['Document preparation', 'Application submission', 'Follow-up & tracking', 'Visa stamping'],
-  },
-  {
-    title: 'Document Attestation',
-    icon: 'fa-file-contract',
-    color: 'from-[var(--color-cta)] to-[#d47d5e]',
-    desc: 'Professional attestation and authentication of your educational and professional documents for international recognition.',
-    items: ['Educational certificates', 'Professional licenses', 'Police clearance', 'Ministry attestation'],
-  },
-  {
-    title: 'Medical & Trade Test Coordination',
-    icon: 'fa-stethoscope',
-    color: 'from-[var(--color-highlight)] to-[#002a33]',
-    desc: 'Coordination of mandatory medical examinations and trade tests required by destination countries and employers.',
-    items: ['Medical appointments', 'Trade test scheduling', 'Result follow-up', 'Documentation'],
-  },
-  {
-    title: 'Pre-Departure Orientation',
-    icon: 'fa-graduation-cap',
-    color: 'from-[var(--color-primary)] to-[#005a61]',
-    desc: 'Comprehensive orientation sessions preparing workers for their new environment, culture, and job responsibilities abroad.',
-    items: ['Cultural awareness', 'Labor rights education', 'Language basics', 'Travel guidance'],
-  },
-  {
-    title: 'Air Ticketing & Travel Support',
-    icon: 'fa-plane',
-    color: 'from-[var(--color-secondary)] to-[#6bb0a8]',
-    desc: 'Hassle-free flight booking and travel coordination ensuring smooth departure to your destination country.',
-    items: ['Flight booking', 'Airport transfers', 'Travel insurance', '24/7 support'],
-  },
-  {
-    title: 'Employer Verification',
-    icon: 'fa-shield-halved',
-    color: 'from-[var(--color-cta)] to-[#d47d5e]',
-    desc: 'Thorough verification of potential employers to ensure legitimacy, fair wages, and safe working conditions.',
-    items: ['Company background check', 'Contract review', 'Salary verification', 'Accommodation check'],
-  },
-  {
-    title: 'Skilled & Unskilled Manpower Supply',
-    icon: 'fa-users',
-    color: 'from-[var(--color-highlight)] to-[#002a33]',
-    desc: 'Reliable supply of both skilled and unskilled manpower across various sectors including construction, healthcare, hospitality, and more.',
-    items: ['Skilled professionals', 'General laborers', 'Sector-specific staff', 'Bulk recruitment'],
-  },
-];
+import { services } from '../data/countries';
 
 const colorMap = {
-  'from-[var(--color-primary)] to-[#005a61]': 'var(--color-primary)',
-  'from-[var(--color-secondary)] to-[#6bb0a8]': 'var(--color-secondary)',
-  'from-[var(--color-cta)] to-[#d47d5e]': 'var(--color-cta)',
-  'from-[var(--color-highlight)] to-[#002a33]': 'var(--color-highlight)',
+  '#FF206E': 'from-[#FF206E] to-[#D4005A]',
+  '#D4005A': 'from-[#D4005A] to-[#FF206E]',
+  '#41EAD4': 'from-[#41EAD4] to-[#1A1423]',
+  '#FBFF12': 'from-[#FBFF12] to-[#FF206E]',
 };
 
 export default function Services() {
   return (
-    <div>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-highlight)] text-white py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeIn>
-            <h1 className="text-4xl md:text-5xl font-extrabold">Our Services</h1>
-            <p className="mt-4 text-[var(--color-secondary)] text-lg max-w-2xl mx-auto">
-              Comprehensive recruitment and manpower solutions tailored to your needs.
-            </p>
-          </FadeIn>
+    <div className="animate-fade-in">
+      {/* HEADER */}
+      <section className="px-6 py-16 md:py-20 bg-ink text-white">
+        <div className="max-w-4xl mx-auto">
+          <span className="text-primary font-bold text-sm tracking-widest uppercase">What We Offer</span>
+          <h1 className="text-3xl md:text-5xl font-extrabold mt-2 mb-4">
+            Our <span className="text-primary">Services</span>
+          </h1>
+          <p className="text-white/60 text-lg max-w-2xl">
+            Complete overseas employment solutions designed to make your journey smooth, transparent, and successful.
+          </p>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {services.map((s, i) => (
-            <FadeIn key={s.title} delay={Math.min(i + 1, 6)}>
-              <div className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow bg-white border border-[var(--color-secondary)]/20">
-                <div className={`bg-gradient-to-r ${s.color} p-6 text-white`}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                      <i className={`fas ${s.icon} text-xl`} />
-                    </div>
-                    <h2 className="text-xl font-bold">{s.title}</h2>
+      {/* FLIP CARDS */}
+      <section className="px-6 py-16 md:py-20 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((s) => {
+            const gradient = colorMap[s.color] || 'from-primary to-highlight';
+            const isDark = s.color === '#1A1423' || s.color === '#D4005A';
+            return (
+              <div key={s.title} className="flip-card h-64">
+                <div className="flip-card-inner">
+                  {/* FRONT */}
+                  <div className={`flip-card-front bg-gradient-to-br ${gradient} text-white p-6`}>
+                    <i className={`fas ${s.icon} text-4xl mb-4`} />
+                    <h3 className="text-lg font-bold text-center leading-tight">{s.title}</h3>
+                  </div>
+                  {/* BACK */}
+                  <div className={`flip-card-back p-6 ${isDark || s.color === '#FBFF12' ? 'bg-ink text-white' : 'bg-white text-ink'} shadow-xl`}>
+                    <p className="text-sm leading-relaxed text-center">{s.desc}</p>
+                    <Link
+                      to="/contact"
+                      className={`mt-4 inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-full transition-all ${
+                        isDark || s.color === '#FBFF12'
+                          ? 'bg-cta text-ink hover:brightness-110'
+                          : 'bg-primary text-white hover:brightness-110'
+                      }`}
+                    >
+                      Inquire Now <i className="fas fa-arrow-right text-[10px]" />
+                    </Link>
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-[var(--color-ink)]/80 text-sm leading-relaxed mb-4">
-                    {s.desc}
-                  </p>
-                  <ul className="space-y-2">
-                    {s.items.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm text-[var(--color-ink)]/70">
-                        <i className="fas fa-check text-[var(--color-primary)] text-xs" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </div>
-            </FadeIn>
-          ))}
+            );
+          })}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-[var(--color-background)] py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <FadeIn>
-            <h2 className="text-3xl font-bold text-[var(--color-ink)]">Need a Custom Solution?</h2>
-            <p className="mt-3 text-[var(--color-ink)]/70">
-              Contact us to discuss your specific requirements. We are here to help.
-            </p>
-          </FadeIn>
-          <FadeIn delay={1}>
-            <div className="mt-6 flex flex-wrap justify-center gap-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 bg-[var(--color-cta)] text-white font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition-all"
-              >
-                <i className="fas fa-paper-plane" />
-                Contact Us
-              </Link>
-              <a
-                href="https://wa.me/923469358431"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-semibold px-6 py-3 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-all"
-              >
-                <i className="fab fa-whatsapp" />
-                WhatsApp
-              </a>
-            </div>
-          </FadeIn>
+      <section className="px-6 py-14 text-center" style={{ background: 'linear-gradient(135deg, #FF206E 0%, #1A1423 100%)' }}>
+        <div className="max-w-xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">Need a Custom Solution?</h2>
+          <p className="text-white/70 mb-6">
+            We tailor our services to match your skills and preferences with the right employer.
+          </p>
+          <a
+            href="https://wa.me/923005866833?text=Hello%20Mahail%20Overseas!%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-cta text-ink font-bold px-6 py-3 rounded-xl hover:brightness-110 transition-all"
+          >
+            <i className="fab fa-whatsapp" /> Talk to Us
+          </a>
         </div>
       </section>
+
+      <footer className="bg-ink text-white/50 px-6 py-6 text-center text-xs border-t border-white/10">
+        &copy; {new Date().getFullYear()} Mahail Overseas Employment Promoters
+      </footer>
     </div>
   );
 }

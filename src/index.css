@@ -1,121 +1,137 @@
 @import "tailwindcss";
 
-:root {
-  --color-primary: #006D77;
-  --color-secondary: #83C5BE;
-  --color-accent: #FFDD00;
-  --color-cta: #E29578;
-  --color-highlight: #003844;
-  --color-background: #EDF6F9;
-  --color-ink: #003844;
+@theme {
+  --color-primary: #FF206E;
+  --color-secondary: #FBFF12;
+  --color-accent: #41EAD4;
+  --color-cta: #41EAD4;
+  --color-highlight: #D4005A;
+  --color-background: #FFF8E0;
+  --color-ink: #1A1423;
+  --font-family-sans: "Poppins", "Inter", sans-serif;
 }
 
-* {
-  font-family: 'Inter', sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
+/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  margin: 0;
-  background-color: var(--color-background);
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-/* Wavy section divider */
-.wavy-divider {
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(65, 234, 212, 0.4); }
+  50% { box-shadow: 0 0 24px rgba(65, 234, 212, 0.8); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+/* Page transitions */
+.page-enter {
+  animation: slideInRight 0.4s ease-out;
+}
+
+/* Flip card */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  line-height: 0;
+  height: 100%;
+  min-height: 260px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
 }
 
-.wavy-divider svg {
-  display: block;
-  width: 100%;
-  height: 60px;
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
 }
 
-@media (max-width: 640px) {
-  .wavy-divider svg {
-    height: 35px;
-  }
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
 }
 
-/* Accordion */
-.accordion-content {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease;
+.flip-card-back {
+  transform: rotateY(180deg);
 }
 
-.accordion-content.open {
-  grid-template-rows: 1fr;
+/* Custom scrollbar for right pane */
+.right-pane::-webkit-scrollbar {
+  width: 6px;
+}
+.right-pane::-webkit-scrollbar-track {
+  background: transparent;
+}
+.right-pane::-webkit-scrollbar-thumb {
+  background: #FF206E33;
+  border-radius: 3px;
+}
+.right-pane::-webkit-scrollbar-thumb:hover {
+  background: #FF206E66;
 }
 
-.accordion-content > div {
-  overflow: hidden;
-}
-
-/* Animations */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fade-up-delay-1 { transition-delay: 0.1s; }
-.fade-up-delay-2 { transition-delay: 0.2s; }
-.fade-up-delay-3 { transition-delay: 0.3s; }
-.fade-up-delay-4 { transition-delay: 0.4s; }
-.fade-up-delay-5 { transition-delay: 0.5s; }
-.fade-up-delay-6 { transition-delay: 0.6s; }
-
-/* Image hover zoom */
-.img-hover-zoom {
+/* Mobile drawer */
+.drawer-open {
   overflow: hidden;
 }
 
-.img-hover-zoom img {
-  transition: transform 0.5s ease;
+/* Landing state for hero */
+.hero-gradient {
+  background: linear-gradient(135deg, #FF206E 0%, #D4005A 50%, #1A1423 100%);
 }
-
-.img-hover-zoom:hover img {
-  transform: scale(1.08);
-}
-
-/* Counters */
-.counter-value {
-  display: inline-block;
-}
-
-/* Quick apply widget */
-.quick-apply-form {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Program card overlay */
-.program-overlay {
-  transition: transform 0.35s ease;
-}
-
-.program-card:hover .program-overlay {
-  transform: translateY(0);
-}
-
-/* Pill badge colors */
-.pill-1 { background-color: var(--color-primary); color: white; }
-.pill-2 { background-color: var(--color-secondary); color: var(--color-ink); }
-.pill-3 { background-color: var(--color-cta); color: white; }
-.pill-4 { background-color: var(--color-highlight); color: white; }
-.pill-5 { background-color: var(--color-accent); color: var(--color-ink); }

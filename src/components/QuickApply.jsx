@@ -1,34 +1,40 @@
 import { useState } from 'react';
 
-const WHATSAPP_NUMBER = '923469358431';
+const jobCategories = [
+  'Construction & Labor',
+  'Hospitality & Catering',
+  'Healthcare & Caregiving',
+  'Manufacturing & Factory',
+  'Logistics & Transport',
+  'IT & Engineering',
+  'Agriculture & Farming',
+  'Security & Facilities',
+  'Other',
+];
 
 export default function QuickApply() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
-  const [country, setCountry] = useState('');
+  const [phone, setPhone] = useState('');
+  const [category, setCategory] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const text = encodeURIComponent(
-      `Hello! I'm interested in applying for overseas employment.\n\nName: ${name}\nCountry of Interest: ${country || 'Not specified'}`
-    );
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
-    setName('');
-    setCountry('');
+    const text = `Quick Apply - Mahail Overseas Employment Promoters%0A---%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AJob Category: ${encodeURIComponent(category)}%0A---%0AI am interested in overseas employment opportunities.`;
+    window.open(`https://wa.me/923005866833?text=${text}`, '_blank');
     setOpen(false);
+    setName('');
+    setPhone('');
+    setCategory('');
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {/* Form */}
       {open && (
-        <div className="quick-apply-form bg-white rounded-2xl shadow-2xl border border-[var(--color-secondary)]/30 p-5 w-72">
+        <div className="bg-white rounded-2xl shadow-2xl p-5 w-72 border border-accent/20 animate-scale-in">
           <div className="flex items-center justify-between mb-3">
-            <h4 className="font-bold text-[var(--color-ink)] text-sm">Quick Apply</h4>
-            <button
-              onClick={() => setOpen(false)}
-              className="text-gray-400 hover:text-[var(--color-ink)]"
-            >
+            <h4 className="font-bold text-primary text-sm">Quick Apply</h4>
+            <button onClick={() => setOpen(false)} className="text-ink/40 hover:text-primary text-sm">
               <i className="fas fa-times" />
             </button>
           </div>
@@ -36,33 +42,43 @@ export default function QuickApply() {
             <input
               type="text"
               placeholder="Your Name"
+              required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-ink/10 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none"
             />
             <input
-              type="text"
-              placeholder="Country of Interest"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30"
+              type="tel"
+              placeholder="Phone Number"
+              required
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full px-3 py-2 text-sm rounded-lg border border-ink/10 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none"
             />
+            <select
+              required
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full px-3 py-2 text-sm rounded-lg border border-ink/10 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none bg-white"
+            >
+              <option value="">Job Category</option>
+              {jobCategories.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
             <button
               type="submit"
-              className="w-full bg-[var(--color-cta)] text-white font-semibold py-2 rounded-lg text-sm hover:brightness-110 transition-all"
+              className="w-full bg-cta text-ink font-bold py-2.5 rounded-lg text-sm hover:brightness-110 transition-all shadow-lg"
             >
-              <i className="fab fa-whatsapp mr-2" />
-              Apply via WhatsApp
+              <i className="fab fa-whatsapp mr-1.5" />Apply Now
             </button>
           </form>
         </div>
       )}
 
-      {/* FAB */}
       <button
         onClick={() => setOpen(!open)}
-        className="w-14 h-14 rounded-full bg-[var(--color-cta)] text-white shadow-lg flex items-center justify-center text-2xl hover:scale-105 transition-transform"
+        className="w-14 h-14 rounded-full bg-cta text-ink shadow-xl hover:brightness-110 transition-all flex items-center justify-center text-2xl animate-pulse-glow"
         aria-label="Quick Apply"
       >
         <i className={`fas ${open ? 'fa-times' : 'fa-bolt'}`} />
