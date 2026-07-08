@@ -1,47 +1,33 @@
-import Navbar from './components/Navbar';
-import MarqueeBar from './components/MarqueeBar';
-import Hero from './components/Hero';
-import StatBand from './components/StatBand';
-import WaveDivider from './components/WaveDivider';
-import About from './components/About';
-import Services from './components/Services';
-import Countries from './components/Countries';
-import Process from './components/Process';
-import Testimonials from './components/Testimonials';
-import Gallery from './components/Gallery';
-import CTABand from './components/CTABand';
-import Contact from './components/Contact';
-import FAQ from './components/FAQ';
-import Footer from './components/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Shell from './components/Shell';
+import ScrollToTop from './components/ScrollToTop';
 import QuickApply from './components/QuickApply';
+import Overview from './pages/Overview';
+import ServicesPage from './pages/Services';
+import Destinations from './pages/Destinations';
+import DestinationDetail from './pages/DestinationDetail';
+import ProcessPage from './pages/Process';
+import ApplyPage from './pages/Apply';
+import NotFound from './pages/NotFound';
 
-export default function App() {
+function App() {
   return (
-    <>
-      <Navbar />
-      <MarqueeBar />
-      <Hero />
-      <StatBand />
-      <WaveDivider color="#F2F6F9" flip />
-      <About />
-      <WaveDivider color="#1B4965" />
-      <Services />
-      <WaveDivider color="#F2F6F9" flip />
-      <Countries />
-      <WaveDivider color="#0B3954" />
-      <Process />
-      <WaveDivider color="#F2F6F9" flip />
-      <Testimonials />
-      <WaveDivider color="#1B4965" />
-      <Gallery />
-      <WaveDivider color="#F2F6F9" flip />
-      <CTABand />
-      <WaveDivider color="#F2F6F9" flip />
-      <Contact />
-      <WaveDivider color="#F2F6F9" flip />
-      <FAQ />
-      <Footer />
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Shell />}>
+          <Route path="/" element={<Overview />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/destinations" element={<Destinations />} />
+          <Route path="/destinations/:slug" element={<DestinationDetail />} />
+          <Route path="/process" element={<ProcessPage />} />
+          <Route path="/apply" element={<ApplyPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
       <QuickApply />
-    </>
+    </BrowserRouter>
   );
 }
+
+export default App;

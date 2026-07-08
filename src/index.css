@@ -1,147 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --color-primary: #1B4965;
-  --color-secondary: #5FA8D3;
-  --color-accent: #C9CCD5;
-  --color-cta: #FF6B35;
-  --color-highlight: #0B3954;
-  --color-background: #F2F6F9;
-  --color-ink: #0B2436;
-  --color-ink-light: #2A4A62;
-  --font-inter: 'Inter', sans-serif;
-  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+@theme {
+  --color-primary: #006BA6;
+  --color-secondary: #0496FF;
+  --color-accent: #FFBC42;
+  --color-cta: #D81159;
+  --color-highlight: #005580;
+  --color-background: #E6F3FB;
+  --color-ink: #06283D;
+  --font-family-sans: "Plus Jakarta Sans", "Inter", sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: var(--font-inter);
-  background-color: var(--color-background);
-  color: var(--color-ink);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(216, 17, 89, 0.3); }
+  50% { box-shadow: 0 0 24px rgba(216, 17, 89, 0.6); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out both;
 }
-.marquee-track {
-  animation: marquee 30s linear infinite;
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out both;
 }
-
-.diamond {
-  width: 80px;
-  height: 80px;
-  transform: rotate(45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.diamond-inner {
-  transform: rotate(-45deg);
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-}
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Route transition */
+.route-enter {
+  animation: fadeIn 0.4s ease-out both;
 }
 
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
-.stagger-5 { transition-delay: 0.5s; }
-.stagger-6 { transition-delay: 0.6s; }
-.stagger-7 { transition-delay: 0.7s; }
-.stagger-8 { transition-delay: 0.8s; }
-
-.img-zoom {
-  overflow: hidden;
+/* Scrollbar for sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
 }
-.img-zoom img {
-  transition: transform 0.5s ease;
-}
-.img-zoom:hover img {
-  transform: scale(1.08);
-}
-
-.wave-divider {
-  line-height: 0;
-  overflow: hidden;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-background);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
   border-radius: 4px;
-}
-
-.quick-apply-form {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
-}
-.quick-apply-form.active {
-  max-height: 400px;
-  opacity: 1;
-}
-
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.35s ease;
-}
-.accordion-content.active {
-  max-height: 300px;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
-  50% { transform: translateY(-12px) rotate(var(--r, 0deg)); }
-}
-.float-anim {
-  animation: float 5s ease-in-out infinite;
-}
-.float-anim:nth-child(2) { animation-delay: 0.5s; }
-.float-anim:nth-child(3) { animation-delay: 1s; }
-.float-anim:nth-child(4) { animation-delay: 1.5s; }
-.float-anim:nth-child(5) { animation-delay: 2s; }
-
-.map-container iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* Hamburger menu */
-.hamburger-line {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: white;
-  transition: all 0.3s ease;
-}
-.hamburger-open .hamburger-line:nth-child(1) {
-  transform: rotate(45deg) translate(4px, 4px);
-}
-.hamburger-open .hamburger-line:nth-child(2) {
-  opacity: 0;
-}
-.hamburger-open .hamburger-line:nth-child(3) {
-  transform: rotate(-45deg) translate(4px, -4px);
 }
