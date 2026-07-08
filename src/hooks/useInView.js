@@ -16,7 +16,7 @@ export default function useInView(options = {}) {
           setInView(false);
         }
       },
-      { threshold: options.threshold ?? 0.15, ...options }
+      { threshold: options.threshold ?? 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();

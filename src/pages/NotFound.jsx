@@ -2,28 +2,18 @@ import { Link } from 'react-router-dom';
 
 export default function NotFound() {
   return (
-    <div className="animate-fade-in px-6 py-20 flex items-center justify-center min-h-[calc(100vh-60px)]">
-      <div className="text-center max-w-md">
-        <span className="text-7xl block mb-4">🚀</span>
-        <h1 className="text-5xl font-extrabold text-ink mb-2">404</h1>
-        <p className="text-xl font-semibold text-ink mb-2">Page Not Found</p>
-        <p className="text-ink/60 mb-8">
-          Looks like this page drifted off course. Let's get you back on track.
+    <div className="min-h-[80vh] flex items-center justify-center px-4">
+      <div className="text-center">
+        <div className="text-9xl font-black text-[#E10600] font-[Poppins]">404</div>
+        <div className="w-24 h-1 bg-gradient-to-r from-[#FFD500] to-[#E10600] mx-auto my-6 rounded-full"></div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#141414] mb-4 font-[Poppins]">Page Not Found</h1>
+        <p className="text-[#141414]/60 mb-8 max-w-md mx-auto">
+          Looks like you've taken a wrong turn. This page doesn't exist or has been moved.
         </p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-xl hover:brightness-110 transition-all shadow-lg"
-          >
-            <i className="fas fa-house" /> Back to Home
-          </Link>
-          <Link
-            to="/countries"
-            className="inline-flex items-center gap-2 bg-cta text-ink font-bold px-6 py-3 rounded-xl hover:brightness-110 transition-all"
-          >
-            <i className="fas fa-globe" /> Explore Countries
-          </Link>
-        </div>
+        <Link to="/"
+          className="bg-[#E10600] text-white font-bold px-8 py-4 rounded-full hover:bg-[#1C1C1C] transition-all shadow-lg inline-block">
+          <i className="fa-solid fa-flag-checkered mr-2"></i>Back to Home
+        </Link>
       </div>
     </div>
   );
