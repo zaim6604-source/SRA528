@@ -1,53 +1,50 @@
-import useScrollReveal from '../hooks/useScrollReveal';
-import OptimizedImage from './OptimizedImage';
+import ScrollReveal from './ScrollReveal'
+import FallbackImage from './FallbackImage'
 
-const items = [
-  { src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&q=80', icon: 'fas fa-building', label: 'Office — Gul City Center' },
-  { src: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=300&fit=crop&q=80', icon: 'fas fa-users', label: 'Candidate Training Session' },
-  { src: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop&q=80', icon: 'fas fa-passport', label: 'Visa Processing Center' },
-  { src: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop&q=80', icon: 'fas fa-plane', label: 'Departure Group' },
-  { src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop&q=80', icon: 'fas fa-handshake', label: 'Employer Meeting' },
-  { src: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=400&h=300&fit=crop&q=80', icon: 'fas fa-graduation-cap', label: 'Orientation Program' },
-];
+const GALLERY = [
+  { src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=450&fit=crop&auto=format', label: 'Office at Tahir Plaza' },
+  { src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=450&fit=crop&auto=format', label: 'Candidate Counseling' },
+  { src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=450&fit=crop&auto=format', label: 'Pre-Departure Orientation' },
+  { src: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=450&fit=crop&auto=format', label: 'Documentation Center' },
+  { src: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=450&fit=crop&auto=format', label: 'Visa Processing' },
+  { src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=450&fit=crop&auto=format', label: 'Team at Work' },
+]
 
 export default function Gallery() {
-  const revealRef = useScrollReveal();
-
   return (
-    <section className="py-16 sm:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
-            <i className="fas fa-images" />
-            Gallery
+    <section className="py-16 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <ScrollReveal>
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
+              <i className="fas fa-images" />
+              Gallery
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
+              A Glimpse of Our Work
+            </h2>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-3">
-            A Glimpse Into Our Work
-          </h2>
-          <p className="text-sm sm:text-base text-[#3A0A1E]/60 max-w-xl mx-auto">
-            Moments from our office, training sessions, and candidate departures.
-          </p>
-        </div>
+        </ScrollReveal>
 
-        <div ref={revealRef} className="reveal gallery-scroll pb-2">
-          {items.map((item, i) => (
-            <div
-              key={i}
-              className="w-56 sm:w-64 flex-shrink-0 rounded-2xl overflow-hidden bg-white border border-pink-100 shadow-md hover:shadow-lg transition-shadow"
-            >
-              <OptimizedImage
-                src={item.src}
-                alt={item.label}
-                className="w-full h-32 sm:h-36"
-                icon={item.icon}
-              />
-              <div className="p-3 text-center">
-                <span className="text-sm font-medium text-[#3A0A1E]/70">{item.label}</span>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          {GALLERY.map((item, i) => (
+            <ScrollReveal key={item.label} delay={i * 60}>
+              <div className="relative rounded-xl overflow-hidden shadow-md group cursor-pointer aspect-[4/3]">
+                <FallbackImage
+                  src={item.src}
+                  alt={item.label}
+                  className="w-full h-full group-hover:scale-110 transition-transform duration-500"
+                  icon="fa-image"
+                  bgClass="from-primary/20 to-secondary/20"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                  <span className="text-white text-xs font-semibold">{item.label}</span>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }

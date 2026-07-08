@@ -1,82 +1,89 @@
-import useScrollReveal from '../hooks/useScrollReveal';
+import ScrollReveal from './ScrollReveal'
 
-const testimonials = [
-  {
-    name: 'Muhammad Ali',
-    role: 'Placed in Saudi Arabia — Construction',
-    text: 'Chakdara International made my dream of working abroad a reality. From documentation to departure, every step was handled professionally. I\'ve been in Riyadh for 8 months now and couldn\'t be happier.',
-    rating: 5,
-  },
+const TESTIMONIALS = [
   {
     name: 'Shahid Khan',
-    role: 'Placed in UAE — Logistics',
-    text: 'I was skeptical at first, but their team at Gul City Center guided me through the entire process. Transparent fees, no hidden charges. Highly recommended for anyone in Malakand looking for overseas jobs.',
+    role: 'Placed in Saudi Arabia — Construction',
+    quote: 'Hammad Recruiting Agency made my dream of working abroad a reality. From documentation to departure, they handled everything with care. Now I am earning well and supporting my family back in Swat.',
     rating: 5,
+    initials: 'SK',
   },
   {
-    name: 'Ayesha Bibi',
-    role: 'Placed in Germany — Healthcare',
-    text: 'As a female professional, I was nervous about working abroad. Chakdara supported me every step of the way. The pre-departure orientation was incredibly helpful. Now working in Berlin!',
+    name: 'Wajid Ali',
+    role: 'Placed in UAE — Logistics',
+    quote: 'I visited their office at Tahir Plaza, Batkhela and was impressed by their professionalism. Within weeks, I had a job offer from Dubai. Highly recommended for anyone in Malakand looking for overseas work.',
     rating: 5,
+    initials: 'WA',
   },
   {
     name: 'Rashid Ahmad',
-    role: 'Placed in Qatar — Oil & Gas',
-    text: 'Fast processing and excellent communication. They kept me updated throughout the visa process. If you\'re in Batkhela or Dir, this is the agency to trust.',
-    rating: 4,
+    role: 'Placed in Germany — Healthcare',
+    quote: 'The team guided me through the entire process, including language training and visa interviews. Their pre-departure training was incredibly helpful. I am now working in Berlin.',
+    rating: 5,
+    initials: 'RA',
   },
-];
+  {
+    name: 'Naveed ur Rahman',
+    role: 'Placed in Qatar — Oil & Gas',
+    quote: 'A trustworthy agency with a transparent process. No hidden fees, clear communication, and genuine job opportunities. I have already referred three friends from Dir to them.',
+    rating: 4,
+    initials: 'NR',
+  },
+]
 
 export default function Testimonials() {
-  const revealRef = useScrollReveal();
-
   return (
-    <section className="py-16 sm:py-24 bg-[#FFF0F5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
-            <i className="fas fa-star" />
-            Testimonials
+    <section id="testimonials" className="py-16 lg:py-24 bg-background">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <ScrollReveal>
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
+              <i className="fas fa-comments" />
+              Testimonials
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
+              What Our Candidates Say
+            </h2>
+            <p className="text-ink/60 max-w-2xl mx-auto">
+              Real stories from workers we have placed abroad.
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-3">
-            Hear From Our Candidates
-          </h2>
-          <p className="text-sm sm:text-base text-[#3A0A1E]/60 max-w-xl mx-auto">
-            Real stories from real people we&apos;ve helped place around the world.
-          </p>
-        </div>
+        </ScrollReveal>
 
-        <div ref={revealRef} className="reveal grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl transition-shadow border border-pink-50"
-            >
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: 5 }).map((_, j) => (
-                  <i
-                    key={j}
-                    className={`fas fa-star text-sm ${j < t.rating ? 'text-[#FFCE47]' : 'text-gray-200'}`}
-                  />
-                ))}
-              </div>
-              <p className="text-sm sm:text-base text-[#3A0A1E]/70 leading-relaxed mb-5 italic">
-                &ldquo;{t.text}&rdquo;
-              </p>
-              <div className="flex items-center gap-3 pt-3 border-t border-pink-50">
-                <div className="w-10 h-10 rounded-full bg-[#FF3366] flex items-center justify-center text-white font-bold text-sm font-[Poppins]">
-                  {t.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {TESTIMONIALS.map((t, i) => (
+            <ScrollReveal key={t.name} delay={i * 80}>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-primary/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                {/* Stars */}
+                <div className="flex items-center gap-0.5 mb-3">
+                  {Array.from({ length: 5 }).map((_, si) => (
+                    <i
+                      key={si}
+                      className={`fas fa-star ${si < t.rating ? 'text-accent' : 'text-gray-200'}`}
+                    />
+                  ))}
                 </div>
-                <div>
-                  <div className="text-sm font-bold text-[#3A0A1E]">{t.name}</div>
-                  <div className="text-xs text-[#3A0A1E]/50">{t.role}</div>
+
+                {/* Quote */}
+                <p className="text-ink/70 text-sm leading-relaxed flex-1 mb-4 italic">
+                  "{t.quote}"
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-3 pt-3 border-t border-primary/10">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-ink">{t.name}</div>
+                    <div className="text-xs text-ink/50">{t.role}</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }

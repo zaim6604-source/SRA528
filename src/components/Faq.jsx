@@ -1,85 +1,92 @@
-import { useState } from 'react';
-import useScrollReveal from '../hooks/useScrollReveal';
+import { useState } from 'react'
+import ScrollReveal from './ScrollReveal'
 
-const faqs = [
+const FAQS = [
   {
-    q: 'What documents do I need to apply?',
-    a: 'You typically need your CNIC, passport-sized photographs, educational certificates, and a valid passport. Our team will guide you through the complete list based on your destination country and job type.',
+    q: 'What documents do I need to apply for overseas work?',
+    a: 'You typically need a valid passport, CNIC, recent photographs, educational certificates, and any relevant professional certifications. Our team will guide you through the complete documentation checklist.',
   },
   {
-    q: 'How long does the process take?',
-    a: 'Processing times vary by country and job type, but typically range from 2 to 8 weeks. We keep you updated at every stage and work to expedite your application.',
+    q: 'How long does the recruitment process take?',
+    a: 'The timeline varies by destination and position, but typically ranges from 2 to 8 weeks. This includes document verification, employer matching, visa processing, and pre-departure preparations.',
   },
   {
-    q: 'Are there any hidden fees?',
-    a: 'No. We believe in complete transparency. All fees are communicated upfront, and you will receive a detailed breakdown before any payment. No hidden charges, ever.',
+    q: 'Is Hammad Recruiting Agency government licensed?',
+    a: 'Yes, we are fully licensed by the Government of Pakistan under license number 2167/MLK. We operate transparently and follow all regulatory requirements.',
   },
   {
     q: 'Which countries do you recruit for?',
-    a: 'We currently recruit for Saudi Arabia, UAE, Qatar, Oman, Germany, Romania, Italy, Cyprus, and Malaysia, covering industries like construction, healthcare, hospitality, logistics, oil & gas, and electronics.',
+    a: 'We recruit for Saudi Arabia, UAE, Qatar, Oman, Kuwait, Germany, Poland, Croatia (Tourism), and Malaysia (Electronics). We are expanding to more destinations.',
   },
   {
-    q: 'How do I know the job is genuine?',
-    a: 'We personally verify every employer and job offer. We are a government-licensed agency (License #2168/MLK) and maintain direct relationships with reputable overseas employers.',
+    q: 'What are the fees for your services?',
+    a: 'Our fees are transparent and competitive. We provide a clear breakdown during your initial consultation at our Tahir Plaza office. There are no hidden charges.',
   },
   {
-    q: 'Can I visit your office?',
-    a: 'Absolutely! Visit us at 1st Floor, Gul City Center, Office No. 13/14, Tehsil Batkhela, Distt Malakand, KPK. Our team is available Sunday to Thursday, 9 AM to 5 PM.',
+    q: 'Do you provide training before departure?',
+    a: 'Yes, we offer pre-departure orientation covering language basics, cultural awareness, workplace expectations, and travel guidelines to help you settle smoothly.',
   },
-];
+  {
+    q: 'How can I contact your office?',
+    a: 'Visit Office No. 308, Second Floor, Tahir Plaza, Batkhela. Call us at 0932-413201 or message us on WhatsApp at 0345-9691639.',
+  },
+  {
+    q: 'Can I apply if I live outside Malakand?',
+    a: 'Absolutely! We serve candidates from Swat, Dir, and across KPK. You can apply via WhatsApp or visit our Batkhela office for a consultation.',
+  },
+]
 
-export default function Faq() {
-  const [openIdx, setOpenIdx] = useState(null);
-  const revealRef = useScrollReveal();
+export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState(null)
 
-  const toggle = (idx) => {
-    setOpenIdx(openIdx === idx ? null : idx);
-  };
+  const toggle = (i) => {
+    setOpenIndex(openIndex === i ? null : i)
+  }
 
   return (
-    <section className="py-16 sm:py-24 bg-white">
+    <section className="py-16 lg:py-24 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3366]/10 text-[#FF3366] rounded-full text-xs font-semibold mb-4">
-            <i className="fas fa-question-circle" />
-            FAQs
+        <ScrollReveal>
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
+              <i className="fas fa-question-circle" />
+              FAQs
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-ink/60 max-w-2xl mx-auto">
+              Everything you need to know about working with Hammad Recruiting Agency.
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3A0A1E] mb-3">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-sm sm:text-base text-[#3A0A1E]/60 max-w-xl mx-auto">
-            Everything you need to know before applying.
-          </p>
-        </div>
+        </ScrollReveal>
 
-        <div ref={revealRef} className="reveal space-y-3">
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className="rounded-2xl border border-pink-100 bg-white overflow-hidden hover:shadow-md transition-shadow"
-            >
-              <button
-                onClick={() => toggle(i)}
-                className="w-full flex items-center justify-between px-5 sm:px-6 py-4 text-left no-underline text-[#3A0A1E] hover:bg-pink-50/50 transition-colors"
-              >
-                <span className="text-sm sm:text-base font-semibold pr-4">{faq.q}</span>
-                <i
-                  className={`fas fa-chevron-down text-sm text-[#FF3366] transition-transform duration-300 flex-shrink-0 ${
-                    openIdx === i ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              <div className={`faq-answer ${openIdx === i ? 'open' : ''}`}>
-                <div>
-                  <div className="px-5 sm:px-6 pb-4 text-sm text-[#3A0A1E]/60 leading-relaxed">
+        <div className="space-y-3">
+          {FAQS.map((faq, i) => (
+            <ScrollReveal key={i} delay={i * 50}>
+              <div className={`rounded-xl border ${openIndex === i ? 'border-primary/30 bg-primary/[0.02]' : 'border-primary/10 bg-background'} transition-all`}>
+                <button
+                  onClick={() => toggle(i)}
+                  className="w-full flex items-center justify-between p-4 text-left"
+                  aria-expanded={openIndex === i}
+                >
+                  <span className="font-semibold text-sm sm:text-base text-ink pr-4">{faq.q}</span>
+                  <i
+                    className={`fas fa-chevron-down text-primary shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${openIndex === i ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}
+                >
+                  <p className="px-4 pb-4 text-sm text-ink/60 leading-relaxed">
                     {faq.a}
-                  </div>
+                  </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }

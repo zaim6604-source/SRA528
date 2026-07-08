@@ -1,123 +1,103 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { COMPANY } from '../data/siteData'
 
-const navLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'Our Story', path: '/story' },
-  { label: 'Services', path: '/services' },
-  { label: 'Country Guides', path: '/guides' },
-  { label: 'Contact', path: '/contact' },
-];
+const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Destinations', href: '/destinations' },
+  { label: 'Journey', href: '/journey' },
+  { label: 'Contact', href: '/contact' },
+]
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const location = useLocation();
+  const [open, setOpen] = useState(false)
+  const location = useLocation()
+
+  const isActive = (href) => {
+    if (href === '/') return location.pathname === '/'
+    return location.pathname.startsWith(href)
+  }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#FFF3E0]">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-primary/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 no-underline">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF1654] to-[#D60046] flex items-center justify-center text-white font-bold text-sm font-[Plus+Jakarta+Sans] shadow-md">
-              AA
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" className="flex items-center gap-3 shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-extrabold text-sm shadow-md">
+              TI
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm sm:text-base font-bold font-[Plus+Jakarta+Sans] text-[#152935] leading-tight">Al-Atique</span>
-              <span className="text-[10px] sm:text-xs font-medium text-[#FF1654] tracking-wide leading-tight">Recruiting Agency</span>
+            <div className="hidden sm:block">
+              <span className="font-bold text-sm text-ink">Toba International</span>
+              <span className="block text-[10px] text-primary font-semibold tracking-wider uppercase">License {COMPANY.license}</span>
             </div>
           </Link>
 
-          {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((l) => (
+            {NAV_LINKS.map((link) => (
               <Link
-                key={l.path}
-                to={l.path}
-                className={`px-3 xl:px-4 py-2 text-sm font-medium rounded-lg transition-colors no-underline ${
-                  location.pathname === l.path
-                    ? 'text-[#FF1654] bg-[#FF1654]/5'
-                    : 'text-[#152935]/70 hover:text-[#FF1654] hover:bg-[#FF1654]/5'
+                key={link.href}
+                to={link.href}
+                className={`relative px-3 py-2 text-sm font-medium transition-colors group ${
+                  isActive(link.href) ? 'text-primary' : 'text-ink/70 hover:text-primary'
                 }`}
               >
-                {l.label}
+                {link.label}
+                <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary transition-all duration-300 ${
+                  isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                }`} />
               </Link>
             ))}
           </div>
 
-          {/* Right */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-3">
             <a
-              href="https://wa.me/923005668365"
+              href={COMPANY.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#247BA0] bg-[#247BA0]/10 border border-[#247BA0]/20 rounded-full hover:bg-[#247BA0]/20 transition-colors no-underline"
+              className="hidden sm:inline-flex items-center gap-2 bg-cta text-white px-4 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-cta/30 animate-pulse-soft"
             >
               <i className="fab fa-whatsapp" />
-              <span className="hidden md:inline">0300-5668365</span>
-            </a>
-            <a
-              href="https://wa.me/923005668365?text=Hello%20Al-Atique%2C%20I%20would%20like%20to%20apply%20for%20a%20job."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-bold text-white bg-[#70C1B3] rounded-full hover:bg-[#5daa9d] hover:shadow-lg hover:shadow-[#70C1B3]/30 transition-all no-underline"
-            >
-              <i className="fas fa-paper-plane text-xs" />
               Apply Now
             </a>
             <button
               onClick={() => setOpen(!open)}
-              className="lg:hidden ml-1 p-2 rounded-lg text-[#152935] hover:bg-[#FFF3E0] transition-colors"
+              className="lg:hidden p-2 rounded-lg text-ink/70 hover:text-primary hover:bg-primary/5 transition-colors"
               aria-label="Toggle menu"
             >
-              <i className={`fas ${open ? 'fa-times' : 'fa-bars'} text-lg`} />
+              <i className={`fas ${open ? 'fa-times' : 'fa-bars'} text-xl`} />
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile drawer */}
-      {open && (
-        <div className="lg:hidden border-t border-[#FFF3E0] bg-white/98 backdrop-blur-md">
-          <div className="px-4 py-3 space-y-1">
-            {navLinks.map((l) => (
-              <Link
-                key={l.path}
-                to={l.path}
-                onClick={() => setOpen(false)}
-                className={`block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors no-underline ${
-                  location.pathname === l.path
-                    ? 'text-[#FF1654] bg-[#FF1654]/5'
-                    : 'text-[#152935]/70 hover:text-[#FF1654] hover:bg-[#FF1654]/5'
-                }`}
+        {open && (
+          <div className="lg:hidden pb-4 border-t border-primary/10 pt-4 animate-fade-in">
+            <div className="flex flex-col gap-2">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    isActive(link.href) ? 'text-primary bg-primary/5' : 'text-ink/70 hover:text-primary hover:bg-primary/5'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href={COMPANY.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sm:hidden flex items-center gap-2 bg-cta text-white px-4 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all mt-2"
               >
-                {l.label}
-              </Link>
-            ))}
-            <hr className="my-2 border-[#FFF3E0]" />
-            <a
-              href="https://wa.me/923005668365"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-[#247BA0] hover:bg-[#247BA0]/5 rounded-lg transition-colors no-underline"
-              onClick={() => setOpen(false)}
-            >
-              <i className="fab fa-whatsapp w-5 text-center" />
-              WhatsApp 0300-5668365
-            </a>
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-[#247BA0] hover:bg-[#247BA0]/5 rounded-lg transition-colors no-underline"
-              onClick={() => setOpen(false)}
-            >
-              <i className="fab fa-facebook w-5 text-center" />
-              Facebook
-            </a>
+                <i className="fab fa-whatsapp" />
+                Apply Now
+              </a>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
-  );
+  )
 }
