@@ -1,53 +1,97 @@
-import useScrollReveal from '../hooks/useScrollReveal';
-
-const testimonials = [
-  { name: 'Muhammad Ali', role: 'Placed in Saudi Arabia — Construction', text: 'Parwaz made my dream of working abroad a reality. From documentation to departure, every step was handled professionally. I\'ve been in Riyadh for 8 months now and couldn\'t be happier.', rating: 5 },
-  { name: 'Shahid Khan', role: 'Placed in UAE — Logistics', text: 'I was skeptical at first, but their team guided me through the entire process. Transparent fees, no hidden charges. Highly recommended for anyone in Peshawar looking for overseas jobs.', rating: 5 },
-  { name: 'Ayesha Bibi', role: 'Placed in Germany — Healthcare', text: 'As a female professional, I was nervous about working abroad. Parwaz supported me every step of the way. The pre-departure orientation was incredibly helpful. Now working in Berlin!', rating: 5 },
-  { name: 'Rashid Ahmad', role: 'Placed in Qatar — Oil & Gas', text: 'Fast processing and excellent communication. They kept me updated throughout the visa process. If you\'re in Peshawar or KPK, this is the agency to trust.', rating: 4 },
-];
+import { useState } from 'react'
+import { TESTIMONIALS, COMPANY } from '../data/siteData'
+import ScrollReveal from './ScrollReveal'
 
 export default function Testimonials() {
-  const revealRef = useScrollReveal();
+  const [popup, setPopup] = useState(null)
 
   return (
-    <section className="py-16 sm:py-24 bg-[#FFD6F0]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FF3CAC]/10 text-[#FF3CAC] rounded-full text-xs font-semibold mb-4">
-            <i className="fas fa-star" />
-            Testimonials
+    <section id="testimonials" className="py-16 lg:py-24 bg-background">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <ScrollReveal>
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
+              <i className="fas fa-comments" />
+              Testimonials
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
+              What Our Candidates Say
+            </h2>
+            <p className="text-ink/60 max-w-2xl mx-auto">
+              Real stories from workers we have placed abroad.
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A0A1E] mb-3">
-            Hear From Our Candidates
-          </h2>
-          <p className="text-sm sm:text-base text-[#1A0A1E]/60 max-w-xl mx-auto">
-            Real stories from real people we&apos;ve helped place around the world.
-          </p>
-        </div>
+        </ScrollReveal>
 
-        <div ref={revealRef} className="reveal grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
-          {testimonials.map((t, i) => (
-            <div key={i} className="bg-white rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl transition-shadow border border-pink-50">
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: 5 }).map((_, j) => (
-                  <i key={j} className={`fas fa-star text-sm ${j < t.rating ? 'text-[#00F5D4]' : 'text-gray-200'}`} />
-                ))}
-              </div>
-              <p className="text-sm sm:text-base text-[#1A0A1E]/70 leading-relaxed mb-5 italic">&ldquo;{t.text}&rdquo;</p>
-              <div className="flex items-center gap-3 pt-3 border-t border-pink-50">
-                <div className="w-10 h-10 rounded-full bg-[#FF3CAC] flex items-center justify-center text-white font-bold text-sm font-[Plus Jakarta Sans]">
-                  {t.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {TESTIMONIALS.map((t, i) => (
+            <ScrollReveal key={t.name} delay={i * 80}>
+              <div
+                className="bg-white rounded-2xl p-6 shadow-lg border border-primary/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full cursor-pointer"
+                onClick={() => setPopup(t)}
+              >
+                <div className="flex items-center gap-0.5 mb-3">
+                  {Array.from({ length: 5 }).map((_, si) => (
+                    <i
+                      key={si}
+                      className={`fas fa-star ${si < t.rating ? 'text-accent' : 'text-gray-200'}`}
+                    />
+                  ))}
                 </div>
-                <div>
-                  <div className="text-sm font-bold text-[#1A0A1E]">{t.name}</div>
-                  <div className="text-xs text-[#1A0A1E]/50">{t.role}</div>
+                <p className="text-ink/70 text-sm leading-relaxed flex-1 mb-4 italic">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="flex items-center gap-3 pt-3 border-t border-primary/10">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-ink">{t.name}</div>
+                    <div className="text-xs text-ink/50">{t.role}</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
+
+      {/* Testimonial Popup */}
+      {popup && (
+        <div className="modal-overlay" onClick={() => setPopup(null)}>
+          <div className="modal-content text-center" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setPopup(null)}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-ink/60 hover:text-primary transition-colors"
+            >
+              <i className="fas fa-times" />
+            </button>
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+              {popup.initials}
+            </div>
+            <div className="flex items-center justify-center gap-0.5 mb-4">
+              {Array.from({ length: 5 }).map((_, si) => (
+                <i
+                  key={si}
+                  className={`fas fa-star ${si < popup.rating ? 'text-accent' : 'text-gray-200'}`}
+                />
+              ))}
+            </div>
+            <p className="text-ink/70 leading-relaxed mb-4 italic">&ldquo;{popup.quote}&rdquo;</p>
+            <div className="font-bold text-ink">{popup.name}</div>
+            <div className="text-sm text-ink/50">{popup.role}</div>
+            <a
+              href={COMPANY.whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-cta text-white px-6 py-3 rounded-full font-bold hover:brightness-110 transition-all shadow-lg mt-6"
+            >
+              <i className="fab fa-whatsapp" />
+              Start Your Journey Too
+            </a>
+          </div>
+        </div>
+      )}
     </section>
-  );
+  )
 }

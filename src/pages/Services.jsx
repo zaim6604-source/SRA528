@@ -1,102 +1,76 @@
-import { Link } from 'react-router-dom';
-import useScrollReveal from '../hooks/useScrollReveal';
-import { services } from '../data/services';
+import ScrollReveal from '../components/ScrollReveal'
+import { SERVICES } from '../data/siteData'
+
+const SERVICE_IMAGES = [
+  'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=400&fit=crop&auto=format',
+  'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop&auto=format',
+  'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop&auto=format',
+  'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop&auto=format',
+  'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&h=400&fit=crop&auto=format',
+  'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop&auto=format',
+  'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop&auto=format',
+  'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=400&fit=crop&auto=format',
+]
 
 export default function Services() {
-  const revealRef = useScrollReveal();
-
   return (
-    <div>
-      {/* Header */}
-      <section className="hero-gradient pt-12 pb-16 sm:pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#00F5D4] font-[Plus Jakarta Sans]">
-            What We Do
-          </span>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-[Plus Jakarta Sans] text-white mt-3 mb-3">
-            Our Services
-          </h1>
-          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">
-            End-to-end recruitment solutions — from first contact to successful placement.
-          </p>
-        </div>
-      </section>
+    <section className="relative">
+      <div className="wavy-divider -mb-1">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
+          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
+        </svg>
+      </div>
 
-      {/* Services Grid */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={revealRef} className="reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {services.map((svc) => (
-              <article
-                key={svc.id}
-                className="service-card group bg-white rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl border border-pink-100 hover:border-[#FF3CAC]/20 transition-all"
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ backgroundColor: `${svc.color}15`, color: svc.color }}
-                >
-                  <i className={`${svc.icon} text-xl`} />
+      <div className="bg-white py-16 lg:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
+                <i className="fas fa-briefcase" />
+                Our Services
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
+                Everything You Need for Overseas Employment
+              </h2>
+              <p className="text-ink/60 max-w-2xl mx-auto">
+                End-to-end recruitment services designed to make your journey abroad seamless.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {SERVICES.map((svc, i) => (
+              <ScrollReveal key={svc.title} delay={i * 50}>
+                <div className="group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-background parallax-card">
+                  <div className="relative h-40 overflow-hidden bg-gradient-to-br from-primary/60 to-accent/60">
+                    <img
+                      src={SERVICE_IMAGES[i]}
+                      alt={svc.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      onError={(e) => { e.target.style.display = 'none' }}
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent z-10 pointer-events-none" />
+                    <div className="absolute bottom-3 left-4 text-white z-20">
+                      <i className={`fas ${svc.icon} text-2xl`} />
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-ink mb-2">{svc.title}</h3>
+                    <p className="text-sm text-ink/60 leading-relaxed">{svc.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold font-[Plus Jakarta Sans] text-[#1A0A1E] mb-1">
-                  {svc.title}
-                </h3>
-                <p className="text-xs font-semibold text-[#FF3CAC] uppercase tracking-wider mb-3">
-                  {svc.tagline}
-                </p>
-                <p className="text-sm text-[#1A0A1E]/60 leading-relaxed">
-                  {svc.description}
-                </p>
-              </article>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Article-style feature */}
-      <section className="py-16 sm:py-24 bg-[#FFD6F0]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF3CAC] font-[Plus Jakarta Sans]">
-                Our Approach
-              </span>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-[Plus Jakarta Sans] text-[#1A0A1E] mt-2 mb-4">
-                More Than Just Recruitment
-              </h2>
-              <p className="text-sm sm:text-base text-[#1A0A1E]/70 leading-relaxed mb-4">
-                We believe that successful placement is about more than matching a CV to a job description. It&rsquo;s about understanding the candidate&rsquo;s aspirations, the employer&rsquo;s culture, and the realities of working in a foreign country.
-              </p>
-              <p className="text-sm sm:text-base text-[#1A0A1E]/70 leading-relaxed mb-4">
-                Our team personally interviews every candidate, verifies every employer, and provides ongoing support that extends well beyond the day of departure. We don&rsquo;t just send workers abroad — we prepare them for success.
-              </p>
-              <div className="pull-quote text-base sm:text-lg">
-                We don&rsquo;t just send workers abroad — we prepare them for success.
-              </div>
-            </div>
-            <div className="rounded-2xl overflow-hidden shadow-lg">
-              <img
-                src="/images/team.jpg"
-                alt="Team collaboration"
-                className="w-full aspect-[4/3] object-cover"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.classList.add('img-fallback');
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              to="/guides"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-[#2B86C5] rounded-full hover:bg-[#2470a5] transition-all no-underline"
-            >
-              <i className="fas fa-globe" />
-              Explore Destinations
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+      <div className="wavy-divider -mt-1 rotate-180">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
+          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
+        </svg>
+      </div>
+    </section>
+  )
 }

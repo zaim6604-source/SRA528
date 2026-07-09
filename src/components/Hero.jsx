@@ -1,89 +1,109 @@
-import useScrollReveal from '../hooks/useScrollReveal';
-import OptimizedImage from './OptimizedImage';
+import { COMPANY } from '../data/siteData'
+import FallbackImage from './FallbackImage'
+import ScrollReveal from './ScrollReveal'
 
 export default function Hero() {
-  const revealRef = useScrollReveal();
-
   return (
-    <section id="hero" className="relative pt-8 sm:pt-12 pb-16 sm:pb-24 overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-[#FFD6F0] rounded-bl-[6rem] -z-10" />
-      <div className="absolute top-20 right-20 w-72 h-72 rounded-full bg-[#FF3CAC]/5 blur-3xl -z-10" />
+    <section id="hero" className="relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-cta/5 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={revealRef} className="reveal grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="order-2 lg:order-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FF3CAC]/10 text-[#FF3CAC] rounded-full text-xs font-semibold mb-4 sm:mb-6 tracking-wide">
-              <i className="fas fa-check-circle text-[10px]" />
-              License #2325/PWR — Govt. Registered
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
+          {/* Headline tile */}
+          <ScrollReveal className="lg:col-span-2 lg:row-span-2 bg-white rounded-2xl p-8 lg:p-12 shadow-lg border border-primary/5 flex flex-col justify-center">
+            <div className="inline-flex items-center gap-2 bg-accent/20 text-ink text-xs font-bold px-3 py-1 rounded-full mb-4 w-fit">
+              <i className="fas fa-badge-check text-accent" />
+              License {COMPANY.license}
             </div>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#1A0A1E] leading-tight mb-4 sm:mb-6">
-              From Peshawar&apos;s Heart to the World&apos;s Worksites
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink leading-tight mb-4">
+              A Clear Path from Swat to{' '}
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Success Abroad
+              </span>
             </h1>
-
-            <p className="text-base sm:text-lg text-[#1A0A1E]/70 mb-6 sm:mb-8 max-w-xl leading-relaxed">
-              Parwaz Recruiting Agency connects skilled workers to reliable overseas jobs —
-              licensed, clear, and caring.
+            <p className="text-base lg:text-lg text-ink/70 max-w-xl mb-6 leading-relaxed">
+              {COMPANY.heroTagline}
             </p>
-
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
+            <div className="flex flex-wrap items-center gap-3">
               <a
-                href="https://wa.me/923339319471"
+                href={COMPANY.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-white bg-[#2B86C5] rounded-full hover:bg-[#2470a5] hover:shadow-xl hover:shadow-[#2B86C5]/30 transition-all no-underline"
+                className="inline-flex items-center gap-2 bg-cta text-white px-6 py-3 rounded-full font-bold hover:brightness-110 transition-all shadow-lg shadow-cta/30"
               >
-                <i className="fas fa-feather-alt" />
+                <i className="fab fa-whatsapp" />
                 Apply Now
               </a>
               <a
-                href="https://wa.me/923339319471"
+                href={COMPANY.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-[#FF3CAC] border-2 border-[#FF3CAC] rounded-full hover:bg-[#FF3CAC] hover:text-white transition-all no-underline"
+                className="inline-flex items-center gap-2 border-2 border-primary text-primary px-6 py-3 rounded-full font-bold hover:bg-primary hover:text-white transition-all"
               >
-                <i className="fab fa-whatsapp text-lg" />
+                <i className="fab fa-whatsapp" />
                 WhatsApp
               </a>
             </div>
+          </ScrollReveal>
 
-            <div className="flex flex-wrap gap-2 sm:gap-3">
-              <div className="chip">
-                <i className="fas fa-users text-[#FF3CAC]" />
-                <span>5,000+ Placed</span>
-              </div>
-              <div className="chip">
-                <i className="fas fa-globe-asia text-[#FF3CAC]" />
-                <span>9+ Countries</span>
-              </div>
-              <div className="chip">
-                <i className="fas fa-building text-[#FF3CAC]" />
-                <span>Baby Shopping Center</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="order-1 lg:order-2 relative">
-            <div className="arc-panel overflow-hidden shadow-2xl shadow-[#FF3CAC]/20">
-              <OptimizedImage
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80"
-                alt="Modern professional office workspace"
-                className="aspect-[4/3]"
-                icon="fas fa-building"
+          {/* Photo tile 1 */}
+          <ScrollReveal className="relative rounded-2xl overflow-hidden shadow-lg" delay={100}>
+            <div className="h-52 lg:h-72">
+              <FallbackImage
+                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&auto=format"
+                alt="Workers on site"
+                className="w-full h-full"
+                icon="fa-users"
+                bgClass="from-primary to-secondary"
               />
-            </div>
-            <div className="absolute -bottom-12 -left-3 sm:-bottom-20 sm:-left-5 bg-white rounded-xl shadow-lg px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
-              <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#FF3CAC] to-[#784BA0] flex items-center justify-center text-white font-bold text-xs sm:text-sm font-[Plus Jakarta Sans]">
-                2325
-              </div>
-              <div>
-                <div className="text-[10px] sm:text-xs text-gray-500">License No.</div>
-                <div className="text-xs sm:text-sm font-bold text-[#1A0A1E]">2325/PWR</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-xs font-bold text-ink flex items-center gap-1">
+                <i className="fas fa-star text-accent" /> Trusted Since 2020
               </div>
             </div>
-          </div>
+          </ScrollReveal>
+
+          {/* Photo tile 2 */}
+          <ScrollReveal className="relative rounded-2xl overflow-hidden shadow-lg" delay={200}>
+            <div className="h-52 lg:h-72">
+              <FallbackImage
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&auto=format"
+                alt="Royal Arcade Plaza"
+                className="w-full h-full"
+                icon="fa-building"
+                bgClass="from-secondary to-accent"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-xs font-bold text-ink flex items-center gap-1">
+                <i className="fas fa-location-dot text-primary" /> Royal Arcade, Mingora
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Stat tile */}
+          <ScrollReveal className="bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 shadow-lg text-white flex flex-col justify-center items-center text-center" delay={150}>
+            <div className="text-4xl font-extrabold">500+</div>
+            <div className="text-sm font-medium opacity-90 mt-1">Workers Placed</div>
+            <div className="w-12 h-0.5 bg-white/30 rounded-full my-3" />
+            <div className="flex items-center gap-1 text-accent">
+              <i className="fas fa-star" /><i className="fas fa-star" />
+              <i className="fas fa-star" /><i className="fas fa-star" />
+              <i className="fas fa-star" />
+            </div>
+          </ScrollReveal>
+
+          {/* Badge tile */}
+          <ScrollReveal className="bg-white rounded-2xl p-4 shadow-lg border border-accent/30 flex items-center justify-center gap-3" delay={250}>
+            <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xl">
+              <i className="fas fa-certificate" />
+            </div>
+            <div className="text-left">
+              <div className="text-xs text-ink/60 font-medium">Government Licensed</div>
+              <div className="font-extrabold text-ink text-sm">{COMPANY.license}</div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
-  );
+  )
 }

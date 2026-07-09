@@ -1,119 +1,88 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react'
+import { NAV_LINKS, COMPANY } from '../data/siteData'
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const { pathname } = useLocation();
-
-  const links = [
-    { label: 'Home', to: '/' },
-    { label: 'Our Story', to: '/story' },
-    { label: 'Services', to: '/services' },
-    { label: 'Guides', to: '/guides' },
-    { label: 'Contact', to: '/contact' },
-  ];
-
-  const isActive = (to) => {
-    if (to === '/') return pathname === '/';
-    return pathname.startsWith(to);
-  };
+  const [open, setOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-pink-100">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-primary/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 no-underline">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-[#FF3CAC] to-[#784BA0] flex items-center justify-center text-white font-bold text-sm sm:text-base font-[Plus Jakarta Sans] shadow-md">
-              <i className="fas fa-feather-alt text-xs sm:text-sm" />
+          <a href="#" className="flex items-center gap-3 shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-extrabold text-sm shadow-md">
+              SR
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm sm:text-base font-bold font-[Plus Jakarta Sans] text-[#1A0A1E] leading-tight">Parwaz</span>
-              <span className="text-[10px] sm:text-xs font-medium text-[#FF3CAC] tracking-wide leading-tight">Recruiting Agency</span>
+            <div className="hidden sm:block">
+              <span className="font-bold text-sm text-ink">{COMPANY.name}</span>
+              <span className="block text-[10px] text-primary font-semibold tracking-wider uppercase">License {COMPANY.license}</span>
             </div>
-          </Link>
+            <div className="sm:hidden">
+              <span className="font-bold text-sm text-ink">{COMPANY.shortName}</span>
+            </div>
+          </a>
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
-            {links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className={`px-3 xl:px-4 py-2 text-sm font-medium rounded-lg transition-colors no-underline ${
-                  isActive(l.to)
-                    ? 'text-[#FF3CAC] bg-pink-50'
-                    : 'text-[#1A0A1E]/80 hover:text-[#FF3CAC] hover:bg-pink-50'
-                }`}
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="relative px-3 py-2 text-sm font-medium text-ink/70 hover:text-primary transition-colors group"
               >
-                {l.label}
-              </Link>
+                {link.label}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+              </a>
             ))}
           </div>
 
-          {/* Right */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* CTA */}
+          <div className="flex items-center gap-3">
             <a
-              href="https://wa.me/923339319471"
+              href={COMPANY.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 rounded-full hover:bg-green-100 transition-colors no-underline"
+              className="hidden sm:inline-flex items-center gap-2 bg-cta text-white px-4 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-cta/30 animate-pulse-soft"
             >
               <i className="fab fa-whatsapp" />
-              <span className="hidden md:inline">0333-9319471</span>
-            </a>
-            <a
-              href="https://wa.me/923339319471"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-bold text-white bg-[#2B86C5] rounded-full hover:bg-[#2470a5] hover:shadow-lg hover:shadow-[#2B86C5]/30 transition-all no-underline"
-            >
-              <i className="fas fa-feather-alt text-xs" />
               Apply Now
             </a>
-            {/* Mobile hamburger */}
             <button
               onClick={() => setOpen(!open)}
-              className="lg:hidden ml-1 p-2 rounded-lg text-[#1A0A1E] hover:bg-pink-50 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-ink/70 hover:text-primary hover:bg-primary/5 transition-colors"
               aria-label="Toggle menu"
             >
-              <i className={`fas ${open ? 'fa-times' : 'fa-bars'} text-lg`} />
+              <i className={`fas ${open ? 'fa-times' : 'fa-bars'} text-xl`} />
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="lg:hidden border-t border-pink-100 bg-white/98 backdrop-blur-md">
-          <div className="px-4 py-3 space-y-1">
-            {links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className={`block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors no-underline ${
-                  isActive(l.to)
-                    ? 'text-[#FF3CAC] bg-pink-50'
-                    : 'text-[#1A0A1E]/80 hover:text-[#FF3CAC] hover:bg-pink-50'
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
-            <div className="pt-2 border-t border-pink-100">
+        {open && (
+          <div className="lg:hidden pb-4 border-t border-primary/10 pt-4 animate-fade-in">
+            <div className="flex flex-col gap-2">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="px-3 py-2 text-sm font-medium text-ink/70 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
               <a
-                href="https://www.facebook.com/Parwaazoep"
+                href={COMPANY.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-[#1A0A1E]/80 hover:text-[#FF3CAC] no-underline"
+                className="sm:hidden flex items-center gap-2 bg-cta text-white px-4 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all mt-2"
               >
-                <i className="fab fa-facebook text-blue-600" />
-                Facebook
+                <i className="fab fa-whatsapp" />
+                Apply Now
               </a>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
-  );
+  )
 }

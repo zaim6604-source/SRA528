@@ -1,218 +1,255 @@
-import { useState } from 'react';
-import useScrollReveal from '../hooks/useScrollReveal';
-import { faqs } from '../data/faq';
+import { useState } from 'react'
+import ScrollReveal from '../components/ScrollReveal'
+import { COMPANY, FAQS } from '../data/siteData'
 
 export default function Contact() {
-  const [openFaq, setOpenFaq] = useState(null);
-  const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
-  const revealRef = useScrollReveal();
-  const faqRef = useScrollReveal();
+  const [form, setForm] = useState({ name: '', phone: '', message: '' })
+  const [openIndex, setOpenIndex] = useState(null)
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const text = `Hello Parwaz Recruiting Agency! New inquiry from ${form.name || 'N/A'}. Phone: ${form.phone || 'N/A'}. Email: ${form.email || 'N/A'}. Message: ${form.message || 'N/A'}.`;
-    window.open(`https://wa.me/923339319471?text=${encodeURIComponent(text)}`, '_blank');
-  };
+    e.preventDefault()
+    const text = encodeURIComponent(
+      `Hello ${COMPANY.name}! I am ${form.name} (${form.phone}). ${form.message}`
+    )
+    window.open(`${COMPANY.whatsappLink}?text=${text}`, '_blank', 'noopener')
+  }
+
+  const toggleFaq = (i) => {
+    setOpenIndex(openIndex === i ? null : i)
+  }
 
   return (
-    <div>
-      {/* Header */}
-      <section className="hero-gradient pt-12 pb-16 sm:pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#00F5D4] font-[Plus Jakarta Sans]">
-            Get in Touch
-          </span>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-[Plus Jakarta Sans] text-white mt-3 mb-3">
-            Let&rsquo;s Start Your Journey
-          </h1>
-          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">
-            Reach out to us — we&rsquo;re here to answer your questions and help you find the right opportunity.
-          </p>
-        </div>
-      </section>
+    <section className="relative">
+      <div className="wavy-divider -mb-1">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
+          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
+        </svg>
+      </div>
 
-      {/* Contact Grid */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
-            {/* Form */}
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF3CAC] font-[Plus Jakarta Sans]">
-                Send a Message
+      <div className="bg-white py-16 lg:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
+                <i className="fas fa-address-card" />
+                Contact Us
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold font-[Plus Jakarta Sans] text-[#1A0A1E] mt-2 mb-6">
-                We&rsquo;ll Get Back to You
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
+                Two Offices, One Universe of Opportunity
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-[#1A0A1E]/70 mb-1.5 uppercase tracking-wider">Your Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="Enter your full name"
-                    className="w-full px-4 py-3 rounded-xl border border-pink-100 focus:border-[#FF3CAC] focus:ring-2 focus:ring-[#FF3CAC]/10 outline-none transition-all text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-[#1A0A1E]/70 mb-1.5 uppercase tracking-wider">Phone Number</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="03XX-XXXXXXX"
-                    className="w-full px-4 py-3 rounded-xl border border-pink-100 focus:border-[#FF3CAC] focus:ring-2 focus:ring-[#FF3CAC]/10 outline-none transition-all text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-[#1A0A1E]/70 mb-1.5 uppercase tracking-wider">Email (optional)</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="your@email.com"
-                    className="w-full px-4 py-3 rounded-xl border border-pink-100 focus:border-[#FF3CAC] focus:ring-2 focus:ring-[#FF3CAC]/10 outline-none transition-all text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-[#1A0A1E]/70 mb-1.5 uppercase tracking-wider">Your Message</label>
-                  <textarea
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    placeholder="Tell us about your interest, preferred country, and role..."
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-xl border border-pink-100 focus:border-[#FF3CAC] focus:ring-2 focus:ring-[#FF3CAC]/10 outline-none transition-all text-sm resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-[#2B86C5] rounded-xl hover:bg-[#2470a5] hover:shadow-lg transition-all"
-                >
-                  <i className="fab fa-whatsapp" />
-                  Send via WhatsApp
-                </button>
-                <p className="text-xs text-[#1A0A1E]/40 text-center">
-                  By submitting, you agree to be contacted via WhatsApp. Your data is kept private.
+              <p className="text-ink/60 max-w-2xl mx-auto">
+                Visit us at Khwaza Khela, Swat or our Rawalpindi branch. Or reach out through any channel below.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            <ScrollReveal delay={100}>
+              <div className="bg-background rounded-2xl p-8 shadow-lg border border-primary/5">
+                <h3 className="text-xl font-bold text-ink mb-6 flex items-center gap-2">
+                  <i className="fas fa-paper-plane text-primary" />
+                  Send Us a Message
+                </h3>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-semibold text-ink/70 mb-1">Your Name</label>
+                    <input type="text" id="name" name="name" required value={form.name} onChange={handleChange}
+                      placeholder="e.g., Muhammad Khan"
+                      className="w-full px-4 py-3 rounded-xl border border-primary/20 bg-white text-ink placeholder:text-ink/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-ink/70 mb-1">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required value={form.phone} onChange={handleChange}
+                      placeholder="e.g., 0310-4444351"
+                      className="w-full px-4 py-3 rounded-xl border border-primary/20 bg-white text-ink placeholder:text-ink/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-semibold text-ink/70 mb-1">Your Message</label>
+                    <textarea id="message" name="message" required rows={4} value={form.message} onChange={handleChange}
+                      placeholder="Tell us about your requirements..."
+                      className="w-full px-4 py-3 rounded-xl border border-primary/20 bg-white text-ink placeholder:text-ink/30 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all resize-none" />
+                  </div>
+                  <button type="submit"
+                    className="w-full bg-cta text-white py-3.5 rounded-full font-bold text-base hover:brightness-110 transition-all shadow-lg shadow-cta/30 flex items-center justify-center gap-2">
+                    <i className="fab fa-whatsapp" /> Send via WhatsApp
+                  </button>
+                </form>
+                <p className="text-xs text-ink/40 text-center mt-4">
+                  <i className="fas fa-shield-alt mr-1" /> Your information is kept confidential. Messages sent via WhatsApp.
                 </p>
-              </form>
-            </div>
+                <div className="mt-4 pt-4 border-t border-primary/10">
+                  <a href={`mailto:${COMPANY.email}`} className="text-xs text-ink/50 hover:text-primary transition-colors flex items-center justify-center gap-1">
+                    <i className="fas fa-envelope" /> {COMPANY.email}
+                  </a>
+                </div>
+              </div>
+            </ScrollReveal>
 
-            {/* Contact Info + Map */}
-            <div>
-              <div className="space-y-6 mb-8">
-                <div className="flex items-start gap-4 p-4 sm:p-5 bg-[#FFD6F0] rounded-2xl">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF3CAC]/10 flex items-center justify-center text-[#FF3CAC] flex-shrink-0">
-                    <i className="fab fa-whatsapp text-lg" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold font-[Plus Jakarta Sans] text-[#1A0A1E]">WhatsApp</h3>
-                    <a
-                      href="https://wa.me/923339319471"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-[#FF3CAC] hover:underline no-underline"
-                    >
-                      0333-9319471
+            <ScrollReveal delay={200}>
+              <div className="space-y-6">
+                {/* Dual Office Info */}
+                <div className="bg-background rounded-2xl p-6 shadow-lg border border-primary/5">
+                  <h3 className="text-xl font-bold text-ink mb-4">Visit or Call Us</h3>
+                  <div className="space-y-4">
+                    {/* Head Office */}
+                    <div className="p-3 rounded-xl bg-white border-l-4 border-cta">
+                      <p className="text-xs font-bold text-cta mb-2">HEAD OFFICE — KHAWAZA KHELA, SWAT</p>
+                      <a href={COMPANY.offices.head.mapUrl} target="_blank" rel="noopener noreferrer"
+                        className="flex items-start gap-3 mb-2 hover:bg-primary/5 transition-colors">
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                          <i className="fas fa-location-dot" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-sm text-ink">Address</div>
+                          <div className="text-sm text-ink/60">{COMPANY.offices.head.address}</div>
+                        </div>
+                      </a>
+                      <a href={`tel:${COMPANY.offices.head.phone}`}
+                        className="flex items-start gap-3 hover:bg-primary/5 transition-colors">
+                        <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
+                          <i className="fas fa-phone" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-sm text-ink">Phone</div>
+                          <div className="text-sm text-ink/60">{COMPANY.offices.head.phone}</div>
+                        </div>
+                      </a>
+                    </div>
+
+                    {/* Branch Office */}
+                    <div className="p-3 rounded-xl bg-white border-l-4 border-accent">
+                      <p className="text-xs font-bold text-accent mb-2">BRANCH OFFICE — RAWALPINDI</p>
+                      <a href={COMPANY.offices.branch.mapUrl} target="_blank" rel="noopener noreferrer"
+                        className="flex items-start gap-3 mb-2 hover:bg-primary/5 transition-colors">
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                          <i className="fas fa-location-dot" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-sm text-ink">Address</div>
+                          <div className="text-sm text-ink/60">{COMPANY.offices.branch.address}</div>
+                        </div>
+                      </a>
+                      <a href={`tel:${COMPANY.offices.branch.phone}`}
+                        className="flex items-start gap-3 hover:bg-primary/5 transition-colors">
+                        <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
+                          <i className="fas fa-phone" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-sm text-ink">Phone</div>
+                          <div className="text-sm text-ink/60">{COMPANY.offices.branch.phone}</div>
+                        </div>
+                      </a>
+                    </div>
+
+                    {/* Shared WhatsApp */}
+                    <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer"
+                      className="flex items-start gap-3 p-3 rounded-xl bg-white hover:bg-primary/5 transition-colors">
+                      <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-green-600 shrink-0">
+                        <i className="fab fa-whatsapp" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-sm text-ink">WhatsApp (Both Offices)</div>
+                        <div className="text-sm text-ink/60">{COMPANY.whatsapp}</div>
+                      </div>
                     </a>
-                    <p className="text-xs text-[#1A0A1E]/50 mt-0.5">Fastest response — click to chat</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 sm:p-5 bg-[#FFD6F0] rounded-2xl">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF3CAC]/10 flex items-center justify-center text-[#FF3CAC] flex-shrink-0">
-                    <i className="fas fa-phone text-lg" />
+                {/* Two Maps */}
+                <div className="space-y-4">
+                  {/* Khwaza Khela Map */}
+                  <div className="rounded-2xl overflow-hidden shadow-lg border border-primary/5">
+                    <div className="bg-primary/5 px-4 py-2">
+                      <p className="text-xs font-bold text-primary">KHAWAZA KHELA — HEAD OFFICE</p>
+                    </div>
+                    <iframe title="Khwaza Khela Office Location"
+                      src={COMPANY.offices.head.mapEmbed}
+                      width="100%" height="220" style={{ border: 0 }} allowFullScreen="" loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade" className="w-full"
+                      onError={(e) => { e.target.style.display = 'none' }} />
+                    <div className="bg-white p-3 text-center">
+                      <a href={COMPANY.offices.head.mapUrl} target="_blank" rel="noopener noreferrer"
+                        className="text-sm font-semibold text-primary hover:underline">
+                        <i className="fas fa-map-pin mr-1" /> Open in Google Maps
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold font-[Plus Jakarta Sans] text-[#1A0A1E]">Phone</h3>
-                    <a href="tel:0915271919" className="text-sm text-[#FF3CAC] hover:underline no-underline">091-5271919</a>
-                  </div>
-                </div>
 
-                <div className="flex items-start gap-4 p-4 sm:p-5 bg-[#FFD6F0] rounded-2xl">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF3CAC]/10 flex items-center justify-center text-[#FF3CAC] flex-shrink-0">
-                    <i className="fas fa-envelope text-lg" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold font-[Plus Jakarta Sans] text-[#1A0A1E]">Email</h3>
-                    <a href="mailto:parwazoep@gmail.com" className="text-sm text-[#FF3CAC] hover:underline no-underline">parwazoep@gmail.com</a>
-                    <p className="text-xs text-[#1A0A1E]/50 mt-0.5">Also: info@parwazoep.pk</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-4 sm:p-5 bg-[#FFD6F0] rounded-2xl">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF3CAC]/10 flex items-center justify-center text-[#FF3CAC] flex-shrink-0">
-                    <i className="fas fa-map-marker-alt text-lg" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold font-[Plus Jakarta Sans] text-[#1A0A1E]">Address</h3>
-                    <p className="text-sm text-[#1A0A1E]/70">
-                      Room No. C-16, First Floor<br />
-                      Baby Shopping Center, Arbab Road<br />
-                      Cantt, Peshawar, KPK
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Map */}
-              <div className="rounded-2xl overflow-hidden shadow-md border border-pink-100">
-                <iframe
-                  title="Parwaz Recruiting Agency Location"
-                  src="https://www.google.com/maps?q=33.998321858858155,71.53711468650717&output=embed"
-                  width="100%"
-                  height="260"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section ref={faqRef} className="reveal py-16 sm:py-24 bg-[#FFD6F0]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#FF3CAC] font-[Plus Jakarta Sans]">
-              FAQ
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-[Plus Jakarta Sans] text-[#1A0A1E] mt-2">
-              Frequently Asked Questions
-            </h2>
-          </div>
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-pink-100">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-5 py-4 text-left font-[Plus Jakarta Sans] font-semibold text-sm sm:text-base text-[#1A0A1E] hover:bg-[#FFD6F0]/50 transition-colors"
-                >
-                  <span>{faq.q}</span>
-                  <i className={`fas fa-chevron-down text-xs text-[#FF3CAC] transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
-                </button>
-                <div className={`faq-answer ${openFaq === i ? 'open' : ''}`}>
-                  <div>
-                    <div className="px-5 pb-4 text-sm text-[#1A0A1E]/70 leading-relaxed">
-                      {faq.a}
+                  {/* Rawalpindi Map */}
+                  <div className="rounded-2xl overflow-hidden shadow-lg border border-primary/5">
+                    <div className="bg-accent/5 px-4 py-2">
+                      <p className="text-xs font-bold text-accent">RAWALPINDI — BRANCH OFFICE</p>
+                    </div>
+                    <iframe title="Rawalpindi Branch Location"
+                      src={COMPANY.offices.branch.mapEmbed}
+                      width="100%" height="220" style={{ border: 0 }} allowFullScreen="" loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade" className="w-full"
+                      onError={(e) => { e.target.style.display = 'none' }} />
+                    <div className="bg-white p-3 text-center">
+                      <a href={COMPANY.offices.branch.mapUrl} target="_blank" rel="noopener noreferrer"
+                        className="text-sm font-semibold text-primary hover:underline">
+                        <i className="fas fa-map-pin mr-1" /> Open in Google Maps
+                      </a>
                     </div>
                   </div>
                 </div>
+
+                <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer"
+                  className="block w-full bg-cta text-white py-4 rounded-full font-bold text-center hover:brightness-110 transition-all shadow-lg shadow-cta/30">
+                  <i className="fab fa-whatsapp mr-2" /> Quick Apply — Start Now
+                </a>
               </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ */}
+      <div className="bg-background py-16 lg:py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 bg-primary/10 text-primary font-bold text-xs px-4 py-1.5 rounded-full">
+                <i className="fas fa-question-circle" /> FAQs
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-ink mt-4 mb-3">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-ink/60 max-w-2xl mx-auto">
+                Everything you need to know about working with {COMPANY.name}.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="space-y-3">
+            {FAQS.map((faq, i) => (
+              <ScrollReveal key={i} delay={i * 50}>
+                <div className={`rounded-xl border ${openIndex === i ? 'border-primary/30 bg-primary/[0.02]' : 'border-primary/10 bg-white'} transition-all`}>
+                  <button onClick={() => toggleFaq(i)}
+                    className="w-full flex items-center justify-between p-4 text-left"
+                    aria-expanded={openIndex === i}>
+                    <span className="font-semibold text-sm sm:text-base text-ink pr-4">{faq.q}</span>
+                    <i className={`fas fa-chevron-down text-primary shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180' : ''}`} />
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${openIndex === i ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="px-4 pb-4 text-sm text-ink/60 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </section>
-    </div>
-  );
+      </div>
+
+      <div className="wavy-divider -mt-1 rotate-180">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
+          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
+        </svg>
+      </div>
+    </section>
+  )
 }

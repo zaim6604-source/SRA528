@@ -1,51 +1,70 @@
-import useScrollReveal from '../hooks/useScrollReveal';
-
-const steps = [
-  { num: 1, title: 'Inquiry & Registration', desc: 'Contact us via WhatsApp, phone, or visit our office in Peshawar. We register your profile.', icon: 'fas fa-clipboard-list' },
-  { num: 2, title: 'Documentation & Verification', desc: 'Submit your documents. We verify, attest, and prepare your complete application package.', icon: 'fas fa-file-alt' },
-  { num: 3, title: 'Employer Matching', desc: 'We match your profile with verified overseas employers. You review and approve the offer.', icon: 'fas fa-handshake' },
-  { num: 4, title: 'Visa & Medical Processing', desc: 'We process your visa, schedule medical tests, and handle all travel arrangements.', icon: 'fas fa-passport' },
-  { num: 5, title: 'Departure & Settlement', desc: 'Fly to your destination with full orientation. We stay in touch for post-arrival support.', icon: 'fas fa-plane' },
-];
+import { PROCESS_STEPS } from '../data/siteData'
+import ScrollReveal from './ScrollReveal'
 
 export default function Process() {
-  const revealRef = useScrollReveal();
-
   return (
-    <section id="process" className="relative py-16 sm:py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FF3CAC] to-[#784BA0]" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }} />
+    <section id="process" className="relative overflow-hidden">
+      <div className="wavy-divider -mb-1">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
+          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
+        </svg>
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 text-white rounded-full text-xs font-semibold mb-4 backdrop-blur-sm">
-            <i className="fas fa-arrow-right" />
-            How It Works
-          </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
-            Your Journey in 5 Steps
-          </h2>
-          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">
-            Simple, transparent process from inquiry to departure.
-          </p>
-        </div>
-
-        <div ref={revealRef} className="reveal max-w-4xl mx-auto space-y-6">
-          {steps.map((step, i) => (
-            <div key={i} className="flex items-start gap-4 sm:gap-6 bg-white/95 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FF3CAC] flex items-center justify-center text-white font-bold text-lg sm:text-xl font-[Plus Jakarta Sans] shadow-md">
-                {step.num}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <i className={`${step.icon} text-[#FF3CAC] text-sm`} />
-                  <h3 className="text-base sm:text-lg font-bold font-[Plus Jakarta Sans] text-[#1A0A1E]">{step.title}</h3>
-                </div>
-                <p className="text-sm text-[#1A0A1E]/60 leading-relaxed">{step.desc}</p>
-              </div>
+      <div className="relative bg-gradient-to-br from-primary via-secondary to-cta py-16 lg:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+          <ScrollReveal>
+            <div className="text-center mb-14">
+              <span className="inline-flex items-center gap-2 bg-white/20 text-white font-bold text-xs px-4 py-1.5 rounded-full backdrop-blur">
+                <i className="fas fa-arrow-right" />
+                How It Works
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-white mt-4 mb-3">
+                Your Journey in <span className="text-accent">5 Simple Steps</span>
+              </h2>
+              <p className="text-white/80 max-w-2xl mx-auto">
+                From registration to departure — we guide you through every stage.
+              </p>
             </div>
-          ))}
+          </ScrollReveal>
+
+          <div className="relative">
+            <div className="hidden lg:block absolute top-0 left-1/2 -translate-x-1/2 w-1 h-full bg-white/20 rounded-full" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4">
+              {PROCESS_STEPS.map((step, i) => {
+                const isEven = i % 2 === 0
+                return (
+                  <ScrollReveal key={step.step} delay={i * 100}>
+                    <div className={`relative flex flex-col items-center text-center ${isEven ? 'lg:mt-0' : 'lg:mt-12'}`}>
+                      <div className="w-16 h-16 rounded-full bg-white text-primary flex items-center justify-center text-2xl font-extrabold shadow-xl mb-4 relative z-10 ring-4 ring-white/30">
+                        {step.step}
+                      </div>
+                      <div className="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/20 w-full">
+                        <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white text-lg mb-3 mx-auto">
+                          <i className={`fas ${step.icon}`} />
+                        </div>
+                        <h3 className="text-white font-bold text-base mb-1">{step.title}</h3>
+                        <p className="text-white/70 text-xs leading-relaxed">{step.desc}</p>
+                      </div>
+                      {i < PROCESS_STEPS.length - 1 && (
+                        <div className="hidden lg:flex absolute -right-4 top-8 text-white/40 text-xl">
+                          <i className="fas fa-chevron-right" />
+                        </div>
+                      )}
+                    </div>
+                  </ScrollReveal>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
+
+      <div className="wavy-divider -mt-1 rotate-180">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="text-background fill-current">
+          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" />
+        </svg>
+      </div>
     </section>
-  );
+  )
 }
