@@ -1,143 +1,125 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import useInView from '../hooks/useInView'
+import FadeUp from '../components/FadeUp'
 
-const FALLBACK = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600" fill="%23006BA630"%3E%3Crect width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Inter,sans-serif" font-size="24" fill="%23006BA6"%3EImage%3C/text%3E%3C/svg%3E'
-const imgErr = (e) => { e.target.src = FALLBACK }
+const WA_NUMBER = '923338608944'
 
-const counters = [
-  { icon: 'fa-users', label: 'Workers Placed', end: 3500, suffix: '+' },
-  { icon: 'fa-globe-asia', label: 'Countries', end: 9, suffix: '+' },
-  { icon: 'fa-calendar', label: 'Years of Service', end: 8, suffix: '+' },
-  { icon: 'fa-certificate', label: 'Govt. Licensed', end: 1, text: true },
+const stats = [
+  { end: '1,500+', label: 'Workers Placed', icon: 'fa-users' },
+  { end: '9', label: 'Countries', icon: 'fa-flag' },
+  { end: '15+', label: 'Years Experience', icon: 'fa-calendar' },
+  { end: '98%', label: 'Satisfaction', icon: 'fa-star' },
 ]
 
-function CounterCard({ item }) {
-  const [ref, inView] = useInView({ threshold: 0.5 })
-  const [val, setVal] = useState(0)
-
-  useEffect(() => {
-    if (!inView || item.text) return
-    const end = item.end
-    const inc = end / (2000 / 16)
-    const t = setInterval(() => {
-      setVal((v) => {
-        const next = v + inc
-        return next >= end ? (clearInterval(t), end) : next
-      })
-    }, 16)
-    return () => clearInterval(t)
-  }, [inView, item])
-
-  return (
-    <div ref={ref} className="bg-white rounded-2xl shadow-md p-5 text-center border border-primary/10 hover:shadow-lg transition-all">
-      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-        <i className={`fas ${item.icon} text-xl text-primary`} />
-      </div>
-      <div className="text-2xl md:text-3xl font-extrabold text-primary">
-        {item.text ? <i className="fas fa-check-circle text-secondary text-3xl" /> : `${Math.floor(val)}${item.suffix}`}
-      </div>
-      <p className="text-sm text-ink/60 font-medium mt-1">{item.label}</p>
-    </div>
-  )
-}
-
-function AnimateOnView({ children, delay = 0, className = '' }) {
-  const [ref, inView] = useInView({ threshold: 0.15 })
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  )
-}
+const quickLinks = [
+  { to: '/services', label: 'Our Services', icon: 'fa-briefcase', desc: 'Explore our recruitment services' },
+  { to: '/destinations', label: 'Destinations', icon: 'fa-globe', desc: 'View countries we serve' },
+  { to: '/process', label: 'How It Works', icon: 'fa-road', desc: 'Our 5-step process' },
+  { to: '/apply', label: 'Apply Now', icon: 'fa-paper-plane', desc: 'Start your journey today' },
+]
 
 export default function Overview() {
   return (
-    <div className="max-w-6xl mx-auto space-y-10">
-      {/* Hero card */}
-      <AnimateOnView>
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-deep p-6 md:p-10 text-white">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+    <div className="space-y-6">
+      {/* ── Hero Dashboard Card ── */}
+      <FadeUp>
+        <div className="dashboard-card overflow-hidden relative">
+          {/* Decorative background */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 rounded-full blur-3xl" />
+
           <div className="relative z-10">
-            <span className="inline-block bg-cta text-white text-xs font-bold px-3 py-1 rounded-full mb-4">
-              Govt. Licensed OEP — 2316/SKT
-            </span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-3">
-              Your Command Center for <span className="text-accent">Working Abroad</span>
+            {/* License badge */}
+            <div className="inline-flex items-center gap-2 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 shadow-sm">
+              <i className="fas fa-certificate" />
+              GOVERNMENT LICENSED · 2279/SKT
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink leading-[1.1] mt-2">
+              Sialkot's Modern Gateway to{' '}
+              <span className="text-primary">Global Jobs</span>
             </h1>
-            <p className="text-white/80 max-w-xl text-sm md:text-base mb-6">
-              Based at Head Marala Road, Sialkot — S.H.Q Enterprises connects skilled Pakistani workers with verified employers across the Middle East and Europe.
+
+            <p className="text-ink/60 mt-4 max-w-2xl leading-relaxed">
+              Kotli Associates — trusted overseas recruitment agency based at Rehman Centre,
+              Chowk Kotli Behram, Sialkot. We connect skilled workers from Punjab with
+              reputable employers across the Gulf and Europe.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <a href="https://wa.me/923092144443?text=*Application%20-%20S.H.Q%20Enterprises*%0A%0A" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-cta text-white font-bold px-6 py-3 rounded-full text-sm hover:opacity-90 transition-all shadow-lg shadow-cta/30">
-                <i className="fas fa-paper-plane" /> Apply Now
+
+            {/* CTA buttons */}
+            <div className="flex flex-wrap items-center gap-3 mt-6">
+              <a
+                href={`https://wa.me/${WA_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-cta text-ink font-extrabold px-6 py-3 rounded-full text-sm hover:brightness-110 transition-all shadow-lg"
+              >
+                <i className="fas fa-paper-plane" />
+                Apply Now
               </a>
-              <a href="https://wa.me/923092144443" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white/20 text-white font-semibold px-6 py-3 rounded-full text-sm hover:bg-white/30 transition-all border border-white/30">
-                <i className="fab fa-whatsapp" /> WhatsApp Us
+              <a
+                href={`https://wa.me/${WA_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border-2 border-primary text-primary font-bold px-6 py-3 rounded-full text-sm hover:bg-primary hover:text-white transition-all"
+              >
+                <i className="fab fa-whatsapp" />
+                WhatsApp
               </a>
             </div>
           </div>
         </div>
-      </AnimateOnView>
+      </FadeUp>
 
-      {/* Counter cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {counters.map((item, i) => (
-          <AnimateOnView key={item.label} delay={i * 80}>
-            <CounterCard item={item} />
-          </AnimateOnView>
-        ))}
-      </div>
-
-      {/* Quick links */}
-      <AnimateOnView>
-        <div className="bg-white rounded-2xl shadow-md p-6 md:p-8 border border-primary/10">
-          <h2 className="text-xl md:text-2xl font-bold text-primary mb-6">Quick Links</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { to: '/services', icon: 'fa-briefcase', label: 'Our Services', color: 'from-primary to-secondary' },
-              { to: '/jobs', icon: 'fa-search', label: 'Browse Jobs', color: 'from-secondary to-deep' },
-              { to: '/destinations', icon: 'fa-globe-asia', label: 'Destinations', color: 'from-deep to-primary' },
-              { to: '/process', icon: 'fa-route', label: 'How It Works', color: 'from-accent to-cta' },
-            ].map((l) => (
-              <Link key={l.to} to={l.to}
-                className={`bg-gradient-to-br ${l.color} rounded-xl p-4 md:p-5 text-white hover:scale-[1.02] transition-transform shadow-md`}
-              >
-                <i className={`fas ${l.icon} text-xl md:text-2xl mb-2`} />
-                <p className="text-sm font-bold">{l.label}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </AnimateOnView>
-
-      {/* Image strip */}
-      <AnimateOnView>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            'https://images.unsplash.com/photo-1577880216142-8549e9488dad?w=400&q=80',
-            'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80',
-            'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80',
-            'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80',
-          ].map((src, i) => (
-            <img key={i} src={src} alt="" className="w-full h-28 md:h-36 object-cover rounded-xl shadow-sm" onError={imgErr} loading="lazy" />
+      {/* ── Counter Cards ── */}
+      <FadeUp delay={100}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {stats.map((s) => (
+            <div key={s.label} className="dashboard-card text-center">
+              <div className="w-10 h-10 rounded-xl bg-background text-primary flex items-center justify-center mx-auto mb-2">
+                <i className={`fas ${s.icon}`} />
+              </div>
+              <div className="counter-value text-primary">{s.end}</div>
+              <div className="text-xs font-semibold text-ink/50 mt-1">{s.label}</div>
+            </div>
           ))}
         </div>
-      </AnimateOnView>
+      </FadeUp>
 
-      {/* CTA */}
-      <AnimateOnView className="text-center bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-6 md:p-10 border border-primary/10">
-        <h2 className="text-xl md:text-3xl font-bold text-primary mb-2">Ready to Start Your Journey?</h2>
-        <p className="text-ink/60 mb-5 text-sm md:text-base">Take the first step toward an international career today.</p>
-        <Link to="/apply" className="inline-flex items-center gap-2 bg-cta text-white font-bold px-8 py-3.5 rounded-full text-sm hover:opacity-90 transition-all shadow-lg shadow-cta/30">
-          <i className="fas fa-paper-plane" /> Apply Now
-        </Link>
-      </AnimateOnView>
+      {/* ── Quick Links ── */}
+      <FadeUp delay={200}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {quickLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="dashboard-card flex items-center gap-4 hover:shadow-md hover:border-primary/20 transition-all group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-background text-primary flex items-center justify-center text-lg group-hover:bg-primary group-hover:text-white transition-all">
+                <i className={`fas ${link.icon}`} />
+              </div>
+              <div>
+                <div className="text-sm font-extrabold text-ink">{link.label}</div>
+                <div className="text-xs text-ink/50">{link.desc}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </FadeUp>
+
+      {/* ── License Info ── */}
+      <FadeUp delay={300}>
+        <div className="dashboard-card flex items-center gap-3 bg-gradient-to-r from-primary/5 to-transparent">
+          <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+            <i className="fas fa-certificate" />
+          </div>
+          <div>
+            <div className="text-sm font-bold text-ink">Government Licensed · 2279/SKT</div>
+            <div className="text-xs text-ink/50">
+              Issued by the Bureau of Immigration & Overseas Employment, Government of Pakistan
+            </div>
+          </div>
+        </div>
+      </FadeUp>
     </div>
   )
 }

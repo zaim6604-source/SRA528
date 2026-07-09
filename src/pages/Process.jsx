@@ -1,67 +1,108 @@
-import useInView from '../hooks/useInView'
+import FadeUp from '../components/FadeUp'
+
+const WA_NUMBER = '923338608944'
 
 const steps = [
-  { num: 1, title: 'Register & Consult', icon: 'fa-clipboard-list', desc: 'Visit our office at Head Marala Road, Sialkot, or reach out via WhatsApp. We\'ll discuss your skills, preferences, and available opportunities.', color: 'bg-primary' },
-  { num: 2, title: 'Documents & Visa', icon: 'fa-file-contract', desc: 'We guide you through document collection, attestation, and visa application. Our team handles the paperwork so you don\'t have to.', color: 'bg-secondary' },
-  { num: 3, title: 'Medical & Trade Test', icon: 'fa-stethoscope', desc: 'We coordinate medical examinations and trade tests at authorized centers to meet destination country requirements.', color: 'bg-deep' },
-  { num: 4, title: 'Employer Confirmation', icon: 'fa-handshake', desc: 'Once your employer confirms the offer, we review the contract with you to ensure everything is clear and fair.', color: 'bg-cta' },
-  { num: 5, title: 'Ticketing & Departure', icon: 'fa-plane-departure', desc: 'We arrange your flight, provide pre-departure orientation, and ensure you have everything needed for a smooth journey.', color: 'bg-accent' },
+  {
+    num: 1,
+    title: 'Registration & Inquiry',
+    desc: 'Reach out to us via WhatsApp, phone, or visit our office. Share your qualifications, experience, and preferred destination. Our team will guide you through the initial consultation.',
+    icon: 'fa-clipboard-list',
+  },
+  {
+    num: 2,
+    title: 'Documentation',
+    desc: 'Submit your CNIC, passport, educational certificates, experience letters, and photographs. We verify all documents and advise on any additional requirements for your chosen destination.',
+    icon: 'fa-file-alt',
+  },
+  {
+    num: 3,
+    title: 'Visa Processing',
+    desc: 'We handle the complete visa application process — from employer liaison and job offer to embassy submission and follow-up. We keep you updated at every stage.',
+    icon: 'fa-passport',
+  },
+  {
+    num: 4,
+    title: 'Medical & Training',
+    desc: 'Coordinate with authorized medical centers for fitness screening and vaccinations. Attend pre-departure orientation covering cultural awareness, language basics, and workplace safety.',
+    icon: 'fa-hospital',
+  },
+  {
+    num: 5,
+    title: 'Departure & Support',
+    desc: 'We coordinate your travel, airport transfer, and accommodation. Our support continues after you land — with helpline access for you and your family throughout your employment.',
+    icon: 'fa-plane-departure',
+  },
 ]
-
-function AnimateOnView({ children, delay = 0, className = '' }) {
-  const [ref, inView] = useInView({ threshold: 0.1 })
-  return (
-    <div ref={ref} className={`transition-all duration-700 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}>
-      {children}
-    </div>
-  )
-}
 
 export default function Process() {
   return (
-    <div className="max-w-4xl mx-auto">
-      <AnimateOnView>
-        <div className="mb-10">
-          <span className="inline-block bg-accent text-ink text-xs font-bold px-3 py-1 rounded-full mb-3">HOW IT WORKS</span>
-          <h1 className="text-2xl md:text-4xl font-extrabold text-primary">Your Journey in 5 Steps</h1>
-          <p className="text-ink/60 mt-2 text-sm md:text-base">Simple, transparent process from registration to departure</p>
+    <div className="space-y-6">
+      {/* Header */}
+      <FadeUp>
+        <div className="dashboard-card">
+          <div className="pill-badge bg-primary text-white mb-4">
+            <i className="fas fa-road" />
+            How It Works
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-ink leading-tight">
+            Your Journey in{' '}
+            <span className="text-primary">5 Simple Steps</span>
+          </h1>
+          <p className="text-ink/60 mt-2 max-w-2xl">
+            From your first inquiry to your departure abroad — we guide you through every step
+          </p>
         </div>
-      </AnimateOnView>
+      </FadeUp>
 
-      <div className="relative">
-        <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-primary/20 hidden md:block" />
-        <div className="space-y-6">
-          {steps.map((s, i) => (
-            <AnimateOnView key={s.num} delay={i * 100}>
-              <div className="relative flex items-start gap-4 md:gap-6">
-                <div className={`relative z-10 w-12 h-12 rounded-full ${s.color} flex items-center justify-center text-white font-bold text-lg shrink-0 shadow-md`}>
-                  {s.num}
-                </div>
-                <div className="flex-1 bg-white rounded-2xl shadow-md p-4 md:p-6 border border-primary/10 hover:shadow-lg transition-all">
-                  <div className="flex items-center gap-3 mb-2">
-                    <i className={`fas ${s.icon} text-lg text-primary`} />
-                    <h3 className="font-bold text-ink text-base">{s.title}</h3>
-                  </div>
-                  <p className="text-ink/60 text-sm leading-relaxed">{s.desc}</p>
+      {/* Steps */}
+      <div className="space-y-4">
+        {steps.map((step, i) => (
+          <FadeUp key={step.num} delay={i * 80}>
+            <div className="dashboard-card flex gap-5 relative">
+              {/* Connector line (not for last) */}
+              {i < steps.length - 1 && (
+                <div className="step-line" />
+              )}
+
+              {/* Step number */}
+              <div className="relative z-10">
+                <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center text-sm font-extrabold shrink-0">
+                  {step.num}
                 </div>
               </div>
-            </AnimateOnView>
-          ))}
-        </div>
+
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-8 h-8 rounded-lg bg-background text-primary flex items-center justify-center text-sm shrink-0">
+                    <i className={`fas ${step.icon}`} />
+                  </div>
+                  <h3 className="text-base font-extrabold text-ink">{step.title}</h3>
+                </div>
+                <p className="text-sm leading-relaxed text-ink/60 ml-0">{step.desc}</p>
+              </div>
+            </div>
+          </FadeUp>
+        ))}
       </div>
 
-      {/* Bottom CTA */}
-      <AnimateOnView delay={300}>
-        <div className="mt-10 text-center bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-6 md:p-8 border border-primary/10">
-          <h3 className="text-lg font-bold text-primary mb-2">Ready to Start Your Journey?</h3>
-          <p className="text-ink/60 text-sm mb-5">Take the first step today.</p>
-          <a href="https://wa.me/923092144443?text=*I%20want%20to%20start%20the%20process%20with%20S.H.Q%20Enterprises*%0A%0A" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-cta text-white font-bold px-8 py-3.5 rounded-full text-sm hover:opacity-90 transition-all shadow-lg shadow-cta/30">
-            <i className="fab fa-whatsapp" /> Get Started
+      {/* CTA */}
+      <FadeUp delay={500}>
+        <div className="dashboard-card bg-gradient-to-r from-primary to-highlight text-white text-center p-6 sm:p-8">
+          <h2 className="text-xl sm:text-2xl font-extrabold">Ready to Start Your Journey?</h2>
+          <p className="text-white/85 mt-2 text-sm">Contact us on WhatsApp and begin your overseas employment process today</p>
+          <a
+            href={`https://wa.me/${WA_NUMBER}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-cta text-ink font-extrabold px-7 py-3 rounded-full text-sm hover:brightness-110 transition-all shadow-lg mt-4"
+          >
+            <i className="fab fa-whatsapp" />
+            Get Started
           </a>
         </div>
-      </AnimateOnView>
+      </FadeUp>
     </div>
   )
 }
