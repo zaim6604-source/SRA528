@@ -1,140 +1,146 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import FadeIn from '../components/FadeIn';
-import { jobs, categories, trades } from '../data/jobs';
+import { useState } from 'react'
+import useInView from '../hooks/useInView'
+
+const allJobs = [
+  { id: 1, title: 'Construction Worker', country: 'Saudi Arabia', flag: '🇸🇦', salary: 'SAR 1,500 – 2,500', type: 'Full-time', category: 'Construction', requirements: ['Minimum 2 years experience', 'Physically fit', 'Valid passport'] },
+  { id: 2, title: 'Heavy Driver', country: 'UAE', flag: '🇦🇪', salary: 'AED 2,000 – 3,500', type: 'Full-time', category: 'Driver', requirements: ['Valid driving license', '3+ years experience', 'Route knowledge'] },
+  { id: 3, title: 'Technician (HVAC)', country: 'Qatar', flag: '🇶🇦', salary: 'QAR 2,500 – 4,000', type: 'Full-time', category: 'Technician', requirements: ['Technical certification', '3+ years experience', 'English proficiency'] },
+  { id: 4, title: 'Hospitality Staff', country: 'Oman', flag: '🇴🇲', salary: 'OMR 300 – 500', type: 'Full-time', category: 'Hospitality', requirements: ['Hospitality experience', 'Good communication', 'Presentable'] },
+  { id: 5, title: 'Healthcare Nurse', country: 'Germany', flag: '🇩🇪', salary: '€2,500 – 3,500', type: 'Full-time', category: 'Healthcare', requirements: ['Nursing degree', 'Language certification', 'Valid license'] },
+  { id: 6, title: 'Factory Worker', country: 'Italy', flag: '🇮🇹', salary: '€1,500 – 2,200', type: 'Full-time', category: 'Manufacturing', requirements: ['Previous factory experience', 'Physically fit', 'Basic English'] },
+  { id: 7, title: 'Manufacturing Operator', country: 'Poland', flag: '🇵🇱', salary: '€1,800 – 2,500', type: 'Full-time', category: 'Manufacturing', requirements: ['Technical background', 'Team player', 'Willing to work shifts'] },
+  { id: 8, title: 'Security Guard', country: 'Qatar', flag: '🇶🇦', salary: 'QAR 1,800 – 2,800', type: 'Full-time', category: 'Security', requirements: ['Security certification', 'Physically fit', 'Clear record'] },
+  { id: 9, title: 'Construction Foreman', country: 'Saudi Arabia', flag: '🇸🇦', salary: 'SAR 3,000 – 4,500', type: 'Full-time', category: 'Construction', requirements: ['5+ years experience', 'Team management', 'Technical knowledge'] },
+  { id: 10, title: 'IT Specialist', country: 'Germany', flag: '🇩🇪', salary: '€3,500 – 5,000', type: 'Full-time', category: 'IT', requirements: ['Degree in CS/IT', '3+ years experience', 'German/English'] },
+  { id: 11, title: 'Agriculture Worker', country: 'Greece', flag: '🇬🇷', salary: '€1,200 – 1,800', type: 'Seasonal', category: 'Agriculture', requirements: ['Agricultural experience', 'Physically fit', 'Willing to relocate'] },
+  { id: 12, title: 'Logistics Coordinator', country: 'Romania', flag: '🇷🇴', salary: '€1,800 – 2,800', type: 'Full-time', category: 'Logistics', requirements: ['Logistics experience', 'Computer skills', 'English proficiency'] },
+  { id: 13, title: 'Chef / Cook', country: 'UAE', flag: '🇦🇪', salary: 'AED 2,500 – 4,500', type: 'Full-time', category: 'Hospitality', requirements: ['Culinary training', '2+ years experience', 'Food safety knowledge'] },
+  { id: 14, title: 'Electrical Engineer', country: 'Oman', flag: '🇴🇲', salary: 'OMR 600 – 1,000', type: 'Full-time', category: 'Engineering', requirements: ['Engineering degree', '5+ years experience', 'Professional certification'] },
+  { id: 15, title: 'Shipping Crew', country: 'Greece', flag: '🇬🇷', salary: '€1,500 – 2,500', type: 'Contract', category: 'Logistics', requirements: ['STCW certification', 'Sea experience', 'Medical fitness'] },
+]
+
+const categories = [...new Set(allJobs.map((j) => j.category))]
+
+function AnimateOnView({ children, delay = 0, className = '' }) {
+  const [ref, inView] = useInView({ threshold: 0.05 })
+  return (
+    <div ref={ref} className={`transition-all duration-700 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  )
+}
 
 export default function Jobs() {
-  const [search, setSearch] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [activeTrade, setActiveTrade] = useState('All');
+  const [search, setSearch] = useState('')
+  const [activeCategory, setActiveCategory] = useState('All')
 
-  const filtered = jobs.filter((job) => {
-    if (activeCategory !== 'All' && job.category !== activeCategory) return false;
-    if (activeTrade !== 'All' && job.trade !== activeTrade) return false;
-    if (search) {
-      const q = search.toLowerCase();
-      return (
-        job.role.toLowerCase().includes(q) ||
-        job.country.toLowerCase().includes(q) ||
-        job.trade.toLowerCase().includes(q)
-      );
-    }
-    return true;
-  });
+  const filtered = allJobs.filter((job) => {
+    const matchSearch = job.title.toLowerCase().includes(search.toLowerCase()) ||
+      job.country.toLowerCase().includes(search.toLowerCase())
+    const matchCategory = activeCategory === 'All' || job.category === activeCategory
+    return matchSearch && matchCategory
+  })
 
   return (
-    <div>
-      {/* Hero */}
-      <section className="pt-24 pb-16 md:pb-20" style={{ backgroundColor: '#006D77' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeIn>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide mb-4" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#FFDD00' }}>
-              <i className="fa-solid fa-briefcase" />
-              Job Portal
-            </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white" style={{ fontFamily: "'Poppins', sans-serif" }}>Job Openings</h1>
-            <p className="mt-4 text-lg max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.75)' }}>
-              Browse current opportunities across the Gulf, Europe, and Asia.
-            </p>
-          </FadeIn>
+    <div className="max-w-6xl mx-auto">
+      <AnimateOnView>
+        <div className="mb-8">
+          <span className="inline-block bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full mb-3">OPEN POSITIONS</span>
+          <h1 className="text-2xl md:text-4xl font-extrabold text-primary">Browse Jobs</h1>
+          <p className="text-ink/60 mt-2 text-sm md:text-base">Find your next opportunity abroad</p>
         </div>
-      </section>
+      </AnimateOnView>
 
-      {/* Filters */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
-        <div className="bg-white rounded-2xl shadow-lg p-5 sm:p-6">
-          <div className="relative mb-4">
-            <i className="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: '#006D77' }} />
+      {/* Search & Filters */}
+      <AnimateOnView delay={50}>
+        <div className="bg-white rounded-2xl shadow-md p-4 md:p-6 border border-primary/10 mb-6 space-y-4">
+          <div className="relative">
+            <i className="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-ink/30" />
             <input
               type="text"
+              placeholder="Search jobs or countries..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by role, country, or trade..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border-2 text-sm outline-none transition-all duration-200"
-              style={{ borderColor: '#83C5BE', color: '#003844' }}
-              onFocus={(e) => e.target.style.borderColor = '#006D77'}
-              onBlur={(e) => e.target.style.borderColor = '#83C5BE'}
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-primary/20 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none bg-[#E6F3FB] text-ink transition-all text-sm"
             />
           </div>
-
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setActiveCategory('All')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                activeCategory === 'All'
+                  ? 'bg-primary text-white shadow-md'
+                  : 'bg-primary/10 text-primary hover:bg-primary/20'
+              }`}
+            >
+              All
+            </button>
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className="px-4 py-1.5 rounded-full text-xs font-semibold cursor-pointer border transition-all duration-200"
-                style={{
-                  backgroundColor: activeCategory === cat ? '#006D77' : 'transparent',
-                  color: activeCategory === cat ? 'white' : '#006D77',
-                  borderColor: activeCategory === cat ? '#006D77' : '#83C5BE',
-                }}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  activeCategory === cat
+                    ? 'bg-primary text-white shadow-md'
+                    : 'bg-primary/10 text-primary hover:bg-primary/20'
+                }`}
               >
                 {cat}
               </button>
             ))}
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            {trades.map((trade) => (
-              <button
-                key={trade}
-                onClick={() => setActiveTrade(trade)}
-                className="px-4 py-1.5 rounded-full text-xs font-semibold cursor-pointer border transition-all duration-200"
-                style={{
-                  backgroundColor: activeTrade === trade ? '#E29578' : 'transparent',
-                  color: activeTrade === trade ? 'white' : '#006D77',
-                  borderColor: activeTrade === trade ? '#E29578' : '#83C5BE',
-                }}
-              >
-                {trade}
-              </button>
-            ))}
-          </div>
         </div>
-      </section>
+      </AnimateOnView>
 
-      {/* Results */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-sm font-medium" style={{ color: '#006D77' }}>
-            Showing <span className="font-bold" style={{ color: '#E29578' }}>{filtered.length}</span> opening{filtered.length !== 1 ? 's' : ''}
-          </p>
-        </div>
-
+      {/* Job Listings */}
+      <div className="space-y-4">
         {filtered.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#006D7710' }}>
-              <i className="fa-solid fa-search text-2xl" style={{ color: '#006D77' }} />
-            </div>
-            <h3 className="text-lg font-bold mb-2" style={{ color: '#003844' }}>No openings found</h3>
-            <p className="text-sm" style={{ color: '#006D77' }}>Try adjusting your search or filter criteria.</p>
+          <div className="text-center py-12 bg-white rounded-2xl shadow-md border border-primary/10">
+            <i className="fas fa-search text-3xl text-ink/20 mb-3" />
+            <p className="text-ink/60 text-sm">No jobs match your criteria. Try adjusting your filters.</p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {filtered.map((job, i) => (
-              <FadeIn key={job.id} delay={Math.min(i + 1, 4)}>
-                <Link to={`/jobs/${job.id}`} className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-[#83C5BE30] hover:shadow-lg group">
-                  <div className="h-40 overflow-hidden">
-                    <img src={job.image} alt={job.country} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onError={(e) => { e.target.style.display = 'none'; }} />
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-lg">{job.flag}</span>
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#83C5BE]/30 text-[#003844]">{job.country}</span>
-                      <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-[#006D77]/10 text-[#006D77]">{job.trade}</span>
-                    </div>
-                    <h3 className="text-base font-bold mt-2 mb-1" style={{ color: '#003844' }}>{job.role}</h3>
-                    <p className="text-xs" style={{ color: '#006D77' }}>{job.openings} openings &bull; {job.salary}</p>
-                    <div className="mt-3 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 hover:gap-3 bg-[#E29578] text-white">
-                      View &amp; Apply <i className="fa-solid fa-arrow-right text-[10px]" />
+          filtered.map((job, i) => (
+            <AnimateOnView key={job.id} delay={i * 40}>
+              <div className="bg-white rounded-2xl shadow-md p-4 md:p-6 border border-primary/10 hover:shadow-lg transition-all">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl hidden sm:block">{job.flag}</div>
+                    <div>
+                      <h3 className="font-bold text-ink text-base">{job.title}</h3>
+                      <p className="text-sm text-ink/60 flex items-center gap-2 mt-0.5">
+                        <span>{job.flag} {job.country}</span>
+                        <span className="text-ink/20">|</span>
+                        <span className="text-primary font-medium">{job.salary}</span>
+                        <span className="text-ink/20">|</span>
+                        <span className="text-xs bg-accent/20 text-accent-ink font-medium px-2 py-0.5 rounded-full">{job.type}</span>
+                      </p>
                     </div>
                   </div>
-                </Link>
-              </FadeIn>
-            ))}
-          </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`https://wa.me/923092144443?text=*Application for ${job.title} - ${job.country}*%0A%0A_I am interested in the ${job.title} position in ${job.country}._`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-cta text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:opacity-90 transition-all shadow-md shadow-cta/20 inline-flex items-center gap-2"
+                    >
+                      <i className="fab fa-whatsapp" /> Quick Apply
+                    </a>
+                  </div>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {job.requirements.map((req) => (
+                    <span key={req} className="text-xs bg-[#E6F3FB] text-ink/60 px-2 py-1 rounded-lg">
+                      {req}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </AnimateOnView>
+          ))
         )}
-      </section>
+      </div>
     </div>
-  );
+  )
 }

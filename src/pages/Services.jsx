@@ -1,116 +1,89 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import FadeIn from '../components/FadeIn';
-import { services } from '../data/countries';
+import { useState } from 'react'
+import useInView from '../hooks/useInView'
 
-const iconMap = [
-  'fa-briefcase', 'fa-passport', 'fa-plane', 'fa-file-contract',
-  'fa-stethoscope', 'fa-graduation-cap', 'fa-shield-halved', 'fa-umbrella-beach',
-];
+const services = [
+  { icon: 'fa-briefcase', title: 'Overseas Job Placement', desc: 'Connecting candidates with verified employers across multiple countries, matching skills to the right opportunities.', details: 'We maintain a vast network of verified employers across the Middle East and Europe. Our team carefully matches your qualifications and experience with legitimate job openings, ensuring a smooth placement process from application to offer letter.', color: 'bg-primary' },
+  { icon: 'fa-passport', title: 'Visa Processing', desc: 'End-to-end visa application support, from document preparation to submission and follow-up.', details: 'Our visa experts handle the entire application process — from document collection and form filling to embassy submission and follow-up. We stay updated on visa policies across all our destination countries to ensure timely processing.', color: 'bg-secondary' },
+  { icon: 'fa-file-alt', title: 'Document Attestation', desc: 'Complete attestation and legalization of certificates and documents through relevant departments.', details: 'We coordinate the entire attestation chain — from educational board verification to MOFA attestation and embassy legalization. This ensures your documents are recognized and accepted by employers and immigration authorities abroad.', color: 'bg-deep' },
+  { icon: 'fa-stethoscope', title: 'Medical & Trade Tests', desc: 'Coordination of mandatory medical exams and trade tests at authorized centers.', details: 'We schedule and coordinate medical examinations at government-approved centers and arrange trade tests to verify your skills. These are essential steps to meet destination country requirements and employer expectations.', color: 'bg-cta' },
+  { icon: 'fa-chalkboard-teacher', title: 'Pre-Departure Orientation', desc: 'Orientation sessions on cultural awareness, contract terms, worker rights, and practical tips.', details: 'Our orientation program prepares you for life abroad — covering cultural norms, labor laws, contract terms, financial management, emergency contacts, and practical tips for a smooth transition to your new workplace.', color: 'bg-accent' },
+  { icon: 'fa-plane', title: 'Air Ticketing & Travel', desc: 'Flight bookings, airport transfers, and travel documentation assistance.', details: 'We arrange competitive flight bookings, provide airport transfer guidance, and ensure all travel documentation is in order. Our team coordinates departure schedules to make your journey hassle-free.', color: 'bg-primary' },
+  { icon: 'fa-search', title: 'Employer Verification', desc: 'Thorough verification of employers and job offers to ensure legitimate, safe employment.', details: 'Every employer and job offer in our network undergoes rigorous verification. We check company registration, past track record, contract terms, and working conditions to ensure you are going to a safe and legitimate workplace.', color: 'bg-secondary' },
+  { icon: 'fa-hard-hat', title: 'Manpower Supply', desc: 'Skilled and unskilled manpower supply for construction, hospitality, manufacturing, and more.', details: 'We supply skilled and unskilled manpower across multiple sectors including construction, hospitality, manufacturing, logistics, healthcare, and IT. Our rigorous screening ensures only qualified candidates are recommended.', color: 'bg-deep' },
+]
+
+function AnimateOnView({ children, delay = 0, className = '' }) {
+  const [ref, inView] = useInView({ threshold: 0.1 })
+  return (
+    <div ref={ref} className={`transition-all duration-700 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  )
+}
 
 export default function Services() {
-  const [modalIndex, setModalIndex] = useState(null);
+  const [modal, setModal] = useState(null)
 
   return (
-    <div className="page-transition">
-      {/* Hero */}
-      <section className="pt-24 pb-16 md:pb-20" style={{ backgroundColor: '#006D77' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeIn>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide mb-4" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#FFDD00' }}>
-              <i className="fa-solid fa-concierge-bell" />
-              Our Services
-            </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white" style={{ fontFamily: "'Poppins', sans-serif" }}>Comprehensive Services</h1>
-            <p className="mt-4 text-lg max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.75)' }}>
-              From initial consultation to departure day — every service designed to make your overseas employment journey smooth, safe, and successful.
-            </p>
-          </FadeIn>
+    <div className="max-w-5xl mx-auto">
+      <AnimateOnView>
+        <div className="mb-8">
+          <span className="inline-block bg-primary text-white text-xs font-bold px-3 py-1 rounded-full mb-3">OUR SERVICES</span>
+          <h1 className="text-2xl md:text-4xl font-extrabold text-primary">What We Offer</h1>
+          <p className="text-ink/60 mt-2 text-sm md:text-base">Complete overseas employment services under one roof</p>
         </div>
-      </section>
+      </AnimateOnView>
 
-      {/* Services List */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="grid sm:grid-cols-2 gap-6">
-          {services.map((service, i) => (
-            <FadeIn key={service.title} delay={Math.min(i + 1, 4)}>
-              <div
-                className="bg-white rounded-2xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-all duration-300 border group cursor-pointer"
-                style={{ borderColor: '#83C5BE30' }}
-                onClick={() => setModalIndex(i)}
-              >
-                <div className="flex items-start gap-5">
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300 group-hover:scale-110 text-white" style={{ backgroundColor: service.accent }}>
-                    <i className={`fas ${iconMap[i]} text-xl`} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold mb-2" style={{ color: '#003844' }}>{service.title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#006D77' }}>{service.description}</p>
-                  </div>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {services.map((s, i) => (
+          <AnimateOnView key={s.title} delay={i * 60}>
+            <button
+              onClick={() => setModal(s)}
+              className="w-full text-left bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all group"
+            >
+              <div className={`h-2 ${s.color}`} />
+              <div className="p-5">
+                <div className={`w-12 h-12 rounded-xl ${s.color.replace('bg-', 'bg-')}/10 flex items-center justify-center mb-4`}>
+                  <i className={`fas ${s.icon} text-primary text-lg`} />
                 </div>
+                <h3 className="font-bold text-ink text-base mb-2">{s.title}</h3>
+                <p className="text-ink/60 text-sm leading-relaxed">{s.desc}</p>
+                <span className="inline-flex items-center gap-1 text-xs text-secondary font-semibold mt-3 group-hover:gap-2 transition-all">
+                  Read More <i className="fas fa-arrow-right text-xs" />
+                </span>
               </div>
-            </FadeIn>
-          ))}
-        </div>
-      </section>
+            </button>
+          </AnimateOnView>
+        ))}
+      </div>
 
       {/* Service Detail Modal */}
-      {modalIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4" onClick={() => setModalIndex(null)}>
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white" style={{ backgroundColor: services[modalIndex].accent }}>
-                  <i className={`fas ${iconMap[modalIndex]} text-lg`} />
-                </div>
-                <h3 className="text-xl font-bold" style={{ color: '#003844' }}>{services[modalIndex].title}</h3>
-              </div>
-              <button onClick={() => setModalIndex(null)} className="text-gray-400 hover:text-[#E29578] transition-colors text-xl">
-                <i className="fa-solid fa-xmark" />
+      {modal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setModal(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 md:p-8 animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setModal(null)} className="absolute top-4 right-4 text-ink/40 hover:text-cta transition-colors">
+              <i className="fas fa-times text-xl" />
+            </button>
+            <div className={`w-14 h-14 rounded-xl ${modal.color.replace('bg-', 'bg-')}/10 flex items-center justify-center mb-4`}>
+              <i className={`fas ${modal.icon} text-primary text-2xl`} />
+            </div>
+            <h2 className="text-xl font-bold text-ink mb-3">{modal.title}</h2>
+            <p className="text-ink/70 text-sm leading-relaxed">{modal.details}</p>
+            <div className="mt-6 flex gap-3">
+              <a href="https://wa.me/923092144443" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-cta text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:opacity-90 transition-all shadow-md">
+                <i className="fab fa-whatsapp" /> Inquire Now
+              </a>
+              <button onClick={() => setModal(null)}
+                className="inline-flex items-center gap-2 border border-primary/20 text-ink font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-primary/5 transition-all">
+                Close
               </button>
             </div>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#006D77' }}>{services[modalIndex].description}</p>
-            <a
-              href="https://wa.me/923006162506"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-bold text-white shadow-lg hover:shadow-xl transition-all"
-              style={{ backgroundColor: '#E29578' }}
-            >
-              <i className="fab fa-whatsapp" />
-              Apply via WhatsApp
-            </a>
           </div>
         </div>
       )}
-
-      {/* CTA */}
-      <section className="py-16 md:py-20 px-4" style={{ backgroundColor: '#006D77' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <FadeIn>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4" style={{ fontFamily: "'Poppins', sans-serif" }}>
-              Ready to Get Started?
-            </h2>
-            <p className="text-lg mb-8 max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.75)' }}>
-              Contact us today and let our team guide you through every step of the process.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="https://wa.me/923006162506"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-base font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                style={{ backgroundColor: '#E29578', color: 'white' }}
-              >
-                <i className="fab fa-whatsapp" /> Apply via WhatsApp
-              </a>
-              <Link to="/contact" className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-base font-bold text-white border-2 border-white/40 transition-all duration-300 hover:scale-105 hover:bg-white/10">
-                <i className="fa-regular fa-paper-plane" /> Contact Form
-              </Link>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
     </div>
-  );
+  )
 }
